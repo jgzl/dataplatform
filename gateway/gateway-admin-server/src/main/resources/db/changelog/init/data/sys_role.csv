@@ -1,3 +1,0 @@
-"role_id","role_name","role_code","role_desc","ds_type","ds_scope","create_time","update_time","del_flag"
-1,超级管理员,ROLE_admin,超级管理员,"0","2","2017-10-29 15:45:51","2021-12-31 14:19:46","0"
-2,普通用户,ROLE_normal,普通用户,"0","2","2021-12-31 14:19:20","2021-12-31 14:20:27","0"

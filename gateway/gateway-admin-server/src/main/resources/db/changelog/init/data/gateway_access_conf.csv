@@ -1,4 +1,0 @@
-"id","api_key","api_secret","system","status","remark","create_time","update_time","del_flag"
-1,metersphere-key,metersphere-secret,metersphere,"0",metersphere备注,"2022-01-14 17:01:09","2022-06-04 09:27:31","1"
-2,test,test,test,"1",test,"2022-01-14 17:09:21","2022-06-04 09:27:27","1"
-3,testApiKey,testApiSecret,testApi,"0",测试,"2022-06-04 09:27:53",,"0"
