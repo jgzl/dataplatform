@@ -51,6 +51,10 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -129,5 +133,48 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>liquibase</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.liquibase</groupId>
+                        <artifactId>liquibase-maven-plugin</artifactId>
+                        <version>4.9.1</version>
+                        <configuration>
+                            <!--指定执行主文件 -->
+                            <changeLogFile>${basedir}/src/main/resources/db/changelog/db.changelog-master.xml</changeLogFile>
+                            <diffChangeLogFile>${basedir}/src/main/resources/db/changelog/db.changelog-${maven.build.timestamp}.xml</diffChangeLogFile>
+                            <outputChangeLogFile>${basedir}/src/main/resources/db/changelog/db.changelog-init.xml</outputChangeLogFile>
+
+                            <driver>com.mysql.cj.jdbc.Driver</driver>
+                            <url>jdbc:mysql://192.168.192.154:3306/gateway_admin</url>
+                            <username>root</username>
+                            <password>P@88w0rd</password>
+
+                            <dropFirst>false</dropFirst>
+                            <defaultSchemaName />
+                            <referenceUrl>hibernate:spring:com.jaguar.myapp.domain?dialect=&amp;hibernate.ejb.naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy</referenceUrl>
+                            <verbose>true</verbose>
+                            <logging>debug</logging>
+
+                            <!-- 是否需要弹出确认框 -->
+                            <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                            <!--输出文件的编码 -->
+                            <outputFileEncoding>UTF-8</outputFileEncoding>
+                            <!--执行的时候是否显示详细的参数信息 -->
+                            <verbose>true</verbose>
+                            <!--是否每次都重新加载properties -->
+                            <propertyFileWillOverride>true</propertyFileWillOverride>
+                            <rollbackTag>${project.version}</rollbackTag>
+                            <tag>${project.version}</tag>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

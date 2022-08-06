@@ -1,0 +1,171 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="li7hai26 (generated)" id="1659775919524-1">
+        <createTable tableName="gateway_access_conf">
+            <column name="id" type="BIGINT"/>
+            <column name="api_key" type="VARCHAR(64)"/>
+            <column name="api_secret" type="VARCHAR(64)"/>
+            <column name="system" type="VARCHAR(64)"/>
+            <column name="status" type="CHAR(1)"/>
+            <column name="remark" type="LONGTEXT"/>
+            <column name="create_time" type="datetime"/>
+            <column name="update_time" type="datetime"/>
+            <column name="del_flag" type="CHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="li7hai26 (generated)" id="1659775919524-2">
+        <createTable tableName="gateway_log">
+            <column name="id" type="VARCHAR(64)"/>
+            <column name="source_service" type="VARCHAR(64)"/>
+            <column name="api_key" type="VARCHAR(64)"/>
+            <column name="api_secret" type="VARCHAR(64)"/>
+            <column name="environment" type="VARCHAR(64)"/>
+            <column name="target_service" type="VARCHAR(64)"/>
+            <column name="schema" type="VARCHAR(10)"/>
+            <column name="request_path" type="LONGTEXT"/>
+            <column name="request_path_and_query" type="LONGTEXT"/>
+            <column name="request_method" type="VARCHAR(10)"/>
+            <column name="request_header" type="LONGTEXT"/>
+            <column name="request_body" type="LONGTEXT"/>
+            <column name="request_source_ip" type="VARCHAR(128)"/>
+            <column name="response_body" type="LONGTEXT"/>
+            <column name="http_status" type="VARCHAR(10)"/>
+            <column name="execute_time" type="BIGINT"/>
+            <column name="request_time" type="datetime"/>
+            <column name="response_time" type="datetime"/>
+            <column name="error_msg" type="LONGTEXT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="li7hai26 (generated)" id="1659775919524-3">
+        <createTable tableName="gateway_route_conf">
+            <column name="id" type="INT"/>
+            <column name="route_name" type="VARCHAR(30)"/>
+            <column name="route_id" type="VARCHAR(30)"/>
+            <column name="predicates" type="LONGTEXT"/>
+            <column name="filters" type="LONGTEXT"/>
+            <column name="uri" type="LONGTEXT"/>
+            <column name="order" type="INT"/>
+            <column name="metadata" type="LONGTEXT"/>
+            <column name="create_time" type="datetime"/>
+            <column name="update_time" type="datetime"/>
+            <column name="del_flag" type="CHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="li7hai26 (generated)" id="1659775919524-4">
+        <createTable tableName="magic_api_backup">
+            <column name="id" type="VARCHAR(32)"/>
+            <column name="create_date" type="BIGINT"/>
+            <column name="tag" type="VARCHAR(32)"/>
+            <column name="type" type="VARCHAR(32)"/>
+            <column name="name" type="VARCHAR(64)"/>
+            <column name="content" type="MEDIUMTEXT"/>
+            <column name="create_by" type="VARCHAR(64)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="li7hai26 (generated)" id="1659775919524-5">
+        <createTable tableName="magic_api_file">
+            <column name="file_path" type="VARCHAR(512)"/>
+            <column name="file_content" type="MEDIUMTEXT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="li7hai26 (generated)" id="1659775919524-6">
+        <createTable tableName="sys_dept">
+            <column name="dept_id" type="INT"/>
+            <column name="name" type="VARCHAR(50)"/>
+            <column name="sort" type="INT"/>
+            <column name="parent_id" type="INT"/>
+            <column name="status" type="TINYINT(3)"/>
+            <column name="create_time" type="datetime"/>
+            <column name="update_time" type="datetime"/>
+            <column name="del_flag" type="CHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="li7hai26 (generated)" id="1659775919524-7">
+        <createTable tableName="sys_dept_relation">
+            <column name="ancestor" type="INT"/>
+            <column name="descendant" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="li7hai26 (generated)" id="1659775919524-8">
+        <createTable tableName="sys_error_code">
+            <column name="id" type="BIGINT"/>
+            <column name="type" type="TINYINT(3)"/>
+            <column name="application_name" type="VARCHAR(50)"/>
+            <column name="code" type="INT"/>
+            <column name="message" type="VARCHAR(512)"/>
+            <column name="memo" type="VARCHAR(512)"/>
+            <column name="creator" type="VARCHAR(64)"/>
+            <column name="create_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updater" type="VARCHAR(64)"/>
+            <column name="update_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="BIT(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="li7hai26 (generated)" id="1659775919524-9">
+        <createTable tableName="sys_menu">
+            <column name="menu_id" type="INT"/>
+            <column name="name" type="VARCHAR(32)"/>
+            <column name="permission" type="VARCHAR(32)"/>
+            <column name="path" type="VARCHAR(128)"/>
+            <column name="parent_id" type="INT"/>
+            <column name="icon" type="VARCHAR(32)"/>
+            <column name="sort" type="INT"/>
+            <column name="keep_alive" type="BIT(1)"/>
+            <column name="type" type="CHAR(1)"/>
+            <column name="create_time" type="datetime"/>
+            <column name="update_time" type="datetime"/>
+            <column name="del_flag" type="CHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="li7hai26 (generated)" id="1659775919524-10">
+        <createTable tableName="sys_role">
+            <column name="role_id" type="INT"/>
+            <column name="role_name" type="VARCHAR(64)"/>
+            <column name="role_code" type="VARCHAR(64)"/>
+            <column name="role_desc" type="VARCHAR(255)"/>
+            <column name="ds_type" type="CHAR(1)"/>
+            <column name="ds_scope" type="VARCHAR(255)"/>
+            <column name="create_time" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_time" type="datetime"/>
+            <column name="del_flag" type="CHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="li7hai26 (generated)" id="1659775919524-11">
+        <createTable tableName="sys_role_menu">
+            <column name="role_id" type="INT"/>
+            <column name="menu_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="li7hai26 (generated)" id="1659775919524-12">
+        <createTable tableName="sys_user">
+            <column name="user_id" type="INT"/>
+            <column name="user_name" type="VARCHAR(64)"/>
+            <column name="nick_name" type="VARCHAR(64)"/>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="salt" type="VARCHAR(255)"/>
+            <column name="gender" type="BIT(1)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="mobile" type="VARCHAR(20)"/>
+            <column name="avatar" type="VARCHAR(255)"/>
+            <column name="last_login_time" type="datetime"/>
+            <column name="last_login_ip" type="VARCHAR(64)"/>
+            <column name="dept_id" type="INT"/>
+            <column name="lock_flag" type="BIT(1)"/>
+            <column name="create_time" type="datetime"/>
+            <column name="update_time" type="datetime"/>
+            <column name="del_flag" type="CHAR(1)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="li7hai26 (generated)" id="1659775919524-13">
+        <createTable tableName="sys_user_role">
+            <column name="user_id" type="INT"/>
+            <column name="role_id" type="INT"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

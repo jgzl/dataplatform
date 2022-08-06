@@ -30,18 +30,30 @@ services:
     depends_on:
       - gateway-admin-server
 
-  monitor:
+  message-center:
     restart: always
-    container_name: monitor
+    container_name: message-center
     image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
     ports:
-      - 9000:9000
+      - 9001:9001
+
+  monitor-center:
+    restart: always
+    container_name: monitor-center
+    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
+    ports:
+      - 9002:9002
+
+  tool-center:
+    restart: always
+    container_name: tool-center
+    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
+    ports:
+      - 9002:9002
 
   sentinel-dashboard:
     restart: always
-    container_name: sentinel-dashboard
-    image: $IMAGE_REPO_URL/sentinel-dashboard:${IMAGE_VERSION}
-    environment:
-      SERVER_PORT: 9100
+    container_name: tool-center
+    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
     ports:
-      - 9100:9100
+      - 9002:9002

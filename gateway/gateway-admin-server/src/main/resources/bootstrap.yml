@@ -11,3 +11,5 @@ spring:
     name: @artifactId@
   main:
     allow-bean-definition-overriding: true
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml

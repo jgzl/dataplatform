@@ -1,0 +1,18 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="li7hai26 (generated)" id="1659775919524-14">
+        <loadData tableName="gateway_access_conf" usePreparedStatements="true" file="classpath:db/changelog/init/data/gateway_access_conf.csv"/>
+        <loadData tableName="gateway_log" usePreparedStatements="true" file="classpath:db/changelog/init/data/gateway_log.csv"/>
+        <loadData tableName="gateway_route_conf" usePreparedStatements="true" file="classpath:db/changelog/init/data/gateway_route_conf.csv"/>
+        <loadData tableName="magic_api_backup" usePreparedStatements="true" file="classpath:db/changelog/init/data/magic_api_backup.csv"/>
+        <loadData tableName="magic_api_file" usePreparedStatements="true" file="classpath:db/changelog/init/data/magic_api_file.csv"/>
+        <loadData tableName="sys_dept" usePreparedStatements="true" file="classpath:db/changelog/init/data/sys_dept.csv"/>
+        <loadData tableName="sys_dept_relation" usePreparedStatements="true" file="classpath:db/changelog/init/data/sys_dept_relation.csv"/>
+        <loadData tableName="sys_error_code" usePreparedStatements="true" file="classpath:db/changelog/init/data/sys_error_code.csv"/>
+        <loadData tableName="sys_menu" usePreparedStatements="true" file="classpath:db/changelog/init/data/sys_menu.csv"/>
+        <loadData tableName="sys_role" usePreparedStatements="true" file="classpath:db/changelog/init/data/sys_role.csv"/>
+        <loadData tableName="sys_role_menu" usePreparedStatements="true" file="classpath:db/changelog/init/data/sys_role_menu.csv"/>
+        <loadData tableName="sys_user" usePreparedStatements="true" file="classpath:db/changelog/init/data/sys_user.csv"/>
+        <loadData tableName="sys_user_role" usePreparedStatements="true" file="classpath:db/changelog/init/data/sys_user_role.csv"/>
+    </changeSet>
+</databaseChangeLog>
