@@ -7,7 +7,9 @@
 					</div>
 					<div class="right-panel">
 						<div class="right-panel-search">
-							<el-input v-model="search.name" placeholder="登录账号 / 姓名" clearable></el-input>
+							<el-input v-model="search.apiKey" placeholder="网关访问key" clearable></el-input>
+							<el-input v-model="search.apiSecret" placeholder="网关访问secret" clearable></el-input>
+							<el-input v-model="search.system" placeholder="调用系统" clearable></el-input>
 							<el-button type="primary" icon="el-icon-search" @click="upsearch"></el-button>
 						</div>
 					</div>
@@ -65,6 +67,7 @@
 											<el-button text type="primary" size="small">删除</el-button>
 										</template>
 									</el-popconfirm>
+									<el-button text type="primary" size="small" @click="table_copy(scope.row, scope.$index)">复制</el-button>
 								</el-button-group>
 							</template>
 						</el-table-column>
@@ -94,7 +97,9 @@
 				apiObj: this.$API.gateway.access.page,
 				selection: [],
 				search: {
-					name: null
+					system: "",
+					apiKey: "",
+					apiSecret: "",
 				}
 			}
 		},
@@ -128,7 +133,7 @@
 			},
 			//删除
 			async table_del(row, index){
-				let res = await this.$API.gateway.access.delete.delete(row.userId);
+				let res = await this.$API.gateway.access.delete.delete(row.id);
 				if(res.code === 200){
 					//这里选择刷新整个表格 OR 插入/编辑现有表格数据
 					this.$refs.table.tableData.splice(index, 1);
@@ -154,6 +159,13 @@
 					this.$message.success("操作成功")
 				}).catch(() => {
 
+				})
+			},
+			//拷贝
+			table_copy(row){
+				this.dialog.save = true
+				this.$nextTick(() => {
+					this.$refs.saveDialog.open('copy').setData(row)
 				})
 			},
 			//表格选择后回调事件

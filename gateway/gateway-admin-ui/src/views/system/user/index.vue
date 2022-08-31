@@ -20,7 +20,7 @@
 					</div>
 					<div class="right-panel">
 						<div class="right-panel-search">
-							<el-input v-model="search.name" placeholder="登录账号 / 姓名" clearable></el-input>
+							<el-input v-model="search.userName" placeholder="登录账号 / 姓名" clearable></el-input>
 							<el-button type="primary" icon="el-icon-search" @click="upsearch"></el-button>
 						</div>
 					</div>
@@ -99,7 +99,7 @@
 				apiObj: this.$API.system.user.page,
 				selection: [],
 				search: {
-					name: null
+					userName: ""
 				}
 			}
 		},

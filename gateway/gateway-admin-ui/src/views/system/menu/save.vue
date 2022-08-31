@@ -170,6 +170,7 @@
 			async save(){
 				this.loading = true
 				let res;
+				Object.assign(this.form,this.form.meta)
 				if (this.form.id === "") {
 					res = await this.$API.system.menu.save.post(this.form)
 				} else {

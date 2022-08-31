@@ -65,8 +65,7 @@
 		</el-form>
 		<template #footer>
 			<el-button @click="visible=false" >取 消</el-button>
-			<el-button v-if="mode==='add'" type="primary" :loading="isSaving" @click="submit()">保 存</el-button>
-			<el-button v-if="mode==='edit'" type="primary" :loading="isSaving" @click="submitEdit()">保 存(编辑)</el-button>
+			<el-button v-if="mode!=='show'" type="primary" :loading="isSaving" @click="submit()">保 存</el-button>
 		</template>
 	</el-dialog>
 </template>

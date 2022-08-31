@@ -7,7 +7,15 @@
 					</div>
 					<div class="right-panel">
 						<div class="right-panel-search">
-							<el-input v-model="search.name" placeholder="登录账号 / 姓名" clearable></el-input>
+							<el-input v-model="search.sourceService" placeholder="请求来源系统" clearable></el-input>
+							<el-input v-model="search.apiKey" placeholder="请求来源key" clearable></el-input>
+							<el-input v-model="search.apiSecret" placeholder="请求来源secret" clearable></el-input>
+							<el-input v-model="search.environment" placeholder="请求来源环境" clearable></el-input>
+							<el-input v-model="search.targetService" placeholder="请求目标服务" clearable></el-input>
+							<el-input v-model="search.requestPath" placeholder="请求路径" clearable></el-input>
+							<el-input v-model="search.requestPathAndQuery" placeholder="请求路径参数" clearable></el-input>
+							<el-input v-model="search.requestMethod" placeholder="请求方式" clearable></el-input>
+							<el-input v-model="search.requestSourceIp" placeholder="请求源IP" clearable></el-input>
 							<el-button type="primary" icon="el-icon-search" @click="upsearch"></el-button>
 						</div>
 					</div>
@@ -150,7 +158,20 @@
 				apiObj: this.$API.gateway.log.page,
 				selection: [],
 				search: {
-					name: null
+					sourceService: "",
+					apiKey: "",
+					apiSecret: "",
+					environment: "",
+					targetService: "",
+					requestPath: "",
+					requestPathAndQuery: "",
+					requestMethod: "",
+					requestHeader: "",
+					requestSourceIp: "",
+					requestBody: "",
+					responseBody: "",
+					executeTime: "",
+					httpStatus: "",
 				}
 			}
 		},

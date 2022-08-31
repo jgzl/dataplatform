@@ -37,10 +37,10 @@
 			return {
 				mode: "add",
 				titleMap: {
-					add: '新增用户',
-					edit: '编辑用户',
+					add: '新增路由',
+					edit: '编辑路由',
 					show: '查看',
-					copy: '新增用户(拷贝)',
+					copy: '新增路由(拷贝)',
 				},
 				visible: false,
 				isSaving: false,

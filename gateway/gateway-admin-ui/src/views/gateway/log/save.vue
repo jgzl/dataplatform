@@ -46,8 +46,7 @@
 		</el-form>
 		<template #footer>
 			<el-button @click="visible=false" >取 消</el-button>
-			<el-button v-if="mode==='add'" type="primary" :loading="isSaving" @click="submit()">保 存</el-button>
-			<el-button v-if="mode==='edit'" type="primary" :loading="isSaving" @click="submitEdit()">保 存(编辑)</el-button>
+			<el-button v-if="mode!=='show'" type="primary" :loading="isSaving" @click="submit()">保 存</el-button>
 		</template>
 	</el-dialog>
 </template>
@@ -59,8 +58,8 @@
 			return {
 				mode: "add",
 				titleMap: {
-					add: '新增用户',
-					edit: '编辑用户',
+					add: '新增日志',
+					edit: '编辑日志',
 					show: '查看'
 				},
 				visible: false,
@@ -68,10 +67,11 @@
 				//表单数据
 				form: {
 					id: "",
-					system: "",
+					sourceService: "",
 					apiKey: "",
 					apiSecret: "",
 					environment: "",
+					targetService: "",
 					requestPath: "",
 					requestPathAndQuery: "",
 					requestMethod: "",
@@ -84,12 +84,7 @@
 				},
 				//验证规则
 				rules: {
-					apiKey:[
-						{required: true, message: '请输入apiKey'}
-					],
-					apiSecret: [
-						{required: true, message: '请输入apiSecret'}
-					],
+
 				},
 			}
 		},
@@ -108,26 +103,12 @@
 				this.$refs.dialogForm.validate(async (valid) => {
 					if (valid) {
 						this.isSaving = true;
-						let res = await this.$API.gateway.log.save.post(this.form);
-						this.isSaving = false;
-						if(res.code === 200){
-							this.$emit('success', this.form, this.mode)
-							this.visible = false;
-							this.$message.success("操作成功")
-						}else{
-							this.$alert(res.msg, "提示", {type: 'error'})
+						let res;
+						if (this.form.id === '') {
+							res = await this.$API.gateway.log.save.post(this.form);
+						} else {
+							res = await this.$API.gateway.log.update.put(this.form);
 						}
-					}else{
-						return false;
-					}
-				})
-			},
-			//表单提交方法
-			submitEdit(){
-				this.$refs.dialogForm.validate(async (valid) => {
-					if (valid) {
-						this.isSaving = true;
-						let res = await this.$API.gateway.log.update.put(this.form);
 						this.isSaving = false;
 						if(res.code === 200){
 							this.$emit('success', this.form, this.mode)
