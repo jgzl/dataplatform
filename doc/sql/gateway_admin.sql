@@ -1,4 +1,4 @@
-use gateway_admi;
+use gateway_admin;
 /*
  Navicat Premium Data Transfer
 
