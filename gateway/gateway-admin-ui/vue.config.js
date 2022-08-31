@@ -1,48 +1,75 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const CompressionPlugin = require("compression-webpack-plugin")
-module.exports = {
-  // publicPath: process.env.NODE_ENV === 'pages' ? '/gw' : "/",
-  publicPath: '/',
-  outputDir: "dist",
-  assetsDir: "static",
-  lintOnSave: true,
-  productionSourceMap: false,
-  devServer: {
-    hot: true,
-    port: 5567,
-    open: false,
-    https: false,
-    proxy: {
-      '/api': { //用/api代替服务端真实地址
-        target: `http://localhost:8000`, //服务端真实地址
-        changeOrigin: true, //运行跨域
-        pathRewrite: {
-          '^/api': '' //请求的时候，地址重写
-        }
-      }
-    }
-  },
-  configureWebpack: {
-    module: {
-      rules: [
-        {
-          test: /\.mjs$/,
-          include: /node_modules/,
-          type: 'javascript/auto'
-        }
-      ]
-    }
-  },
-  chainWebpack(config) {
-    // if (process.env.NODE_ENV !== 'dev') {
-      config.plugin('compressionPlugin')
-        .use(new CompressionPlugin({
-          filename: '[path].gz[query]',
-          algorithm: 'gzip',
-          test: /\.js$|\.html$|\.css/,
-          threshold: 50240,
-          deleteOriginalAssets: false
-        }))
-    // }
-  }
-};
+const { defineConfig } = require('@vue/cli-service')
+
+module.exports = defineConfig({
+	//设置为空打包后不分更目录还是多级目录
+	publicPath:'',
+	//build编译后存放静态文件的目录
+	//assetsDir: "static",
+
+	// build编译后不生成资源MAP文件
+	productionSourceMap: false,
+
+	//开发服务,build后的生产模式还需nginx代理
+	devServer: {
+		open: false, //运行后自动打开浏览器
+		port: process.env.VUE_APP_PORT, //挂载端口
+		proxy: {
+			'/api': {
+				target: process.env.VUE_APP_API_BASEURL,
+				ws: true,
+				pathRewrite: {
+					'^/api': '/'
+				}
+			}
+		}
+	},
+
+	chainWebpack: config => {
+		// 移除 prefetch 插件
+		config.plugins.delete('preload');
+		config.plugins.delete('prefetch');
+		config.resolve.alias.set('vue-i18n', 'vue-i18n/dist/vue-i18n.cjs.js');
+	},
+
+	configureWebpack: {
+		//性能提示
+		performance: {
+			hints: false
+		},
+		optimization: {
+			splitChunks: {
+				chunks: "all",
+				automaticNameDelimiter: '~',
+				name: "scuiChunks",
+				cacheGroups: {
+					//第三方库抽离
+					vendor: {
+						name: "modules",
+						test: /[\\/]node_modules[\\/]/,
+						priority: -10
+					},
+					elicons: {
+						name: "elicons",
+						test: /[\\/]node_modules[\\/]@element-plus[\\/]icons-vue[\\/]/
+					},
+					tinymce: {
+						name: "tinymce",
+						test: /[\\/]node_modules[\\/]tinymce[\\/]/
+					},
+					echarts: {
+						name: "echarts",
+						test: /[\\/]node_modules[\\/]echarts[\\/]/
+					},
+					xgplayer: {
+						name: "xgplayer",
+						test: /[\\/]node_modules[\\/]xgplayer.*[\\/]/
+					},
+					codemirror: {
+						name: "codemirror",
+						test: /[\\/]node_modules[\\/]codemirror[\\/]/
+					}
+				}
+			}
+		}
+	}
+})

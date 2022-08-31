@@ -1,91 +1,75 @@
-# 2021/12/23拉取代码
-node 版本12.22.8，共享服务器目录 \\ssavn1072.smc.saicmotor.com\PJ_PQCP\SOFT\node-v12.22.8-win-x64.zip
-
-## 客户留步
-
-尊敬的小主，为了更好的开源，让开源走的更长久，请动一下可爱的小手指，点一下 star 吧~~在这里感谢您的支持与鼓励。我们将带着您的支持继续前行，为祖国的前端事业奉献一点点微薄之力~
 
 <div align="center">
-<img src="http://qingqingxuan.gitee.io/img/logo.png" align="center" style="zoom: 50%"/>
+
+![logo](https://lolicode.gitee.io/scui-doc/logo.png)
+
+<p align="center">
+	<a href="https://v3.vuejs.org/" target="_blank">
+		<img src="https://img.shields.io/badge/VueCLI-5-green" alt="VueCLI">
+	</a>
+	<a href="https://v3.vuejs.org/" target="_blank">
+		<img src="https://img.shields.io/badge/Vue.js-3.x-green" alt="Vue">
+	</a>
+	<a href="https://element-plus.gitee.io/#/zh-CN/component/changelog" target="_blank">
+		<img src="https://img.shields.io/badge/element--plus-latest-blue" alt="element plus">
+	</a>
+</p>
+
+<h1>SCUI Admin</h1>
+
 </div>
 
-<h1 align = "center">Admin Work X</h1>
+## 介绍
+SCUI 是一个中后台前端解决方案，基于VUE3和elementPlus实现。
+使用最新的前端技术栈，提供各类实用的组件方便在业务开发时的调用，并且持续性的提供丰富的业务模板帮助你快速搭建企业级中后台前端任务。
 
-## 项目地址：
+SCUI的宗旨是 让一切复杂的东西傻瓜化。
 
-- [🎉 官网地址](http://www.vueadminwork.com)
-- [🎉Vue Admin Work X **gitee** 演示地址](http://x.vueadminwork.com)
+![logo](https://lolicode.gitee.io/scui-doc/g_1.jpg)
 
-## 请添加好友~~邀请进入 Vue Admin Work 技术交流群
+## 演示和文档
 
-<div align="center">
-<img src="http://qingqingxuan.gitee.io/img/weixin-custom.jpeg" style="zoom:20%;" /> 
-</div>
+| 类型 | 链接 |
+| -------- | -------- |
+| 文档地址 | https://lolicode.gitee.io/scui-doc/ |
+| 演示地址  | https://lolicode.gitee.io/scui-doc/demo/#/login |
 
-## 关注微信公众号 `知码前端` 方便以后更新、升级
 
-<div align="center"><img src="http://qingqingxuan.gitee.io/img/wx-service.jpg" align="center"/>
-</div>
 
-## 适合人群
+## 特点
 
-- 正在以及想使用 vue/element plus 开发，最好是有一定的编程知识，或者原来只从事切图写静态页的人想提高自己的前端能力。
-- 熟悉 Vue.js 技术栈，使用它开发过几个实际项目。
-- 对原理技术感兴趣，想进阶和提升的同学。
+- **组件** 多个独家组件、业务模板
+- **权限** 完整的鉴权体系和高精度权限控制
+- **布局** 提供多套布局模式，满足各种视觉需求
+- **API** 完善的API管理，使用真实网络MOCK
+- **配置** 统一的全局配置和组件配置，支持build后配置热更新
+- **性能** 在减少带宽请求和前端算力上多次优化，并且持续着
+- **其他** 多功能视图标签、动态权限菜单、控制台组态化、统一异常处理等等
 
-## 下载&安装
 
-```shell
-# 克隆项目，如果github打开速度比较慢，可以使用gitee地址
-git clone https://github.com/qingqingxuan/vue-admin-work-x.git
-# or
-git clone https://gitee.com/qingqingxuan/vue-admin-work-x.git
+## 部分截图
+
+![logo](https://lolicode.gitee.io/scui-doc/g_2.jpg)
+
+## 安装教程
+``` sh
+# 克隆项目
+git clone https://gitee.com/lolicode/scui.git
 
 # 进入项目目录
-cd vue-admin-work-x
+cd scui
+
 # 安装依赖
-npm install
-# 本地开发 启动项目
-npm run dev
+npm i
+
+# 启动项目(开发模式)
+npm run serve
 ```
+启动完成后浏览器访问 http://localhost:2800
 
-## 特别感谢
+## 鸣谢
 
-| **🚀 [vue3.x](https://cn.vuejs.org/)**                     |
-| ---------------------------------------------------------- |
-| **[🚀 element-plus]([网站快速成型工具)**                   |
-| **[🚀 vue-router-next](https://next.router.vuejs.org/)**   |
-| **[🚀 vuex-next](https://next.vuex.vuejs.org/)**           |
-| **[🚀 axios](http://www.axios-js.com/)**                   |
-| **[🚀 mockjs](http://mockjs.com/)**                        |
-| **[🚀 echarts](https://echarts.apache.org/zh/index.html)** |
+<img src="https://www.fastmock.site/resource/images/logo.png" style="height:40px"/>
 
-## 优势及注意事项
-
-```tex
-vue-admin-work 有如下优势:
-1. 支持前端控制路由权限和后端控制路由模式
-2. 支持 mock ，完全独立于后台
-3. 提供了非常多的 mxin 代码块，方便集成各种功能
-4. 内置了大量常用的组件，比如，上传，消息提示等
-5. 支持多主题、多布局切换
-使用注意事项:
-1. 项目默认使用使用vscode工具进行开发，也是唯一推荐的开发工具
-2. 项目默认eslint校验规范
-3. 项目仅供个人或者团队学习商用。
-```
-
-## 效果图
-
-| <img src="http://qingqingxuan.gitee.io/img/demo-x-1.png" style="zoom:20%;" /> | <img src="http://qingqingxuan.gitee.io/img/demo-x-2.png" style="zoom:20%;" />        |
-| :---------------------------------------------------------------------------: | ------------------------------------------------------------------------------------ |
-| <img src="http://qingqingxuan.gitee.io/img/demo-x-3.png" style="zoom:20%;" /> | <img src="http://qingqingxuan.gitee.io/img/demo-x-4.png" style="zoom:20%;" />        |
-| <img src="http://qingqingxuan.gitee.io/img/demo-x-5.png" style="zoom:20%;" /> | <img src="http://qingqingxuan.gitee.io/img/demo-x-6.png" style="zoom:20%;" />        |
-| <img src="http://qingqingxuan.gitee.io/img/demo-x-6.png" style="zoom:20%;" /> | <img src="http://qingqingxuan.gitee.io/img/project-image-8.png" style="zoom:20%;" /> |
-
-## 捐赠
-
-本项目是开源项目，开源不易，还请各们小主赏杯咖啡，以更好的维护此项目。您的支持是我们前进的最大动力。
-
-| <img src="http://qingqingxuan.gitee.io/img/wx-donation.jpg" style="zoom:20%;" /> | <img src="http://qingqingxuan.gitee.io/img/ali-donation.jpg" style="zoom:20%;" /> |
-| :------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------: |
+## 支持
+如果觉得本项目还不错或在工作中有所启发，请在Gitee(码云)帮开发者点亮星星，这是对开发者最大的支持和鼓励！
