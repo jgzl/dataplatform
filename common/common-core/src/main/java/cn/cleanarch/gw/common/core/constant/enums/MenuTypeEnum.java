@@ -19,8 +19,19 @@ public enum MenuTypeEnum {
     /**
      * 按钮
      */
-    BUTTON("1", "button");
+    BUTTON("1", "button"),
 
+    /**
+     * iframe
+     */
+    IFRAME("2", "iframe"),
+
+    /**
+     * 外链
+     */
+    OUT_LINK("3", "outLink"),
+
+    ;
     /**
      * 类型
      */

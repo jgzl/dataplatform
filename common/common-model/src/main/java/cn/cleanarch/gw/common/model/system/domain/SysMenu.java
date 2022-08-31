@@ -73,6 +73,16 @@ public class SysMenu extends Model<SysMenu> {
     private Boolean keepAlive;
 
     /**
+     * 视图
+     */
+    private String component;
+
+    /**
+     * 标签
+     */
+    private String tag;
+
+    /**
      * 创建时间
      */
     private LocalDateTime createTime;

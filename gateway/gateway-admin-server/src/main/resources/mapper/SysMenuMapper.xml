@@ -12,6 +12,8 @@
         <result column="icon" property="icon"/>
         <result column="sort" property="sort"/>
         <result column="type" property="type"/>
+        <result column="component" property="component"/>
+        <result column="tag" property="tag"/>
         <result column="keep_alive" property="keepAlive"/>
         <result column="create_time" property="createTime"/>
 		<result column="update_time" property="updateTime"/>

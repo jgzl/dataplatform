@@ -4,6 +4,7 @@ import cn.cleanarch.gw.common.core.constant.SecurityConstants;
 import cn.cleanarch.gw.common.core.model.R;
 import cn.cleanarch.gw.common.core.utils.JwtTokenUtil;
 import cn.cleanarch.gw.common.core.utils.WebmvcUtil;
+import cn.cleanarch.gw.common.model.system.vo.LoginUserInfo;
 import cn.cleanarch.gw.common.model.system.vo.LoginUserVo;
 import cn.cleanarch.gw.common.security.vo.LoginUser;
 import cn.hutool.core.collection.CollUtil;
@@ -40,6 +41,13 @@ public class LoginAuthenticationSuccessHandler implements AuthenticationSuccessH
         result.setUserId(user.getUserId());
         result.setUsername(user.getUsername());
         result.setNickname(user.getNickName());
+
+        LoginUserInfo userInfo = new LoginUserInfo();
+        userInfo.setRole(roles);
+        userInfo.setUserId(user.getUserId()+"");
+        userInfo.setUserName(user.getUsername());
+        result.setUserInfo(userInfo);
+
         Collection<GrantedAuthority> authorities = user.getAuthorities();
         if (CollUtil.isNotEmpty(authorities)) {
             authorities.stream().map(GrantedAuthority::getAuthority).forEach(authority -> {

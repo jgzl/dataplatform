@@ -112,6 +112,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>cn.cleanarch.gw</groupId>
+            <artifactId>common-test</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -133,39 +137,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>liquibase</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.liquibase</groupId>
-                        <artifactId>liquibase-maven-plugin</artifactId>
-                        <version>4.9.1</version>
-                        <configuration>
-                            <!--指定执行主文件 -->
-                            <changeLogFile>${basedir}/src/main/resources/db/changelog/db.changelog-master.xml</changeLogFile>
-                            <outputChangeLogFile>${basedir}/src/main/resources/db/changelog/init/db.changelog-init.xml</outputChangeLogFile>
-
-                            <driver>com.mysql.cj.jdbc.Driver</driver>
-                            <url>jdbc:mysql://192.168.192.154:3306/gateway_admin</url>
-                            <username>root</username>
-                            <password>P@88w0rd</password>
-
-                            <!--输出文件编码-->
-                            <outputFileEncoding>UTF-8</outputFileEncoding>
-                            <!--执行的时候是否显示详细的参数信息-->
-                            <verbose>true</verbose>
-                            <!--连接非本地数据库是否弹出提示框-->
-                            <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
-                            <!--生成changelog文件内容-->
-                            <diffTypes>tables, views, columns, indexs,foreignkeys, primarykeys, uniqueconstraints, data</diffTypes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>

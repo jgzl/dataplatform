@@ -25,14 +25,14 @@ public class SecurityConstants {
     public static final String DETAILS_USERNAME = "username";
 
     /**
-     * 用户名字段
+     * 用户信息字段
      */
-    public static final String DETAILS_PASSWORD = "password";
+    public static final String DETAILS_USER_INFO = "userInfo";
 
     /**
      * 角色字段
      */
-    public static final String DETAILS_ROLES = "roles";
+    public static final String DETAILS_ROLE = "role";
 
     /**
      * 权限字段
@@ -63,6 +63,11 @@ public class SecurityConstants {
      * 角色前缀
      */
     public static final String ROLE_PREFIX = "ROLE_";
+
+    /**
+     * 角色前缀
+     */
+    public static final String ROLE_ADMIN = "ROLE_admin";
 
     /**
      * {bcrypt} 加密的特征码

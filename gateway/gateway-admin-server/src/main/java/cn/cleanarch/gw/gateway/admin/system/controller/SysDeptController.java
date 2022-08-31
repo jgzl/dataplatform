@@ -70,7 +70,7 @@ public class SysDeptController {
      */
     @DeleteMapping("/{id}")
     //@PreAuthorize("@pms.hasPermission('sys_dept_del')")
-    public R<Boolean> removeById(@PathVariable Integer id) {
+    public R<Boolean> removeById(@PathVariable Long id) {
         return R.success(sysDeptService.removeDeptById(id));
     }
 

@@ -30,6 +30,11 @@ public class SysUserDto extends SysUserVo {
     /**
      * 新密码
      */
+    private String password2;
+
+    /**
+     * 新密码
+     */
     private String newPassword;
 
 }

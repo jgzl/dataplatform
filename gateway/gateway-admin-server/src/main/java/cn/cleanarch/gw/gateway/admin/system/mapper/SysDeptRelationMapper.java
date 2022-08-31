@@ -20,7 +20,7 @@ public interface SysDeptRelationMapper extends ExtendBaseMapper<SysDeptRelation>
      *
      * @param id 部门ID
      */
-    void deleteDeptRelationsById(Integer id);
+    void deleteDeptRelationsById(Long id);
 
     /**
      * 更改部分关系表数据

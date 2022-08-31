@@ -48,4 +48,6 @@ public class LoginUserVo {
      * 权限集合
      */
     private List<String> permissions;
+
+    private LoginUserInfo userInfo;
 }

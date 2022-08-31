@@ -37,7 +37,7 @@ public interface SysDeptService extends IService<SysDept> {
      * @param id 部门 ID
      * @return 成功、失败
      */
-    Boolean removeDeptById(Integer id);
+    Boolean removeDeptById(Long id);
 
     /**
      * 更新部门

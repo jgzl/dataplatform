@@ -63,7 +63,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean removeDeptById(Integer id) {
+    public Boolean removeDeptById(Long id) {
         // 级联删除部门
         List<Long> idList = sysDeptRelationService
                 .list(Wrappers.<SysDeptRelation>query().lambda().eq(SysDeptRelation::getAncestor, id)).stream()
@@ -111,14 +111,19 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         List<TreeNode<Long>> collect = deptAllList.stream()
                 .filter(dept -> dept.getDeptId().intValue() != dept.getParentId())
                 .sorted(Comparator.comparingInt(SysDept::getSort)).map(dept -> {
-                    TreeNode<Long> treeNode = new TreeNode();
+                    TreeNode<Long> treeNode = new TreeNode<>();
                     treeNode.setId(dept.getDeptId());
                     treeNode.setParentId(dept.getParentId());
                     treeNode.setName(dept.getName());
                     Map<String, Object> extraMap = MapUtil.newHashMap();
                     treeNode.setExtra(extraMap);
-                    extraMap.put("order", dept.getSort());
+                    extraMap.put("deptId", dept.getDeptId());
+                    extraMap.put("sort", dept.getSort());
                     extraMap.put("status", dept.getStatus());
+                    extraMap.put("label", dept.getName());
+                    extraMap.put("value", dept.getDeptId());
+                    extraMap.put("remark", null);
+                    extraMap.put("createTime", dept.getCreateTime());
                     return treeNode;
                 }).collect(Collectors.toList());
 
