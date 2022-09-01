@@ -84,7 +84,7 @@ CREATE TABLE `gateway_route_conf` (
   `predicates` longtext,
   `filters` longtext,
   `uri` longtext,
-  `order` tinyint(4) DEFAULT NULL,
+  `sort` tinyint(4) DEFAULT NULL,
   `metadata` longtext,
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
@@ -95,8 +95,8 @@ CREATE TABLE `gateway_route_conf` (
 -- Records of gateway_route_conf
 -- ----------------------------
 BEGIN;
-INSERT INTO `gateway_route_conf` (`id`, `route_name`, `route_id`, `predicates`, `filters`, `uri`, `order`, `metadata`, `create_time`, `update_time`, `del_flag`) VALUES (1, '监控管理', 'monitor-center', '[{\"args\": {\"_genkey_0\": \"/monitor-center/**\"}, \"name\": \"Path\"}]', '[]', 'lb://monitor-center', 0, '{\"version\": \"1\"}', '2021-12-27 02:43:25', '2022-01-06 02:40:46', '0');
-INSERT INTO `gateway_route_conf` (`id`, `route_name`, `route_id`, `predicates`, `filters`, `uri`, `order`, `metadata`, `create_time`, `update_time`, `del_flag`) VALUES (2, '百度', 'baidu', '[{\"args\": {\"_genkey_0\": \"/baidu/**\"}, \"name\": \"Path\"}]', '[]', 'https://www.baidu.com', 0, '{\"version\": \"1\"}', '2022-06-03 08:39:53', '2022-07-03 05:55:04', '0');
+INSERT INTO `gateway_route_conf` (`id`, `route_name`, `route_id`, `predicates`, `filters`, `uri`, `sort`, `metadata`, `create_time`, `update_time`, `del_flag`) VALUES (1, '监控管理', 'monitor-center', '[{\"args\": {\"_genkey_0\": \"/monitor-center/**\"}, \"name\": \"Path\"}]', '[]', 'lb://monitor-center', 0, '{\"version\": \"1\"}', '2021-12-27 02:43:25', '2022-01-06 02:40:46', '0');
+INSERT INTO `gateway_route_conf` (`id`, `route_name`, `route_id`, `predicates`, `filters`, `uri`, `sort`, `metadata`, `create_time`, `update_time`, `del_flag`) VALUES (2, '百度', 'baidu', '[{\"args\": {\"_genkey_0\": \"/baidu/**\"}, \"name\": \"Path\"}]', '[]', 'https://www.baidu.com', 0, '{\"version\": \"1\"}', '2022-06-03 08:39:53', '2022-07-03 05:55:04', '0');
 COMMIT;
 
 -- ----------------------------

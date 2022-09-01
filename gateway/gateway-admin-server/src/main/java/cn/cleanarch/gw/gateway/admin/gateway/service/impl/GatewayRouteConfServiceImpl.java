@@ -4,6 +4,8 @@ import cn.cleanarch.gw.common.core.constant.CacheConstants;
 import cn.cleanarch.gw.common.core.constant.CommonConstants;
 import cn.cleanarch.gw.common.core.utils.JacksonUtil;
 import cn.cleanarch.gw.common.gateway.support.DynamicRouteInitEvent;
+import cn.cleanarch.gw.common.gateway.vo.GatewayFilterDefinition;
+import cn.cleanarch.gw.common.gateway.vo.GatewayPredicateDefinition;
 import cn.cleanarch.gw.common.gateway.vo.GatewayRouteDefinition;
 import cn.cleanarch.gw.common.model.gateway.domain.GatewayRouteConf;
 import cn.cleanarch.gw.gateway.admin.gateway.mapper.GatewayRouteConfMapper;
@@ -15,8 +17,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import cn.cleanarch.gw.common.gateway.vo.GatewayFilterDefinition;
-import cn.cleanarch.gw.common.gateway.vo.GatewayPredicateDefinition;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,7 +57,7 @@ public class GatewayRouteConfServiceImpl extends ServiceImpl<GatewayRouteConfMap
 
             GatewayRouteDefinition routeVo = new GatewayRouteDefinition();
             routeVo.setId(route.getRouteId());
-            routeVo.setOrder(route.getOrder());
+            routeVo.setOrder(route.getSort());
             if (StrUtil.isNotBlank(route.getPredicates())) {
                 routeVo.setPredicates(JacksonUtil.readValue(route.getPredicates(), new TypeReference<List<GatewayPredicateDefinition>>() {
                 }));

@@ -1,7 +1,6 @@
 package cn.cleanarch.gw.common.model.gateway.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -53,8 +52,7 @@ public class GatewayRouteConf extends Model<GatewayRouteConf> {
     /**
      * 排序
      */
-    @TableField(value = "`order`")
-    private Integer order;
+    private Integer sort;
 
     private String metadata;
 

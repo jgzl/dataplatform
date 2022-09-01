@@ -2,14 +2,14 @@ package cn.cleanarch.gw.gateway.admin.system.configuration;
 
 import cn.cleanarch.gw.common.core.constant.CacheConstants;
 import cn.cleanarch.gw.common.gateway.support.DynamicRouteInitEvent;
+import cn.cleanarch.gw.common.gateway.vo.GatewayFilterDefinition;
+import cn.cleanarch.gw.common.gateway.vo.GatewayPredicateDefinition;
 import cn.cleanarch.gw.common.gateway.vo.GatewayRouteDefinition;
 import cn.cleanarch.gw.gateway.admin.gateway.service.GatewayRouteConfService;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.context.WebServerInitializedEvent;
-import cn.cleanarch.gw.common.gateway.vo.GatewayFilterDefinition;
-import cn.cleanarch.gw.common.gateway.vo.GatewayPredicateDefinition;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;
@@ -44,7 +44,7 @@ public class DynamicRouteInitRunner {
             GatewayRouteDefinition vo = new GatewayRouteDefinition();
             vo.setId(route.getRouteId());
             vo.setUri(this.getURI(route.getUri()));
-            vo.setOrder(route.getOrder());
+            vo.setOrder(route.getSort());
 
             JSONArray filterObj = JSONUtil.parseArray(route.getFilters());
             vo.setFilters(filterObj.toList(GatewayFilterDefinition.class));
