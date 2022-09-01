@@ -46,7 +46,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `gateway_log`;
 CREATE TABLE `gateway_log` (
-  `id` bigint(20) DEFAULT NULL,
+  `id` varchar(64) DEFAULT NULL,
   `source_service` varchar(64) DEFAULT NULL,
   `api_key` varchar(64) DEFAULT NULL,
   `api_secret` varchar(64) DEFAULT NULL,
@@ -614,8 +614,6 @@ BEGIN;
 INSERT INTO `sys_user_role` (`user_id`, `role_id`) VALUES (2, 2);
 INSERT INTO `sys_user_role` (`user_id`, `role_id`) VALUES (1, 1);
 INSERT INTO `sys_user_role` (`user_id`, `role_id`) VALUES (1, 2);
-INSERT INTO `sys_user_role` (`user_id`, `role_id`) VALUES (NULL, 1);
-INSERT INTO `sys_user_role` (`user_id`, `role_id`) VALUES (NULL, 1);
 INSERT INTO `sys_user_role` (`user_id`, `role_id`) VALUES (12, 2);
 INSERT INTO `sys_user_role` (`user_id`, `role_id`) VALUES (9, 1);
 INSERT INTO `sys_user_role` (`user_id`, `role_id`) VALUES (9, 2);
