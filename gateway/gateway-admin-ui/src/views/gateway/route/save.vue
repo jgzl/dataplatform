@@ -11,7 +11,7 @@
 				<el-input v-model="form.predicates" clearable/>
 			</el-form-item>
 			<el-form-item label="过滤器" prop="filters">
-				<el-input v-model="form.predicates" clearable/>
+				<el-input v-model="form.filters" clearable/>
 			</el-form-item>
 			<el-form-item label="uri" prop="uri">
 				<el-input v-model="form.uri" clearable/>
