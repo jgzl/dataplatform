@@ -19,6 +19,7 @@ import scForm from './components/scForm'
 import scTitle from './components/scTitle'
 import scWaterMark from './components/scWaterMark'
 import scQrCode from './components/scQrCode'
+import scJsonPretty from './components/scJsonPretty'
 
 import scStatusIndicator from './components/scMini/scStatusIndicator'
 import scTrend from './components/scMini/scTrend'
@@ -60,6 +61,7 @@ export default {
 		app.component('scQrCode', scQrCode);
 		app.component('scStatusIndicator', scStatusIndicator);
 		app.component('scTrend', scTrend);
+		app.component('scJsonPretty', scJsonPretty);
 
 		//注册全局指令
 		app.directive('auth', auth)

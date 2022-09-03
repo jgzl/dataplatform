@@ -4,6 +4,7 @@
 					<div class="left-panel">
 						<el-button type="primary" icon="el-icon-plus" @click="add"></el-button>
 						<el-button type="danger" plain icon="el-icon-delete" :disabled="selection.length==0" @click="batch_del"></el-button>
+						<el-button type="primary" :disabled="selection.length!==1" @click="prettyHeader(selection[0])">格式化展示Header</el-button>
 					</div>
 					<div class="right-panel">
 						<div class="right-panel-search">
@@ -138,21 +139,25 @@
 		</el-container>
 
 	<save-dialog v-if="dialog.save" ref="saveDialog" @success="handleSuccess" @closed="dialog.save=false"></save-dialog>
+	<pretty-dialog v-if="dialog.pretty" ref="prettyDialog" @closed="dialog.pretty=false"></pretty-dialog>
 
 </template>
 
 <script>
 	import saveDialog from './save'
+	import prettyDialog from './pretty'
 
 	export default {
 		name: 'user',
 		components: {
-			saveDialog
+			saveDialog,
+			prettyDialog
 		},
 		data() {
 			return {
 				dialog: {
-					save: false
+					save: false,
+					pretty: false,
 				},
 				group: [],
 				apiObj: this.$API.gateway.log.page,
@@ -244,6 +249,12 @@
 			//本地更新数据
 			handleSuccess() {
 				this.$refs.table.refresh()
+			},
+			prettyHeader(row) {
+				this.dialog.pretty = true
+				this.$nextTick(() => {
+					this.$refs.prettyDialog.open().setData(row);
+				})
 			}
 		}
 	}
