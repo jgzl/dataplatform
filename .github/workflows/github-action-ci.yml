@@ -19,8 +19,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - run: cd gateway/gateway-admin-server && npm install
-      - run: cd gateway/gateway-admin-server && npm run build
+      - name: Install with nodejs
+        run: cd gateway/gateway-admin-ui && npm install
+      - name: Build with nodejs
+        run: cd gateway/gateway-admin-ui && npm run build
       - name: Login docker hub
         env:
           DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
