@@ -15,7 +15,7 @@ jobs:
           distribution: 'adopt'
       - name: Build with Maven
         run: mvn package install -Dmaven.test.skip=true
-      - name: Use Node.js 16
+      - name: Set up Node.js 16
         uses: actions/setup-node@v3
         with:
           node-version: '16'
@@ -30,8 +30,8 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Build and push 网关管理服务前端
         uses: docker/build-push-action@v3
         with:
@@ -53,40 +53,3 @@ jobs:
           platforms: linux/amd64,linux/arm64/v8
           push: true
           tags: dlhf/gateway-server:latest
-#      - name: Login docker hub
-#        env:
-#          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
-#          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-#        # 指定login命令登录hub.docker.com，帐号和密码已经在GitHub网页中配置好了
-#        run: |
-#          echo "${DOCKER_PASSWORD}" | docker login --username ${DOCKER_USERNAME} --password-stdin
-#      - name: Set up Docker Buildx
-#        # 使用buildx来构建镜像，这个工具功能很丰富
-#        uses: crazy-max/ghaction-docker-buildx@v1
-#        with:
-#          buildx-version: latest
-#      # 构建镜像，用buildx可以同时构建X86和ARM架构的镜像，然后推送到hub.docker.com
-#      - name: Build dockerfile (with push) - 网关管理服务前端
-#        run: |
-#          cd gateway/gateway-admin-ui && \
-#          docker buildx build \
-#          --platform=linux/amd64,linux/arm64/v8 \
-#          --output "type=image,push=true" \
-#          --file ./Dockerfile . \
-#          --tag dlhf/gateway-admin-ui:latest
-#      - name: Build dockerfile (with push) - 网关管理服务后端
-#        run: |
-#          cd gateway/gateway-admin-server && \
-#          docker buildx build \
-#          --platform=linux/amd64,linux/arm64/v8 \
-#          --output "type=image,push=true" \
-#          --file ./Dockerfile . \
-#          --tag dlhf/gateway-admin-server:latest
-#      - name: Build dockerfile (with push) - 网关核心服务后端
-#        run: |
-#          cd gateway/gateway-server && \
-#          docker buildx build \
-#          --platform=linux/amd64,linux/arm64/v8 \
-#          --output "type=image,push=true" \
-#          --file ./Dockerfile . \
-#          --tag dlhf/gateway-server:latest
