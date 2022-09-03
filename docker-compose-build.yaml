@@ -15,14 +15,14 @@ services:
       context: ./gateway/gateway-admin-ui
     image: $IMAGE_REPO_URL/gateway-admin-ui:${IMAGE_VERSION}
 
-  message-center:
-    build:
-      context: ./optional/message-center
-    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
-
   monitor-center:
     build:
       context: ./optional/monitor-center
+    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
+
+  message-center:
+    build:
+      context: ./optional/message-center
     image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
 
   tool-center:

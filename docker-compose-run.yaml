@@ -10,7 +10,6 @@ services:
       - 7000:7000
     depends_on:
       - gateway-admin-server
-      - sentinel-dashboard
 
   gateway-admin-server:
     restart: always
@@ -30,13 +29,6 @@ services:
     depends_on:
       - gateway-admin-server
 
-  message-center:
-    restart: always
-    container_name: message-center
-    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
-    ports:
-      - 9001:9001
-
   monitor-center:
     restart: always
     container_name: monitor-center
@@ -44,14 +36,14 @@ services:
     ports:
       - 9002:9002
 
-  tool-center:
+  message-center:
     restart: always
-    container_name: tool-center
+    container_name: message-center
     image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
     ports:
-      - 9002:9002
+      - 9001:9001
 
-  sentinel-dashboard:
+  tool-center:
     restart: always
     container_name: tool-center
     image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
