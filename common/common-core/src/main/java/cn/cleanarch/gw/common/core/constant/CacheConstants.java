@@ -25,7 +25,7 @@ public class CacheConstants extends CommonConstants{
     /**
      * 验证码缓存key
      */
-    public final static String DEFAULT_CODE_KEY = CACHE_PREFIX + ":validate_code:";
+    public final static String DEFAULT_CODE_KEY = CACHE_PREFIX + "validate_code:";
 
     /**
      * 网关访问存放

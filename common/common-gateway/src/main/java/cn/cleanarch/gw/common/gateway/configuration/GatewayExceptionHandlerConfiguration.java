@@ -29,7 +29,6 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.G
 @RequiredArgsConstructor
 @Order(-1)
 @Configuration
-@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 public class GatewayExceptionHandlerConfiguration implements ErrorWebExceptionHandler {
     
     private final GlobalExceptionHandler globalExceptionHandler;

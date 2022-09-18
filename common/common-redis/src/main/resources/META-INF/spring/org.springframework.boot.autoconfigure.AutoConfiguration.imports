@@ -3,3 +3,5 @@ cn.cleanarch.gw.common.redis.cache.RedisCacheManagerConfiguration
 cn.cleanarch.gw.common.redis.cache.RedisListenerConfiguration
 cn.cleanarch.gw.common.redis.template.RedisTemplateConfiguration
 cn.cleanarch.gw.common.redis.template.ReactiveRedisTemplateConfiguration
+cn.cleanarch.gw.common.redis.RedisConfiguration
+cn.cleanarch.gw.common.redis.RedisHelper

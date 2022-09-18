@@ -4,6 +4,7 @@ import cn.cleanarch.gw.common.core.constant.GatewayConstants;
 import cn.cleanarch.gw.common.core.constant.enums.RecordLogEnum;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 /**
  * 网关配置
@@ -12,6 +13,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @date 2021/12/20
  */
 @Data
+@RefreshScope
 @ConfigurationProperties(prefix = GatewayConstants.CONFIGURATION_PREFIX)
 public class GatewayProperties {
     private String apiPrefix = GatewayConstants.API_PREFIX;

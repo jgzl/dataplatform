@@ -16,6 +16,10 @@
     <dependencies>
         <dependency>
             <groupId>cn.cleanarch.gw</groupId>
+            <artifactId>common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.cleanarch.gw</groupId>
             <artifactId>common-redis</artifactId>
         </dependency>
         <!--redis分布式锁-->
