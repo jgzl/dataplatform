@@ -1,5 +1,6 @@
 package cn.cleanarch.gw.common.model.system.domain;
 
+import cn.cleanarch.gw.common.model.base.BaseDO;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,7 +13,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SysUserRole extends Model<SysUserRole> {
+public class SysUserRole extends BaseDO {
 
     private static final long serialVersionUID = 1L;
 

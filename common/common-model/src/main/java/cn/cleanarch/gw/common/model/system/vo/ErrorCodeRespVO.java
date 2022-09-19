@@ -1,12 +1,13 @@
-package cn.cleanarch.gw.common.model.errorcode.vo;
+package cn.cleanarch.gw.common.model.system.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @ApiModel("管理后台 - 错误码 Response VO")
 @Data
@@ -14,6 +15,7 @@ import java.util.Date;
 @ToString(callSuper = true)
 public class ErrorCodeRespVO extends ErrorCodeBaseVO {
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @ApiModelProperty(value = "错误码编号", required = true, example = "1024")
     private Long id;
 
@@ -21,6 +23,9 @@ public class ErrorCodeRespVO extends ErrorCodeBaseVO {
     private Integer type;
 
     @ApiModelProperty(value = "创建时间", required = true)
-    private Date createTime;
+    private LocalDateTime createTime;
+
+    @ApiModelProperty(value = "更新时间", required = true)
+    private LocalDateTime updateTime;
 
 }

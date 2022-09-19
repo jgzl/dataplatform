@@ -1,5 +1,6 @@
 package cn.cleanarch.gw.common.model.system.domain;
 
+import cn.cleanarch.gw.common.model.base.BaseDO;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SysDept extends Model<SysDept> {
+public class SysDept extends BaseDO {
 
     private static final long serialVersionUID = 1L;
 
@@ -49,21 +50,5 @@ public class SysDept extends Model<SysDept> {
      */
 //    @NotNull(message = "状态不能为空")
     private Integer status;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 修改时间
-     */
-    private LocalDateTime updateTime;
-
-    /**
-     * 删除标识（0-正常,1-删除）
-     */
-    @TableLogic
-    private String delFlag;
 
 }

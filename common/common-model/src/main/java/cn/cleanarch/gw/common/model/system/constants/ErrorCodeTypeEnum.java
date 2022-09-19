@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.common.model.errorcode.constants;
+package cn.cleanarch.gw.common.model.system.constants;
 
 import cn.cleanarch.gw.common.core.model.IntArrayValuable;
 import lombok.AllArgsConstructor;

@@ -8,7 +8,7 @@ create table gateway_access_conf
     remark      clob,
     create_time datetime,
     update_time datetime,
-    del_flag    char,
+    deleted    char,
     constraint GATEWAY_ACCESS_CONF_PK
         primary key (id)
 );

@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.gateway.admin.framework.errorcode.config;
+package cn.cleanarch.gw.gateway.admin.system.configuration;
 
 import cn.cleanarch.gw.common.core.constant.CacheConstants;
 import lombok.Data;

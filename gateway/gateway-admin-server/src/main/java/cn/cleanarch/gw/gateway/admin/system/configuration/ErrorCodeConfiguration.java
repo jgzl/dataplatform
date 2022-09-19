@@ -1,10 +1,10 @@
-package cn.cleanarch.gw.gateway.admin.framework.errorcode.config;
+package cn.cleanarch.gw.gateway.admin.system.configuration;
 
-import cn.cleanarch.gw.gateway.admin.framework.errorcode.core.generator.ErrorCodeAutoGenerator;
-import cn.cleanarch.gw.gateway.admin.framework.errorcode.core.generator.ErrorCodeAutoGeneratorImpl;
-import cn.cleanarch.gw.gateway.admin.framework.errorcode.core.loader.ErrorCodeLoader;
-import cn.cleanarch.gw.gateway.admin.framework.errorcode.core.loader.ErrorCodeLoaderImpl;
-import cn.cleanarch.gw.gateway.admin.framework.errorcode.core.service.ErrorCodeFrameworkService;
+import cn.cleanarch.gw.gateway.admin.system.service.ErrorCodeAutoGenerator;
+import cn.cleanarch.gw.gateway.admin.system.service.impl.ErrorCodeAutoGeneratorImpl;
+import cn.cleanarch.gw.gateway.admin.system.service.ErrorCodeLoader;
+import cn.cleanarch.gw.gateway.admin.system.service.impl.ErrorCodeLoaderImpl;
+import cn.cleanarch.gw.gateway.admin.system.service.ErrorCodeFrameworkService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

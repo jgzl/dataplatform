@@ -1,10 +1,13 @@
 package cn.cleanarch.gw.common.data.handler;
 
+import cn.cleanarch.gw.common.core.constant.CommonConstants;
+import cn.cleanarch.gw.common.core.constant.SecurityConstants;
 import cn.cleanarch.gw.common.model.base.BaseDO;
 import cn.cleanarch.gw.common.security.utils.AppContextHolder;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -19,10 +22,9 @@ public class DefaultDBFieldHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        if (Objects.nonNull(metaObject) && metaObject.getOriginalObject() instanceof BaseDO) {
-            BaseDO baseDO = (BaseDO) metaObject.getOriginalObject();
+        if (Objects.nonNull(metaObject) && metaObject.getOriginalObject() instanceof BaseDO baseDO) {
 
-            Date current = new Date();
+            LocalDateTime current = LocalDateTime.now();
             // 创建时间为空，则以当前时间为插入时间
             if (Objects.isNull(baseDO.getCreateTime())) {
                 baseDO.setCreateTime(current);
@@ -32,7 +34,7 @@ public class DefaultDBFieldHandler implements MetaObjectHandler {
                 baseDO.setUpdateTime(current);
             }
 
-            Long userId = -1L;
+            Long userId = SecurityConstants.DEFAULT_USER_ID;
             if (AppContextHolder.getUser() != null) {
                 userId = AppContextHolder.getUser().getUserId();
             }
@@ -44,25 +46,24 @@ public class DefaultDBFieldHandler implements MetaObjectHandler {
             if (Objects.nonNull(userId) && Objects.isNull(baseDO.getUpdater())) {
                 baseDO.setUpdater(userId.toString());
             }
+//            baseDO.setVersion(CommonConstants.DEFAULT_VERSION);
+//            baseDO.setDeleted(CommonConstants.STATUS_NORMAL);
         }
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        // 更新时间为空，则以当前时间为更新时间
-        Object modifyTime = getFieldValByName("updateTime", metaObject);
-        if (Objects.isNull(modifyTime)) {
-            setFieldValByName("updateTime", new Date(), metaObject);
-        }
-
-        // 当前登录用户不为空，更新人为空，则当前登录用户为更新人
-        Object modifier = getFieldValByName("updater", metaObject);
-        Long userId = -1L;
-        if (AppContextHolder.getUser() != null) {
-            userId = AppContextHolder.getUser().getUserId();
-        }
-        if (Objects.nonNull(userId) && Objects.isNull(modifier)) {
-            setFieldValByName("updater", userId.toString(), metaObject);
+        if (Objects.nonNull(metaObject) && metaObject.getOriginalObject() instanceof BaseDO baseDO) {
+            LocalDateTime current = LocalDateTime.now();
+            baseDO.setUpdateTime(current);
+            Long userId = SecurityConstants.DEFAULT_USER_ID;
+            if (AppContextHolder.getUser() != null) {
+                userId = AppContextHolder.getUser().getUserId();
+            }
+            // 当前登录用户不为空，更新人为空，则当前登录用户为更新人
+            if (Objects.nonNull(userId) && Objects.isNull(baseDO.getUpdater())) {
+                baseDO.setUpdater(userId.toString());
+            }
         }
     }
 }

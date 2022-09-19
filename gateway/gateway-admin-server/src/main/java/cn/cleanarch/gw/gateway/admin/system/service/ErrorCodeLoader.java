@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.gateway.admin.framework.errorcode.core.loader;
+package cn.cleanarch.gw.gateway.admin.system.service;
 
 import cn.cleanarch.gw.common.core.exception.util.ServiceExceptionUtil;
 

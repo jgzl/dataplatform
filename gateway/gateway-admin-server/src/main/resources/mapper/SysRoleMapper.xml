@@ -10,9 +10,13 @@
         <result column="role_desc" property="roleDesc"/>
         <result column="ds_type" property="dsType"/>
         <result column="ds_scope" property="dsScope"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="del_flag" property="delFlag"/>
+
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+        <result property="version" column="version"/>
     </resultMap>
 
 	<!-- 通过用户ID，查询角色信息-->
@@ -20,6 +24,6 @@
         SELECT
             r.*
         FROM
-        sys_role r, sys_user_role ur WHERE r.role_id = ur.role_id AND r.del_flag = 0 and  ur.user_id IN (#{userId})
+        sys_role r, sys_user_role ur WHERE r.role_id = ur.role_id AND r.deleted = '0' and ur.deleted = '0' and  ur.user_id IN (#{userId})
     </select>
 </mapper>

@@ -1,5 +1,6 @@
 package cn.cleanarch.gw.common.model.gateway.domain;
 
+import cn.cleanarch.gw.common.model.base.BaseDO;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class GatewayAccessConf extends Model<GatewayAccessConf> {
+public class GatewayAccessConf extends BaseDO {
 
     private static final long serialVersionUID = 1L;
 
@@ -50,21 +51,5 @@ public class GatewayAccessConf extends Model<GatewayAccessConf> {
      * 状态
      */
     private String status;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 修改时间
-     */
-    private LocalDateTime updateTime;
-
-    /**
-     * 删除标识（0-正常,1-删除）
-     */
-    @TableLogic
-    private String delFlag;
 
 }

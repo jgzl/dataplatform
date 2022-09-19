@@ -1,11 +1,10 @@
 package cn.cleanarch.gw.gateway.admin.system.service;
 
-import cn.cleanarch.gw.common.model.errorcode.dataobject.ErrorCodeDO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodeCreateReqVO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodeExportReqVO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodePageReqVO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodeUpdateReqVO;
-import cn.cleanarch.gw.gateway.admin.framework.errorcode.core.service.ErrorCodeFrameworkService;
+import cn.cleanarch.gw.common.model.system.domain.ErrorCodeDO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodeCreateReqVO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodeExportReqVO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodePageReqVO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodeUpdateReqVO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import javax.validation.Valid;

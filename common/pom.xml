@@ -22,8 +22,8 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>common</artifactId>
     <packaging>pom</packaging>
-    <name>网关微服务平台::通用模块::依赖POM模块</name>
-    <description>网关微服务平台::通用模块::依赖POM模块</description>
+    <name>网关微服务平台::通用模块</name>
+    <description>${project.name}</description>
 
     <dependencies>
         <dependency>

@@ -1,5 +1,6 @@
 package cn.cleanarch.gw.common.core.handler.mvc;
 
+import cn.cleanarch.gw.common.core.constant.SecurityConstants;
 import cn.cleanarch.gw.common.core.exception.ServiceException;
 import cn.cleanarch.gw.common.core.exception.enums.GlobalErrorCodeConstants;
 import cn.cleanarch.gw.common.core.model.R;
@@ -205,7 +206,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public R<Void> accessDeniedExceptionHandler(HttpServletRequest req, AccessDeniedException ex) {
 //        Long userId = WebFrameworkUtils.getLoginUserId();
-        Long userId = -1L;
+        Long userId = SecurityConstants.DEFAULT_USER_ID;
         log.warn("[accessDeniedExceptionHandler][userId({}) 无法访问 url({})]",  userId,
                 req.getRequestURL(), ex);
         return R.error(GlobalErrorCodeConstants.FORBIDDEN);

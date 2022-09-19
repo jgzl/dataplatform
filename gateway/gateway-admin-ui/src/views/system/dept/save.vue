@@ -44,7 +44,7 @@
 					status: "1",
 					createTime: new Date(),
 					updateTime: new Date(),
-					delFlag: "0",
+					deleted: "0",
 				},
 				//验证规则
 				rules: {

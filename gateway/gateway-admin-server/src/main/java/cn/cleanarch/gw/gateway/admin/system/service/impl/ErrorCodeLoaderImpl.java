@@ -1,8 +1,9 @@
-package cn.cleanarch.gw.gateway.admin.framework.errorcode.core.loader;
+package cn.cleanarch.gw.gateway.admin.system.service.impl;
 
 import cn.cleanarch.gw.common.core.utils.DateUtils;
-import cn.cleanarch.gw.common.model.errorcode.dto.ErrorCodeRespDTO;
-import cn.cleanarch.gw.gateway.admin.framework.errorcode.core.service.ErrorCodeFrameworkService;
+import cn.cleanarch.gw.common.model.system.dto.ErrorCodeRespDTO;
+import cn.cleanarch.gw.gateway.admin.system.service.ErrorCodeFrameworkService;
+import cn.cleanarch.gw.gateway.admin.system.service.ErrorCodeLoader;
 import cn.hutool.core.collection.CollUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +11,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -41,7 +42,7 @@ public class ErrorCodeLoaderImpl implements ErrorCodeLoader {
     /**
      * 缓存错误码的最大更新时间，用于后续的增量轮询，判断是否有更新
      */
-    private Date maxUpdateTime;
+    private LocalDateTime maxUpdateTime;
 
     @EventListener(ApplicationReadyEvent.class)
     public void loadErrorCodes() {

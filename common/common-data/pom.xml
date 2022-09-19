@@ -11,7 +11,7 @@
 
     <artifactId>common-data</artifactId>
     <modelVersion>4.0.0</modelVersion>
-    <name>网关微服务平台::通用模块::数据库Orm模块</name>
+    <name>网关微服务平台::通用模块::数据库ORM模块</name>
     <description>${project.name}</description>
     <dependencies>
         <dependency>

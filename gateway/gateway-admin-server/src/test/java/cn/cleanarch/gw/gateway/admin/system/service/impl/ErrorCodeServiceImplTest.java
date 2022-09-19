@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.gateway.admin.system.service.impl;
 
-import cn.cleanarch.gw.common.model.errorcode.dataobject.ErrorCodeDO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodeCreateReqVO;
+import cn.cleanarch.gw.common.model.system.domain.ErrorCodeDO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodeCreateReqVO;
 import cn.cleanarch.gw.common.test.core.ut.BaseDbAndRedisUnitTest;
 import cn.cleanarch.gw.common.test.core.util.RandomUtil;
 import org.junit.jupiter.api.Test;

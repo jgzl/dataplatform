@@ -1,7 +1,8 @@
-package cn.cleanarch.gw.common.model.errorcode.dto;
+package cn.cleanarch.gw.common.model.system.dto;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -23,6 +24,6 @@ public class ErrorCodeRespDTO {
     /**
      * 更新时间
      */
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
 }

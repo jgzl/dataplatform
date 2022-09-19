@@ -1,12 +1,12 @@
 package cn.cleanarch.gw.gateway.admin.system.controller;
 
 import cn.cleanarch.gw.common.core.model.R;
-import cn.cleanarch.gw.common.model.errorcode.convert.ErrorCodeConvert;
-import cn.cleanarch.gw.common.model.errorcode.dataobject.ErrorCodeDO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodeCreateReqVO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodePageReqVO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodeRespVO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodeUpdateReqVO;
+import cn.cleanarch.gw.common.model.system.convert.ErrorCodeConvert;
+import cn.cleanarch.gw.common.model.system.domain.ErrorCodeDO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodeCreateReqVO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodePageReqVO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodeRespVO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodeUpdateReqVO;
 import cn.cleanarch.gw.gateway.admin.system.service.ErrorCodeService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
@@ -27,14 +27,14 @@ public class ErrorCodeController {
     @Resource
     private ErrorCodeService errorCodeService;
 
-    @PostMapping("/create")
+    @PostMapping
     @ApiOperation("创建错误码")
 //    @PreAuthorize("@pms.hasPermission('system:error-code:create')")
     public R<Long> createErrorCode(@Valid @RequestBody ErrorCodeCreateReqVO createReqVO) {
         return R.success(errorCodeService.createErrorCode(createReqVO));
     }
 
-    @PutMapping("/update")
+    @PutMapping
     @ApiOperation("更新错误码")
 //    @PreAuthorize("@pms.hasPermission('system:error-code:update')")
     public R<Boolean> updateErrorCode(@Valid @RequestBody ErrorCodeUpdateReqVO updateReqVO) {
@@ -42,16 +42,16 @@ public class ErrorCodeController {
         return R.success(true);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/{id}")
     @ApiOperation("删除错误码")
 //    @PreAuthorize("@pms.hasPermission('system:error-code:delete')")
     @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = Long.class)
-    public R<Boolean> deleteErrorCode(@RequestParam("id") Long id) {
+    public R<Boolean> deleteErrorCode(@PathVariable("id") Long id) {
         errorCodeService.deleteErrorCode(id);
         return R.success(true);
     }
 
-    @GetMapping("/get")
+    @GetMapping
     @ApiOperation("获得错误码")
 //    @PreAuthorize("@pms.hasPermission('system:error-code:query')")
     @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)

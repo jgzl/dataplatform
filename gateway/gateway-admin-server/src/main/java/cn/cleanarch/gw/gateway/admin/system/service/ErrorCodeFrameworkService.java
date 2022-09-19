@@ -1,10 +1,10 @@
-package cn.cleanarch.gw.gateway.admin.framework.errorcode.core.service;
+package cn.cleanarch.gw.gateway.admin.system.service;
 
-import cn.cleanarch.gw.common.model.errorcode.dto.ErrorCodeAutoGenerateReqDTO;
-import cn.cleanarch.gw.common.model.errorcode.dto.ErrorCodeRespDTO;
+import cn.cleanarch.gw.common.model.system.dto.ErrorCodeAutoGenerateReqDTO;
+import cn.cleanarch.gw.common.model.system.dto.ErrorCodeRespDTO;
 
 import javax.validation.Valid;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -30,6 +30,6 @@ public interface ErrorCodeFrameworkService {
      * @param minUpdateTime 最小更新时间
      * @return 错误码数组
      */
-    List<ErrorCodeRespDTO> getErrorCodeList(String applicationName, Date minUpdateTime);
+    List<ErrorCodeRespDTO> getErrorCodeList(String applicationName, LocalDateTime minUpdateTime);
 
 }

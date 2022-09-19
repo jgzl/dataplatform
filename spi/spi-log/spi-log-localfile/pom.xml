@@ -8,8 +8,8 @@
         <version>${revision}</version>
     </parent>
     <artifactId>spi-log-localfile</artifactId>
-    <name>网关微服务平台::SPI扩展模块::SPI-日志模块::LocalFile</name>
-    <description>网关微服务平台::SPI扩展模块::SPI-日志模块::LocalFile</description>
+    <name>网关微服务平台::扩展模块::SPI-日志模块::LocalFile</name>
+    <description>${project.name}</description>
     <properties>
     </properties>
     <dependencies>

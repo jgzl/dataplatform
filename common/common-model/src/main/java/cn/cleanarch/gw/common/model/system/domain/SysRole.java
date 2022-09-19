@@ -1,5 +1,6 @@
 package cn.cleanarch.gw.common.model.system.domain;
 
+import cn.cleanarch.gw.common.model.base.BaseDO;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SysRole extends Model<SysRole> {
+public class SysRole extends BaseDO {
 
     private static final long serialVersionUID = 1L;
 
@@ -57,21 +58,5 @@ public class SysRole extends Model<SysRole> {
      * 数据权限作用范围
      */
     private String dsScope;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 修改时间
-     */
-    private LocalDateTime updateTime;
-
-    /**
-     * 删除标识（0-正常,1-删除）
-     */
-    @TableLogic
-    private String delFlag;
 
 }

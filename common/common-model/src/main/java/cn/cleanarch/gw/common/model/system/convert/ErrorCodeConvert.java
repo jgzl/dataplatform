@@ -1,11 +1,11 @@
-package cn.cleanarch.gw.common.model.errorcode.convert;
+package cn.cleanarch.gw.common.model.system.convert;
 
-import cn.cleanarch.gw.common.model.errorcode.dataobject.ErrorCodeDO;
-import cn.cleanarch.gw.common.model.errorcode.dto.ErrorCodeAutoGenerateReqDTO;
-import cn.cleanarch.gw.common.model.errorcode.dto.ErrorCodeRespDTO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodeCreateReqVO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodeRespVO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodeUpdateReqVO;
+import cn.cleanarch.gw.common.model.system.domain.ErrorCodeDO;
+import cn.cleanarch.gw.common.model.system.dto.ErrorCodeAutoGenerateReqDTO;
+import cn.cleanarch.gw.common.model.system.dto.ErrorCodeRespDTO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodeCreateReqVO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodeRespVO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodeUpdateReqVO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.mapstruct.Mapper;

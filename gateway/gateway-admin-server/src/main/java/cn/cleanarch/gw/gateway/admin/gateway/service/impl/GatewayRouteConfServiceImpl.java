@@ -52,7 +52,6 @@ public class GatewayRouteConfServiceImpl extends ServiceImpl<GatewayRouteConfMap
         Long result = redisTemplate.opsForHash().delete(CacheConstants.ROUTE_KEY, route.getRouteId());
         log.info("清空网关路由条数:{} ", result);
         try {
-            route.setDelFlag(CommonConstants.STATUS_NORMAL);
             super.saveOrUpdate(route);
 
             GatewayRouteDefinition routeVo = new GatewayRouteDefinition();

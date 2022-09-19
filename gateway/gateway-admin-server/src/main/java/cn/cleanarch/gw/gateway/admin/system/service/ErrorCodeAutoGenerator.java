@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.gateway.admin.framework.errorcode.core.generator;
+package cn.cleanarch.gw.gateway.admin.system.service;
 
 /**
  * 错误码的自动生成器

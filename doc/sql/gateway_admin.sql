@@ -232,7 +232,7 @@ CREATE TABLE `sys_error_code` (
   `create_time` datetime NOT NULL,
   `updater` varchar(64) DEFAULT NULL,
   `update_time` datetime NOT NULL,
-  `deleted` bit(1) DEFAULT NULL
+  `deleted` char(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------

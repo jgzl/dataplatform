@@ -17,6 +17,11 @@ public class CommonConstants {
     public final static String STATUS_NORMAL = "0";
 
     /**
+     * 删除
+     */
+    public final static Integer DEFAULT_VERSION = 1;
+
+    /**
      * 锁定
      */
     public static final String STATUS_LOCK = "9";

@@ -3,9 +3,11 @@ package cn.cleanarch.gw.common.model.base;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.Version;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -20,12 +22,12 @@ public abstract class BaseDO implements Serializable {
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
-    private Date createTime;
+    private LocalDateTime createTime;
     /**
      * 最后更新时间
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateTime;
+    private LocalDateTime updateTime;
     /**
      * 创建者，目前使用 SysUser 的 id 编号
      *
@@ -41,9 +43,13 @@ public abstract class BaseDO implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private String updater;
     /**
-     * 是否删除
+     * 是否删除(0正常,1删除)
      */
     @TableLogic
-    private Boolean deleted;
-
+    private String deleted;
+    /**
+     * 乐观锁版本
+     */
+    @Version
+    private Integer version;
 }

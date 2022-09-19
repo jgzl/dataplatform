@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>${revision}</version>
 
-    <name>网关微服务平台::根目录POM</name>
+    <name>网关微服务平台</name>
     <description>${project.name}</description>
 
     <modules>

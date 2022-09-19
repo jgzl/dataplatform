@@ -22,7 +22,7 @@ public class GatewayAccessConfMapperTest extends BaseDbUnitTest {
     public void test_insertBatch_success() {
         List<GatewayAccessConf> saveDOList = RandomUtil.randomPojoList(GatewayAccessConf.class, e -> {
             e.setStatus(StatusEnum.ENABLE.getCode());
-            e.setDelFlag(CommonConstants.STATUS_NORMAL);
+            e.setDeleted(CommonConstants.STATUS_NORMAL);
         });
         gatewayAccessConfMapper.insertBatch(saveDOList);
         List<Long> idList = saveDOList.stream().map(GatewayAccessConf::getId).collect(Collectors.toList());

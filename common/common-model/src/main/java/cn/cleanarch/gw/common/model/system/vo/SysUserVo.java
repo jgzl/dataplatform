@@ -1,5 +1,6 @@
 package cn.cleanarch.gw.common.model.system.vo;
 
+import cn.cleanarch.gw.common.model.base.BaseDO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @date 2017/10/29
  */
 @Data
-public class SysUserVo implements Serializable {
+public class SysUserVo extends BaseDO {
 
     private static final long serialVersionUID = 1L;
 
@@ -100,7 +101,7 @@ public class SysUserVo implements Serializable {
     /**
      * 0-正常，1-删除
      */
-    private String delFlag;
+    private String deleted;
 
     /**
      * 角色列表

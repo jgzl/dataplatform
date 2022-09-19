@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.common.model.errorcode.vo;
+package cn.cleanarch.gw.common.model.system.vo;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;

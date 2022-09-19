@@ -3,15 +3,15 @@ package cn.cleanarch.gw.gateway.admin.system.service.impl;
 import cn.cleanarch.gw.common.core.exception.enums.ErrorCodeConstants;
 import cn.cleanarch.gw.common.core.exception.util.ServiceExceptionUtil;
 import cn.cleanarch.gw.common.core.utils.collection.CollectionUtils;
-import cn.cleanarch.gw.common.model.errorcode.constants.ErrorCodeTypeEnum;
-import cn.cleanarch.gw.common.model.errorcode.convert.ErrorCodeConvert;
-import cn.cleanarch.gw.common.model.errorcode.dataobject.ErrorCodeDO;
-import cn.cleanarch.gw.common.model.errorcode.dto.ErrorCodeAutoGenerateReqDTO;
-import cn.cleanarch.gw.common.model.errorcode.dto.ErrorCodeRespDTO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodeCreateReqVO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodeExportReqVO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodePageReqVO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodeUpdateReqVO;
+import cn.cleanarch.gw.common.model.system.constants.ErrorCodeTypeEnum;
+import cn.cleanarch.gw.common.model.system.convert.ErrorCodeConvert;
+import cn.cleanarch.gw.common.model.system.domain.ErrorCodeDO;
+import cn.cleanarch.gw.common.model.system.dto.ErrorCodeAutoGenerateReqDTO;
+import cn.cleanarch.gw.common.model.system.dto.ErrorCodeRespDTO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodeCreateReqVO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodeExportReqVO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodePageReqVO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodeUpdateReqVO;
 import cn.cleanarch.gw.gateway.admin.system.mapper.ErrorCodeMapper;
 import cn.cleanarch.gw.gateway.admin.system.service.ErrorCodeService;
 import cn.hutool.core.collection.CollUtil;
@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Resource;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -165,7 +165,7 @@ public class ErrorCodeServiceImpl implements ErrorCodeService {
     }
 
     @Override
-    public List<ErrorCodeRespDTO> getErrorCodeList(String applicationName, Date minUpdateTime) {
+    public List<ErrorCodeRespDTO> getErrorCodeList(String applicationName, LocalDateTime minUpdateTime) {
         List<ErrorCodeDO> errorCodeDOs = errorCodeMapper.selectListByApplicationNameAndUpdateTimeGt(
                 applicationName, minUpdateTime);
         return ErrorCodeConvert.INSTANCE.convertList03(errorCodeDOs);

@@ -73,6 +73,6 @@ public class SysRoleVo extends Model<SysRoleVo> {
      * 删除标识（0-正常,1-删除）
      */
     @TableLogic
-    private String delFlag;
+    private String deleted;
 
 }

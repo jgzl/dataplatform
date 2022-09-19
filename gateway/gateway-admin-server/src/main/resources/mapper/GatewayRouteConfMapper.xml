@@ -2,17 +2,4 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.cleanarch.gw.gateway.admin.gateway.mapper.GatewayRouteConfMapper">
 
-    <!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="cn.cleanarch.gw.common.model.gateway.domain.GatewayRouteConf" id="gatewayRouteConfMap">
-        <result property="routeId" column="route_id"/>
-        <result property="predicates" column="predicates"/>
-        <result property="filters" column="filters"/>
-        <result property="uri" column="uri"/>
-        <result property="order" column="order"/>
-        <result property="createTime" column="create_time"/>
-        <result property="updateTime" column="update_time"/>
-        <result property="delFlag" column="del_flag"/>
-    </resultMap>
-
-
 </mapper>

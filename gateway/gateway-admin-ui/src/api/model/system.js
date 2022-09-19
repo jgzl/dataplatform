@@ -940,5 +940,42 @@ export default {
 				return await http.get(this.url, params);
 			}
 		}
+	},
+	errorCode: {
+		page: {
+			url: `${config.API_URL}/system/error-code/page`,
+			name: "获取错误码列表-分页",
+			get: async function(params){
+				return await http.get(this.url, params);
+			}
+		},
+		list: {
+			url: `${config.API_URL}/system/error-code/list`,
+			name: "获取错误码列表",
+			get: async function(params){
+				return await http.get(this.url, params);
+			}
+		},
+		save: {
+			url: `${config.API_URL}/system/error-code`,
+			name: "保存错误码",
+			post: async function(params){
+				return await http.post(this.url, params);
+			}
+		},
+		update: {
+			url: `${config.API_URL}/system/error-code`,
+			name: "更新错误码",
+			put: async function(params){
+				return await http.put(this.url, params);
+			}
+		},
+		delete: {
+			url: `${config.API_URL}/system/error-code`,
+			name: "删除错误码",
+			delete: async function(params){
+				return await http.delete(`${this.url}/${params}`);
+			}
+		}
 	}
 }

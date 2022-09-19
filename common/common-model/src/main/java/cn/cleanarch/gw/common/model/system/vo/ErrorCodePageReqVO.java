@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.common.model.errorcode.vo;
+package cn.cleanarch.gw.common.model.system.vo;
 
 import cn.cleanarch.gw.common.model.base.PageParam;
 import io.swagger.annotations.ApiModel;

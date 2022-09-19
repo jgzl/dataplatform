@@ -64,7 +64,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public Boolean saveUser(SysUserDto userDto) {
         SysUser sysUser = new SysUser();
         BeanUtils.copyProperties(userDto, sysUser);
-        sysUser.setDelFlag(CommonConstants.STATUS_NORMAL);
+        sysUser.setDeleted(CommonConstants.STATUS_NORMAL);
         sysUser.setPassword(ENCODER.encode(userDto.getPassword()));
         baseMapper.insert(sysUser);
         List<SysUserRole> userRoleList = userDto.getRole().stream().map(roleId -> {
@@ -110,8 +110,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         roleList.forEach(role -> {
             roles.add(role.getRoleCode());
             List<String> permissionList = sysMenuService.findMenuByRoleId(role.getRoleId()).stream()
-                    .filter(menu -> StrUtil.isNotEmpty(menu.getPermission())).map(SysMenu::getPermission)
-                    .collect(Collectors.toList());
+                    .map(SysMenu::getPermission).filter(StrUtil::isNotEmpty).toList();
             permissions.addAll(permissionList);
         });
         // 设置权限列表（menu.permission）
@@ -206,7 +205,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             SysUserRole userRole = new SysUserRole();
             userRole.setUserId(sysUser.getUserId());
             userRole.setRoleId(roleId);
-            userRole.insert();
+            sysUserRoleService.save(userRole);
         });
         return Boolean.TRUE;
     }

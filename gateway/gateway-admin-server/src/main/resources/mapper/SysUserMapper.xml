@@ -18,7 +18,7 @@
         <result column="ucreate_time" property="createTime"/>
         <result column="uupdate_time" property="updateTime"/>
         <result column="lock_flag" property="lockFlag"/>
-        <result column="udel_flag" property="delFlag"/>
+        <result column="udeleted" property="deleted"/>
         <result column="dept_id" property="deptId"/>
         <result column="dept_name" property="deptName"/>
         <collection property="roleList" ofType="cn.cleanarch.gw.common.model.system.domain.SysRole"
@@ -43,7 +43,7 @@
 		<result column="ucreate_time" property="createTime"/>
 		<result column="uupdate_time" property="updateTime"/>
 		<result column="lock_flag" property="lockFlag"/>
-		<result column="udel_flag" property="delFlag"/>
+		<result column="udeleted" property="deleted"/>
 		<result column="dept_id" property="deptId"/>
 		<result column="dept_name" property="deptName"/>
         <collection property="roleList" ofType="cn.cleanarch.gw.common.model.system.domain.SysRole">
@@ -68,7 +68,7 @@
 		u.last_login_time,
 		u.last_login_ip,
 		u.dept_id,
-		u.del_flag,
+		u.deleted,
 		u.lock_flag,
 		u.create_time  ucreate_time,
 		u.update_time  uupdate_time,
@@ -91,7 +91,7 @@
 		u.email,
 		u.last_login_time,
 		u.last_login_ip,
-		u.del_flag,
+		u.deleted,
 		u.lock_flag,
 		u.create_time  ucreate_time,
 		u.update_time  uupdate_time,
@@ -112,7 +112,7 @@
 		sys_user  u
 		LEFT JOIN sys_user_role  ur ON ur.user_id = u.user_id
 		LEFT JOIN sys_role  r ON r.role_id = ur.role_id
-			WHERE u.user_name = #{user_name}
+			WHERE u.user_name = #{user_name} and u.deleted = '0' and ur.deleted = '0' and r.deleted = '0'
 	</select>
 
 	<select id="getUserVoById" resultMap="userVoResultMap">
@@ -124,7 +124,7 @@
             LEFT JOIN sys_role  r ON r.role_id = ur.role_id
             LEFT JOIN sys_dept  d ON d.dept_id = u.dept_id
         WHERE
-           u.user_id = #{id}
+           u.user_id = #{id} and u.deleted = '0' and ur.deleted = '0' and r.deleted = '0' and d.deleted = '0'
     </select>
 
 	<select id="getUserVosPage" resultMap="baseResultMap">
@@ -143,14 +143,14 @@
 		u.last_login_ip,
 		u.create_time  ucreate_time,
 		u.update_time  uupdate_time,
-		u.del_flag,
+		u.deleted,
 		u.lock_flag,
 		 d.name  dept_name
 		FROM
 		sys_user  u
 		LEFT JOIN sys_dept  d ON d.dept_id = u.dept_id
 		<where>
-			u.del_flag = '0'
+			u.deleted = '0' and d.deleted = '0'
 			<if test="query.userName != null and query.userName != ''">
 				AND u.user_name LIKE CONCAT('%',#{query.userName},'%')
 			</if>

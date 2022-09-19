@@ -1,5 +1,6 @@
 package cn.cleanarch.gw.common.model.gateway.domain;
 
+import cn.cleanarch.gw.common.model.base.BaseDO;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class GatewayRouteConf extends Model<GatewayRouteConf> {
+public class GatewayRouteConf extends BaseDO {
 
     private static final long serialVersionUID = 1L;
 
@@ -55,21 +56,5 @@ public class GatewayRouteConf extends Model<GatewayRouteConf> {
     private Integer sort;
 
     private String metadata;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 修改时间
-     */
-    private LocalDateTime updateTime;
-
-    /**
-     * 删除标识（0-正常,1-删除）
-     */
-    @TableLogic
-    private String delFlag;
 
 }

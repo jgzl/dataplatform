@@ -8,8 +8,8 @@
         <version>${revision}</version>
     </parent>
     <artifactId>spi-log-elasticsearch</artifactId>
-    <name>网关微服务平台::SPI扩展模块::SPI-日志模块::ES</name>
-    <description>网关微服务平台::SPI扩展模块::SPI-日志模块::ES</description>
+    <name>网关微服务平台::扩展模块::SPI-日志模块::ES</name>
+    <description>${project.name}</description>
     <properties>
     </properties>
     <dependencies>

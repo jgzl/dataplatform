@@ -9,7 +9,7 @@
     </parent>
     <artifactId>gateway-admin-server</artifactId>
     <name>网关微服务平台::网关服务::网关管理服务</name>
-    <description>网关微服务平台::网关服务::网关管理服务</description>
+    <description>${project.name}</description>
     <properties>
 
     </properties>

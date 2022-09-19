@@ -1,4 +1,4 @@
-package cn.cleanarch.gw.common.model.errorcode.dto;
+package cn.cleanarch.gw.common.model.system.dto;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

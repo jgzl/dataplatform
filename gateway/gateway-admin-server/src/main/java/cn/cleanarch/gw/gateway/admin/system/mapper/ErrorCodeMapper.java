@@ -2,15 +2,15 @@ package cn.cleanarch.gw.gateway.admin.system.mapper;
 
 import cn.cleanarch.gw.common.data.mapper.ExtendBaseMapper;
 import cn.cleanarch.gw.common.data.query.QueryWrapperX;
-import cn.cleanarch.gw.common.model.errorcode.dataobject.ErrorCodeDO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodeExportReqVO;
-import cn.cleanarch.gw.common.model.errorcode.vo.ErrorCodePageReqVO;
+import cn.cleanarch.gw.common.model.system.domain.ErrorCodeDO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodeExportReqVO;
+import cn.cleanarch.gw.common.model.system.vo.ErrorCodePageReqVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -44,7 +44,7 @@ public interface ErrorCodeMapper extends ExtendBaseMapper<ErrorCodeDO> {
         return selectOne(new QueryWrapper<ErrorCodeDO>().eq("code", code));
     }
 
-    default List<ErrorCodeDO> selectListByApplicationNameAndUpdateTimeGt(String applicationName, Date minUpdateTime) {
+    default List<ErrorCodeDO> selectListByApplicationNameAndUpdateTimeGt(String applicationName, LocalDateTime minUpdateTime) {
         return selectList(new QueryWrapperX<ErrorCodeDO>().eq("application_name", applicationName)
                 .gtIfPresent("update_time", minUpdateTime));
     }

@@ -39,7 +39,7 @@ public class GatewayAccessConfServiceImpl extends ServiceImpl<GatewayAccessConfM
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean saveOrUpdate(GatewayAccessConf item) {
-        item.setDelFlag(CommonConstants.STATUS_NORMAL);
+        item.setDeleted(CommonConstants.STATUS_NORMAL);
         try {
             boolean result = super.saveOrUpdate(item);
             GatewayAccessConfVo vo = AccessConvert.INSTANCE.convertDo2Vo(item);

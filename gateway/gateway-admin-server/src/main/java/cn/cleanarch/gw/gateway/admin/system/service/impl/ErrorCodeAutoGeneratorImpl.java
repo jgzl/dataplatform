@@ -1,8 +1,9 @@
-package cn.cleanarch.gw.gateway.admin.framework.errorcode.core.generator;
+package cn.cleanarch.gw.gateway.admin.system.service.impl;
 
 import cn.cleanarch.gw.common.core.exception.ErrorCode;
-import cn.cleanarch.gw.common.model.errorcode.dto.ErrorCodeAutoGenerateReqDTO;
-import cn.cleanarch.gw.gateway.admin.framework.errorcode.core.service.ErrorCodeFrameworkService;
+import cn.cleanarch.gw.common.model.system.dto.ErrorCodeAutoGenerateReqDTO;
+import cn.cleanarch.gw.gateway.admin.system.service.ErrorCodeAutoGenerator;
+import cn.cleanarch.gw.gateway.admin.system.service.ErrorCodeFrameworkService;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.ReflectUtil;

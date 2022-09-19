@@ -8,6 +8,7 @@ import cn.cleanarch.gw.common.core.exception.util.ServiceExceptionUtil;
 import cn.cleanarch.gw.common.core.model.R;
 import cn.cleanarch.gw.common.model.system.domain.SysMenu;
 import cn.cleanarch.gw.common.model.system.domain.SysRoleMenu;
+import cn.cleanarch.gw.common.redis.template.RedisObjectMapper;
 import cn.cleanarch.gw.gateway.admin.system.mapper.SysMenuMapper;
 import cn.cleanarch.gw.gateway.admin.system.mapper.SysRoleMenuMapper;
 import cn.cleanarch.gw.gateway.admin.system.service.SysMenuService;
@@ -19,6 +20,9 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -149,5 +153,4 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             return node;
         };
     }
-
 }

@@ -19,12 +19,12 @@ public class PageParam implements Serializable {
     @ApiModelProperty(value = "页码，从 1 开始", required = true,example = "1")
     @NotNull(message = "页码不能为空")
     @Min(value = 1, message = "页码最小值为 1")
-    private Integer pageNo = PAGE_NO;
+    private Integer current = PAGE_NO;
 
     @ApiModelProperty(value = "每页条数，最大值为 100", required = true, example = "10")
     @NotNull(message = "每页条数不能为空")
     @Min(value = 1, message = "页码最小值为 1")
     @Max(value = 100, message = "页码最大值为 100")
-    private Integer pageSize = PAGE_SIZE;
+    private Integer size = PAGE_SIZE;
 
 }

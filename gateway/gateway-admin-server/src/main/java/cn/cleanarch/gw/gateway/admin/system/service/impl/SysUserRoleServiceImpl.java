@@ -1,8 +1,10 @@
 package cn.cleanarch.gw.gateway.admin.system.service.impl;
 
+import cn.cleanarch.gw.common.model.system.domain.SysUser;
 import cn.cleanarch.gw.common.model.system.domain.SysUserRole;
 import cn.cleanarch.gw.gateway.admin.system.mapper.SysUserRoleMapper;
 import cn.cleanarch.gw.gateway.admin.system.service.SysUserRoleService;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,8 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
      */
     @Override
     public Boolean deleteByUserId(Long userId) {
-        return baseMapper.deleteByUserId(userId);
+        return baseMapper.delete(Wrappers.lambdaQuery(SysUserRole.class).eq(SysUserRole::getUserId,userId))>0;
+//        return baseMapper.deleteByUserId(userId);
     }
 
 }

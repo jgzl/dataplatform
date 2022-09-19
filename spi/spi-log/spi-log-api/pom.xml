@@ -8,8 +8,8 @@
         <version>${revision}</version>
     </parent>
     <artifactId>spi-log-api</artifactId>
-    <name>网关微服务平台::SPI扩展模块::SPI-日志模块::API</name>
-    <description>网关微服务平台::SPI扩展模块::SPI-日志模块::API</description>
+    <name>网关微服务平台::扩展模块::SPI-日志模块::API</name>
+    <description>${project.name}</description>
     <properties>
     </properties>
     <dependencies>

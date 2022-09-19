@@ -9,8 +9,8 @@
     </parent>
     <artifactId>spi-log</artifactId>
     <packaging>pom</packaging>
-    <name>网关微服务平台::SPI扩展模块::SPI-日志模块</name>
-    <description>网关微服务平台::SPI扩展模块::SPI-日志模块</description>
+    <name>网关微服务平台::扩展模块::SPI-日志模块</name>
+    <description>网关微服务平台::扩展模块::SPI-日志模块</description>
 
     <modules>
         <module>spi-log-api</module>
