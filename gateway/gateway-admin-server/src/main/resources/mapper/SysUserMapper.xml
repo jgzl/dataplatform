@@ -23,7 +23,7 @@
         <result column="dept_name" property="deptName"/>
         <collection property="roleList" ofType="cn.cleanarch.gw.common.model.system.domain.SysRole"
                     select="cn.cleanarch.gw.gateway.admin.system.mapper.SysRoleMapper.listRolesByUserId"
-                    column="user_id">
+                    column="id">
         </collection>
     </resultMap>
 
