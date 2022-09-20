@@ -1,10 +1,8 @@
 package cn.cleanarch.gw.common.model.system.vo;
 
-import cn.cleanarch.gw.common.model.base.BaseDO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,7 +11,7 @@ import java.util.List;
  * @date 2017/10/29
  */
 @Data
-public class SysUserVo extends BaseDO {
+public class SysUserVo {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,7 +19,7 @@ public class SysUserVo extends BaseDO {
      * 主键ID
      */
     @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private Long userId;
+    private Long id;
 
     /**
      * 用户名
@@ -59,8 +57,9 @@ public class SysUserVo extends BaseDO {
     private String avatar;
 
     /**
-     * 部门ID
+     * 部门id
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long deptId;
 
     /**

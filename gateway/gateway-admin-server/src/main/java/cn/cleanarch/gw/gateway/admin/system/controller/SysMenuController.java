@@ -43,7 +43,7 @@ public class SysMenuController {
         // 获取符合条件的菜单
         AppContextHolder.getRoles().stream()
                 .map(sysRoleService::findRoleByRoleCode)
-                .forEach(sysRole -> all.addAll(sysMenuService.findMenuByRoleId(sysRole.getRoleId())));
+                .forEach(sysRole -> all.addAll(sysMenuService.findMenuByRoleId(sysRole.getId())));
         return R.success(sysMenuService.filterMenu(all, type, parentId));
     }
 
@@ -83,7 +83,7 @@ public class SysMenuController {
     @GetMapping("/list/{roleId}")
     public R<List<Long>> getRoleTree(@PathVariable Long roleId) {
         return R.success(
-                sysMenuService.findMenuByRoleId(roleId).stream().map(SysMenu::getMenuId).collect(Collectors.toList()));
+                sysMenuService.findMenuByRoleId(roleId).stream().map(SysMenu::getId).collect(Collectors.toList()));
     }
 
     /**
@@ -118,7 +118,7 @@ public class SysMenuController {
      */
     @DeleteMapping("/{id}")
     //@PreAuthorize("@pms.hasPermission('sys_menu_del')")
-    public R<Boolean> removeById(@PathVariable Integer id) {
+    public R<Boolean> removeById(@PathVariable Long id) {
         return sysMenuService.removeMenuById(id);
     }
 

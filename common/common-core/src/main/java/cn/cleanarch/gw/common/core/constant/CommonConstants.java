@@ -14,7 +14,7 @@ public class CommonConstants {
     /**
      * 正常
      */
-    public final static String STATUS_NORMAL = "0";
+    public final static Long STATUS_NORMAL = 0L;
 
     /**
      * 删除

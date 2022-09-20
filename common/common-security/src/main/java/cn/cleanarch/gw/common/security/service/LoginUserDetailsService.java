@@ -50,9 +50,9 @@ public class LoginUserDetailsService implements UserDetailsService {
         Collection<? extends GrantedAuthority> authorities = AuthorityUtils
                 .createAuthorityList(dbAuthSet.toArray(new String[0]));
         SysUserVo user = info.getSysUser();
-        boolean enabled = StrUtil.equals(user.getLockFlag(), CommonConstants.STATUS_NORMAL);
+        boolean enabled = StrUtil.equals(user.getLockFlag(), CommonConstants.STATUS_NORMAL+"");
         // 构造security用户
-        return new LoginUser(user.getUserId(), user.getDeptId(), user.getMobile(), user.getAvatar(),
+        return new LoginUser(user.getId(), user.getDeptId(), user.getMobile(), user.getAvatar(),
                 user.getUserName(), user.getNickName(), SecurityConstants.BCRYPT + user.getPassword(), enabled, true, true,
                 !CommonConstants.STATUS_LOCK.equals(user.getLockFlag()), authorities);
     }

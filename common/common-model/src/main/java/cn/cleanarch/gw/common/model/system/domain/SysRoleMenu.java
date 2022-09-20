@@ -1,7 +1,6 @@
 package cn.cleanarch.gw.common.model.system.domain;
 
 import cn.cleanarch.gw.common.model.base.BaseDO;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

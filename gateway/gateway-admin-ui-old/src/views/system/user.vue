@@ -54,7 +54,7 @@
           <el-table-column
                   align="center"
                   label="用户id"
-                  prop="userId"
+                  prop="id"
                   width="100"
           />
           <el-table-column
@@ -241,8 +241,8 @@
             >
               <el-option
                       v-for="roleItem of roleList"
-                      :key="roleItem.roleId"
-                      :value="roleItem.roleId"
+                      :key="roleItem.id"
+                      :value="roleItem.id"
                       :label="roleItem.roleName"
               >
               </el-option>
@@ -286,7 +286,7 @@ const {
   });
 
   const userModel = reactive({
-    userId: "",
+    id: "",
     userName: "",
     nickName: "",
     mobile: "",
@@ -364,7 +364,7 @@ const {
     if (selectRows.value.length > 0) {
       ElMessageBox.confirm("确定要删除这些用户吗？", "提示")
               .then(() => {
-                httpDelete({url:`${systemUser}/${selectRows.value[0].userId}`})
+                httpDelete({url:`${systemUser}/${selectRows.value[0].id}`})
                         .then((res)=>{
                           console.log(JSON.stringify(res))
                           doRefresh();
@@ -375,7 +375,7 @@ const {
     }
   }
   function onAddItem() {
-    userModel.userId = "";
+    userModel.id = "";
     userModel.userName = "";
     userModel.nickName = "";
     userModel.mobile = "";
@@ -421,7 +421,7 @@ const {
     });
   }
   function onUpdateItem(item: any) {
-    userModel.userId = item.userId;
+    userModel.id = item.id;
     userModel.userName = item.userName;
     userModel.nickName = item.nickName;
     userModel.mobile = item.mobile;
@@ -430,8 +430,8 @@ const {
     userModel.deptId = item.deptId;
     userModel.role = [];
     if (item.roleList != null) {
-      item.roleList.forEach(({roleId})=>{
-        userModel.role.push(roleId)
+      item.roleList.forEach(({id})=>{
+        userModel.role.push(id)
       })
     }
     userModel.password = "";

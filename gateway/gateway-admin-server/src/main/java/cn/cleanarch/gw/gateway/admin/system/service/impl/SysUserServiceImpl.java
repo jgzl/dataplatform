@@ -1,7 +1,6 @@
 package cn.cleanarch.gw.gateway.admin.system.service.impl;
 
 import cn.cleanarch.gw.common.core.constant.CacheConstants;
-import cn.cleanarch.gw.common.core.constant.CommonConstants;
 import cn.cleanarch.gw.common.core.model.R;
 import cn.cleanarch.gw.common.model.system.convert.UserConvert;
 import cn.cleanarch.gw.common.model.system.domain.*;
@@ -64,12 +63,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public Boolean saveUser(SysUserDto userDto) {
         SysUser sysUser = new SysUser();
         BeanUtils.copyProperties(userDto, sysUser);
-        sysUser.setDeleted(CommonConstants.STATUS_NORMAL);
         sysUser.setPassword(ENCODER.encode(userDto.getPassword()));
         baseMapper.insert(sysUser);
         List<SysUserRole> userRoleList = userDto.getRole().stream().map(roleId -> {
             SysUserRole userRole = new SysUserRole();
-            userRole.setUserId(sysUser.getUserId());
+            userRole.setUserId(sysUser.getId());
             userRole.setRoleId(roleId);
             return userRole;
         }).collect(Collectors.toList());
@@ -103,13 +101,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUserVo sysUserVo = UserConvert.INSTANCE.convertDo2Vo(sysUser);
         userInfo.setSysUser(sysUserVo);
         // 查找当前用户对应角色
-        List<SysRole> roleList = sysRoleService.findRolesByUserId(sysUser.getUserId());
+        List<SysRole> roleList = sysRoleService.findRolesByUserId(sysUser.getId());
         Set<String> roles = new HashSet<>();
         Set<String> permissions = new HashSet<>();
 
         roleList.forEach(role -> {
             roles.add(role.getRoleCode());
-            List<String> permissionList = sysMenuService.findMenuByRoleId(role.getRoleId()).stream()
+            List<String> permissionList = sysMenuService.findMenuByRoleId(role.getId()).stream()
                     .map(SysMenu::getPermission).filter(StrUtil::isNotEmpty).toList();
             permissions.addAll(permissionList);
         });
@@ -163,8 +161,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     @CacheEvict(value = CacheConstants.USER_DETAILS, key = "#sysUser.userName")
     public Boolean deleteUserById(SysUser sysUser) {
-        sysUserRoleService.deleteByUserId(sysUser.getUserId());
-        this.removeById(sysUser.getUserId());
+        sysUserRoleService.deleteByUserId(sysUser.getId());
+        this.removeById(sysUser.getId());
         return Boolean.TRUE;
     }
 
@@ -182,7 +180,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             sysUser.setPassword(ENCODER.encode(userDto.getNewPassword()));
         }
         sysUser.setMobile(userDto.getMobile());
-        sysUser.setUserId(sysUserVo.getUserId());
+        sysUser.setId(sysUserVo.getId());
         sysUser.setAvatar(userDto.getAvatar());
         return R.success(this.updateById(sysUser));
     }
@@ -200,10 +198,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         this.updateById(sysUser);
 
         sysUserRoleService
-                .remove(Wrappers.<SysUserRole>update().lambda().eq(SysUserRole::getUserId, userDto.getUserId()));
+                .remove(Wrappers.<SysUserRole>update().lambda().eq(SysUserRole::getUserId, userDto.getId()));
         userDto.getRole().forEach(roleId -> {
             SysUserRole userRole = new SysUserRole();
-            userRole.setUserId(sysUser.getUserId());
+            userRole.setUserId(sysUser.getId());
             userRole.setRoleId(roleId);
             sysUserRoleService.save(userRole);
         });

@@ -8,7 +8,6 @@ import cn.cleanarch.gw.common.core.exception.util.ServiceExceptionUtil;
 import cn.cleanarch.gw.common.core.model.R;
 import cn.cleanarch.gw.common.model.system.domain.SysMenu;
 import cn.cleanarch.gw.common.model.system.domain.SysRoleMenu;
-import cn.cleanarch.gw.common.redis.template.RedisObjectMapper;
 import cn.cleanarch.gw.gateway.admin.system.mapper.SysMenuMapper;
 import cn.cleanarch.gw.gateway.admin.system.mapper.SysRoleMenuMapper;
 import cn.cleanarch.gw.gateway.admin.system.service.SysMenuService;
@@ -20,9 +19,6 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -60,7 +56,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     @CacheEvict(value = CacheConstants.MENU_DETAILS, allEntries = true)
-    public R removeMenuById(Integer id) {
+    public R removeMenuById(Long id) {
         // 查询父节点为当前节点的节点
         List<SysMenu> menuList = this.list(Wrappers.<SysMenu>query().lambda().eq(SysMenu::getParentId, id));
         if (CollUtil.isNotEmpty(menuList)) {
@@ -132,13 +128,13 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     private Function<SysMenu, TreeNode<Long>> getNodeFunction() {
         return menu -> {
             TreeNode<Long> node = new TreeNode<>();
-            node.setId(menu.getMenuId());
+            node.setId(menu.getId());
             node.setName(menu.getName());
             node.setParentId(menu.getParentId());
             node.setWeight(menu.getSort());
             // 扩展属性
             Map<String, Object> extra = new HashMap<>();
-            extra.put("menuId", menu.getMenuId());
+            extra.put("menuId", menu.getId());
             extra.put("name", menu.getName());
             extra.put("sort", menu.getSort());
             extra.put("keepAlive", menu.getKeepAlive());

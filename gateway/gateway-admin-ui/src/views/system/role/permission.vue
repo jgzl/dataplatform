@@ -72,7 +72,7 @@
 					props: {},
 					rule: "",
 					role: {
-						roleId:"",
+						id:"",
 						roleName: "",
 						roleCode: "",
 						roleDesc: "",
@@ -120,7 +120,7 @@
 				// 	this.$emit('success')
 				// },1000)
 				const routeVo = {
-					roleId: this.data.role.roleId,
+					id: this.data.role.id,
 					menuIds: this.$refs.menu.getCheckedKeys().concat(this.$refs.menu.getHalfCheckedKeys()).toString()
 				}
 				let res = await this.$API.system.role.menu.put(routeVo);
@@ -137,7 +137,7 @@
 				this.menu.list = res.data
 
 				//获取接口返回的之前选中的和半选的合并，处理过滤掉有叶子节点的key
-				var listByRole = await this.$API.system.menu.listByRole.get(this.data.role.roleId)
+				var listByRole = await this.$API.system.menu.listByRole.get(this.data.role.id)
 				this.menu.checked = listByRole.data;
 				this.$nextTick(() => {
 					// let filterKeys = this.menu.checked.filter(key => this.$refs.menu.getNode(key).isLeaf)

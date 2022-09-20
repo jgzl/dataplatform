@@ -144,10 +144,10 @@
 </template>
 
 <script>
-	import saveDialog from './save'
-	import prettyDialog from './pretty'
+import saveDialog from './save'
+import prettyDialog from './pretty'
 
-	export default {
+export default {
 		name: 'user',
 		components: {
 			saveDialog,
@@ -210,7 +210,7 @@
 			},
 			//删除
 			async table_del(row, index){
-				let res = await this.$API.gateway.log.delete.delete(row.userId);
+				let res = await this.$API.gateway.log.delete.delete(row.id);
 				if(res.code === 200){
 					//这里选择刷新整个表格 OR 插入/编辑现有表格数据
 					this.$refs.table.tableData.splice(index, 1);

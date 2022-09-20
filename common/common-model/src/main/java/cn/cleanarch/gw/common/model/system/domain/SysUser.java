@@ -1,14 +1,9 @@
 package cn.cleanarch.gw.common.model.system.domain;
 
 import cn.cleanarch.gw.common.model.base.BaseDO;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -21,14 +16,6 @@ import java.time.LocalDateTime;
 public class SysUser extends BaseDO {
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * 主键ID
-     */
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    @TableId(value = "user_id", type = IdType.AUTO)
-    private Long userId;
-
     /**
      * 用户名
      */

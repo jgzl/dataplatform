@@ -165,3 +165,35 @@ ALTER TABLE sys_error_code MODIFY COLUMN updater varchar(64) DEFAULT 1 NOT NULL;
 ALTER TABLE sys_error_code MODIFY COLUMN creator varchar(64) DEFAULT 1 NOT NULL;
 ALTER TABLE sys_error_code MODIFY COLUMN update_time datetime DEFAULT current_timestamp() NOT NULL;
 ALTER TABLE sys_error_code MODIFY COLUMN create_time datetime DEFAULT current_timestamp() NOT NULL;
+
+ALTER TABLE sys_user_role ADD id bigint NOT NULL COMMENT 'id';
+update sys_user_role set id = concat(user_id,role_id);
+ALTER TABLE sys_user_role ADD CONSTRAINT sys_user_role_PK PRIMARY KEY (id);
+ALTER TABLE sys_role_menu ADD id bigint NOT NULL COMMENT 'id';
+update sys_role_menu set id = concat(role_id,menu_id);
+ALTER TABLE sys_role_menu ADD CONSTRAINT sys_role_menu_PK PRIMARY KEY (id);
+ALTER TABLE sys_dept_relation ADD id bigint NOT NULL COMMENT 'id';
+update sys_dept_relation set id = concat(ancestor,descendant);
+ALTER TABLE sys_dept_relation ADD CONSTRAINT sys_dept_relation_PK PRIMARY KEY (id);
+
+ALTER TABLE gateway_access_conf  MODIFY COLUMN deleted bigint(20) DEFAULT 0 NOT NULL;
+ALTER TABLE gateway_route_conf MODIFY COLUMN deleted bigint(20) DEFAULT 0 NOT NULL;
+ALTER TABLE sys_dept MODIFY COLUMN deleted bigint(20) DEFAULT 0 NOT NULL;
+ALTER TABLE sys_dept_relation MODIFY COLUMN deleted bigint(20) DEFAULT 0 NOT NULL;
+ALTER TABLE sys_error_code MODIFY COLUMN deleted bigint(20) DEFAULT 0 NOT NULL;
+ALTER TABLE sys_menu MODIFY COLUMN deleted bigint(20) DEFAULT 0 NOT NULL;
+ALTER TABLE sys_role MODIFY COLUMN deleted bigint(20) DEFAULT 0 NOT NULL;
+ALTER TABLE sys_role_menu MODIFY COLUMN deleted bigint(20) DEFAULT 0 NOT NULL;
+ALTER TABLE sys_user MODIFY COLUMN deleted bigint(20) DEFAULT 0 NOT NULL;
+ALTER TABLE sys_user_role MODIFY COLUMN deleted bigint(20) DEFAULT 0 NOT NULL;
+
+ALTER TABLE sys_user CHANGE user_id id bigint(20) DEFAULT 0 NOT NULL;
+ALTER TABLE sys_role CHANGE role_id id bigint(20) DEFAULT 0 NOT NULL;
+ALTER TABLE sys_menu CHANGE menu_id id bigint(20) DEFAULT 0 NOT NULL;
+ALTER TABLE sys_dept CHANGE dept_id id bigint(20) DEFAULT 0 NOT NULL;
+
+DELETE from gateway_route_conf where id is null;
+ALTER TABLE sys_error_code  ADD CONSTRAINT sys_error_code_PK PRIMARY KEY (id);
+ALTER TABLE gateway_access_conf ADD CONSTRAINT gateway_access_conf_PK PRIMARY KEY (id);
+ALTER TABLE gateway_route_conf ADD CONSTRAINT gateway_route_conf_PK PRIMARY KEY (id);
+ALTER TABLE gateway_log ADD CONSTRAINT gateway_log_PK PRIMARY KEY (id);

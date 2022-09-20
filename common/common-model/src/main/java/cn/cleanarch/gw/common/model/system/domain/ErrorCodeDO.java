@@ -2,9 +2,7 @@ package cn.cleanarch.gw.common.model.system.domain;
 
 import cn.cleanarch.gw.common.model.base.BaseDO;
 import cn.cleanarch.gw.common.model.system.constants.ErrorCodeTypeEnum;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -20,12 +18,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class ErrorCodeDO extends BaseDO {
 
-    /**
-     * 错误码编号，自增
-     */
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    @TableId
-    private Long id;
+    private static final long serialVersionUID = 1L;
     /**
      * 错误码类型
      *

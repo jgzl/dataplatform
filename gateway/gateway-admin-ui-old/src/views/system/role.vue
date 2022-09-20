@@ -108,31 +108,20 @@
 </template>
 
 <script lang="ts" setup>
-  import { useGet, usePost, usePut, useDelete, useLikeSearch, usePageDataTable } from "@/hooks";
-  import type { DialogType, TableFooter } from "@/components/types";
-  import { nextTick, onMounted, reactive, ref, shallowReactive } from "vue";
-  import { ElMessage, ElMessageBox } from "element-plus";
-  import {
-    systemRole,
-    systemRoleList,
-    systemRolePage,
-    systemMenuTree,
-    systemMenuTreeByRole,
-    systemMenuList,
-    systemUser,
-    systemRoleMenu, systemUserPage, systemDeptTree
-  } from "@/api/url";
+import {useDelete, useGet, useLikeSearch, usePageDataTable, usePost, usePut} from "@/hooks";
+import type {DialogType, TableFooter} from "@/components/types";
+import {nextTick, onMounted, reactive, ref} from "vue";
+import {ElMessage, ElMessageBox} from "element-plus";
+import {systemMenuTree, systemMenuTreeByRole, systemRole, systemRoleMenu, systemRolePage} from "@/api/url";
+import useUserStore from "@/store/modules/user";
 
-  import { Plus } from "@element-plus/icons";
-  import useUserStore from "@/store/modules/user";
-
-  const { likeSearchModel, getSearchParams, resetSearch } = useLikeSearch();
+const { likeSearchModel, getSearchParams, resetSearch } = useLikeSearch();
   const userStore = useUserStore();
   const ROLE_CODE_FLAG = "ROLE_";
   const MENU_LEFT = "0";
   const MENU_BUTTON = "1";
   const roleModel = reactive({
-    roleId: 0,
+    id: 0,
     roleName: "",
     roleCode: "",
     description: "",
@@ -298,7 +287,7 @@
       url: systemMenuTreeByRole,
       data: {
         type: MENU_LEFT+","+MENU_BUTTON,
-        roleId: item.roleId
+        id: item.id
       }
     }).then((res) => {
       if (res.data===null||res.data===undefined) {
@@ -311,7 +300,7 @@
         put({
           url:systemRoleMenu ,
           data: {
-            roleId: item.roleId,
+            id: item.id,
             menuIds: menuIds
           }
         })
@@ -354,7 +343,7 @@
     console.log(currentRoles)
     dialogRef.value?.show(() => {
       const updateData: any = {};
-      updateData['roleId'] = item.roleId;
+      updateData['id'] = item.id;
       formItems.forEach((it: FormItem) => {
         updateData[it.name] = it.value
       });
@@ -370,7 +359,7 @@
   function onDeleteItem(item: RoleModel) {
     ElMessageBox.confirm("是否要删除此信息，删除后不可恢复？", "提示").then(
             () => {
-              httpDelete({url:`${systemRole}/${item.roleId}`})
+              httpDelete({url:`${systemRole}/${item.id}`})
                       .then((res)=>{
                         console.log(JSON.stringify(res))
                         doRefresh();

@@ -17,7 +17,7 @@
 			<scTable ref="table" :apiObj="apiObj" row-key="id" @selection-change="selectionChange" stripe>
 				<el-table-column type="selection" width="50"></el-table-column>
 <!--				<el-table-column label="#" type="index" width="50"></el-table-column>-->
-				<el-table-column label="ID" prop="roleId" width="150"></el-table-column>
+				<el-table-column label="ID" prop="id" width="150"></el-table-column>
 				<el-table-column label="角色名称" prop="roleName" width="150"></el-table-column>
 				<el-table-column label="角色编码" prop="roleCode" width="150"></el-table-column>
 				<el-table-column label="角色描述" prop="roleDesc" width="200"></el-table-column>
@@ -48,10 +48,10 @@
 </template>
 
 <script>
-	import saveDialog from './save'
-	import permissionDialog from './permission'
+import saveDialog from './save'
+import permissionDialog from './permission'
 
-	export default {
+export default {
 		name: 'role',
 		components: {
 			saveDialog,
@@ -102,7 +102,7 @@
 			},
 			//删除
 			async table_del(row){
-				let res = await this.$API.system.role.delete.delete(row.roleId);
+				let res = await this.$API.system.role.delete.delete(row.id);
 				if(res.code === 200){
 					this.$refs.table.refresh()
 					this.$message.success("删除成功")

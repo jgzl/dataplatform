@@ -151,7 +151,7 @@
               :data="dataList"
               :dataFields="{
                 label: 'menuName',
-                value: 'menuId',
+                value: 'id',
                 children: 'children',
               }"
             />
@@ -247,16 +247,15 @@
 </template>
 
 <script lang="ts" setup>
-  import type { DialogType } from "@/components/types";
-  import { uuid } from "@/utils";
-  import { onMounted, reactive, ref, shallowReactive } from "vue";
-  import { ElMessage, ElMessageBox } from "element-plus";
-  import { useGet, usePost, usePut, useDelete, useLikeSearch, useDataTable } from "@/hooks";
-  import {systemMenuTreeByUser, systemMenu, systemRole, systemMenuTree} from "@/api/url";
-  import { Plus } from "@element-plus/icons";
+import type {DialogType} from "@/components/types";
+import {uuid} from "@/utils";
+import {onMounted, reactive, ref} from "vue";
+import {ElMessageBox} from "element-plus";
+import {useDataTable, useDelete, useGet, usePost, usePut} from "@/hooks";
+import {systemMenu, systemMenuTree} from "@/api/url";
 
-  const menuModel = reactive<MenuModel>({
-    menuId: uuid(),
+const menuModel = reactive<MenuModel>({
+    id: uuid(),
     parentPath: "",
     parentId: "",
     path: "",
@@ -289,7 +288,7 @@
     .catch(console.log);
   }
   function onAddItem() {
-    menuModel.menuId = "";
+    menuModel.id = "";
     menuModel.parentPath = "";
     menuModel.parentId = "";
     menuModel.path = "";
@@ -314,7 +313,7 @@
     });
   }
   function onUpdateItem(item: any) {
-    menuModel.menuId = item.menuId;
+    menuModel.id = item.id;
     menuModel.parentPath = item.parentPath;
     menuModel.parentId = item.parentId;
     menuModel.path = item.menuUrl;
@@ -339,7 +338,7 @@
   }
   function onDeleteItem(item: any) {
     ElMessageBox.confirm("是否要删除此数据？").then(() => {
-      httpDelete({url:`${systemMenu}/${item.menuId}`})
+      httpDelete({url:`${systemMenu}/${item.id}`})
               .then((res)=>{
                 console.log(JSON.stringify(res))
                 doRefresh();

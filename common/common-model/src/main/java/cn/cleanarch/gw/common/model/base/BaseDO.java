@@ -1,14 +1,11 @@
 package cn.cleanarch.gw.common.model.base;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.Version;
+import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * 基础实体对象
@@ -16,7 +13,14 @@ import java.util.Date;
  * @author lihaifeng
  */
 @Data
-public abstract class BaseDO implements Serializable {
+public abstract class BaseDO implements Serializable,Cloneable {
+
+    /**
+     * ID
+     */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    private Long id;
 
     /**
      * 创建时间
@@ -43,13 +47,16 @@ public abstract class BaseDO implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private String updater;
     /**
-     * 是否删除(0正常,1删除)
+     * 0：未删除 其他：已删除
      */
-    @TableLogic
-    private String deleted;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    @TableLogic(value = "0",delval = "id")
+    @TableField(fill = FieldFill.INSERT)
+    private Long deleted;
     /**
      * 乐观锁版本
      */
     @Version
+    @TableField(fill = FieldFill.INSERT)
     private Integer version;
 }

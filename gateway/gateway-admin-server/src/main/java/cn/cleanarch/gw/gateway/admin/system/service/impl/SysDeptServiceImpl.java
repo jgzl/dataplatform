@@ -92,7 +92,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         // 更新部门关系
         SysDeptRelation relation = new SysDeptRelation();
         relation.setAncestor(sysDept.getParentId());
-        relation.setDescendant(sysDept.getDeptId());
+        relation.setDescendant(sysDept.getId());
         sysDeptRelationService.updateDeptRelation(relation);
         return Boolean.TRUE;
     }
@@ -109,19 +109,19 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
 
         // 权限内部门
         List<TreeNode<Long>> collect = deptAllList.stream()
-                .filter(dept -> dept.getDeptId().intValue() != dept.getParentId())
+                .filter(dept -> dept.getId().intValue() != dept.getParentId())
                 .sorted(Comparator.comparingInt(SysDept::getSort)).map(dept -> {
                     TreeNode<Long> treeNode = new TreeNode<>();
-                    treeNode.setId(dept.getDeptId());
+                    treeNode.setId(dept.getId());
                     treeNode.setParentId(dept.getParentId());
                     treeNode.setName(dept.getName());
                     Map<String, Object> extraMap = MapUtil.newHashMap();
                     treeNode.setExtra(extraMap);
-                    extraMap.put("deptId", dept.getDeptId());
+                    extraMap.put("deptId", dept.getId());
                     extraMap.put("sort", dept.getSort());
                     extraMap.put("status", dept.getStatus());
                     extraMap.put("label", dept.getName());
-                    extraMap.put("value", dept.getDeptId());
+                    extraMap.put("value", dept.getId());
                     extraMap.put("remark", null);
                     extraMap.put("createTime", dept.getCreateTime());
                     return treeNode;

@@ -41,7 +41,7 @@ public class SysDeptRelationServiceImpl extends ServiceImpl<SysDeptRelationMappe
         List<SysDeptRelation> relationList = sysDeptRelationMapper.selectList(
                         Wrappers.<SysDeptRelation>query().lambda().eq(SysDeptRelation::getDescendant, sysDept.getParentId()))
                 .stream().map(relation -> {
-                    relation.setDescendant(sysDept.getDeptId());
+                    relation.setDescendant(sysDept.getId());
                     return relation;
                 }).collect(Collectors.toList());
         if (CollUtil.isNotEmpty(relationList)) {
@@ -50,8 +50,8 @@ public class SysDeptRelationServiceImpl extends ServiceImpl<SysDeptRelationMappe
 
         // 自己也要维护到关系表中
         SysDeptRelation own = new SysDeptRelation();
-        own.setDescendant(sysDept.getDeptId());
-        own.setAncestor(sysDept.getDeptId());
+        own.setDescendant(sysDept.getId());
+        own.setAncestor(sysDept.getId());
         sysDeptRelationMapper.insert(own);
     }
 

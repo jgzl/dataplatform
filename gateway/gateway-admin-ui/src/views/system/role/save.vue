@@ -33,7 +33,7 @@
 				isSaving: false,
 				//表单数据
 				form: {
-					roleId:"",
+					id:"",
 					roleName: "",
 					roleCode: "",
 					roleDesc: "",
@@ -68,7 +68,7 @@
 					if (valid) {
 						this.isSaving = true;
 						let res;
-						if (this.form.roleId === '') {
+						if (this.form.id === '') {
 							res = await this.$API.system.role.save.post(this.form);
 						} else {
 							res = await this.$API.system.role.update.put(this.form);

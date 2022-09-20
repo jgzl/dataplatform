@@ -1,16 +1,10 @@
 package cn.cleanarch.gw.common.model.system.domain;
 
 import cn.cleanarch.gw.common.model.base.BaseDO;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 
 /**
  * 角色
@@ -23,13 +17,6 @@ import java.time.LocalDateTime;
 public class SysRole extends BaseDO {
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * 角色ID
-     */
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    @TableId(value = "role_id", type = IdType.AUTO)
-    private Long roleId;
 
     /**
      * 角色名称

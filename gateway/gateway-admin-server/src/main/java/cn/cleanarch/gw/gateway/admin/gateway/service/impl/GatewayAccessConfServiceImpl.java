@@ -1,7 +1,6 @@
 package cn.cleanarch.gw.gateway.admin.gateway.service.impl;
 
 import cn.cleanarch.gw.common.core.constant.CacheConstants;
-import cn.cleanarch.gw.common.core.constant.CommonConstants;
 import cn.cleanarch.gw.common.model.gateway.convert.AccessConvert;
 import cn.cleanarch.gw.common.model.gateway.domain.GatewayAccessConf;
 import cn.cleanarch.gw.common.model.gateway.vo.GatewayAccessConfVo;
@@ -39,7 +38,6 @@ public class GatewayAccessConfServiceImpl extends ServiceImpl<GatewayAccessConfM
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean saveOrUpdate(GatewayAccessConf item) {
-        item.setDeleted(CommonConstants.STATUS_NORMAL);
         try {
             boolean result = super.saveOrUpdate(item);
             GatewayAccessConfVo vo = AccessConvert.INSTANCE.convertDo2Vo(item);

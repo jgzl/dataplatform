@@ -32,7 +32,7 @@ public interface SysMenuService extends IService<SysMenu> {
      * @param id 菜单ID
      * @return 成功、失败
      */
-    R removeMenuById(Integer id);
+    R removeMenuById(Long id);
 
     /**
      * 更新菜单信息

@@ -52,9 +52,9 @@ public class GatewayAccessConfController {
      * @return
      */
     @PostMapping
-    public R<Void> createItem(@RequestBody GatewayAccessConf vo) {
-        service.saveOrUpdate(vo);
-        return R.success();
+    public R<GatewayAccessConf> save(@RequestBody GatewayAccessConf vo) {
+        service.save(vo);
+        return R.success(vo);
     }
 
     /**
@@ -64,9 +64,9 @@ public class GatewayAccessConfController {
      * @return
      */
     @PutMapping
-    public R<Void> updateItem(@RequestBody GatewayAccessConf vo) {
-        service.saveOrUpdate(vo);
-        return R.success();
+    public R<GatewayAccessConf> updateById(@RequestBody GatewayAccessConf vo) {
+        service.updateById(vo);
+        return R.success(vo);
     }
 
     /**

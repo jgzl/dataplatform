@@ -1,8 +1,6 @@
 package cn.cleanarch.gw.common.model.system.domain;
 
 import cn.cleanarch.gw.common.model.base.BaseDO;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,12 +18,6 @@ import javax.validation.constraints.NotNull;
 public class SysMenu extends BaseDO {
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * 菜单ID
-     */
-    @TableId(value = "menu_id", type = IdType.AUTO)
-    private Long menuId;
 
     /**
      * 菜单名称

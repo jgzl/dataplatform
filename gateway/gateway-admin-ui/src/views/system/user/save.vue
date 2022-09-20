@@ -38,7 +38,7 @@
 				</el-form-item>
 				<el-form-item label="所属角色" prop="role">
 					<el-select v-model="form.role" multiple filterable style="width: 100%">
-						<el-option v-for="item in roles" :key="item.roleId" :label="item.roleName" :value="item.roleId"></el-option>
+						<el-option v-for="item in roles" :key="item.id" :label="item.roleName" :value="item.id"></el-option>
 					</el-select>
 				</el-form-item>
 			</template>
@@ -58,7 +58,7 @@
 				</el-form-item>
 				<el-form-item label="所属角色" prop="role">
 					<el-select v-model="form.role" multiple filterable style="width: 100%">
-						<el-option v-for="item in roles" :key="item.roleId" :label="item.roleName" :value="item.roleId"/>
+						<el-option v-for="item in roles" :key="item.id" :label="item.roleName" :value="item.id"/>
 					</el-select>
 				</el-form-item>
 			</template>
@@ -85,7 +85,7 @@
 				isSaving: false,
 				//表单数据
 				form: {
-					userId:"",
+					id:"",
 					userName: "",
 					avatar: "",
 					nickName: "",
@@ -145,7 +145,7 @@
 				//所需数据选项
 				roles: [],
 				rolesProps: {
-					value: "roleId",
+					value: "id",
 					multiple: true,
 					checkStrictly: true
 				},
@@ -180,7 +180,7 @@
 					if (valid) {
 						this.isSaving = true;
 						let res;
-						if (this.form.userId === '') {
+						if (this.form.id === '') {
 							res = await this.$API.system.user.save.post(this.form);
 						} else {
 							res = await this.$API.system.user.update.put(this.form);
@@ -200,13 +200,13 @@
 			},
 			//表单注入数据
 			setData(data){
-				this.form.userId = data.userId
+				this.form.id = data.id
 				this.form.avatar = data.avatar
 				this.form.userName = data.userName
 				this.form.nickName = data.nickName
 				this.form.mobile = data.mobile
 				this.form.email = data.email
-				this.form.role = data.roleList.map(item => item.roleId)
+				this.form.role = data.roleList.map(item => item.id)
 				this.form.deptId = data.deptId
 				this.deptIdArray.push(data.deptId)
 			}
