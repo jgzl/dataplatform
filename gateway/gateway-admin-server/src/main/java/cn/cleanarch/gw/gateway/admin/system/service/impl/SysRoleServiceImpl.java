@@ -1,12 +1,12 @@
 package cn.cleanarch.gw.gateway.admin.system.service.impl;
 
 import cn.cleanarch.gw.common.core.constant.CacheConstants;
-import cn.cleanarch.gw.common.model.system.domain.SysRole;
-import cn.cleanarch.gw.common.model.system.domain.SysRoleMenu;
-import cn.cleanarch.gw.common.model.system.vo.RoleVo;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysRoleDO;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysRoleMenuDO;
 import cn.cleanarch.gw.gateway.admin.system.mapper.SysRoleMapper;
 import cn.cleanarch.gw.gateway.admin.system.service.SysRoleMenuService;
 import cn.cleanarch.gw.gateway.admin.system.service.SysRoleService;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysRoleMenuVO;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Service
 @AllArgsConstructor
-public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements SysRoleService {
+public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleDO> implements SysRoleService {
 
     private SysRoleMenuService roleMenuService;
 
@@ -50,7 +50,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
      */
     @Override
     @Cacheable(value = CacheConstants.ROLE_DETAILS, key = "#key")
-    public List<SysRole> findRolesByRoleIds(List<Long> roleIdList, String key) {
+    public List<SysRoleDO> findRolesByRoleIds(List<Long> roleIdList, String key) {
         return baseMapper.selectBatchIds(roleIdList);
     }
 
@@ -63,20 +63,20 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean removeRoleById(Long id) {
-        roleMenuService.remove(Wrappers.<SysRoleMenu>update().lambda().eq(SysRoleMenu::getRoleId, id));
+        roleMenuService.remove(Wrappers.<SysRoleMenuDO>update().lambda().eq(SysRoleMenuDO::getRoleId, id));
         return this.removeById(id);
     }
 
     /**
      * 根据角色菜单列表
      *
-     * @param roleVo 角色&菜单列表
+     * @param sysRoleMenuVO 角色&菜单列表
      * @return
      */
     @Override
-    public Boolean updateRoleMenus(RoleVo roleVo) {
-        SysRole sysRole = baseMapper.selectById(roleVo.getRoleId());
-        return roleMenuService.saveRoleMenus(sysRole.getRoleCode(), roleVo.getRoleId(), roleVo.getMenuIds());
+    public Boolean updateRoleMenus(SysRoleMenuVO sysRoleMenuVO) {
+        SysRoleDO sysRoleDO = baseMapper.selectById(sysRoleMenuVO.getRoleId());
+        return roleMenuService.saveRoleMenus(sysRoleDO.getRoleCode(), sysRoleMenuVO.getRoleId(), sysRoleMenuVO.getMenuIds());
     }
 
     /**
@@ -86,9 +86,9 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
      * @return
      */
     @Override
-    public SysRole findRoleByRoleCode(String role) {
-        SysRole sysRole = baseMapper.selectOne(Wrappers.<SysRole>query().lambda().eq(SysRole::getRoleCode, role));
-        return sysRole;
+    public SysRoleDO findRoleByRoleCode(String role) {
+        SysRoleDO sysRoleDO = baseMapper.selectOne(Wrappers.<SysRoleDO>query().lambda().eq(SysRoleDO::getRoleCode, role));
+        return sysRoleDO;
     }
 
 }

@@ -1,13 +1,13 @@
 package cn.cleanarch.gw.gateway.admin.system.controller;
 
 import cn.cleanarch.gw.common.core.model.R;
-import cn.cleanarch.gw.common.model.system.convert.ErrorCodeConvert;
-import cn.cleanarch.gw.common.model.system.domain.ErrorCodeDO;
-import cn.cleanarch.gw.common.model.system.vo.ErrorCodeCreateReqVO;
-import cn.cleanarch.gw.common.model.system.vo.ErrorCodePageReqVO;
-import cn.cleanarch.gw.common.model.system.vo.ErrorCodeRespVO;
-import cn.cleanarch.gw.common.model.system.vo.ErrorCodeUpdateReqVO;
+import cn.cleanarch.gw.gateway.admin.system.convert.ErrorCodeConvert;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysErrorCodeDO;
 import cn.cleanarch.gw.gateway.admin.system.service.ErrorCodeService;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysErrorCodeCreateReqVO;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysErrorCodePageReqVO;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysErrorCodeRespVO;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysErrorCodeUpdateReqVO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
-@Api(tags = "管理后台 - 错误码")
+@Api(tags = "系统管理-错误码")
 @RestController
 @RequestMapping("/system/error-code")
 @Validated
@@ -30,14 +30,14 @@ public class ErrorCodeController {
     @PostMapping
     @ApiOperation("创建错误码")
 //    @PreAuthorize("@pms.hasPermission('system:error-code:create')")
-    public R<Long> createErrorCode(@Valid @RequestBody ErrorCodeCreateReqVO createReqVO) {
+    public R<Long> createErrorCode(@Valid @RequestBody SysErrorCodeCreateReqVO createReqVO) {
         return R.success(errorCodeService.createErrorCode(createReqVO));
     }
 
     @PutMapping
     @ApiOperation("更新错误码")
 //    @PreAuthorize("@pms.hasPermission('system:error-code:update')")
-    public R<Boolean> updateErrorCode(@Valid @RequestBody ErrorCodeUpdateReqVO updateReqVO) {
+    public R<Boolean> updateErrorCode(@Valid @RequestBody SysErrorCodeUpdateReqVO updateReqVO) {
         errorCodeService.updateErrorCode(updateReqVO);
         return R.success(true);
     }
@@ -55,16 +55,16 @@ public class ErrorCodeController {
     @ApiOperation("获得错误码")
 //    @PreAuthorize("@pms.hasPermission('system:error-code:query')")
     @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
-    public R<ErrorCodeRespVO> getErrorCode(@RequestParam("id") Long id) {
-        ErrorCodeDO errorCode = errorCodeService.getErrorCode(id);
+    public R<SysErrorCodeRespVO> getErrorCode(@RequestParam("id") Long id) {
+        SysErrorCodeDO errorCode = errorCodeService.getErrorCode(id);
         return R.success(ErrorCodeConvert.INSTANCE.convert(errorCode));
     }
 
     @GetMapping("/page")
     @ApiOperation("获得错误码分页")
 //    @PreAuthorize("@pms.hasPermission('system:error-code:query')")
-    public R<IPage<ErrorCodeRespVO>> getErrorCodePage(@Valid ErrorCodePageReqVO pageVO) {
-        IPage<ErrorCodeDO> pageResult = errorCodeService.getErrorCodePage(pageVO);
+    public R<IPage<SysErrorCodeRespVO>> getErrorCodePage(@Valid SysErrorCodePageReqVO pageVO) {
+        IPage<SysErrorCodeDO> pageResult = errorCodeService.getErrorCodePage(pageVO);
         return R.success(ErrorCodeConvert.INSTANCE.convertPage(pageResult));
     }
 }

@@ -6,8 +6,8 @@ import cn.cleanarch.gw.common.core.constant.enums.MenuTypeEnum;
 import cn.cleanarch.gw.common.core.exception.enums.ErrorCodeConstants;
 import cn.cleanarch.gw.common.core.exception.util.ServiceExceptionUtil;
 import cn.cleanarch.gw.common.core.model.R;
-import cn.cleanarch.gw.common.model.system.domain.SysMenu;
-import cn.cleanarch.gw.common.model.system.domain.SysRoleMenu;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysMenuDO;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysRoleMenuDO;
 import cn.cleanarch.gw.gateway.admin.system.mapper.SysMenuMapper;
 import cn.cleanarch.gw.gateway.admin.system.mapper.SysRoleMenuMapper;
 import cn.cleanarch.gw.gateway.admin.system.service.SysMenuService;
@@ -43,13 +43,13 @@ import java.util.stream.Collectors;
  */
 @Service
 @AllArgsConstructor
-public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements SysMenuService {
+public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenuDO> implements SysMenuService {
 
     private final SysRoleMenuMapper sysRoleMenuMapper;
 
     @Override
     @Cacheable(value = CacheConstants.MENU_DETAILS, key = "#roleId", unless = "#result.isEmpty()")
-    public List<SysMenu> findMenuByRoleId(Long roleId) {
+    public List<SysMenuDO> findMenuByRoleId(Long roleId) {
         return baseMapper.listMenusByRoleId(roleId);
     }
 
@@ -58,20 +58,20 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     @CacheEvict(value = CacheConstants.MENU_DETAILS, allEntries = true)
     public R removeMenuById(Long id) {
         // 查询父节点为当前节点的节点
-        List<SysMenu> menuList = this.list(Wrappers.<SysMenu>query().lambda().eq(SysMenu::getParentId, id));
+        List<SysMenuDO> menuList = this.list(Wrappers.<SysMenuDO>query().lambda().eq(SysMenuDO::getParentId, id));
         if (CollUtil.isNotEmpty(menuList)) {
             throw ServiceExceptionUtil.exception(ErrorCodeConstants.MENU_EXISTS_CHILDREN);
         }
 
-        sysRoleMenuMapper.delete(Wrappers.<SysRoleMenu>query().lambda().eq(SysRoleMenu::getMenuId, id));
+        sysRoleMenuMapper.delete(Wrappers.<SysRoleMenuDO>query().lambda().eq(SysRoleMenuDO::getMenuId, id));
         // 删除当前菜单及其子菜单
         return R.success(this.removeById(id));
     }
 
     @Override
     @CacheEvict(value = CacheConstants.MENU_DETAILS, allEntries = true)
-    public Boolean updateMenuById(SysMenu sysMenu) {
-        return this.updateById(sysMenu);
+    public Boolean updateMenuById(SysMenuDO sysMenuDO) {
+        return this.updateById(sysMenuDO);
     }
 
     /**
@@ -85,7 +85,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     public List<Tree<Long>> treeMenu(boolean lazy, Long parentId) {
         if (!lazy) {
             List<TreeNode<Long>> collect = baseMapper
-                    .selectList(Wrappers.<SysMenu>lambdaQuery().orderByAsc(SysMenu::getSort)).stream()
+                    .selectList(Wrappers.<SysMenuDO>lambdaQuery().orderByAsc(SysMenuDO::getSort)).stream()
                     .map(getNodeFunction()).collect(Collectors.toList());
 
             return TreeUtil.build(collect, CommonConstants.TREE_ROOT_ID);
@@ -95,7 +95,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
         List<TreeNode<Long>> collect = baseMapper
                 .selectList(
-                        Wrappers.<SysMenu>lambdaQuery().eq(SysMenu::getParentId, parent).orderByAsc(SysMenu::getSort))
+                        Wrappers.<SysMenuDO>lambdaQuery().eq(SysMenuDO::getParentId, parent).orderByAsc(SysMenuDO::getSort))
                 .stream().map(getNodeFunction()).collect(Collectors.toList());
 
         return TreeUtil.build(collect, parent);
@@ -110,7 +110,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
      * @return
      */
     @Override
-    public List<Tree<Long>> filterMenu(Set<SysMenu> all, String type, Long parentId) {
+    public List<Tree<Long>> filterMenu(Set<SysMenuDO> all, String type, Long parentId) {
         List<TreeNode<Long>> collect;
         if (StrUtil.isBlank(type)) {
             collect = all.stream().filter(menu -> menu.getType().equals(MenuTypeEnum.LEFT_MENU.getType())).map(getNodeFunction())
@@ -125,7 +125,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     }
 
     @NotNull
-    private Function<SysMenu, TreeNode<Long>> getNodeFunction() {
+    private Function<SysMenuDO, TreeNode<Long>> getNodeFunction() {
         return menu -> {
             TreeNode<Long> node = new TreeNode<>();
             node.setId(menu.getId());

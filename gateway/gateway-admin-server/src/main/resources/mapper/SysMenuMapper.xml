@@ -3,7 +3,7 @@
 <mapper namespace="cn.cleanarch.gw.gateway.admin.system.mapper.SysMenuMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.cleanarch.gw.common.model.system.domain.SysMenu">
+    <resultMap id="BaseResultMap" type="cn.cleanarch.gw.gateway.admin.system.domain.SysMenuDO">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="permission" property="permission"/>

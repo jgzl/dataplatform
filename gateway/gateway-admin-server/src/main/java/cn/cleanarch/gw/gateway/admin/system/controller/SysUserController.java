@@ -1,12 +1,12 @@
 package cn.cleanarch.gw.gateway.admin.system.controller;
 
 import cn.cleanarch.gw.common.core.model.R;
-import cn.cleanarch.gw.common.model.system.domain.SysUser;
-import cn.cleanarch.gw.common.model.system.vo.SysUserDto;
-import cn.cleanarch.gw.common.model.system.vo.SysUserVo;
-import cn.cleanarch.gw.common.model.system.vo.UserInfo;
 import cn.cleanarch.gw.common.security.service.SysUserService;
 import cn.cleanarch.gw.common.security.utils.AppContextHolder;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysUserDO;
+import cn.cleanarch.gw.gateway.admin.system.dto.SysUserDTO;
+import cn.cleanarch.gw.gateway.admin.system.dto.SysUserInfoDTO;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysUserVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -38,7 +38,7 @@ public class SysUserController {
      * @return 用户信息
      */
     @GetMapping("/info/{userName}")
-    public R<UserInfo> infoByUserName(@NotEmpty @PathVariable String userName) {
+    public R<SysUserInfoDTO> infoByUserName(@NotEmpty @PathVariable String userName) {
         return R.success(userService.findUserInfo(userName));
     }
 
@@ -48,7 +48,7 @@ public class SysUserController {
      * @return 用户信息
      */
     @GetMapping(value = {"/info"})
-    public R<UserInfo> info() {
+    public R<SysUserInfoDTO> info() {
         return R.success(userService.findUserInfo(AppContextHolder.getUser().getUsername()));
     }
 
@@ -59,7 +59,7 @@ public class SysUserController {
      * @return 用户信息
      */
     @GetMapping("/{id}")
-    public R<SysUserVo> user(@PathVariable Integer id) {
+    public R<SysUserVO> user(@PathVariable Integer id) {
         return R.success(userService.selectUserVoById(id));
     }
 
@@ -70,8 +70,8 @@ public class SysUserController {
      * @return
      */
     @GetMapping("/details/{userName}")
-    public R<SysUser> user(@PathVariable String userName) {
-        SysUser condition = new SysUser();
+    public R<SysUserDO> user(@PathVariable String userName) {
+        SysUserDO condition = new SysUserDO();
         condition.setUserName(userName);
         return R.success(userService.getOne(new QueryWrapper<>(condition)));
     }
@@ -84,8 +84,8 @@ public class SysUserController {
      */
     @DeleteMapping("/{id}")
     public R<Boolean> userDel(@PathVariable Long id) {
-        SysUser sysUser = userService.getById(id);
-        return R.success(userService.deleteUserById(sysUser));
+        SysUserDO sysUserDO = userService.getById(id);
+        return R.success(userService.deleteUserById(sysUserDO));
     }
 
     /**
@@ -96,7 +96,7 @@ public class SysUserController {
      */
     @PostMapping
     //@PreAuthorize("@pms.hasPermission('sys_user_add')")
-    public R<Boolean> user(@RequestBody SysUserDto userDto) {
+    public R<Boolean> user(@RequestBody SysUserDTO userDto) {
         return R.success(userService.saveUser(userDto));
     }
 
@@ -108,7 +108,7 @@ public class SysUserController {
      */
     @PutMapping
     //@PreAuthorize("@pms.hasPermission('sys_user_edit')")
-    public R<Boolean> updateUser(@Valid @RequestBody SysUserDto userDto) {
+    public R<Boolean> updateUser(@Valid @RequestBody SysUserDTO userDto) {
         return R.success(userService.updateUser(userDto));
     }
 
@@ -120,7 +120,7 @@ public class SysUserController {
      */
     @PutMapping("/lockFlag")
     //@PreAuthorize("@pms.hasPermission('sys_user_edit')")
-    public R<Boolean> updateUserForLockFlag(@Valid @RequestBody SysUserDto userDto) {
+    public R<Boolean> updateUserForLockFlag(@Valid @RequestBody SysUserDTO userDto) {
         return R.success(userService.updateUserForLockFlag(userDto));
     }
 
@@ -132,7 +132,7 @@ public class SysUserController {
      * @return 用户集合
      */
     @GetMapping("/page")
-    public R<IPage<SysUserVo>> getUserPage(Page page, SysUserDto userDTO) {
+    public R<IPage<SysUserVO>> getUserPage(Page page, SysUserDTO userDTO) {
         return R.success(userService.getUsersWithDeptPage(page, userDTO));
     }
 
@@ -143,7 +143,7 @@ public class SysUserController {
      * @return 用户集合
      */
     @GetMapping("/list")
-    public R<List<SysUserVo>> getUserList(SysUserDto userDTO) {
+    public R<List<SysUserVO>> getUserList(SysUserDTO userDTO) {
         return R.success(userService.getUsersWithDept(userDTO));
     }
 
@@ -154,7 +154,7 @@ public class SysUserController {
      * @return success/false
      */
     @PutMapping("/edit")
-    public R<Boolean> updateUserInfo(@Valid @RequestBody SysUserDto userDto) {
+    public R<Boolean> updateUserInfo(@Valid @RequestBody SysUserDTO userDto) {
         return userService.updateUserInfo(userDto);
     }
 
@@ -165,7 +165,7 @@ public class SysUserController {
      * @return
      */
     @GetMapping("/ancestor/{userName}")
-    public R<List<SysUser>> listAncestorUsers(@PathVariable String userName) {
+    public R<List<SysUserDO>> listAncestorUsers(@PathVariable String userName) {
         return R.success(userService.listAncestorUsers(userName));
     }
 

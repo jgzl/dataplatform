@@ -3,7 +3,7 @@
 <mapper namespace="cn.cleanarch.gw.gateway.admin.system.mapper.SysDeptRelationMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.cleanarch.gw.common.model.system.domain.SysDeptRelation">
+    <resultMap id="BaseResultMap" type="cn.cleanarch.gw.gateway.admin.system.domain.SysDeptRelationDO">
         <result property="id" column="id"/>
         <result property="ancestor" column="ancestor"/>
         <result property="descendant" column="descendant"/>

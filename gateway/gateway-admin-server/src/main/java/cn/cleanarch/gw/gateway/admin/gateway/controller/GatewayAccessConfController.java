@@ -1,9 +1,9 @@
 package cn.cleanarch.gw.gateway.admin.gateway.controller;
 
 import cn.cleanarch.gw.common.core.model.R;
-import cn.cleanarch.gw.common.model.gateway.domain.GatewayAccessConf;
-import cn.cleanarch.gw.common.model.gateway.vo.GatewayAccessConfVo;
+import cn.cleanarch.gw.gateway.admin.gateway.domain.GatewayAccessConfDO;
 import cn.cleanarch.gw.gateway.admin.gateway.service.GatewayAccessConfService;
+import cn.cleanarch.gw.gateway.admin.gateway.vo.GatewayAccessConfVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -31,8 +31,8 @@ public class GatewayAccessConfController {
      * @return
      */
     @GetMapping("/page")
-    public R<IPage<GatewayAccessConfVo>> pageListRoutes(Page page, GatewayAccessConfVo vo) {
-        return R.success(service.page(page, new QueryWrapper<GatewayAccessConf>(vo)));
+    public R<IPage<GatewayAccessConfVO>> pageListRoutes(Page page, GatewayAccessConfVO vo) {
+        return R.success(service.page(page, new QueryWrapper<GatewayAccessConfDO>(vo)));
     }
 
     /**
@@ -41,7 +41,7 @@ public class GatewayAccessConfController {
      * @return
      */
     @GetMapping
-    public R<List<GatewayAccessConf>> listRoutes() {
+    public R<List<GatewayAccessConfDO>> listRoutes() {
         return R.success(service.list());
     }
 
@@ -52,7 +52,7 @@ public class GatewayAccessConfController {
      * @return
      */
     @PostMapping
-    public R<GatewayAccessConf> save(@RequestBody GatewayAccessConf vo) {
+    public R<GatewayAccessConfDO> save(@RequestBody GatewayAccessConfDO vo) {
         service.save(vo);
         return R.success(vo);
     }
@@ -64,7 +64,7 @@ public class GatewayAccessConfController {
      * @return
      */
     @PutMapping
-    public R<GatewayAccessConf> updateById(@RequestBody GatewayAccessConf vo) {
+    public R<GatewayAccessConfDO> updateById(@RequestBody GatewayAccessConfDO vo) {
         service.updateById(vo);
         return R.success(vo);
     }
@@ -88,7 +88,7 @@ public class GatewayAccessConfController {
      * @return R
      */
     @PutMapping("/status")
-    public R<Boolean> updateUserForLockFlag(@Valid @RequestBody GatewayAccessConfVo vo) {
+    public R<Boolean> updateUserForLockFlag(@Valid @RequestBody GatewayAccessConfVO vo) {
         return R.success(service.updateStatus(vo));
     }
 }

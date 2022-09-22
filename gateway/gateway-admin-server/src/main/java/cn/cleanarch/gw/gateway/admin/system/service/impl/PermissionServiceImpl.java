@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.gateway.admin.system.service.impl;
 
-import cn.cleanarch.gw.common.model.system.domain.SysMenu;
 import cn.cleanarch.gw.common.security.utils.AppContextHolder;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysMenuDO;
 import cn.cleanarch.gw.gateway.admin.system.service.PermissionService;
 import cn.cleanarch.gw.gateway.admin.system.service.SysMenuService;
 import cn.hutool.core.collection.CollUtil;
@@ -44,7 +44,7 @@ public class PermissionServiceImpl implements PermissionService {
 
         // 遍历权限，判断是否有一个满足
         return Arrays.stream(permissions).anyMatch(permission -> {
-            List<SysMenu> menuList = menuService.list(Wrappers.lambdaQuery(SysMenu.class).eq(SysMenu::getPermission,permission));
+            List<SysMenuDO> menuList = menuService.list(Wrappers.lambdaQuery(SysMenuDO.class).eq(SysMenuDO::getPermission,permission));
             // 采用严格模式，如果权限找不到对应的 Menu 的话，认为
             return !CollUtil.isEmpty(menuList);
             // 获得是否拥有该权限，任一一个

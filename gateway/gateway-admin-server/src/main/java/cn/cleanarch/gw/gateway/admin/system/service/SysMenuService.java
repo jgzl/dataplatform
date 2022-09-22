@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.gateway.admin.system.service;
 
 import cn.cleanarch.gw.common.core.model.R;
-import cn.cleanarch.gw.common.model.system.domain.SysMenu;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysMenuDO;
 import cn.hutool.core.lang.tree.Tree;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -16,7 +16,7 @@ import java.util.Set;
  * @author li7hai26@gmail.com
  * @since 2017-10-29
  */
-public interface SysMenuService extends IService<SysMenu> {
+public interface SysMenuService extends IService<SysMenuDO> {
 
     /**
      * 通过角色编号查询URL 权限
@@ -24,7 +24,7 @@ public interface SysMenuService extends IService<SysMenu> {
      * @param roleId 角色ID
      * @return 菜单列表
      */
-    List<SysMenu> findMenuByRoleId(Long roleId);
+    List<SysMenuDO> findMenuByRoleId(Long roleId);
 
     /**
      * 级联删除菜单
@@ -37,10 +37,10 @@ public interface SysMenuService extends IService<SysMenu> {
     /**
      * 更新菜单信息
      *
-     * @param sysMenu 菜单信息
+     * @param sysMenuDO 菜单信息
      * @return 成功、失败
      */
-    Boolean updateMenuById(SysMenu sysMenu);
+    Boolean updateMenuById(SysMenuDO sysMenuDO);
 
     /**
      * 构建树
@@ -58,6 +58,6 @@ public interface SysMenuService extends IService<SysMenu> {
      * @param parentId
      * @return
      */
-    List<Tree<Long>> filterMenu(Set<SysMenu> voSet, String type, Long parentId);
+    List<Tree<Long>> filterMenu(Set<SysMenuDO> voSet, String type, Long parentId);
 
 }

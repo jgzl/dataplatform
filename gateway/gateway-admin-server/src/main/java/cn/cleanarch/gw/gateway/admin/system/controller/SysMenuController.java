@@ -1,8 +1,8 @@
 package cn.cleanarch.gw.gateway.admin.system.controller;
 
 import cn.cleanarch.gw.common.core.model.R;
-import cn.cleanarch.gw.common.model.system.domain.SysMenu;
 import cn.cleanarch.gw.common.security.utils.AppContextHolder;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysMenuDO;
 import cn.cleanarch.gw.gateway.admin.system.service.SysMenuService;
 import cn.cleanarch.gw.gateway.admin.system.service.SysRoleService;
 import cn.hutool.core.lang.tree.Tree;
@@ -39,7 +39,7 @@ public class SysMenuController {
      */
     @GetMapping(value = "/tree/user")
     public R<List<Tree<Long>>> getTreeWithUser(String type, Long parentId) {
-        Set<SysMenu> all = new HashSet<>();
+        Set<SysMenuDO> all = new HashSet<>();
         // 获取符合条件的菜单
         AppContextHolder.getRoles().stream()
                 .map(sysRoleService::findRoleByRoleCode)
@@ -58,7 +58,7 @@ public class SysMenuController {
     @GetMapping(value = "/tree/role")
     public R<List<Tree<Long>>> getTreeWithRole(String type, Long parentId, @RequestParam Long roleId) {
         // 获取符合条件的菜单
-        Set<SysMenu> all = new HashSet<>(sysMenuService.findMenuByRoleId(roleId));
+        Set<SysMenuDO> all = new HashSet<>(sysMenuService.findMenuByRoleId(roleId));
         return R.success(sysMenuService.filterMenu(all, type, parentId));
     }
 
@@ -83,7 +83,7 @@ public class SysMenuController {
     @GetMapping("/list/{roleId}")
     public R<List<Long>> getRoleTree(@PathVariable Long roleId) {
         return R.success(
-                sysMenuService.findMenuByRoleId(roleId).stream().map(SysMenu::getId).collect(Collectors.toList()));
+                sysMenuService.findMenuByRoleId(roleId).stream().map(SysMenuDO::getId).collect(Collectors.toList()));
     }
 
     /**
@@ -93,21 +93,21 @@ public class SysMenuController {
      * @return 菜单详细信息
      */
     @GetMapping("/{id}")
-    public R<SysMenu> getById(@PathVariable Long id) {
+    public R<SysMenuDO> getById(@PathVariable Long id) {
         return R.success(sysMenuService.getById(id));
     }
 
     /**
      * 新增菜单
      *
-     * @param sysMenu 菜单信息
+     * @param sysMenuDO 菜单信息
      * @return success/false
      */
     @PostMapping
     //@PreAuthorize("@pms.hasPermission('sys_menu_add')")
-    public R<SysMenu> save(@Valid @RequestBody SysMenu sysMenu) {
-        sysMenuService.save(sysMenu);
-        return R.success(sysMenu);
+    public R<SysMenuDO> save(@Valid @RequestBody SysMenuDO sysMenuDO) {
+        sysMenuService.save(sysMenuDO);
+        return R.success(sysMenuDO);
     }
 
     /**
@@ -125,13 +125,13 @@ public class SysMenuController {
     /**
      * 更新菜单
      *
-     * @param sysMenu 菜单对象
+     * @param sysMenuDO 菜单对象
      * @return
      */
     @PutMapping
     //@PreAuthorize("@pms.hasPermission('sys_menu_edit')")
-    public R<Boolean> update(@Valid @RequestBody SysMenu sysMenu) {
-        return R.success(sysMenuService.updateMenuById(sysMenu));
+    public R<Boolean> update(@Valid @RequestBody SysMenuDO sysMenuDO) {
+        return R.success(sysMenuService.updateMenuById(sysMenuDO));
     }
 
 }

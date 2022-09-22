@@ -1,10 +1,10 @@
 package cn.cleanarch.gw.gateway.admin.system.service;
 
-import cn.cleanarch.gw.common.model.system.domain.ErrorCodeDO;
-import cn.cleanarch.gw.common.model.system.vo.ErrorCodeCreateReqVO;
-import cn.cleanarch.gw.common.model.system.vo.ErrorCodeExportReqVO;
-import cn.cleanarch.gw.common.model.system.vo.ErrorCodePageReqVO;
-import cn.cleanarch.gw.common.model.system.vo.ErrorCodeUpdateReqVO;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysErrorCodeDO;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysErrorCodeCreateReqVO;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysErrorCodeExportReqVO;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysErrorCodePageReqVO;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysErrorCodeUpdateReqVO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import javax.validation.Valid;
@@ -23,14 +23,14 @@ public interface ErrorCodeService extends ErrorCodeFrameworkService {
      * @param createReqVO 创建信息
      * @return 编号
      */
-    Long createErrorCode(@Valid ErrorCodeCreateReqVO createReqVO);
+    Long createErrorCode(@Valid SysErrorCodeCreateReqVO createReqVO);
 
     /**
      * 更新错误码
      *
      * @param updateReqVO 更新信息
      */
-    void updateErrorCode(@Valid ErrorCodeUpdateReqVO updateReqVO);
+    void updateErrorCode(@Valid SysErrorCodeUpdateReqVO updateReqVO);
 
     /**
      * 删除错误码
@@ -45,7 +45,7 @@ public interface ErrorCodeService extends ErrorCodeFrameworkService {
      * @param id 编号
      * @return 错误码
      */
-    ErrorCodeDO getErrorCode(Long id);
+    SysErrorCodeDO getErrorCode(Long id);
 
     /**
      * 获得错误码分页
@@ -53,7 +53,7 @@ public interface ErrorCodeService extends ErrorCodeFrameworkService {
      * @param pageReqVO 分页查询
      * @return 错误码分页
      */
-    IPage<ErrorCodeDO> getErrorCodePage(ErrorCodePageReqVO pageReqVO);
+    IPage<SysErrorCodeDO> getErrorCodePage(SysErrorCodePageReqVO pageReqVO);
 
     /**
      * 获得错误码列表, 用于 Excel 导出
@@ -61,6 +61,6 @@ public interface ErrorCodeService extends ErrorCodeFrameworkService {
      * @param exportReqVO 查询条件
      * @return 错误码列表
      */
-    List<ErrorCodeDO> getErrorCodeList(ErrorCodeExportReqVO exportReqVO);
+    List<SysErrorCodeDO> getErrorCodeList(SysErrorCodeExportReqVO exportReqVO);
 
 }

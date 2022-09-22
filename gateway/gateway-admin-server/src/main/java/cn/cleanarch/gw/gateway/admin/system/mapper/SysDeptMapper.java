@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.gateway.admin.system.mapper;
 
 import cn.cleanarch.gw.common.data.mapper.ExtendBaseMapper;
-import cn.cleanarch.gw.common.model.system.domain.SysDept;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysDeptDO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2018-01-20
  */
 @Mapper
-public interface SysDeptMapper extends ExtendBaseMapper<SysDept> {
+public interface SysDeptMapper extends ExtendBaseMapper<SysDeptDO> {
 
 }

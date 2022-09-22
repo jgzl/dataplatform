@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.common.data.util;
 
-import cn.cleanarch.gw.common.model.base.PageParam;
-import cn.cleanarch.gw.common.model.base.SortingField;
+import cn.cleanarch.gw.common.PageParam;
+import cn.cleanarch.gw.common.SortingField;
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;

@@ -5,7 +5,7 @@ import cn.cleanarch.gw.common.core.constant.enums.StatusEnum;
 import cn.cleanarch.gw.common.core.exception.enums.ErrorCodeConstants;
 import cn.cleanarch.gw.common.core.utils.WebfluxUtil;
 import cn.cleanarch.gw.common.gateway.support.GatewayAccessConfCacheHolder;
-import cn.cleanarch.gw.common.model.gateway.vo.GatewayAccessConfVo;
+import cn.cleanarch.gw.gateway.admin.gateway.vo.GatewayAccessConfVO;
 import cn.cleanarch.gw.gateway.configuration.properties.GatewayProperties;
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +41,7 @@ public class GatewayApiAccessFilter extends AbstractGatewayApiFilter {
         String system = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_SYSTEM);
         ServerHttpResponse response = exchange.getResponse();
         if (StrUtil.isNotBlank(apiKey)&&StrUtil.isNotBlank(apiSecret)) {
-            GatewayAccessConfVo vo = GatewayAccessConfCacheHolder.get(apiKey);
+            GatewayAccessConfVO vo = GatewayAccessConfCacheHolder.get(apiKey);
             if (vo == null) {
                 return WebfluxUtil.errorOut(response, ErrorCodeConstants.GATEWAY_ACCESS_API_KEY_NOT_VALID);
             }

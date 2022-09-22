@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.gateway.admin.gateway.mapper;
 
 import cn.cleanarch.gw.common.data.mapper.ExtendBaseMapper;
-import cn.cleanarch.gw.common.model.gateway.domain.GatewayAccessConf;
+import cn.cleanarch.gw.gateway.admin.gateway.domain.GatewayAccessConfDO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -11,6 +11,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2018-11-06 10:17:18
  */
 @Mapper
-public interface GatewayAccessConfMapper extends ExtendBaseMapper<GatewayAccessConf> {
+public interface GatewayAccessConfMapper extends ExtendBaseMapper<GatewayAccessConfDO> {
 
 }

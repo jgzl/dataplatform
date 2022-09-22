@@ -1,6 +1,6 @@
 package cn.cleanarch.gw.gateway.admin.system.service;
 
-import cn.cleanarch.gw.common.model.system.domain.SysUserRole;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysUserRoleDO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author li7hai26@gmail.com
  * @since 2017-10-29
  */
-public interface SysUserRoleService extends IService<SysUserRole> {
+public interface SysUserRoleService extends IService<SysUserRoleDO> {
 
     /**
      * 根据用户Id删除该用户的角色关系

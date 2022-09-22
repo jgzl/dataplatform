@@ -10,14 +10,10 @@ export function permission(data) {
 }
 
 export function rolePermission(data) {
-	let userInfo = tool.data.get("USER_INFO");
-	if(!userInfo){
+	let roles = tool.data.get("ROLES");
+	if(!roles){
 		return false;
 	}
-	let role = userInfo.role;
-	if(!role){
-		return false;
-	}
-	let isHave = role.includes(data);
+	let isHave = roles.includes(data);
 	return isHave;
 }

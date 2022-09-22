@@ -1,6 +1,6 @@
 package cn.cleanarch.gw.common.gateway.support;
 
-import cn.cleanarch.gw.common.model.gateway.vo.GatewayAccessConfVo;
+import cn.cleanarch.gw.gateway.admin.gateway.vo.GatewayAccessConfVO;
 import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;
@@ -17,15 +17,15 @@ import java.util.concurrent.ConcurrentHashMap;
 @UtilityClass
 public class GatewayAccessConfCacheHolder {
 
-    private final Map<String, GatewayAccessConfVo> cache = new ConcurrentHashMap<>();
+    private final Map<String, GatewayAccessConfVO> cache = new ConcurrentHashMap<>();
 
     /**
      * 获取缓存的全部对象
      *
      * @return routeList
      */
-    public List<GatewayAccessConfVo> getList() {
-        List<GatewayAccessConfVo> list = new ArrayList<>();
+    public List<GatewayAccessConfVO> getList() {
+        List<GatewayAccessConfVO> list = new ArrayList<>();
         cache.forEach((route,vo) -> list.add(vo));
         return list;
     }
@@ -34,7 +34,7 @@ public class GatewayAccessConfCacheHolder {
      * 获取缓存的对象
      *
      */
-    public GatewayAccessConfVo get(String key) {
+    public GatewayAccessConfVO get(String key) {
         return cache.get(key);
     }
 
@@ -43,7 +43,7 @@ public class GatewayAccessConfCacheHolder {
      *
      * @param list 缓存列表
      */
-    public void setList(List<GatewayAccessConfVo> list) {
+    public void setList(List<GatewayAccessConfVO> list) {
         list.forEach(item -> cache.put(item.getApiKey(), item));
     }
 

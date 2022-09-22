@@ -2,7 +2,7 @@ package cn.cleanarch.gw.common.gateway.configuration;
 
 import cn.cleanarch.gw.common.core.constant.CacheConstants;
 import cn.cleanarch.gw.common.gateway.support.GatewayAccessConfCacheHolder;
-import cn.cleanarch.gw.common.model.gateway.vo.GatewayAccessConfVo;
+import cn.cleanarch.gw.gateway.admin.gateway.vo.GatewayAccessConfVO;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.lang.TypeReference;
@@ -37,7 +37,7 @@ public class DynamicGatewayAccessConfAutoConfiguration {
             log.warn("接收到重新加载网关访问事件");
             GatewayAccessConfCacheHolder.removeList();
             RedisTemplate<String,Object> redisTemplate = SpringUtil.getBean(new TypeReference<RedisTemplate<String,Object>>() {});
-            List<GatewayAccessConfVo> values = redisTemplate.<String,GatewayAccessConfVo>opsForHash().values(CacheConstants.ACCESS_CONF_KEY);
+            List<GatewayAccessConfVO> values = redisTemplate.<String, GatewayAccessConfVO>opsForHash().values(CacheConstants.ACCESS_CONF_KEY);
             if (CollUtil.isEmpty(values)) {
                 values = ListUtil.empty();
             }

@@ -17,7 +17,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
@@ -81,14 +80,7 @@ public class DynamicRouteInitRunner {
      * @return
      */
     private URI getURI(String uriStr){
-        URI uri ;
-        if(uriStr.startsWith("http")){
-            uri = UriComponentsBuilder.fromHttpUrl(uriStr).build().toUri();
-        }else{
-            // uri为lb://consumer-service
-            uri = URI.create(uriStr);
-        }
-        return uri;
+        return URI.create(uriStr);
     }
 
 }

@@ -2,14 +2,14 @@ package cn.cleanarch.gw.gateway.admin.system.service.impl;
 
 import cn.cleanarch.gw.common.core.constant.CacheConstants;
 import cn.cleanarch.gw.common.core.model.R;
-import cn.cleanarch.gw.common.model.system.convert.UserConvert;
-import cn.cleanarch.gw.common.model.system.domain.*;
-import cn.cleanarch.gw.common.model.system.vo.SysUserDto;
-import cn.cleanarch.gw.common.model.system.vo.SysUserVo;
-import cn.cleanarch.gw.common.model.system.vo.UserInfo;
 import cn.cleanarch.gw.common.security.service.SysUserService;
+import cn.cleanarch.gw.gateway.admin.system.convert.SysUserConvert;
+import cn.cleanarch.gw.gateway.admin.system.domain.*;
+import cn.cleanarch.gw.gateway.admin.system.dto.SysUserDTO;
+import cn.cleanarch.gw.gateway.admin.system.dto.SysUserInfoDTO;
 import cn.cleanarch.gw.gateway.admin.system.mapper.SysUserMapper;
 import cn.cleanarch.gw.gateway.admin.system.service.*;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysUserVO;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
+public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserDO> implements SysUserService {
 
     private static final PasswordEncoder ENCODER = new BCryptPasswordEncoder();
 
@@ -60,14 +60,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean saveUser(SysUserDto userDto) {
-        SysUser sysUser = new SysUser();
-        BeanUtils.copyProperties(userDto, sysUser);
-        sysUser.setPassword(ENCODER.encode(userDto.getPassword()));
-        baseMapper.insert(sysUser);
-        List<SysUserRole> userRoleList = userDto.getRole().stream().map(roleId -> {
-            SysUserRole userRole = new SysUserRole();
-            userRole.setUserId(sysUser.getId());
+    public Boolean saveUser(SysUserDTO userDto) {
+        SysUserDO sysUserDO = new SysUserDO();
+        BeanUtils.copyProperties(userDto, sysUserDO);
+        sysUserDO.setPassword(ENCODER.encode(userDto.getPassword()));
+        baseMapper.insert(sysUserDO);
+        List<SysUserRoleDO> userRoleList = userDto.getRole().stream().map(roleId -> {
+            SysUserRoleDO userRole = new SysUserRoleDO();
+            userRole.setUserId(sysUserDO.getId());
             userRole.setRoleId(roleId);
             return userRole;
         }).collect(Collectors.toList());
@@ -81,41 +81,39 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return
      */
     @Override
-    public UserInfo findUserInfo(String userName) {
-        SysUser sysUser = this.getOne(Wrappers.<SysUser>query().lambda().eq(SysUser::getUserName, userName));
-        if (sysUser == null) {
+    public SysUserInfoDTO findUserInfo(String userName) {
+        SysUserDO sysUserDO = this.getOne(Wrappers.<SysUserDO>query().lambda().eq(SysUserDO::getUserName, userName));
+        if (sysUserDO == null) {
             return null;
         }
-        return findUserInfo(sysUser);
+        return findUserInfo(sysUserDO);
     }
 
     /**
      * 通过查用户的全部信息
      *
-     * @param sysUser 用户
+     * @param sysUserDO 用户
      * @return
      */
     @Override
-    public UserInfo findUserInfo(SysUser sysUser) {
-        UserInfo userInfo = new UserInfo();
-        SysUserVo sysUserVo = UserConvert.INSTANCE.convertDo2Vo(sysUser);
-        userInfo.setSysUser(sysUserVo);
+    public SysUserInfoDTO findUserInfo(SysUserDO sysUserDO) {
+        SysUserInfoDTO sysUserInfoDTO = SysUserConvert.INSTANCE.convert(sysUserDO);
         // 查找当前用户对应角色
-        List<SysRole> roleList = sysRoleService.findRolesByUserId(sysUser.getId());
+        List<SysRoleDO> roleList = sysRoleService.findRolesByUserId(sysUserDO.getId());
         Set<String> roles = new HashSet<>();
         Set<String> permissions = new HashSet<>();
 
         roleList.forEach(role -> {
             roles.add(role.getRoleCode());
             List<String> permissionList = sysMenuService.findMenuByRoleId(role.getId()).stream()
-                    .map(SysMenu::getPermission).filter(StrUtil::isNotEmpty).toList();
+                    .map(SysMenuDO::getPermission).filter(StrUtil::isNotEmpty).toList();
             permissions.addAll(permissionList);
         });
         // 设置权限列表（menu.permission）
-        userInfo.setRoles(Lists.newArrayList(roles));
+        sysUserInfoDTO.setRoles(Lists.newArrayList(roles));
         // 设置角色列表 （ID）
-        userInfo.setPermissions(Lists.newArrayList(permissions));
-        return userInfo;
+        sysUserInfoDTO.setPermissions(Lists.newArrayList(permissions));
+        return sysUserInfoDTO;
     }
 
     /**
@@ -126,7 +124,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return
      */
     @Override
-    public IPage getUsersWithDeptPage(Page page, SysUserDto userDTO) {
+    public IPage getUsersWithDeptPage(Page page, SysUserDTO userDTO) {
         return baseMapper.getUserVosPage(page, userDTO);
     }
 
@@ -137,7 +135,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return
      */
     @Override
-    public List<SysUserVo> getUsersWithDept(SysUserDto userDTO) {
+    public List<SysUserVO> getUsersWithDept(SysUserDTO userDTO) {
         return baseMapper.getUserVosPage(userDTO);
     }
 
@@ -148,60 +146,60 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 用户信息
      */
     @Override
-    public SysUserVo selectUserVoById(Integer id) {
+    public SysUserVO selectUserVoById(Integer id) {
         return baseMapper.getUserVoById(id);
     }
 
     /**
      * 删除用户
      *
-     * @param sysUser 用户
+     * @param sysUserDO 用户
      * @return Boolean
      */
     @Override
-    @CacheEvict(value = CacheConstants.USER_DETAILS, key = "#sysUser.userName")
-    public Boolean deleteUserById(SysUser sysUser) {
-        sysUserRoleService.deleteByUserId(sysUser.getId());
-        this.removeById(sysUser.getId());
+    @CacheEvict(value = CacheConstants.USER_DETAILS, key = "#sysUserDO.userName")
+    public Boolean deleteUserById(SysUserDO sysUserDO) {
+        sysUserRoleService.deleteByUserId(sysUserDO.getId());
+        this.removeById(sysUserDO.getId());
         return Boolean.TRUE;
     }
 
     @Override
     @CacheEvict(value = CacheConstants.USER_DETAILS, key = "#userDto.userName")
-    public R<Boolean> updateUserInfo(SysUserDto userDto) {
-        SysUserVo sysUserVo = baseMapper.getUserVoByUsername(userDto.getUserName());
+    public R<Boolean> updateUserInfo(SysUserDTO userDto) {
+        SysUserVO sysUserVo = baseMapper.getUserVoByUsername(userDto.getUserName());
         if (!ENCODER.matches(userDto.getPassword(), sysUserVo.getPassword())) {
             log.info("原密码错误，修改个人信息失败:{}", userDto.getUserName());
             return R.error("原密码错误，修改个人信息失败");
         }
 
-        SysUser sysUser = new SysUser();
-        if (StrUtil.isNotBlank(userDto.getNewPassword())) {
-            sysUser.setPassword(ENCODER.encode(userDto.getNewPassword()));
+        SysUserDO sysUserDO = new SysUserDO();
+        if (StrUtil.isNotBlank(userDto.getPassword2())) {
+            sysUserDO.setPassword(ENCODER.encode(userDto.getPassword2()));
         }
-        sysUser.setMobile(userDto.getMobile());
-        sysUser.setId(sysUserVo.getId());
-        sysUser.setAvatar(userDto.getAvatar());
-        return R.success(this.updateById(sysUser));
+        sysUserDO.setMobile(userDto.getMobile());
+        sysUserDO.setId(sysUserVo.getId());
+        sysUserDO.setAvatar(userDto.getAvatar());
+        return R.success(this.updateById(sysUserDO));
     }
 
     @Override
     @CacheEvict(value = CacheConstants.USER_DETAILS, key = "#userDto.userName")
-    public Boolean updateUser(SysUserDto userDto) {
-        SysUser sysUser = new SysUser();
-        BeanUtils.copyProperties(userDto, sysUser);
-        sysUser.setUpdateTime(LocalDateTime.now());
+    public Boolean updateUser(SysUserDTO userDto) {
+        SysUserDO sysUserDO = new SysUserDO();
+        BeanUtils.copyProperties(userDto, sysUserDO);
+        sysUserDO.setUpdateTime(LocalDateTime.now());
 
         if (StrUtil.isNotBlank(userDto.getPassword())) {
-            sysUser.setPassword(ENCODER.encode(userDto.getPassword()));
+            sysUserDO.setPassword(ENCODER.encode(userDto.getPassword()));
         }
-        this.updateById(sysUser);
+        this.updateById(sysUserDO);
 
         sysUserRoleService
-                .remove(Wrappers.<SysUserRole>update().lambda().eq(SysUserRole::getUserId, userDto.getId()));
+                .remove(Wrappers.<SysUserRoleDO>update().lambda().eq(SysUserRoleDO::getUserId, userDto.getId()));
         userDto.getRole().forEach(roleId -> {
-            SysUserRole userRole = new SysUserRole();
-            userRole.setUserId(sysUser.getId());
+            SysUserRoleDO userRole = new SysUserRoleDO();
+            userRole.setUserId(sysUserDO.getId());
             userRole.setRoleId(roleId);
             sysUserRoleService.save(userRole);
         });
@@ -210,11 +208,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     @CacheEvict(value = CacheConstants.USER_DETAILS, key = "#userDto.userName")
-    public Boolean updateUserForLockFlag(SysUserDto userDto) {
-        SysUser sysUser = new SysUser();
-        BeanUtils.copyProperties(userDto, sysUser);
-        sysUser.setUpdateTime(LocalDateTime.now());
-        return this.updateById(sysUser);
+    public Boolean updateUserForLockFlag(SysUserDTO userDto) {
+        SysUserDO sysUserDO = new SysUserDO();
+        BeanUtils.copyProperties(userDto, sysUserDO);
+        sysUserDO.setUpdateTime(LocalDateTime.now());
+        return this.updateById(sysUserDO);
     }
 
     /**
@@ -224,16 +222,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return R
      */
     @Override
-    public List<SysUser> listAncestorUsers(String username) {
-        SysUser sysUser = this.getOne(Wrappers.<SysUser>query().lambda().eq(SysUser::getUserName, username));
+    public List<SysUserDO> listAncestorUsers(String username) {
+        SysUserDO sysUserDO = this.getOne(Wrappers.<SysUserDO>query().lambda().eq(SysUserDO::getUserName, username));
 
-        SysDept sysDept = sysDeptService.getById(sysUser.getDeptId());
-        if (sysDept == null) {
+        SysDeptDO sysDeptDO = sysDeptService.getById(sysUserDO.getDeptId());
+        if (sysDeptDO == null) {
             return null;
         }
 
-        Long parentId = sysDept.getParentId();
-        return this.list(Wrappers.<SysUser>query().lambda().eq(SysUser::getDeptId, parentId));
+        Long parentId = sysDeptDO.getParentId();
+        return this.list(Wrappers.<SysUserDO>query().lambda().eq(SysUserDO::getDeptId, parentId));
     }
 
 }

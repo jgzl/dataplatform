@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.gateway.admin.system.service.impl;
 
 import cn.cleanarch.gw.common.core.constant.CacheConstants;
-import cn.cleanarch.gw.common.model.system.domain.SysRoleMenu;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysRoleMenuDO;
 import cn.cleanarch.gw.gateway.admin.system.mapper.SysRoleMenuMapper;
 import cn.cleanarch.gw.gateway.admin.system.service.SysRoleMenuService;
 import cn.hutool.core.util.StrUtil;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @AllArgsConstructor
-public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRoleMenu> implements SysRoleMenuService {
+public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRoleMenuDO> implements SysRoleMenuService {
 
     private final CacheManager cacheManager;
 
@@ -41,13 +41,13 @@ public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRo
     @Transactional(rollbackFor = Exception.class)
     @CacheEvict(value = CacheConstants.MENU_DETAILS, key = "#roleId")
     public Boolean saveRoleMenus(String role, Long roleId, String menuIds) {
-        this.remove(Wrappers.<SysRoleMenu>query().lambda().eq(SysRoleMenu::getRoleId, roleId));
+        this.remove(Wrappers.<SysRoleMenuDO>query().lambda().eq(SysRoleMenuDO::getRoleId, roleId));
 
         if (StrUtil.isBlank(menuIds)) {
             return Boolean.TRUE;
         }
-        List<SysRoleMenu> roleMenuList = Arrays.stream(menuIds.split(",")).map(menuId -> {
-            SysRoleMenu roleMenu = new SysRoleMenu();
+        List<SysRoleMenuDO> roleMenuList = Arrays.stream(menuIds.split(",")).map(menuId -> {
+            SysRoleMenuDO roleMenu = new SysRoleMenuDO();
             roleMenu.setRoleId(roleId);
             roleMenu.setMenuId(Integer.valueOf(menuId));
             return roleMenu;

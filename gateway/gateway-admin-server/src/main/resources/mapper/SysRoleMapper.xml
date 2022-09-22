@@ -3,7 +3,7 @@
 <mapper namespace="cn.cleanarch.gw.gateway.admin.system.mapper.SysRoleMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.cleanarch.gw.common.model.system.domain.SysRole">
+    <resultMap id="BaseResultMap" type="cn.cleanarch.gw.gateway.admin.system.domain.SysRoleDO">
         <id column="id" property="id"/>
         <result property="role_name" column="roleName"/>
         <result property="role_code" column="roleCode"/>

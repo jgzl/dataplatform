@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.gateway.admin.system.service;
 
-import cn.cleanarch.gw.common.model.system.domain.SysDept;
-import cn.cleanarch.gw.common.model.system.domain.SysDeptRelation;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysDeptDO;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysDeptRelationDO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -12,14 +12,14 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author li7hai26@gmail.com
  * @since 2018-02-12
  */
-public interface SysDeptRelationService extends IService<SysDeptRelation> {
+public interface SysDeptRelationService extends IService<SysDeptRelationDO> {
 
     /**
      * 新建部门关系
      *
-     * @param sysDept 部门
+     * @param sysDeptDO 部门
      */
-    void insertDeptRelation(SysDept sysDept);
+    void insertDeptRelation(SysDeptDO sysDeptDO);
 
     /**
      * 通过ID删除部门关系
@@ -33,6 +33,6 @@ public interface SysDeptRelationService extends IService<SysDeptRelation> {
      *
      * @param relation
      */
-    void updateDeptRelation(SysDeptRelation relation);
+    void updateDeptRelation(SysDeptRelationDO relation);
 
 }

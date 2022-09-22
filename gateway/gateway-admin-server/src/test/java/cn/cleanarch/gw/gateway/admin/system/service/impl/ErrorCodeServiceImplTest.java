@@ -1,9 +1,9 @@
 package cn.cleanarch.gw.gateway.admin.system.service.impl;
 
-import cn.cleanarch.gw.common.model.system.domain.ErrorCodeDO;
-import cn.cleanarch.gw.common.model.system.vo.ErrorCodeCreateReqVO;
 import cn.cleanarch.gw.common.test.core.ut.BaseDbAndRedisUnitTest;
 import cn.cleanarch.gw.common.test.core.util.RandomUtil;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysErrorCodeDO;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysErrorCodeCreateReqVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
 
@@ -19,9 +19,9 @@ public class ErrorCodeServiceImplTest extends BaseDbAndRedisUnitTest {
 
     @Test
     public void createErrorCode() {
-        ErrorCodeCreateReqVO reqVO = RandomUtil.randomPojo(ErrorCodeCreateReqVO.class);
+        SysErrorCodeCreateReqVO reqVO = RandomUtil.randomPojo(SysErrorCodeCreateReqVO.class);
         Long id = errorCodeService.createErrorCode(reqVO);
-        ErrorCodeDO findDO = errorCodeService.getErrorCode(id);
+        SysErrorCodeDO findDO = errorCodeService.getErrorCode(id);
         assertNotNull(findDO);
     }
 

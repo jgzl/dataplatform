@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.common.data.mapper;
 
+import cn.cleanarch.gw.common.PageParam;
 import cn.cleanarch.gw.common.data.util.MyBatisUtil;
-import cn.cleanarch.gw.common.model.base.PageParam;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;

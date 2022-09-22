@@ -1,6 +1,6 @@
 package cn.cleanarch.gw.gateway.admin.system.service;
 
-import cn.cleanarch.gw.common.model.system.domain.SysRoleMenu;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysRoleMenuDO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author li7hai26@gmail.com
  * @since 2017-10-29
  */
-public interface SysRoleMenuService extends IService<SysRoleMenu> {
+public interface SysRoleMenuService extends IService<SysRoleMenuDO> {
 
     /**
      * 更新角色菜单

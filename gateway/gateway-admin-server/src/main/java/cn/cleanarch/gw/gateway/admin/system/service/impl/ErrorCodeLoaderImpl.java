@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.gateway.admin.system.service.impl;
 
 import cn.cleanarch.gw.common.core.utils.DateUtils;
-import cn.cleanarch.gw.common.model.system.dto.ErrorCodeRespDTO;
+import cn.cleanarch.gw.gateway.admin.system.dto.SysErrorCodeRespDTO;
 import cn.cleanarch.gw.gateway.admin.system.service.ErrorCodeFrameworkService;
 import cn.cleanarch.gw.gateway.admin.system.service.ErrorCodeLoader;
 import cn.hutool.core.collection.CollUtil;
@@ -56,14 +56,14 @@ public class ErrorCodeLoaderImpl implements ErrorCodeLoader {
 
     private void loadErrorCodes0() {
         // 加载错误码
-        List<ErrorCodeRespDTO> errorCodeRespDTOs = errorCodeService.getErrorCodeList(applicationName, maxUpdateTime);
-        if (CollUtil.isEmpty(errorCodeRespDTOs)) {
+        List<SysErrorCodeRespDTO> sysErrorCodeRespDTOS = errorCodeService.getErrorCodeList(applicationName, maxUpdateTime);
+        if (CollUtil.isEmpty(sysErrorCodeRespDTOS)) {
             return;
         }
-        log.info("[loadErrorCodes0][加载到 ({}) 个错误码]", errorCodeRespDTOs.size());
+        log.info("[loadErrorCodes0][加载到 ({}) 个错误码]", sysErrorCodeRespDTOS.size());
 
         // 刷新错误码的缓存
-        errorCodeRespDTOs.forEach(errorCodeRespDTO -> {
+        sysErrorCodeRespDTOS.forEach(errorCodeRespDTO -> {
             // 写入到错误码的缓存
             putErrorCode(errorCodeRespDTO.getCode(), errorCodeRespDTO.getMessage());
             // 记录下更新时间，方便增量更新

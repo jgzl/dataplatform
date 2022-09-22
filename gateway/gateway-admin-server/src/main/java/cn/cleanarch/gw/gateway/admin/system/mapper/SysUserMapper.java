@@ -1,9 +1,9 @@
 package cn.cleanarch.gw.gateway.admin.system.mapper;
 
 import cn.cleanarch.gw.common.data.mapper.ExtendBaseMapper;
-import cn.cleanarch.gw.common.model.system.domain.SysUser;
-import cn.cleanarch.gw.common.model.system.vo.SysUserDto;
-import cn.cleanarch.gw.common.model.system.vo.SysUserVo;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysUserDO;
+import cn.cleanarch.gw.gateway.admin.system.dto.SysUserDTO;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysUserVO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
@@ -20,7 +20,7 @@ import java.util.List;
  * @since 2017-10-29
  */
 @Mapper
-public interface SysUserMapper extends ExtendBaseMapper<SysUser> {
+public interface SysUserMapper extends ExtendBaseMapper<SysUserDO> {
 
     /**
      * 通过用户名查询用户信息（含有角色信息）
@@ -28,7 +28,7 @@ public interface SysUserMapper extends ExtendBaseMapper<SysUser> {
      * @param username 用户名
      * @return sysUserVo
      */
-    SysUserVo getUserVoByUsername(String username);
+    SysUserVO getUserVoByUsername(String username);
 
     /**
      * 分页查询用户信息（含角色）
@@ -37,7 +37,7 @@ public interface SysUserMapper extends ExtendBaseMapper<SysUser> {
      * @param userDTO 查询参数
      * @return list
      */
-    IPage<SysUserVo> getUserVosPage(Page page, @Param("query") SysUserDto userDTO);
+    IPage<SysUserVO> getUserVosPage(Page page, @Param("query") SysUserDTO userDTO);
 
     /**
      * 查询用户信息（含角色）
@@ -45,7 +45,7 @@ public interface SysUserMapper extends ExtendBaseMapper<SysUser> {
      * @param userDTO 查询参数
      * @return list
      */
-    List<SysUserVo> getUserVosPage(@Param("query") SysUserDto userDTO);
+    List<SysUserVO> getUserVosPage(@Param("query") SysUserDTO userDTO);
 
     /**
      * 通过ID查询用户信息
@@ -53,6 +53,6 @@ public interface SysUserMapper extends ExtendBaseMapper<SysUser> {
      * @param id 用户ID
      * @return sysUserVo
      */
-    SysUserVo getUserVoById(Integer id);
+    SysUserVO getUserVoById(Integer id);
 
 }

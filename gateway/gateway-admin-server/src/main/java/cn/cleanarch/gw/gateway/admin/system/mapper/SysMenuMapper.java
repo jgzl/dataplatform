@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.gateway.admin.system.mapper;
 
 import cn.cleanarch.gw.common.data.mapper.ExtendBaseMapper;
-import cn.cleanarch.gw.common.model.system.domain.SysMenu;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysMenuDO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * @since 2017-10-29
  */
 @Mapper
-public interface SysMenuMapper extends ExtendBaseMapper<SysMenu> {
+public interface SysMenuMapper extends ExtendBaseMapper<SysMenuDO> {
 
     /**
      * 通过角色编号查询菜单
@@ -23,7 +23,7 @@ public interface SysMenuMapper extends ExtendBaseMapper<SysMenu> {
      * @param roleId 角色ID
      * @return
      */
-    List<SysMenu> listMenusByRoleId(Long roleId);
+    List<SysMenuDO> listMenusByRoleId(Long roleId);
 
     /**
      * 通过角色ID查询权限

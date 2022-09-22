@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.gateway.admin.system.mapper;
 
 import cn.cleanarch.gw.common.data.mapper.ExtendBaseMapper;
-import cn.cleanarch.gw.common.model.system.domain.SysDeptRelation;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysDeptRelationDO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2018-02-12
  */
 @Mapper
-public interface SysDeptRelationMapper extends ExtendBaseMapper<SysDeptRelation> {
+public interface SysDeptRelationMapper extends ExtendBaseMapper<SysDeptRelationDO> {
 
     /**
      * 删除部门关系表数据
@@ -27,6 +27,6 @@ public interface SysDeptRelationMapper extends ExtendBaseMapper<SysDeptRelation>
      *
      * @param deptRelation
      */
-    void updateDeptRelations(SysDeptRelation deptRelation);
+    void updateDeptRelations(SysDeptRelationDO deptRelation);
 
 }

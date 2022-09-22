@@ -4,9 +4,8 @@ import cn.cleanarch.gw.common.core.constant.SecurityConstants;
 import cn.cleanarch.gw.common.core.model.R;
 import cn.cleanarch.gw.common.core.utils.JwtTokenUtil;
 import cn.cleanarch.gw.common.core.utils.WebmvcUtil;
-import cn.cleanarch.gw.common.model.system.vo.LoginUserInfo;
-import cn.cleanarch.gw.common.model.system.vo.LoginUserVo;
 import cn.cleanarch.gw.common.security.vo.LoginUser;
+import cn.cleanarch.gw.gateway.admin.system.vo.LoginUserVO;
 import cn.hutool.core.collection.CollUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -32,21 +31,15 @@ public class LoginAuthenticationSuccessHandler implements AuthenticationSuccessH
         kvMap.put(SecurityConstants.DETAILS_USER_ID, user.getUserId());
         kvMap.put(SecurityConstants.DETAILS_USERNAME, user.getUsername());
         String token = JwtTokenUtil.createToken(kvMap);
-        LoginUserVo result = new LoginUserVo();
+        LoginUserVO result = new LoginUserVO();
         result.setToken(token);
         List<String> roles = Lists.newArrayList();
         List<String> permissions = Lists.newArrayList();
         result.setRoles(roles);
         result.setPermissions(permissions);
         result.setUserId(user.getUserId());
-        result.setUsername(user.getUsername());
-        result.setNickname(user.getNickName());
-
-        LoginUserInfo userInfo = new LoginUserInfo();
-        userInfo.setRole(roles);
-        userInfo.setUserId(user.getUserId()+"");
-        userInfo.setUserName(user.getUsername());
-        result.setUserInfo(userInfo);
+        result.setUserName(user.getUsername());
+        result.setNickName(user.getNickName());
 
         Collection<GrantedAuthority> authorities = user.getAuthorities();
         if (CollUtil.isNotEmpty(authorities)) {

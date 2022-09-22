@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.common.gateway.convert;
 
+import cn.cleanarch.gw.common.BaseConvert;
 import cn.cleanarch.gw.common.gateway.vo.GatewayRouteDefinition;
-import cn.cleanarch.gw.common.model.base.BaseConvert;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.cloud.gateway.route.RouteDefinition;

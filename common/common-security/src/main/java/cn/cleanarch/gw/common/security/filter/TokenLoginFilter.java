@@ -2,7 +2,7 @@ package cn.cleanarch.gw.common.security.filter;
 
 import cn.cleanarch.gw.common.core.constant.SecurityConstants;
 import cn.cleanarch.gw.common.core.utils.JacksonUtil;
-import cn.cleanarch.gw.common.model.system.vo.LoginUserVo;
+import cn.cleanarch.gw.gateway.admin.system.vo.LoginUserVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -39,9 +39,9 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
                 || req.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)) {
             UsernamePasswordAuthenticationToken authRequest = null;
             try (InputStream is = req.getInputStream()) {
-                LoginUserVo authenticationBean = JacksonUtil.readValue(is, LoginUserVo.class);
+                LoginUserVO authenticationBean = JacksonUtil.readValue(is, LoginUserVO.class);
                 authRequest = new UsernamePasswordAuthenticationToken(
-                        authenticationBean.getUsername(), authenticationBean.getPassword());
+                        authenticationBean.getUserName(), authenticationBean.getPassword());
             } catch (IOException e) {
                 log.error("IO发生异常:", e);
                 authRequest = new UsernamePasswordAuthenticationToken(

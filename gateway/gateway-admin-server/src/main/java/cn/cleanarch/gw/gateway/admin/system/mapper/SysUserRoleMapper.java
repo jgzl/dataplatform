@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.gateway.admin.system.mapper;
 
 import cn.cleanarch.gw.common.data.mapper.ExtendBaseMapper;
-import cn.cleanarch.gw.common.model.system.domain.SysUserRole;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysUserRoleDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Param;
  * @since 2017-10-29
  */
 @Mapper
-public interface SysUserRoleMapper extends ExtendBaseMapper<SysUserRole> {
+public interface SysUserRoleMapper extends ExtendBaseMapper<SysUserRoleDO> {
 
     /**
      * 根据用户Id删除该用户的角色关系

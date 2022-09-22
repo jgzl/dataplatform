@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.gateway.admin.system.mapper;
 
 import cn.cleanarch.gw.common.data.mapper.ExtendBaseMapper;
-import cn.cleanarch.gw.common.model.system.domain.SysRoleMenu;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysRoleMenuDO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2017-10-29
  */
 @Mapper
-public interface SysRoleMenuMapper extends ExtendBaseMapper<SysRoleMenu> {
+public interface SysRoleMenuMapper extends ExtendBaseMapper<SysRoleMenuDO> {
 
 }

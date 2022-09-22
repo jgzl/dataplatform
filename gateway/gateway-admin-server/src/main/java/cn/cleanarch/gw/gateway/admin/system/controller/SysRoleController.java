@@ -2,9 +2,9 @@ package cn.cleanarch.gw.gateway.admin.system.controller;
 
 import cn.cleanarch.gw.common.core.constant.CacheConstants;
 import cn.cleanarch.gw.common.core.model.R;
-import cn.cleanarch.gw.common.model.system.domain.SysRole;
-import cn.cleanarch.gw.common.model.system.vo.RoleVo;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysRoleDO;
 import cn.cleanarch.gw.gateway.admin.system.service.SysRoleService;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysRoleMenuVO;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -37,34 +37,34 @@ public class SysRoleController {
      * @return 角色信息
      */
     @GetMapping("/{id}")
-    public R<SysRole> getById(@PathVariable Integer id) {
+    public R<SysRoleDO> getById(@PathVariable Integer id) {
         return R.success(sysRoleService.getById(id));
     }
 
     /**
      * 添加角色
      *
-     * @param sysRole 角色信息
+     * @param sysRoleDO 角色信息
      * @return success、false
      */
     @PostMapping
     //@PreAuthorize("@pms.hasPermission('sys_role_add')")
     @CacheEvict(value = CacheConstants.ROLE_DETAILS, allEntries = true)
-    public R<Boolean> save(@Valid @RequestBody SysRole sysRole) {
-        return R.success(sysRoleService.save(sysRole));
+    public R<Boolean> save(@Valid @RequestBody SysRoleDO sysRoleDO) {
+        return R.success(sysRoleService.save(sysRoleDO));
     }
 
     /**
      * 修改角色
      *
-     * @param sysRole 角色信息
+     * @param sysRoleDO 角色信息
      * @return success/false
      */
     @PutMapping
     //@PreAuthorize("@pms.hasPermission('sys_role_edit')")
     @CacheEvict(value = CacheConstants.ROLE_DETAILS, allEntries = true)
-    public R<Boolean> update(@Valid @RequestBody SysRole sysRole) {
-        return R.success(sysRoleService.updateById(sysRole));
+    public R<Boolean> update(@Valid @RequestBody SysRoleDO sysRoleDO) {
+        return R.success(sysRoleService.updateById(sysRoleDO));
     }
 
     /**
@@ -86,7 +86,7 @@ public class SysRoleController {
      * @return 角色列表
      */
     @GetMapping("/list")
-    public R<List<SysRole>> listRoles() {
+    public R<List<SysRoleDO>> listRoles() {
         return R.success(sysRoleService.list(Wrappers.emptyWrapper()));
     }
 
@@ -98,7 +98,7 @@ public class SysRoleController {
      * @return 分页对象
      */
     @GetMapping("/page")
-    public R<IPage<SysRole>> getRolePage(Page page, SysRole role) {
+    public R<IPage<SysRoleDO>> getRolePage(Page page, SysRoleDO role) {
         Page result = sysRoleService.page(page, Wrappers.query(role));
         return R.success(result);
     }
@@ -106,13 +106,13 @@ public class SysRoleController {
     /**
      * 更新角色菜单
      *
-     * @param roleVo 角色对象
+     * @param sysRoleMenuVO 角色对象
      * @return success、false
      */
     @PutMapping("/menu")
     //@PreAuthorize("@pms.hasPermission('sys_role_perm')")
-    public R<Boolean> saveRoleMenus(@RequestBody RoleVo roleVo) {
-        return R.success(sysRoleService.updateRoleMenus(roleVo));
+    public R<Boolean> saveRoleMenus(@RequestBody SysRoleMenuVO sysRoleMenuVO) {
+        return R.success(sysRoleService.updateRoleMenus(sysRoleMenuVO));
     }
 
     /**
@@ -122,7 +122,7 @@ public class SysRoleController {
      * @return
      */
     @PostMapping("/getRoleList")
-    public R<List<SysRole>> getRoleList(@RequestBody List<Long> roleIdList) {
+    public R<List<SysRoleDO>> getRoleList(@RequestBody List<Long> roleIdList) {
         return R.success(sysRoleService.findRolesByRoleIds(roleIdList, CollUtil.join(roleIdList, StrUtil.UNDERLINE)));
     }
 

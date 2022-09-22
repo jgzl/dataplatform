@@ -50,7 +50,7 @@
 			async getUserInfo(){
 				var userName = this.$TOOL.data.get("USER_INFO").userName;
 				let res = await this.$API.auth.currentUserInfo.get(userName);
-				this.form = res.data.sysUser;
+				this.form = res.data;
 			}
 		}
 	}

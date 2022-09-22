@@ -3,17 +3,17 @@ package cn.cleanarch.gw.gateway.admin.system.service.impl;
 import cn.cleanarch.gw.common.core.exception.enums.ErrorCodeConstants;
 import cn.cleanarch.gw.common.core.exception.util.ServiceExceptionUtil;
 import cn.cleanarch.gw.common.core.utils.collection.CollectionUtils;
-import cn.cleanarch.gw.common.model.system.constants.ErrorCodeTypeEnum;
-import cn.cleanarch.gw.common.model.system.convert.ErrorCodeConvert;
-import cn.cleanarch.gw.common.model.system.domain.ErrorCodeDO;
-import cn.cleanarch.gw.common.model.system.dto.ErrorCodeAutoGenerateReqDTO;
-import cn.cleanarch.gw.common.model.system.dto.ErrorCodeRespDTO;
-import cn.cleanarch.gw.common.model.system.vo.ErrorCodeCreateReqVO;
-import cn.cleanarch.gw.common.model.system.vo.ErrorCodeExportReqVO;
-import cn.cleanarch.gw.common.model.system.vo.ErrorCodePageReqVO;
-import cn.cleanarch.gw.common.model.system.vo.ErrorCodeUpdateReqVO;
+import cn.cleanarch.gw.gateway.admin.system.constants.SysErrorCodeTypeEnum;
+import cn.cleanarch.gw.gateway.admin.system.convert.ErrorCodeConvert;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysErrorCodeDO;
+import cn.cleanarch.gw.gateway.admin.system.dto.SysErrorCodeAutoGenerateReqDTO;
+import cn.cleanarch.gw.gateway.admin.system.dto.SysErrorCodeRespDTO;
 import cn.cleanarch.gw.gateway.admin.system.mapper.ErrorCodeMapper;
 import cn.cleanarch.gw.gateway.admin.system.service.ErrorCodeService;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysErrorCodeCreateReqVO;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysErrorCodeExportReqVO;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysErrorCodePageReqVO;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysErrorCodeUpdateReqVO;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.annotations.VisibleForTesting;
@@ -41,28 +41,28 @@ public class ErrorCodeServiceImpl implements ErrorCodeService {
     private ErrorCodeMapper errorCodeMapper;
 
     @Override
-    public Long createErrorCode(ErrorCodeCreateReqVO createReqVO) {
+    public Long createErrorCode(SysErrorCodeCreateReqVO createReqVO) {
         // 校验 code 重复
         validateCodeDuplicate(createReqVO.getCode(), null);
 
         // 插入
-        ErrorCodeDO errorCode = ErrorCodeConvert.INSTANCE.convert(createReqVO);
-        errorCode.setType(ErrorCodeTypeEnum.MANUAL_OPERATION.getType());
+        SysErrorCodeDO errorCode = ErrorCodeConvert.INSTANCE.convert(createReqVO);
+        errorCode.setType(SysErrorCodeTypeEnum.MANUAL_OPERATION.getType());
         errorCodeMapper.insert(errorCode);
         // 返回
         return errorCode.getId();
     }
 
     @Override
-    public void updateErrorCode(ErrorCodeUpdateReqVO updateReqVO) {
+    public void updateErrorCode(SysErrorCodeUpdateReqVO updateReqVO) {
         // 校验存在
         this.validateErrorCodeExists(updateReqVO.getId());
         // 校验 code 重复
         validateCodeDuplicate(updateReqVO.getCode(), updateReqVO.getId());
 
         // 更新
-        ErrorCodeDO updateObj = ErrorCodeConvert.INSTANCE.convert(updateReqVO);
-        updateObj.setType(ErrorCodeTypeEnum.MANUAL_OPERATION.getType());
+        SysErrorCodeDO updateObj = ErrorCodeConvert.INSTANCE.convert(updateReqVO);
+        updateObj.setType(SysErrorCodeTypeEnum.MANUAL_OPERATION.getType());
         errorCodeMapper.updateById(updateObj);
     }
 
@@ -84,15 +84,15 @@ public class ErrorCodeServiceImpl implements ErrorCodeService {
      */
     @VisibleForTesting
     public void validateCodeDuplicate(Integer code, Long id) {
-        ErrorCodeDO errorCodeDO = errorCodeMapper.selectByCode(code);
-        if (errorCodeDO == null) {
+        SysErrorCodeDO sysErrorCodeDO = errorCodeMapper.selectByCode(code);
+        if (sysErrorCodeDO == null) {
             return;
         }
         // 如果 id 为空，说明不用比较是否为相同 id 的错误码
         if (id == null) {
             throw ServiceExceptionUtil.exception(ErrorCodeConstants.ERROR_CODE_DUPLICATE);
         }
-        if (!errorCodeDO.getId().equals(id)) {
+        if (!sysErrorCodeDO.getId().equals(id)) {
             throw ServiceExceptionUtil.exception(ErrorCodeConstants.ERROR_CODE_DUPLICATE);
         }
     }
@@ -105,70 +105,70 @@ public class ErrorCodeServiceImpl implements ErrorCodeService {
     }
 
     @Override
-    public ErrorCodeDO getErrorCode(Long id) {
+    public SysErrorCodeDO getErrorCode(Long id) {
         return errorCodeMapper.selectById(id);
     }
 
     @Override
-    public IPage<ErrorCodeDO> getErrorCodePage(ErrorCodePageReqVO pageReqVO) {
+    public IPage<SysErrorCodeDO> getErrorCodePage(SysErrorCodePageReqVO pageReqVO) {
         return errorCodeMapper.selectPage(pageReqVO);
     }
 
     @Override
-    public List<ErrorCodeDO> getErrorCodeList(ErrorCodeExportReqVO exportReqVO) {
+    public List<SysErrorCodeDO> getErrorCodeList(SysErrorCodeExportReqVO exportReqVO) {
         return errorCodeMapper.selectList(exportReqVO);
     }
 
     @Override
     @Transactional
-    public void autoGenerateErrorCodes(List<ErrorCodeAutoGenerateReqDTO> autoGenerateDTOs) {
+    public void autoGenerateErrorCodes(List<SysErrorCodeAutoGenerateReqDTO> autoGenerateDTOs) {
         if (CollUtil.isEmpty(autoGenerateDTOs)) {
             return;
         }
         // 获得错误码
-        List<ErrorCodeDO> errorCodeDOs = errorCodeMapper.selectListByCodes(
-                CollectionUtils.convertSet(autoGenerateDTOs, ErrorCodeAutoGenerateReqDTO::getCode));
-        Map<Integer, ErrorCodeDO> errorCodeDOMap = CollectionUtils.convertMap(errorCodeDOs, ErrorCodeDO::getCode);
+        List<SysErrorCodeDO> sysErrorCodeDOS = errorCodeMapper.selectListByCodes(
+                CollectionUtils.convertSet(autoGenerateDTOs, SysErrorCodeAutoGenerateReqDTO::getCode));
+        Map<Integer, SysErrorCodeDO> errorCodeDOMap = CollectionUtils.convertMap(sysErrorCodeDOS, SysErrorCodeDO::getCode);
 
         // 遍历 autoGenerateBOs 数组，逐个插入或更新。考虑到每次量级不大，就不走批量了
         autoGenerateDTOs.forEach(autoGenerateDTO -> {
-            ErrorCodeDO errorCodeDO = errorCodeDOMap.get(autoGenerateDTO.getCode());
+            SysErrorCodeDO sysErrorCodeDO = errorCodeDOMap.get(autoGenerateDTO.getCode());
             // 不存在，则进行新增
-            if (errorCodeDO == null) {
-                errorCodeDO = ErrorCodeConvert.INSTANCE.convert(autoGenerateDTO);
-                errorCodeDO .setType(ErrorCodeTypeEnum.AUTO_GENERATION.getType());
-                errorCodeMapper.insert(errorCodeDO);
+            if (sysErrorCodeDO == null) {
+                sysErrorCodeDO = ErrorCodeConvert.INSTANCE.convert(autoGenerateDTO);
+                sysErrorCodeDO.setType(SysErrorCodeTypeEnum.AUTO_GENERATION.getType());
+                errorCodeMapper.insert(sysErrorCodeDO);
                 return;
             }
             // 存在，则进行更新。更新有三个前置条件：
             // 条件 1. 只更新自动生成的错误码，即 Type 为 ErrorCodeTypeEnum.AUTO_GENERATION
-            if (!ErrorCodeTypeEnum.AUTO_GENERATION.getType().equals(errorCodeDO.getType())) {
+            if (!SysErrorCodeTypeEnum.AUTO_GENERATION.getType().equals(sysErrorCodeDO.getType())) {
                 return;
             }
             // 条件 2. 分组 applicationName 必须匹配，避免存在错误码冲突的情况
-            if (!autoGenerateDTO.getApplicationName().equals(errorCodeDO.getApplicationName())) {
+            if (!autoGenerateDTO.getApplicationName().equals(sysErrorCodeDO.getApplicationName())) {
                 log.error("[autoGenerateErrorCodes][自动创建({}/{}) 错误码失败，数据库中已经存在({}/{})]",
                         autoGenerateDTO.getCode(), autoGenerateDTO.getApplicationName(),
-                        errorCodeDO.getCode(), errorCodeDO.getApplicationName());
+                        sysErrorCodeDO.getCode(), sysErrorCodeDO.getApplicationName());
                 return;
             }
             // 条件 3. 错误提示语存在差异
-            if (autoGenerateDTO.getMessage().equals(errorCodeDO.getMessage())) {
+            if (autoGenerateDTO.getMessage().equals(sysErrorCodeDO.getMessage())) {
                 return;
             }
             // 最终匹配，进行更新
-            ErrorCodeDO codeDO = new ErrorCodeDO();
-            codeDO.setId(errorCodeDO.getId());
+            SysErrorCodeDO codeDO = new SysErrorCodeDO();
+            codeDO.setId(sysErrorCodeDO.getId());
             codeDO.setMessage(autoGenerateDTO.getMessage());
             errorCodeMapper.updateById(codeDO);
         });
     }
 
     @Override
-    public List<ErrorCodeRespDTO> getErrorCodeList(String applicationName, LocalDateTime minUpdateTime) {
-        List<ErrorCodeDO> errorCodeDOs = errorCodeMapper.selectListByApplicationNameAndUpdateTimeGt(
+    public List<SysErrorCodeRespDTO> getErrorCodeList(String applicationName, LocalDateTime minUpdateTime) {
+        List<SysErrorCodeDO> sysErrorCodeDOS = errorCodeMapper.selectListByApplicationNameAndUpdateTimeGt(
                 applicationName, minUpdateTime);
-        return ErrorCodeConvert.INSTANCE.convertList03(errorCodeDOs);
+        return ErrorCodeConvert.INSTANCE.convertList03(sysErrorCodeDOS);
     }
 
 }

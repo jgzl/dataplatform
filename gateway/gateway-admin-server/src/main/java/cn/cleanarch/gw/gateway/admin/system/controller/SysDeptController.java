@@ -1,8 +1,8 @@
 package cn.cleanarch.gw.gateway.admin.system.controller;
 
 import cn.cleanarch.gw.common.core.model.R;
-import cn.cleanarch.gw.common.model.system.domain.SysDept;
-import cn.cleanarch.gw.common.model.system.domain.SysDeptRelation;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysDeptDO;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysDeptRelationDO;
 import cn.cleanarch.gw.gateway.admin.system.service.SysDeptRelationService;
 import cn.cleanarch.gw.gateway.admin.system.service.SysDeptService;
 import cn.hutool.core.lang.tree.Tree;
@@ -36,7 +36,7 @@ public class SysDeptController {
      * @return SysDept
      */
     @GetMapping("/{id}")
-    public R<SysDept> getById(@PathVariable Integer id) {
+    public R<SysDeptDO> getById(@PathVariable Integer id) {
         return R.success(sysDeptService.getById(id));
     }
 
@@ -53,13 +53,13 @@ public class SysDeptController {
     /**
      * 添加
      *
-     * @param sysDept 实体
+     * @param sysDeptDO 实体
      * @return success/false
      */
     @PostMapping
     //@PreAuthorize("@pms.hasPermission('sys_dept_add')")
-    public R<Boolean> save(@Valid @RequestBody SysDept sysDept) {
-        return R.success(sysDeptService.saveDept(sysDept));
+    public R<Boolean> save(@Valid @RequestBody SysDeptDO sysDeptDO) {
+        return R.success(sysDeptService.saveDept(sysDeptDO));
     }
 
     /**
@@ -77,14 +77,14 @@ public class SysDeptController {
     /**
      * 编辑
      *
-     * @param sysDept 实体
+     * @param sysDeptDO 实体
      * @return success/false
      */
     @PutMapping
     //@PreAuthorize("@pms.hasPermission('sys_dept_edit')")
-    public R<Boolean> update(@Valid @RequestBody SysDept sysDept) {
-        sysDept.setUpdateTime(LocalDateTime.now());
-        return R.success(sysDeptService.updateDeptById(sysDept));
+    public R<Boolean> update(@Valid @RequestBody SysDeptDO sysDeptDO) {
+        sysDeptDO.setUpdateTime(LocalDateTime.now());
+        return R.success(sysDeptService.updateDeptById(sysDeptDO));
     }
 
     /**
@@ -94,9 +94,9 @@ public class SysDeptController {
      * @return 返回子级
      */
     @GetMapping(value = "/getDescendantList/{deptId}")
-    public R<List<SysDeptRelation>> getDescendantList(@PathVariable Integer deptId) {
+    public R<List<SysDeptRelationDO>> getDescendantList(@PathVariable Integer deptId) {
         return R.success(
-                relationService.list(Wrappers.<SysDeptRelation>lambdaQuery().eq(SysDeptRelation::getAncestor, deptId)));
+                relationService.list(Wrappers.<SysDeptRelationDO>lambdaQuery().eq(SysDeptRelationDO::getAncestor, deptId)));
     }
 
 }

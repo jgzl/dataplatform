@@ -1,6 +1,6 @@
 package cn.cleanarch.gw.gateway.admin.system.service;
 
-import cn.cleanarch.gw.common.model.system.domain.SysDept;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysDeptDO;
 import cn.hutool.core.lang.tree.Tree;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * @author li7hai26@gmail.com
  * @since 2018-01-20
  */
-public interface SysDeptService extends IService<SysDept> {
+public interface SysDeptService extends IService<SysDeptDO> {
 
     /**
      * 查询部门树菜单
@@ -26,10 +26,10 @@ public interface SysDeptService extends IService<SysDept> {
     /**
      * 添加信息部门
      *
-     * @param sysDept
+     * @param sysDeptDO
      * @return
      */
-    Boolean saveDept(SysDept sysDept);
+    Boolean saveDept(SysDeptDO sysDeptDO);
 
     /**
      * 删除部门
@@ -42,9 +42,9 @@ public interface SysDeptService extends IService<SysDept> {
     /**
      * 更新部门
      *
-     * @param sysDept 部门信息
+     * @param sysDeptDO 部门信息
      * @return 成功、失败
      */
-    Boolean updateDeptById(SysDept sysDept);
+    Boolean updateDeptById(SysDeptDO sysDeptDO);
 
 }

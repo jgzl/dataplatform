@@ -1,10 +1,10 @@
 package cn.cleanarch.gw.common.security.service;
 
 import cn.cleanarch.gw.common.core.model.R;
-import cn.cleanarch.gw.common.model.system.domain.SysUser;
-import cn.cleanarch.gw.common.model.system.vo.SysUserDto;
-import cn.cleanarch.gw.common.model.system.vo.SysUserVo;
-import cn.cleanarch.gw.common.model.system.vo.UserInfo;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysUserDO;
+import cn.cleanarch.gw.gateway.admin.system.dto.SysUserDTO;
+import cn.cleanarch.gw.gateway.admin.system.dto.SysUserInfoDTO;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysUserVO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -15,7 +15,7 @@ import java.util.List;
  * @author li7hai26@gmail.com
  * @date 2017/10/31
  */
-public interface SysUserService extends IService<SysUser> {
+public interface SysUserService extends IService<SysUserDO> {
 
     /**
      * 查询用户信息
@@ -23,15 +23,15 @@ public interface SysUserService extends IService<SysUser> {
      * @param userName 用户
      * @return userInfo
      */
-    UserInfo findUserInfo(String userName);
+    SysUserInfoDTO findUserInfo(String userName);
 
     /**
      * 查询用户信息
      *
-     * @param sysUser 用户
+     * @param sysUserDO 用户
      * @return userInfo
      */
-    UserInfo findUserInfo(SysUser sysUser);
+    SysUserInfoDTO findUserInfo(SysUserDO sysUserDO);
 
     /**
      * 分页查询用户信息（含有角色信息）
@@ -40,15 +40,15 @@ public interface SysUserService extends IService<SysUser> {
      * @param userDTO 参数列表
      * @return
      */
-    IPage getUsersWithDeptPage(Page page, SysUserDto userDTO);
+    IPage getUsersWithDeptPage(Page page, SysUserDTO userDTO);
 
     /**
      * 删除用户
      *
-     * @param sysUser 用户
+     * @param sysUserDO 用户
      * @return boolean
      */
-    Boolean deleteUserById(SysUser sysUser);
+    Boolean deleteUserById(SysUserDO sysUserDO);
 
     /**
      * 更新当前用户基本信息
@@ -56,7 +56,7 @@ public interface SysUserService extends IService<SysUser> {
      * @param userDto 用户信息
      * @return Boolean
      */
-    R<Boolean> updateUserInfo(SysUserDto userDto);
+    R<Boolean> updateUserInfo(SysUserDTO userDto);
 
     /**
      * 更新指定用户信息
@@ -64,7 +64,7 @@ public interface SysUserService extends IService<SysUser> {
      * @param userDto 用户信息
      * @return
      */
-    Boolean updateUser(SysUserDto userDto);
+    Boolean updateUser(SysUserDTO userDto);
 
     /**
      * 通过ID查询用户信息
@@ -72,7 +72,7 @@ public interface SysUserService extends IService<SysUser> {
      * @param id 用户ID
      * @return 用户信息
      */
-    SysUserVo selectUserVoById(Integer id);
+    SysUserVO selectUserVoById(Integer id);
 
     /**
      * 查询上级部门的用户信息
@@ -80,7 +80,7 @@ public interface SysUserService extends IService<SysUser> {
      * @param username 用户名
      * @return R
      */
-    List<SysUser> listAncestorUsers(String username);
+    List<SysUserDO> listAncestorUsers(String username);
 
     /**
      * 保存用户信息
@@ -88,9 +88,9 @@ public interface SysUserService extends IService<SysUser> {
      * @param userDto DTO 对象
      * @return success/fail
      */
-    Boolean saveUser(SysUserDto userDto);
+    Boolean saveUser(SysUserDTO userDto);
 
-    List<SysUserVo> getUsersWithDept(SysUserDto userDTO);
+    List<SysUserVO> getUsersWithDept(SysUserDTO userDTO);
 
-    Boolean updateUserForLockFlag(SysUserDto userDto);
+    Boolean updateUserForLockFlag(SysUserDTO userDto);
 }

@@ -1,8 +1,8 @@
 package cn.cleanarch.gw.gateway.admin.system.service.impl;
 
 import cn.cleanarch.gw.common.core.constant.CommonConstants;
-import cn.cleanarch.gw.common.model.system.domain.SysDept;
-import cn.cleanarch.gw.common.model.system.domain.SysDeptRelation;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysDeptDO;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysDeptRelationDO;
 import cn.cleanarch.gw.gateway.admin.system.mapper.SysDeptMapper;
 import cn.cleanarch.gw.gateway.admin.system.service.SysDeptRelationService;
 import cn.cleanarch.gw.gateway.admin.system.service.SysDeptService;
@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @AllArgsConstructor
-public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> implements SysDeptService {
+public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDeptDO> implements SysDeptService {
 
     private final SysDeptRelationService sysDeptRelationService;
 
@@ -47,11 +47,11 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean saveDept(SysDept dept) {
-        SysDept sysDept = new SysDept();
-        BeanUtils.copyProperties(dept, sysDept);
-        this.save(sysDept);
-        sysDeptRelationService.insertDeptRelation(sysDept);
+    public Boolean saveDept(SysDeptDO dept) {
+        SysDeptDO sysDeptDO = new SysDeptDO();
+        BeanUtils.copyProperties(dept, sysDeptDO);
+        this.save(sysDeptDO);
+        sysDeptRelationService.insertDeptRelation(sysDeptDO);
         return Boolean.TRUE;
     }
 
@@ -66,8 +66,8 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
     public Boolean removeDeptById(Long id) {
         // 级联删除部门
         List<Long> idList = sysDeptRelationService
-                .list(Wrappers.<SysDeptRelation>query().lambda().eq(SysDeptRelation::getAncestor, id)).stream()
-                .map(SysDeptRelation::getDescendant).collect(Collectors.toList());
+                .list(Wrappers.<SysDeptRelationDO>query().lambda().eq(SysDeptRelationDO::getAncestor, id)).stream()
+                .map(SysDeptRelationDO::getDescendant).collect(Collectors.toList());
 
         if (CollUtil.isNotEmpty(idList)) {
             this.removeByIds(idList);
@@ -81,18 +81,18 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
     /**
      * 更新部门
      *
-     * @param sysDept 部门信息
+     * @param sysDeptDO 部门信息
      * @return 成功、失败
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean updateDeptById(SysDept sysDept) {
+    public Boolean updateDeptById(SysDeptDO sysDeptDO) {
         // 更新部门状态
-        this.updateById(sysDept);
+        this.updateById(sysDeptDO);
         // 更新部门关系
-        SysDeptRelation relation = new SysDeptRelation();
-        relation.setAncestor(sysDept.getParentId());
-        relation.setDescendant(sysDept.getId());
+        SysDeptRelationDO relation = new SysDeptRelationDO();
+        relation.setAncestor(sysDeptDO.getParentId());
+        relation.setDescendant(sysDeptDO.getId());
         sysDeptRelationService.updateDeptRelation(relation);
         return Boolean.TRUE;
     }
@@ -105,12 +105,12 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
     @Override
     public List<Tree<Long>> selectTree() {
         // 查询全部部门
-        List<SysDept> deptAllList = deptMapper.selectList(Wrappers.emptyWrapper());
+        List<SysDeptDO> deptAllList = deptMapper.selectList(Wrappers.emptyWrapper());
 
         // 权限内部门
         List<TreeNode<Long>> collect = deptAllList.stream()
                 .filter(dept -> dept.getId().intValue() != dept.getParentId())
-                .sorted(Comparator.comparingInt(SysDept::getSort)).map(dept -> {
+                .sorted(Comparator.comparingInt(SysDeptDO::getSort)).map(dept -> {
                     TreeNode<Long> treeNode = new TreeNode<>();
                     treeNode.setId(dept.getId());
                     treeNode.setParentId(dept.getParentId());

@@ -1,8 +1,8 @@
 package cn.cleanarch.gw.common.gateway.convert;
 
+import cn.cleanarch.gw.common.BaseConvert;
 import cn.cleanarch.gw.common.gateway.domain.GatewayLog;
 import cn.cleanarch.gw.common.gateway.vo.GatewayLogVo;
-import cn.cleanarch.gw.common.model.base.BaseConvert;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

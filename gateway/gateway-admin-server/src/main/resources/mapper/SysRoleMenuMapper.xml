@@ -3,7 +3,7 @@
 <mapper namespace="cn.cleanarch.gw.gateway.admin.system.mapper.SysRoleMenuMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.cleanarch.gw.common.model.system.domain.SysRoleMenu">
+    <resultMap id="BaseResultMap" type="cn.cleanarch.gw.gateway.admin.system.domain.SysRoleMenuDO">
         <result column="id" property="id"/>
         <result column="role_id" property="roleId"/>
         <result column="menu_id" property="menuId"/>

@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.gateway.admin.system.mapper;
 
 import cn.cleanarch.gw.common.data.mapper.ExtendBaseMapper;
-import cn.cleanarch.gw.common.model.system.domain.SysRole;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysRoleDO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * @since 2017-10-29
  */
 @Mapper
-public interface SysRoleMapper extends ExtendBaseMapper<SysRole> {
+public interface SysRoleMapper extends ExtendBaseMapper<SysRoleDO> {
 
     /**
      * 通过用户ID，查询角色信息
@@ -23,6 +23,6 @@ public interface SysRoleMapper extends ExtendBaseMapper<SysRole> {
      * @param userId
      * @return
      */
-    List<SysRole> listRolesByUserId(Long userId);
+    List<SysRoleDO> listRolesByUserId(Long userId);
 
 }

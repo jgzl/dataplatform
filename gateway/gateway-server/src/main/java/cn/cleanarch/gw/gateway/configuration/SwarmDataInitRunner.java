@@ -2,7 +2,7 @@ package cn.cleanarch.gw.gateway.configuration;
 
 import cn.cleanarch.gw.common.core.constant.CacheConstants;
 import cn.cleanarch.gw.common.gateway.support.GatewayAccessConfCacheHolder;
-import cn.cleanarch.gw.common.model.gateway.vo.GatewayAccessConfVo;
+import cn.cleanarch.gw.gateway.admin.gateway.vo.GatewayAccessConfVO;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.ListUtil;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class SwarmDataInitRunner implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
         log.info("开始预热Redis缓存数据至本地缓存");
-        List<GatewayAccessConfVo> vos = redisTemplate.<String, GatewayAccessConfVo>opsForHash().values(CacheConstants.ACCESS_CONF_KEY);
+        List<GatewayAccessConfVO> vos = redisTemplate.<String, GatewayAccessConfVO>opsForHash().values(CacheConstants.ACCESS_CONF_KEY);
         if (CollUtil.isEmpty(vos)) {
             vos = ListUtil.empty();
         }

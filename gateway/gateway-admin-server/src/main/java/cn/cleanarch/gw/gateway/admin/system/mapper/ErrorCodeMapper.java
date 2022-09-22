@@ -2,9 +2,9 @@ package cn.cleanarch.gw.gateway.admin.system.mapper;
 
 import cn.cleanarch.gw.common.data.mapper.ExtendBaseMapper;
 import cn.cleanarch.gw.common.data.query.QueryWrapperX;
-import cn.cleanarch.gw.common.model.system.domain.ErrorCodeDO;
-import cn.cleanarch.gw.common.model.system.vo.ErrorCodeExportReqVO;
-import cn.cleanarch.gw.common.model.system.vo.ErrorCodePageReqVO;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysErrorCodeDO;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysErrorCodeExportReqVO;
+import cn.cleanarch.gw.gateway.admin.system.vo.SysErrorCodePageReqVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,10 +14,10 @@ import java.util.Collection;
 import java.util.List;
 
 @Mapper
-public interface ErrorCodeMapper extends ExtendBaseMapper<ErrorCodeDO> {
+public interface ErrorCodeMapper extends ExtendBaseMapper<SysErrorCodeDO> {
 
-    default IPage<ErrorCodeDO> selectPage(ErrorCodePageReqVO reqVO) {
-        return selectPage(reqVO, new QueryWrapperX<ErrorCodeDO>()
+    default IPage<SysErrorCodeDO> selectPage(SysErrorCodePageReqVO reqVO) {
+        return selectPage(reqVO, new QueryWrapperX<SysErrorCodeDO>()
                 .eqIfPresent("type", reqVO.getType())
                 .likeIfPresent("application_name", reqVO.getApplicationName())
                 .eqIfPresent("code", reqVO.getCode())
@@ -26,8 +26,8 @@ public interface ErrorCodeMapper extends ExtendBaseMapper<ErrorCodeDO> {
                 .orderByAsc("application_name", "code"));
     }
 
-    default List<ErrorCodeDO> selectList(ErrorCodeExportReqVO reqVO) {
-        return selectList(new QueryWrapperX<ErrorCodeDO>()
+    default List<SysErrorCodeDO> selectList(SysErrorCodeExportReqVO reqVO) {
+        return selectList(new QueryWrapperX<SysErrorCodeDO>()
                 .eqIfPresent("type", reqVO.getType())
                 .likeIfPresent("application_name", reqVO.getApplicationName())
                 .eqIfPresent("code", reqVO.getCode())
@@ -36,16 +36,16 @@ public interface ErrorCodeMapper extends ExtendBaseMapper<ErrorCodeDO> {
                 .orderByAsc("application_name", "code"));
     }
 
-    default List<ErrorCodeDO> selectListByCodes(Collection<Integer> codes) {
-        return selectList(new QueryWrapper<ErrorCodeDO>().in("code", codes));
+    default List<SysErrorCodeDO> selectListByCodes(Collection<Integer> codes) {
+        return selectList(new QueryWrapper<SysErrorCodeDO>().in("code", codes));
     }
 
-    default ErrorCodeDO selectByCode(Integer code) {
-        return selectOne(new QueryWrapper<ErrorCodeDO>().eq("code", code));
+    default SysErrorCodeDO selectByCode(Integer code) {
+        return selectOne(new QueryWrapper<SysErrorCodeDO>().eq("code", code));
     }
 
-    default List<ErrorCodeDO> selectListByApplicationNameAndUpdateTimeGt(String applicationName, LocalDateTime minUpdateTime) {
-        return selectList(new QueryWrapperX<ErrorCodeDO>().eq("application_name", applicationName)
+    default List<SysErrorCodeDO> selectListByApplicationNameAndUpdateTimeGt(String applicationName, LocalDateTime minUpdateTime) {
+        return selectList(new QueryWrapperX<SysErrorCodeDO>().eq("application_name", applicationName)
                 .gtIfPresent("update_time", minUpdateTime));
     }
 

@@ -1,7 +1,7 @@
 package cn.cleanarch.gw.gateway.admin.system.service.impl;
 
-import cn.cleanarch.gw.common.model.system.domain.SysDept;
-import cn.cleanarch.gw.common.model.system.domain.SysDeptRelation;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysDeptDO;
+import cn.cleanarch.gw.gateway.admin.system.domain.SysDeptRelationDO;
 import cn.cleanarch.gw.gateway.admin.system.mapper.SysDeptRelationMapper;
 import cn.cleanarch.gw.gateway.admin.system.service.SysDeptRelationService;
 import cn.hutool.core.collection.CollUtil;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @AllArgsConstructor
-public class SysDeptRelationServiceImpl extends ServiceImpl<SysDeptRelationMapper, SysDeptRelation>
+public class SysDeptRelationServiceImpl extends ServiceImpl<SysDeptRelationMapper, SysDeptRelationDO>
         implements SysDeptRelationService {
 
     private final SysDeptRelationMapper sysDeptRelationMapper;
@@ -32,16 +32,16 @@ public class SysDeptRelationServiceImpl extends ServiceImpl<SysDeptRelationMappe
     /**
      * 维护部门关系
      *
-     * @param sysDept 部门
+     * @param sysDeptDO 部门
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void insertDeptRelation(SysDept sysDept) {
+    public void insertDeptRelation(SysDeptDO sysDeptDO) {
         // 增加部门关系表
-        List<SysDeptRelation> relationList = sysDeptRelationMapper.selectList(
-                        Wrappers.<SysDeptRelation>query().lambda().eq(SysDeptRelation::getDescendant, sysDept.getParentId()))
+        List<SysDeptRelationDO> relationList = sysDeptRelationMapper.selectList(
+                        Wrappers.<SysDeptRelationDO>query().lambda().eq(SysDeptRelationDO::getDescendant, sysDeptDO.getParentId()))
                 .stream().map(relation -> {
-                    relation.setDescendant(sysDept.getId());
+                    relation.setDescendant(sysDeptDO.getId());
                     return relation;
                 }).collect(Collectors.toList());
         if (CollUtil.isNotEmpty(relationList)) {
@@ -49,9 +49,9 @@ public class SysDeptRelationServiceImpl extends ServiceImpl<SysDeptRelationMappe
         }
 
         // 自己也要维护到关系表中
-        SysDeptRelation own = new SysDeptRelation();
-        own.setDescendant(sysDept.getId());
-        own.setAncestor(sysDept.getId());
+        SysDeptRelationDO own = new SysDeptRelationDO();
+        own.setDescendant(sysDeptDO.getId());
+        own.setAncestor(sysDeptDO.getId());
         sysDeptRelationMapper.insert(own);
     }
 
@@ -71,7 +71,7 @@ public class SysDeptRelationServiceImpl extends ServiceImpl<SysDeptRelationMappe
      * @param relation
      */
     @Override
-    public void updateDeptRelation(SysDeptRelation relation) {
+    public void updateDeptRelation(SysDeptRelationDO relation) {
         baseMapper.updateDeptRelations(relation);
     }
 

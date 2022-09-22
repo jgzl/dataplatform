@@ -1,9 +1,9 @@
 package cn.cleanarch.gw.gateway.admin.gateway.controller;
 
 import cn.cleanarch.gw.common.core.model.R;
-import cn.cleanarch.gw.common.model.gateway.domain.GatewayRouteConf;
-import cn.cleanarch.gw.common.model.gateway.vo.GatewayRouteConfVo;
+import cn.cleanarch.gw.gateway.admin.gateway.domain.GatewayRouteConfDO;
 import cn.cleanarch.gw.gateway.admin.gateway.service.GatewayRouteConfService;
+import cn.cleanarch.gw.gateway.admin.gateway.vo.GatewayRouteConfVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -29,8 +29,8 @@ public class GatewayRouteConfController {
      * @return
      */
     @GetMapping("/page")
-    public R<IPage<GatewayRouteConf>> pageListRoutes(Page page, GatewayRouteConfVo vo) {
-        return R.success(service.page(page, new QueryWrapper<GatewayRouteConf>(vo)));
+    public R<IPage<GatewayRouteConfDO>> pageListRoutes(Page page, GatewayRouteConfVO vo) {
+        return R.success(service.page(page, new QueryWrapper<GatewayRouteConfDO>(vo)));
     }
 
     /**
@@ -39,7 +39,7 @@ public class GatewayRouteConfController {
      * @return
      */
     @GetMapping
-    public R<List<GatewayRouteConf>> listRoutes() {
+    public R<List<GatewayRouteConfDO>> listRoutes() {
         return R.success(service.list());
     }
 
@@ -50,7 +50,7 @@ public class GatewayRouteConfController {
      * @return
      */
     @PostMapping
-    public R<Void> createRoutes(@RequestBody GatewayRouteConf vo) {
+    public R<Void> createRoutes(@RequestBody GatewayRouteConfDO vo) {
         service.saveOrUpdate(vo);
         return R.success();
     }
@@ -62,7 +62,7 @@ public class GatewayRouteConfController {
      * @return
      */
     @PutMapping
-    public R<Void> updateRoutes(@RequestBody GatewayRouteConf vo) {
+    public R<Void> updateRoutes(@RequestBody GatewayRouteConfDO vo) {
         service.saveOrUpdate(vo);
         return R.success();
     }
