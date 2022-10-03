@@ -3,7 +3,7 @@ package cn.cleanarch.dp.system.vo;
 import lombok.Data;
 
 /**
- * @author lengleng
+ * @author li7hai26@outlook.com
  * @date 2021/2/10
  */
 @Data

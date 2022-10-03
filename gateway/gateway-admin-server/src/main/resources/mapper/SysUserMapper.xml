@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.cleanarch.dp.gateway.admin.system.mapper.SysUserMapper">
+<mapper namespace="cn.cleanarch.dp.gateway.system.mapper.SysUserMapper">
 
     <!-- 通用查询映射结果 -->
     <resultMap id="baseResultMap" type="cn.cleanarch.dp.system.vo.SysUserVO">
@@ -22,7 +22,7 @@
         <result column="dept_id" property="deptId"/>
         <result column="dept_name" property="deptName"/>
         <collection property="roleList" ofType="cn.cleanarch.dp.system.domain.SysRoleDO"
-                    select="cn.cleanarch.dp.gateway.admin.system.mapper.SysRoleMapper.listRolesByUserId"
+                    select="cn.cleanarch.dp.gateway.system.mapper.SysRoleMapper.listRolesByUserId"
                     column="id">
         </collection>
     </resultMap>

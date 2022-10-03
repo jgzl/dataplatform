@@ -2,6 +2,7 @@ package cn.cleanarch.dp.gateway.admin.system.service.impl;
 
 import cn.cleanarch.dp.common.test.core.ut.BaseDbAndRedisUnitTest;
 import cn.cleanarch.dp.common.test.core.util.RandomUtil;
+import cn.cleanarch.dp.gateway.system.service.impl.ErrorCodeServiceImpl;
 import cn.cleanarch.dp.system.domain.SysErrorCodeDO;
 import cn.cleanarch.dp.system.vo.SysErrorCodeCreateReqVO;
 import org.junit.jupiter.api.Test;

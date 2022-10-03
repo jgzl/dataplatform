@@ -66,4 +66,9 @@ public class CacheConstants extends CommonConstants{
      * 角色信息缓存
      */
     public final static String ROLE_DETAILS = CACHE_PREFIX + "role_details";
+
+    /**
+     * 角色信息缓存
+     */
+    public final static String CLIENT_DETAILS = CACHE_PREFIX + "client_details";
 }
