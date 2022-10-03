@@ -1,6 +1,7 @@
 package cn.cleanarch.dp.system.domain;
 
 import cn.cleanarch.dp.common.BaseDO;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,6 +15,7 @@ import javax.validation.constraints.NotBlank;
  * @author li7hai26@outlook.com
  * @since 2019/2/1
  */
+@TableName("sys_oauth_client_details")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SysOauthClientDetailsDO extends BaseDO {
