@@ -45,5 +45,5 @@ mybatis-plus:
 
 infra:
   mybatis:
-    base-package: cn.cleanarch.gw.message.mapper
+    base-package: cn.cleanarch.dp.message.mapper
     lazy-initialization: true # 单元测试，设置 MyBatis Mapper 延迟加载，加速每个单元测试

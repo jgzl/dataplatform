@@ -5,7 +5,7 @@
   "outPath": "doc",
   "coverOld": true,
   "createDebugPage": true,
-  "packageFilters": "cn.cleanarch.gw.*.*.controller.*",
+  "packageFilters": "cn.cleanarch.dp.*.*.controller.*",
   "md5EncryptedHtmlName": false,
   "style": "xt256",
   "projectName": "smart-doc",
@@ -18,7 +18,7 @@
   "requestExample": "true",
   "responseExample":"true",
   "apiConstants": [{
-    "constantsClassName": "cn.cleanarch.gw.common.core.constant.GatewayConstants"
+    "constantsClassName": "cn.cleanarch.dp.common.core.constant.GatewayConstants"
   }],
   "displayActualType":false,
   "tornaDebug": true,

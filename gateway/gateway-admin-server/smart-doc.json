@@ -5,7 +5,7 @@
   "outPath": "doc",
   "coverOld": true,
   "createDebugPage": true,
-  "packageFilters": "cn.cleanarch.gw.*.*.controller.*",
+  "packageFilters": "cn.cleanarch.dp.*.*.controller.*",
   "md5EncryptedHtmlName": false,
   "style": "xt256",
   "projectName": "smart-doc",

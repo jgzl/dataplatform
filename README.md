@@ -1,10 +1,10 @@
-# 网关微服务平台
+# 数据中台
 ## 项目结构
 gateway-admin-ui为前端,参考前端项目 [vue-admin-work-x](https://gitee.com/qingqingxuan/vue-admin-work-x)
 
 ## 平台简介
-
-GW是一套基于Spring Cloud Gateway开发的网关管理平台，毫无保留给个人及企业免费使用。
+数据中台-拥有数据治理,数据质量,数据集市功能
+数据中台-网关基于Spring Cloud Gateway开发的网关管理平台，毫无保留给个人及企业免费使用。
 
 * 前端采用Vue、Element UI。
 * 后端采用Spring Boot、Spring Security、Redis & Jwt。

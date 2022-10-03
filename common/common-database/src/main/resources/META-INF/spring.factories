@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  cn.cleanarch.dp.common.database.datasource.CacheDataSourceFactoryBean

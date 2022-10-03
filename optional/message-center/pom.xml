@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>cn.cleanarch.gw</groupId>
+        <groupId>cn.cleanarch.dp</groupId>
         <artifactId>optional</artifactId>
         <version>${revision}</version>
     </parent>
     <artifactId>message-center</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>网关微服务平台::选装服务::消息中心服务</name>
+    <name>数据中台::选装服务::消息中心服务</name>
     <description>${project.name}</description>
     <properties>
         <spring-cloud.version>2021.0.0</spring-cloud.version>
@@ -45,11 +45,11 @@
             <artifactId>commons-lang3</artifactId>
         </dependency>
         <dependency>
-            <groupId>cn.cleanarch.gw</groupId>
+            <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>cn.cleanarch.gw</groupId>
+            <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-websocket</artifactId>
         </dependency>
         <dependency>

@@ -1,1 +1,1 @@
-jdbc=cn.cleanarch.gw.gateway.spi.log.service.JdbcRecordLogServiceImpl
+jdbc=cn.cleanarch.dp.gateway.spi.log.service.JdbcRecordLogServiceImpl

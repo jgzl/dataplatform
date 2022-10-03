@@ -3,17 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>cn.cleanarch.gw</groupId>
-        <artifactId>gw-all</artifactId>
+        <groupId>cn.cleanarch.dp</groupId>
+        <artifactId>dataplatform</artifactId>
         <version>${revision}</version>
     </parent>
     <modules>
         <module>common-core</module>
         <module>common-data</module>
+        <module>common-database</module>
         <module>common-excel</module>
         <module>common-feign</module>
         <module>common-gateway</module>
         <module>common-model</module>
+        <module>common-qrcode</module>
         <module>common-redis</module>
         <module>common-security</module>
         <module>common-test</module>
@@ -22,7 +24,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>common</artifactId>
     <packaging>pom</packaging>
-    <name>网关微服务平台::通用模块</name>
+    <name>数据中台::通用模块</name>
     <description>${project.name}</description>
 
     <dependencies>

@@ -1,1 +1,1 @@
-elasticsearch=cn.cleanarch.gw.gateway.spi.log.service.ElasticsearchRecordLogServiceImpl
+elasticsearch=cn.cleanarch.dp.gateway.spi.log.service.ElasticsearchRecordLogServiceImpl

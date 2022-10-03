@@ -3,28 +3,28 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>cn.cleanarch.gw</groupId>
+        <groupId>cn.cleanarch.dp</groupId>
         <artifactId>gateway</artifactId>
         <version>${revision}</version>
     </parent>
     <artifactId>gateway-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>网关微服务平台::网关服务::网关核心服务</name>
+    <name>数据中台::网关服务::网关核心服务</name>
     <description>${project.name}</description>
     <properties>
         <spring-cloud.version>2021.0.0</spring-cloud.version>
     </properties>
     <dependencies>
         <dependency>
-            <groupId>cn.cleanarch.gw</groupId>
+            <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-feign</artifactId>
         </dependency>
         <dependency>
-            <groupId>cn.cleanarch.gw</groupId>
+            <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-gateway</artifactId>
         </dependency>
         <dependency>
-            <groupId>cn.cleanarch.gw</groupId>
+            <groupId>cn.cleanarch.dp</groupId>
             <artifactId>spi-log-jdbc</artifactId>
         </dependency>
 

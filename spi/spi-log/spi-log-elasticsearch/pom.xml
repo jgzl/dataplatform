@@ -3,31 +3,31 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>cn.cleanarch.gw</groupId>
+        <groupId>cn.cleanarch.dp</groupId>
         <artifactId>spi-log</artifactId>
         <version>${revision}</version>
     </parent>
     <artifactId>spi-log-elasticsearch</artifactId>
-    <name>网关微服务平台::扩展模块::SPI-日志模块::ES</name>
+    <name>数据中台::扩展模块::SPI-日志模块::ES</name>
     <description>${project.name}</description>
     <properties>
     </properties>
     <dependencies>
         <dependency>
-            <groupId>cn.cleanarch.gw</groupId>
+            <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>cn.cleanarch.gw</groupId>
-            <artifactId>common-gateway</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.cleanarch.gw</groupId>
+            <groupId>cn.cleanarch.dp</groupId>
             <artifactId>spi-log-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
     </dependencies>
 

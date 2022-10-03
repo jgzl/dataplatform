@@ -3,27 +3,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>cn.cleanarch.gw</groupId>
+        <groupId>cn.cleanarch.dp</groupId>
         <artifactId>spi-log</artifactId>
         <version>${revision}</version>
     </parent>
     <artifactId>spi-log-jdbc</artifactId>
-    <name>网关微服务平台::扩展模块::SPI-日志模块::JDBC</name>
+    <name>数据中台::扩展模块::SPI-日志模块::JDBC</name>
     <description>${project.name}</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
         <dependency>
-            <groupId>cn.cleanarch.gw</groupId>
+            <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>cn.cleanarch.gw</groupId>
-            <artifactId>common-gateway</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.cleanarch.gw</groupId>
+            <groupId>cn.cleanarch.dp</groupId>
             <artifactId>spi-log-api</artifactId>
         </dependency>
         <dependency>

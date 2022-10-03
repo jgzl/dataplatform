@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cn.cleanarch.gw</groupId>
-    <artifactId>gw-all</artifactId>
+    <groupId>cn.cleanarch.dp</groupId>
+    <artifactId>dataplatform</artifactId>
     <packaging>pom</packaging>
     <version>${revision}</version>
 
-    <name>网关微服务平台</name>
+    <name>数据中台</name>
     <description>${project.name}</description>
 
     <modules>
@@ -67,7 +67,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>cn.cleanarch.gw</groupId>
+                <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>dependencies-bom</artifactId>
                 <version>${revision}</version>
                 <type>pom</type>
@@ -248,13 +248,13 @@
                         <projectName>${project.name}</projectName><!--smart-doc实现自动分析依赖树加载第三方依赖的源码，如果一些框架依赖库加载不到导致报错，这时请使用excludes排除掉-->
                         <includes>
                             <!--格式为：groupId:artifactId;参考如下-->
-                            <include>cn.cleanarch.gw:common-core</include>
-                            <include>cn.cleanarch.gw:common-data</include>
-                            <include>cn.cleanarch.gw:common-excel</include>
-                            <include>cn.cleanarch.gw:common-feign</include>
-                            <include>cn.cleanarch.gw:common-gateway</include>
-                            <include>cn.cleanarch.gw:common-model</include>
-                            <include>cn.cleanarch.gw:common-security</include>
+                            <include>cn.cleanarch.dp:common-core</include>
+                            <include>cn.cleanarch.dp:common-data</include>
+                            <include>cn.cleanarch.dp:common-excel</include>
+                            <include>cn.cleanarch.dp:common-feign</include>
+                            <include>cn.cleanarch.dp:common-gateway</include>
+                            <include>cn.cleanarch.dp:common-model</include>
+                            <include>cn.cleanarch.dp:common-security</include>
                         </includes>
                     </configuration>
                     <executions>

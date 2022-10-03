@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>cn.cleanarch.gw</groupId>
+        <groupId>cn.cleanarch.dp</groupId>
         <artifactId>optional</artifactId>
         <version>${revision}</version>
     </parent>
     <artifactId>tool-center</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>网关微服务平台::选装服务::工具中心服务</name>
+    <name>数据中台::选装服务::工具中心服务</name>
     <description>${project.name}</description>
     <properties>
         <spring-cloud.version>2021.0.0</spring-cloud.version>
@@ -46,23 +46,52 @@
             <artifactId>hutool-all</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.ssssssss</groupId>
-            <artifactId>magic-api-spring-boot-starter</artifactId>
-            <version>${magic.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.ssssssss</groupId>-->
+<!--            <artifactId>magic-api-spring-boot-starter</artifactId>-->
+<!--            <version>${magic.version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>net.devh</groupId>
             <artifactId>grpc-spring-boot-starter</artifactId>
             <version>2.12.0.RELEASE</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.ssssssss</groupId>-->
+<!--            <artifactId>magic-api-plugin-cluster</artifactId>-->
+<!--            <version>${magic.version}</version>-->
+<!--        </dependency>-->
         <dependency>
-            <groupId>org.ssssssss</groupId>
-            <artifactId>magic-api-plugin-cluster</artifactId>
-            <version>${magic.version}</version>
+            <groupId>com.aspose</groupId>
+            <artifactId>aspose-words</artifactId>
+            <version>20.3</version>
         </dependency>
         <dependency>
-            <groupId>cn.cleanarch.gw</groupId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.cleanarch.dp</groupId>
+            <artifactId>common-data</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.cleanarch.dp</groupId>
+            <artifactId>common-database</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.cleanarch.dp</groupId>
+            <artifactId>common-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.cleanarch.dp</groupId>
+            <artifactId>common-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.cleanarch.dp</groupId>
+            <artifactId>common-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-test</artifactId>
             <scope>test</scope>
         </dependency>

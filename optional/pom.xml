@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>cn.cleanarch.gw</groupId>
-        <artifactId>gw-all</artifactId>
+        <groupId>cn.cleanarch.dp</groupId>
+        <artifactId>dataplatform</artifactId>
         <version>${revision}</version>
     </parent>
     <modules>
@@ -15,7 +15,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>optional</artifactId>
     <packaging>pom</packaging>
-    <name>网关微服务平台::选装服务</name>
+    <name>数据中台::选装服务</name>
     <description>${project.name}</description>
 
     <dependencies>

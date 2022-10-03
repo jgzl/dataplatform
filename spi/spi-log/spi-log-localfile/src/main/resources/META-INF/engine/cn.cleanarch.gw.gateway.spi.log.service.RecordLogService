@@ -1,1 +1,1 @@
-localfile=cn.cleanarch.gw.gateway.spi.log.service.LocalFileRecordLogServiceImpl
+localfile=cn.cleanarch.dp.gateway.spi.log.service.LocalFileRecordLogServiceImpl

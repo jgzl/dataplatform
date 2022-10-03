@@ -4,26 +4,26 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>cn.cleanarch.gw</groupId>
+        <groupId>cn.cleanarch.dp</groupId>
         <artifactId>common</artifactId>
         <version>${revision}</version>
     </parent>
 
     <artifactId>common-data</artifactId>
     <modelVersion>4.0.0</modelVersion>
-    <name>网关微服务平台::通用模块::数据库ORM模块</name>
+    <name>数据中台::通用模块::数据库ORM模块</name>
     <description>${project.name}</description>
     <dependencies>
         <dependency>
-            <groupId>cn.cleanarch.gw</groupId>
+            <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>cn.cleanarch.gw</groupId>
+            <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-model</artifactId>
         </dependency>
         <dependency>
-            <groupId>cn.cleanarch.gw</groupId>
+            <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-security</artifactId>
         </dependency>
         <dependency>

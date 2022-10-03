@@ -5,12 +5,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>cn.cleanarch.gw</groupId>
+    <groupId>cn.cleanarch.dp</groupId>
     <artifactId>dependencies-bom</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
 
-    <name>网关微服务平台::BOM</name>
+    <name>数据中台::BOM</name>
     <description>${project.name}</description>
 
     <properties>
@@ -109,72 +109,77 @@
             </dependency>
 
             <dependency>
-                <groupId>cn.cleanarch.gw</groupId>
+                <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>common-core</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.cleanarch.gw</groupId>
+                <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>common-data</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.cleanarch.gw</groupId>
+                <groupId>cn.cleanarch.dp</groupId>
+                <artifactId>common-database</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>common-feign</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.cleanarch.gw</groupId>
+                <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>common-excel</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.cleanarch.gw</groupId>
+                <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>common-gateway</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.cleanarch.gw</groupId>
+                <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>common-model</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.cleanarch.gw</groupId>
+                <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>common-redis</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.cleanarch.gw</groupId>
+                <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>common-security</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.cleanarch.gw</groupId>
+                <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>common-test</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.cleanarch.gw</groupId>
+                <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>common-websocket</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.cleanarch.gw</groupId>
+                <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>spi-log-api</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.cleanarch.gw</groupId>
+                <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>spi-log-elasticsearch</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.cleanarch.gw</groupId>
+                <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>spi-log-jdbc</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>cn.cleanarch.gw</groupId>
+                <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>spi-log-localfile</artifactId>
                 <version>${revision}</version>
             </dependency>

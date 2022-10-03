@@ -1,7 +1,7 @@
-cn.cleanarch.gw.common.redis.cache.RedisCacheAutoConfiguration
-cn.cleanarch.gw.common.redis.cache.RedisCacheManagerConfiguration
-cn.cleanarch.gw.common.redis.cache.RedisListenerConfiguration
-cn.cleanarch.gw.common.redis.template.RedisTemplateConfiguration
-cn.cleanarch.gw.common.redis.template.ReactiveRedisTemplateConfiguration
-cn.cleanarch.gw.common.redis.RedisConfiguration
-cn.cleanarch.gw.common.redis.RedisHelper
+cn.cleanarch.dp.common.redis.cache.RedisCacheAutoConfiguration
+cn.cleanarch.dp.common.redis.cache.RedisCacheManagerConfiguration
+cn.cleanarch.dp.common.redis.cache.RedisListenerConfiguration
+cn.cleanarch.dp.common.redis.template.RedisTemplateConfiguration
+cn.cleanarch.dp.common.redis.template.ReactiveRedisTemplateConfiguration
+cn.cleanarch.dp.common.redis.RedisConfiguration
+cn.cleanarch.dp.common.redis.RedisHelper
