@@ -7,6 +7,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - uses: actions/checkout@v3
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -47,6 +50,15 @@ jobs:
           tags: |
             dlhf/gateway-admin-ui:latest
             ghcr.io/jgzl/gateway-admin-ui:latest
+      - name: Build and push 认证授权服务
+        uses: docker/build-push-action@v3
+        with:
+          context: gateway/auth-server
+          platforms: linux/amd64,linux/arm64/v8
+          push: true
+          tags: |
+            dlhf/auth-server:latest
+            ghcr.io/jgzl/auth-server:latest
       - name: Build and push 网关管理服务后端
         uses: docker/build-push-action@v3
         with:

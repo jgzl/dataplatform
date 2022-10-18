@@ -1,5 +1,10 @@
 version: '3'
 services:
+  auth-server:
+    build:
+      context: ./auth-server
+    image: $IMAGE_REPO_URL/auth-server:${IMAGE_VERSION}
+
   gateway-server:
     build:
       context: ./gateway/gateway-server
@@ -15,17 +20,17 @@ services:
       context: ./gateway/gateway-admin-ui
     image: $IMAGE_REPO_URL/gateway-admin-ui:${IMAGE_VERSION}
 
-  monitor-center:
-    build:
-      context: ./optional/monitor-center
-    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
-
-  message-center:
-    build:
-      context: ./optional/message-center
-    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
-
-  tool-center:
-    build:
-      context: ./optional/tool-center
-    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
+#  monitor-center:
+#    build:
+#      context: ./optional/monitor-center
+#    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
+#
+#  message-center:
+#    build:
+#      context: ./optional/message-center
+#    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
+#
+#  tool-center:
+#    build:
+#      context: ./optional/tool-center
+#    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
