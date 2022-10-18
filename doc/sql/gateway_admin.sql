@@ -910,3 +910,8 @@ INSERT INTO `metadata_table`
 VALUES ('1336479264639406082', '1336474987430793217', 'robot_symptom_part', '部位表');
 INSERT INTO `metadata_table`
 VALUES ('1336479266728169473', '1336474987430793217', 'robot_symptom_type', '症状表');
+
+INSERT INTO gateway_admin.gateway_route_conf (id,route_name,route_id,predicates,filters,uri,sort,metadata,create_time,update_time,creator,updater,deleted,version) VALUES
+    ('3','','auth-server','[{"args": {"_genkey_0": "/auth/**"}, "name": "Path"}]','[]','lb://auth-server',0,'{"version": "1"}','2021-12-27 02:43:25','2022-01-06 02:40:46','1','1','0',1);
+INSERT INTO gateway_admin.gateway_route_conf (id,route_name,route_id,predicates,filters,uri,sort,metadata,create_time,update_time,creator,updater,deleted,version) VALUES
+    ('4','','gateway-admin-server','[{"args": {"_genkey_0": "/admin/**"}, "name": "Path"}]','[]','lb://gateway-admin-server',0,'{"version": "1"}','2021-12-27 02:43:25','2022-01-06 02:40:46','1','1','0',1);
