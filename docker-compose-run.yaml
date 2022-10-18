@@ -37,6 +37,7 @@ services:
       - 80:80
     depends_on:
       - gateway-admin-server
+      - gateway-server
 #
 #  monitor-center:
 #    restart: always
