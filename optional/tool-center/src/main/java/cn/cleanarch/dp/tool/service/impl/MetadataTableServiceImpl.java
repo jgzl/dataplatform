@@ -1,16 +1,16 @@
 package cn.cleanarch.dp.tool.service.impl;
 
 import cn.cleanarch.dp.common.core.exception.DataException;
+import cn.cleanarch.dp.common.oauth.util.AppContextHolder;
 import cn.cleanarch.dp.common.redis.RedisHelper;
-import cn.cleanarch.dp.common.security.utils.AppContextHolder;
 import cn.cleanarch.dp.metadata.dto.MetadataTableDto;
 import cn.cleanarch.dp.metadata.entity.MetadataAuthorizeEntity;
 import cn.cleanarch.dp.metadata.entity.MetadataTableEntity;
 import cn.cleanarch.dp.metadata.enums.DataLevel;
 import cn.cleanarch.dp.metadata.query.MetadataTableQuery;
 import cn.cleanarch.dp.tool.constants.RedisConstant;
-import cn.cleanarch.dp.tool.mapper.MetadataTableDao;
-import cn.cleanarch.dp.tool.mapstruct.MetadataTableMapper;
+import cn.cleanarch.dp.tool.convert.MetadataTableConvert;
+import cn.cleanarch.dp.tool.mapper.MetadataTableMapper;
 import cn.cleanarch.dp.tool.service.MetadataTableService;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -36,13 +36,13 @@ import java.util.stream.Stream;
  */
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class MetadataTableServiceImpl extends ServiceImpl<MetadataTableDao, MetadataTableEntity> implements MetadataTableService {
-
-    @Autowired
-    private MetadataTableDao metadataTableDao;
+public class MetadataTableServiceImpl extends ServiceImpl<MetadataTableMapper, MetadataTableEntity> implements MetadataTableService {
 
     @Autowired
     private MetadataTableMapper metadataTableMapper;
+
+    @Autowired
+    private MetadataTableConvert metadataTableConvert;
 
     @Autowired
     private RedisHelper redisService;
@@ -50,16 +50,16 @@ public class MetadataTableServiceImpl extends ServiceImpl<MetadataTableDao, Meta
     @Override
     @Transactional(rollbackFor = Exception.class)
     public MetadataTableEntity saveMetadataTable(MetadataTableDto metadataTableDto) {
-        MetadataTableEntity metadataTableEntity = metadataTableMapper.toEntity(metadataTableDto);
-        metadataTableDao.insert(metadataTableEntity);
+        MetadataTableEntity metadataTableEntity = metadataTableConvert.toEntity(metadataTableDto);
+        metadataTableMapper.insert(metadataTableEntity);
         return metadataTableEntity;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public MetadataTableEntity updateMetadataTable(MetadataTableDto metadataTableDto) {
-        MetadataTableEntity metadataTableEntity = metadataTableMapper.toEntity(metadataTableDto);
-        metadataTableDao.updateById(metadataTableEntity);
+        MetadataTableEntity metadataTableEntity = metadataTableConvert.toEntity(metadataTableDto);
+        metadataTableMapper.updateById(metadataTableEntity);
         return metadataTableEntity;
     }
 
@@ -72,13 +72,13 @@ public class MetadataTableServiceImpl extends ServiceImpl<MetadataTableDao, Meta
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteMetadataTableById(String id) {
-        metadataTableDao.deleteById(id);
+        metadataTableMapper.deleteById(id);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteMetadataTableBatch(List<String> ids) {
-        metadataTableDao.deleteBatchIds(ids);
+        metadataTableMapper.deleteBatchIds(ids);
     }
 
     @Override
@@ -110,6 +110,6 @@ public class MetadataTableServiceImpl extends ServiceImpl<MetadataTableDao, Meta
         if (!admin) {
             roles = AppContextHolder.getRoles();
         }
-        return metadataTableDao.selectPageWithAuth(page, queryWrapper, roles);
+        return metadataTableMapper.selectPageWithAuth(page, queryWrapper, roles);
     }
 }

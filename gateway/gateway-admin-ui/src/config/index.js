@@ -24,7 +24,12 @@ const DEFAULT_CONFIG = {
 	TOKEN_PREFIX: "Bearer ",
 
 	//追加其他头
-	HEADERS: {},
+	HEADERS: {
+		'x-business-api-key': process.env.VUE_APP_API_KEY,
+		'x-business-api-secret': process.env.VUE_APP_API_SECRET,
+		'x-business-api-system': process.env.VUE_APP_API_SYSTEM,
+		'x-business-api-env': process.env.VUE_APP_API_ENV,
+	},
 
 	//请求是否开启缓存
 	REQUEST_CACHE: false,

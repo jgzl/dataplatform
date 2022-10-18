@@ -38,6 +38,11 @@ public class LoginUserVO {
     private String token;
 
     /**
+     * 刷新token
+     */
+    private String refreshToken;
+
+    /**
      * 角色集合
      */
     private List<String> roles;

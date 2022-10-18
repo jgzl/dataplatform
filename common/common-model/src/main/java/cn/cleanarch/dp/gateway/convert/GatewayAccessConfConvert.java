@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.convert;
 
-import cn.cleanarch.dp.common.BaseConvert;
+import cn.cleanarch.dp.common.model.BaseConvert;
 import cn.cleanarch.dp.gateway.domain.GatewayAccessConfDO;
 import cn.cleanarch.dp.gateway.vo.GatewayAccessConfVO;
 import org.mapstruct.Mapper;

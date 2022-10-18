@@ -3,6 +3,8 @@ package cn.cleanarch.dp.gateway.system.service;
 import cn.cleanarch.dp.system.domain.SysOauthClientDetailsDO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 服务类
@@ -32,4 +34,10 @@ public interface SysOauthClientDetailsService extends IService<SysOauthClientDet
 	 */
 	void clearClientCache();
 
+	/**
+	 * 根据客户端id获取客户端信息
+	 * @param clientId
+	 * @return
+	 */
+	List<SysOauthClientDetailsDO> getByClientId(String clientId);
 }

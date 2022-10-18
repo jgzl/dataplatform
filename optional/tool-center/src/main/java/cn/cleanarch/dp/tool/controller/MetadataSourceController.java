@@ -11,7 +11,7 @@ import cn.cleanarch.dp.metadata.query.DbDataQuery;
 import cn.cleanarch.dp.metadata.query.MetadataSourceQuery;
 import cn.cleanarch.dp.metadata.validate.ValidationGroups;
 import cn.cleanarch.dp.metadata.vo.MetadataSourceVo;
-import cn.cleanarch.dp.tool.mapstruct.MetadataSourceMapper;
+import cn.cleanarch.dp.tool.convert.MetadataSourceConvert;
 import cn.cleanarch.dp.tool.service.MetadataSourceService;
 import cn.hutool.core.util.StrUtil;
 import com.aspose.words.Document;
@@ -51,7 +51,7 @@ public class MetadataSourceController {
     private MetadataSourceService metadataSourceService;
 
     @Autowired
-    private MetadataSourceMapper metadataSourceMapper;
+    private MetadataSourceConvert metadataSourceMapper;
 
     /**
      * 通过ID查询信息
@@ -70,9 +70,6 @@ public class MetadataSourceController {
     @ApiOperation(value = "获取列表", notes = "")
     @GetMapping("/list")
     public R getMetadataSourceList() {
-//        QueryWrapper<MetadataSourceEntity> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.eq("status", DataConstant.EnableState.ENABLE.getKey());
-//        List<MetadataSourceEntity> list = metadataSourceService.list(queryWrapper);
         List<MetadataSourceEntity> list = metadataSourceService.getMetadataSourceList();
         List<MetadataSourceVo> collect = list.stream().map(metadataSourceMapper::toVO).collect(Collectors.toList());
         return R.success(collect);

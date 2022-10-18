@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.system.vo;
 
-import cn.cleanarch.dp.common.PageParam;
+import cn.cleanarch.dp.common.model.PageParam;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

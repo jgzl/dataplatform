@@ -5,11 +5,17 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.ContentType;
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.method.HandlerMethod;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -19,6 +25,7 @@ import java.net.URLDecoder;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 客户端工具类
@@ -26,14 +33,15 @@ import java.util.Map;
  * @author li7hai26@gmail.com
  */
 @Slf4j
-public class WebmvcUtil {
+@UtilityClass
+public class WebmvcUtil extends org.springframework.web.util.WebUtils{
 
     private static final String UTF8 = "UTF-8";
 
     /**
      * 从请求头或者请求路径中获取参数(优先获取请求头中的参数,请求头权重更大)
      */
-    public static String getParameterByHeaderOrPath(HttpServletRequest request, String name) {
+    public String getParameterByHeaderOrPath(HttpServletRequest request, String name) {
         String value = getParameter(request, name);
         if (StrUtil.isBlank(value)) {
             value = getHeader(request, name);
@@ -44,46 +52,46 @@ public class WebmvcUtil {
     /**
      * 获取String参数
      */
-    public static String getParameter(HttpServletRequest request, String name) {
+    public String getParameter(HttpServletRequest request, String name) {
         return request.getParameter(name);
     }
 
     /**
      * 获取String参数
      */
-    public static String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    public String getParameter(HttpServletRequest request, String name, String defaultValue) {
         return Convert.toStr(request.getParameter(name), defaultValue);
     }
 
     /**
      * 获取Integer参数
      */
-    public static Integer getParameterToInt(HttpServletRequest request, String name) {
+    public Integer getParameterToInt(HttpServletRequest request, String name) {
         return Convert.toInt(request.getParameter(name));
     }
 
     /**
      * 获取Integer参数
      */
-    public static Integer getParameterToInt(HttpServletRequest request, String name, Integer defaultValue) {
+    public Integer getParameterToInt(HttpServletRequest request, String name, Integer defaultValue) {
         return Convert.toInt(request.getParameter(name), defaultValue);
     }
 
     /**
      * 获取Boolean参数
      */
-    public static Boolean getParameterToBool(HttpServletRequest request, String name) {
+    public Boolean getParameterToBool(HttpServletRequest request, String name) {
         return Convert.toBool(request.getParameter(name));
     }
 
     /**
      * 获取Boolean参数
      */
-    public static Boolean getParameterToBool(HttpServletRequest request, String name, Boolean defaultValue) {
+    public Boolean getParameterToBool(HttpServletRequest request, String name, Boolean defaultValue) {
         return Convert.toBool(request.getParameter(name), defaultValue);
     }
 
-    public static String getHeader(HttpServletRequest request, String name) {
+    public String getHeader(HttpServletRequest request, String name) {
         String value = request.getHeader(name);
         if (StringUtils.isEmpty(value)) {
             return StringUtils.EMPTY;
@@ -91,7 +99,7 @@ public class WebmvcUtil {
         return urlDecode(value);
     }
 
-    public static Map<String, String> getHeaders(HttpServletRequest request) {
+    public Map<String, String> getHeaders(HttpServletRequest request) {
         final Map<String, String> headerMap = new HashMap<>();
 
         final Enumeration<String> names = request.getHeaderNames();
@@ -111,7 +119,7 @@ public class WebmvcUtil {
      * @param string   待渲染的字符串
      * @return null
      */
-    public static String renderString(HttpServletResponse response, String string) {
+    public String renderString(HttpServletResponse response, String string) {
         try {
             response.setStatus(response.getStatus());
             response.setContentType(ContentType.JSON.getValue());
@@ -129,7 +137,7 @@ public class WebmvcUtil {
      * @param str 内容
      * @return 解码后的内容
      */
-    public static String urlDecode(String str) {
+    public String urlDecode(String str) {
         try {
             return URLDecoder.decode(str, UTF8);
         } catch (UnsupportedEncodingException e) {
@@ -143,7 +151,7 @@ public class WebmvcUtil {
      * @param httpStatus
      * @param result
      */
-    public static void out(HttpServletResponse response, HttpStatus httpStatus, R result) {
+    public void out(HttpServletResponse response, HttpStatus httpStatus, R result) {
         response.setStatus(httpStatus.value());
         response.setCharacterEncoding(CharsetUtil.UTF_8);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
@@ -166,7 +174,7 @@ public class WebmvcUtil {
      * @param response
      * @param result
      */
-    public static void okOut(HttpServletResponse response, R result) {
+    public void okOut(HttpServletResponse response, R result) {
         out(response,HttpStatus.OK,result);
     }
 
@@ -175,7 +183,82 @@ public class WebmvcUtil {
      * @param response
      * @param result
      */
-    public static void errorOut(HttpServletResponse response, R result) {
+    public void errorOut(HttpServletResponse response, R result) {
         out(response,HttpStatus.BAD_REQUEST,result);
+    }
+
+
+    /**
+     * 判断是否ajax请求 spring ajax 返回含有 ResponseBody 或者 RestController注解
+     * @param handlerMethod HandlerMethod
+     * @return 是否ajax请求
+     */
+    public boolean isBody(HandlerMethod handlerMethod) {
+        ResponseBody responseBody = ClassUtils.getAnnotation(handlerMethod, ResponseBody.class);
+        return responseBody != null;
+    }
+
+    /**
+     * 读取cookie
+     * @param name cookie name
+     * @return cookie value
+     */
+    public String getCookieVal(String name) {
+        if (getRequest().isPresent()) {
+            return getCookieVal(getRequest().get(), name);
+        }
+        return null;
+    }
+
+    /**
+     * 读取cookie
+     * @param request HttpServletRequest
+     * @param name cookie name
+     * @return cookie value
+     */
+    public String getCookieVal(HttpServletRequest request, String name) {
+        Cookie cookie = getCookie(request, name);
+        return cookie != null ? cookie.getValue() : null;
+    }
+
+    /**
+     * 清除 某个指定的cookie
+     * @param response HttpServletResponse
+     * @param key cookie key
+     */
+    public void removeCookie(HttpServletResponse response, String key) {
+        setCookie(response, key, null, 0);
+    }
+
+    /**
+     * 设置cookie
+     * @param response HttpServletResponse
+     * @param name cookie name
+     * @param value cookie value
+     * @param maxAgeInSeconds maxage
+     */
+    public void setCookie(HttpServletResponse response, String name, String value, int maxAgeInSeconds) {
+        Cookie cookie = new Cookie(name, value);
+        cookie.setPath("/");
+        cookie.setMaxAge(maxAgeInSeconds);
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
+    }
+
+    /**
+     * 获取 HttpServletRequest
+     * @return {HttpServletRequest}
+     */
+    public Optional<HttpServletRequest> getRequest() {
+        return Optional
+                .ofNullable(((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
+    }
+
+    /**
+     * 获取 HttpServletResponse
+     * @return {HttpServletResponse}
+     */
+    public HttpServletResponse getResponse() {
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
     }
 }

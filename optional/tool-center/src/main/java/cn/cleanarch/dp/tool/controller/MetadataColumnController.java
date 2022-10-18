@@ -7,7 +7,7 @@ import cn.cleanarch.dp.metadata.query.MetadataColumnQuery;
 import cn.cleanarch.dp.metadata.validate.ValidationGroups;
 import cn.cleanarch.dp.metadata.vo.MetadataColumnVo;
 import cn.cleanarch.dp.metadata.vo.MetadataTreeVo;
-import cn.cleanarch.dp.tool.mapstruct.MetadataColumnMapper;
+import cn.cleanarch.dp.tool.convert.MetadataColumnConvert;
 import cn.cleanarch.dp.tool.service.MetadataColumnService;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -41,7 +41,7 @@ public class MetadataColumnController {
     private MetadataColumnService metadataColumnService;
 
     @Autowired
-    private MetadataColumnMapper metadataColumnMapper;
+    private MetadataColumnConvert metadataColumnMapper;
 
     /**
      * 通过ID查询信息

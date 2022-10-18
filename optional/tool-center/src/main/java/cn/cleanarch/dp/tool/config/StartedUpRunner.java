@@ -6,10 +6,10 @@ import cn.cleanarch.dp.metadata.entity.MetadataColumnEntity;
 import cn.cleanarch.dp.metadata.entity.MetadataSourceEntity;
 import cn.cleanarch.dp.metadata.entity.MetadataTableEntity;
 import cn.cleanarch.dp.tool.constants.RedisConstant;
-import cn.cleanarch.dp.tool.mapper.MetadataAuthorizeDao;
-import cn.cleanarch.dp.tool.mapper.MetadataColumnDao;
-import cn.cleanarch.dp.tool.mapper.MetadataSourceDao;
-import cn.cleanarch.dp.tool.mapper.MetadataTableDao;
+import cn.cleanarch.dp.tool.mapper.MetadataAuthorizeMapper;
+import cn.cleanarch.dp.tool.mapper.MetadataColumnMapper;
+import cn.cleanarch.dp.tool.mapper.MetadataSourceMapper;
+import cn.cleanarch.dp.tool.mapper.MetadataTableMapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,16 +34,16 @@ public class StartedUpRunner implements ApplicationRunner {
     private final Environment environment;
 
     @Autowired
-    private MetadataSourceDao metadataSourceDao;
+    private MetadataSourceMapper metadataSourceMapper;
 
     @Autowired
-    private MetadataTableDao metadataTableDao;
+    private MetadataTableMapper metadataTableMapper;
 
     @Autowired
-    private MetadataColumnDao metadataColumnDao;
+    private MetadataColumnMapper metadataColumnDao;
 
     @Autowired
-    private MetadataAuthorizeDao metadataAuthorizeDao;
+    private MetadataAuthorizeMapper metadataAuthorizeMapper;
 
     @Autowired
     private RedisHelper redisService;
@@ -65,14 +65,14 @@ public class StartedUpRunner implements ApplicationRunner {
             String sourceKey = RedisConstant.METADATA_SOURCE_KEY;
             Boolean hasSourceKey = redisService.hasKey(sourceKey);
             if (!hasSourceKey) {
-                List<MetadataSourceEntity> sourceEntityList = metadataSourceDao.selectList(Wrappers.emptyWrapper());
+                List<MetadataSourceEntity> sourceEntityList = metadataSourceMapper.selectList(Wrappers.emptyWrapper());
                 redisService.objectSet(sourceKey, sourceEntityList);
             }
 
             String tableKey = RedisConstant.METADATA_TABLE_KEY;
             Boolean hasTableKey = redisService.hasKey(tableKey);
             if (!hasTableKey) {
-                List<MetadataTableEntity> tableEntityList = metadataTableDao.selectList(Wrappers.emptyWrapper());
+                List<MetadataTableEntity> tableEntityList = metadataTableMapper.selectList(Wrappers.emptyWrapper());
                 Map<String, List<MetadataTableEntity>> tableListMap = tableEntityList.stream().collect(Collectors.groupingBy(MetadataTableEntity::getSourceId));
                 redisTemplate.opsForHash().putAll(tableKey, tableListMap);
             }
@@ -88,7 +88,7 @@ public class StartedUpRunner implements ApplicationRunner {
             String authorizeKey = RedisConstant.METADATA_AUTHORIZE_KEY;
             Boolean hasAuthorizeKey = redisService.hasKey(authorizeKey);
             if (!hasAuthorizeKey) {
-                List<MetadataAuthorizeEntity> metadataAuthorizeList = metadataAuthorizeDao.selectList(Wrappers.emptyWrapper());
+                List<MetadataAuthorizeEntity> metadataAuthorizeList = metadataAuthorizeMapper.selectList(Wrappers.emptyWrapper());
                 Map<String, List<MetadataAuthorizeEntity>> authorizeListMap = metadataAuthorizeList.stream().collect(Collectors.groupingBy(MetadataAuthorizeEntity::getRoleId));
                 redisTemplate.opsForHash().putAll(authorizeKey, authorizeListMap);
             }

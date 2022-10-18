@@ -2,8 +2,8 @@ package cn.cleanarch.dp.tool.service.impl;
 
 import cn.cleanarch.dp.common.core.constant.CommonConstants;
 import cn.cleanarch.dp.common.core.exception.DataException;
+import cn.cleanarch.dp.common.oauth.util.AppContextHolder;
 import cn.cleanarch.dp.common.redis.RedisHelper;
-import cn.cleanarch.dp.common.security.utils.AppContextHolder;
 import cn.cleanarch.dp.metadata.dto.MetadataColumnDto;
 import cn.cleanarch.dp.metadata.entity.MetadataAuthorizeEntity;
 import cn.cleanarch.dp.metadata.entity.MetadataColumnEntity;
@@ -13,8 +13,8 @@ import cn.cleanarch.dp.metadata.enums.DataLevel;
 import cn.cleanarch.dp.metadata.query.MetadataColumnQuery;
 import cn.cleanarch.dp.metadata.vo.MetadataTreeVo;
 import cn.cleanarch.dp.tool.constants.RedisConstant;
-import cn.cleanarch.dp.tool.mapper.MetadataColumnDao;
-import cn.cleanarch.dp.tool.mapstruct.MetadataColumnMapper;
+import cn.cleanarch.dp.tool.convert.MetadataColumnConvert;
+import cn.cleanarch.dp.tool.mapper.MetadataColumnMapper;
 import cn.cleanarch.dp.tool.service.MetadataColumnService;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -40,13 +40,13 @@ import java.util.stream.Stream;
  */
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class MetadataColumnServiceImpl extends ServiceImpl<MetadataColumnDao, MetadataColumnEntity> implements MetadataColumnService {
-
-    @Autowired
-    private MetadataColumnDao metadataColumnDao;
+public class MetadataColumnServiceImpl extends ServiceImpl<MetadataColumnMapper, MetadataColumnEntity> implements MetadataColumnService {
 
     @Autowired
     private MetadataColumnMapper metadataColumnMapper;
+
+    @Autowired
+    private MetadataColumnConvert metadataColumnConvert;
 
     @Autowired
     private RedisHelper redisService;
@@ -54,16 +54,16 @@ public class MetadataColumnServiceImpl extends ServiceImpl<MetadataColumnDao, Me
     @Override
     @Transactional(rollbackFor = Exception.class)
     public MetadataColumnEntity saveMetadataColumn(MetadataColumnDto metadataColumnDto) {
-        MetadataColumnEntity metadataColumn = metadataColumnMapper.toEntity(metadataColumnDto);
-        metadataColumnDao.insert(metadataColumn);
+        MetadataColumnEntity metadataColumn = metadataColumnConvert.toEntity(metadataColumnDto);
+        metadataColumnMapper.insert(metadataColumn);
         return metadataColumn;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public MetadataColumnEntity updateMetadataColumn(MetadataColumnDto metadataColumnDto) {
-        MetadataColumnEntity metadataColumn = metadataColumnMapper.toEntity(metadataColumnDto);
-        metadataColumnDao.updateById(metadataColumn);
+        MetadataColumnEntity metadataColumn = metadataColumnConvert.toEntity(metadataColumnDto);
+        metadataColumnMapper.updateById(metadataColumn);
         return metadataColumn;
     }
 
@@ -76,13 +76,13 @@ public class MetadataColumnServiceImpl extends ServiceImpl<MetadataColumnDao, Me
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteMetadataColumnById(String id) {
-        metadataColumnDao.deleteById(id);
+        metadataColumnMapper.deleteById(id);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteMetadataColumnBatch(List<String> ids) {
-        metadataColumnDao.deleteBatchIds(ids);
+        metadataColumnMapper.deleteBatchIds(ids);
     }
 
     @Override
@@ -207,6 +207,6 @@ public class MetadataColumnServiceImpl extends ServiceImpl<MetadataColumnDao, Me
         if (!admin) {
             roles = AppContextHolder.getRoles();
         }
-        return metadataColumnDao.selectPageWithAuth(page, queryWrapper, roles);
+        return metadataColumnMapper.selectPageWithAuth(page, queryWrapper, roles);
     }
 }

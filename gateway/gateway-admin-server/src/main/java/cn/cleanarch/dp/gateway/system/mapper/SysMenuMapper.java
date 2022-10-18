@@ -2,7 +2,6 @@ package cn.cleanarch.dp.gateway.system.mapper;
 
 import cn.cleanarch.dp.common.data.mapper.ExtendBaseMapper;
 import cn.cleanarch.dp.system.domain.SysMenuDO;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -14,7 +13,6 @@ import java.util.List;
  * @author li7hai26@gmail.com
  * @since 2017-10-29
  */
-@Mapper
 public interface SysMenuMapper extends ExtendBaseMapper<SysMenuDO> {
 
     /**

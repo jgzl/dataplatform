@@ -14,6 +14,17 @@ public class SecurityConstants {
      * 登出接口
      */
     public static final String LOGOUT_PATH = "/user/logout";
+
+    /**
+     * 内部
+     */
+    public static final String FROM_IN = "Y";
+
+    /**
+     * 标志
+     */
+    public static final String FROM = "from";
+
     /**
      * 用户ID字段
      */
@@ -75,6 +86,11 @@ public class SecurityConstants {
     public static final String BCRYPT = "{bcrypt}";
 
     /**
+     * {noop} 加密的特征码
+     */
+    public static final String NOOP = "{noop}";
+
+    /**
      * 默认用户-超级管理员
      */
     public static final String DEFAULT_USER_ID = "1";
@@ -83,4 +99,13 @@ public class SecurityConstants {
      * 默认用户-超级管理员
      */
     public static final String DEFAULT_USER = "admin";
+    /**
+     * app自定义授权
+     */
+    public static final String APP = "app";
+    public static final String CLIENT_ID = "clientId";
+    public static final String CLIENT_CREDENTIALS = "client_credentials";
+    public static final String PROJECT_LICENSE = "https://www.baidu.com";
+    public static final String CUSTOM_CONSENT_PAGE_URI = "/token/confirm_access";
+    public static final String SMS_PARAMETER_NAME = "mobile";
 }

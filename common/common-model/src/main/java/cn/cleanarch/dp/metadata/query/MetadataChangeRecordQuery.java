@@ -1,5 +1,5 @@
 package cn.cleanarch.dp.metadata.query;
-import cn.cleanarch.dp.common.BaseQueryParams;
+import cn.cleanarch.dp.common.model.BaseQueryParams;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

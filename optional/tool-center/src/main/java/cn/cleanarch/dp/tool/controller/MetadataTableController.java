@@ -6,7 +6,7 @@ import cn.cleanarch.dp.metadata.entity.MetadataTableEntity;
 import cn.cleanarch.dp.metadata.query.MetadataTableQuery;
 import cn.cleanarch.dp.metadata.validate.ValidationGroups;
 import cn.cleanarch.dp.metadata.vo.MetadataTableVo;
-import cn.cleanarch.dp.tool.mapstruct.MetadataTableMapper;
+import cn.cleanarch.dp.tool.convert.MetadataTableConvert;
 import cn.cleanarch.dp.tool.service.MetadataTableService;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -40,7 +40,7 @@ public class MetadataTableController {
     private MetadataTableService metadataTableService;
 
     @Autowired
-    private MetadataTableMapper metadataTableMapper;
+    private MetadataTableConvert metadataTableMapper;
 
     /**
      * 通过ID查询信息

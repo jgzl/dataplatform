@@ -11,11 +11,12 @@ spring:
     name: @artifactId@
   main:
     allow-bean-definition-overriding: true
-cxf:
-  path: /service
-websocket:
-  url: /ws/test
-  port: 9004
+  security:
+    oauth2:
+      client:
+        client-id: tool-center
+        client-secret: tool-center
+        scope: server
 grpc:
   server:
     port: 9020

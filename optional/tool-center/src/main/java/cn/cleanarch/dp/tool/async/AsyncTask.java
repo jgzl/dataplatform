@@ -10,9 +10,9 @@ import cn.cleanarch.dp.metadata.entity.MetadataColumnEntity;
 import cn.cleanarch.dp.metadata.entity.MetadataSourceEntity;
 import cn.cleanarch.dp.metadata.entity.MetadataTableEntity;
 import cn.cleanarch.dp.metadata.enums.SyncStatus;
-import cn.cleanarch.dp.tool.mapper.MetadataColumnDao;
-import cn.cleanarch.dp.tool.mapper.MetadataSourceDao;
-import cn.cleanarch.dp.tool.mapper.MetadataTableDao;
+import cn.cleanarch.dp.tool.mapper.MetadataColumnMapper;
+import cn.cleanarch.dp.tool.mapper.MetadataSourceMapper;
+import cn.cleanarch.dp.tool.mapper.MetadataTableMapper;
 import cn.hutool.core.collection.CollUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +33,13 @@ public class AsyncTask {
     private DataSourceFactory dataSourceFactory;
 
     @Autowired
-    private MetadataSourceDao metadataSourceDao;
+    private MetadataSourceMapper metadataSourceDao;
 
     @Autowired
-    private MetadataTableDao metadataTableDao;
+    private MetadataTableMapper metadataTableDao;
 
     @Autowired
-    private MetadataColumnDao metadataColumnDao;
+    private MetadataColumnMapper metadataColumnDao;
 
     @Async("taskExecutor")
     public void doTask(MetadataSourceEntity dataSource) {

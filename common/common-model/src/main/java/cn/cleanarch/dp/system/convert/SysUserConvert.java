@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.system.convert;
 
-import cn.cleanarch.dp.common.BaseConvert;
+import cn.cleanarch.dp.common.model.BaseConvert;
 import cn.cleanarch.dp.system.domain.SysUserDO;
 import cn.cleanarch.dp.system.dto.SysUserInfoDTO;
 import cn.cleanarch.dp.system.vo.SysUserVO;

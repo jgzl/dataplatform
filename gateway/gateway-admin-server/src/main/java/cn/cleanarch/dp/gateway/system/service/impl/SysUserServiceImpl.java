@@ -2,7 +2,6 @@ package cn.cleanarch.dp.gateway.system.service.impl;
 
 import cn.cleanarch.dp.common.core.constant.CacheConstants;
 import cn.cleanarch.dp.common.core.model.R;
-import cn.cleanarch.dp.common.security.service.SysUserService;
 import cn.cleanarch.dp.gateway.system.mapper.SysUserMapper;
 import cn.cleanarch.dp.gateway.system.service.*;
 import cn.cleanarch.dp.system.convert.SysUserConvert;

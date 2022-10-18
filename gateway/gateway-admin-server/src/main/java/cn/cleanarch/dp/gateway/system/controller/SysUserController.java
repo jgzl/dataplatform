@@ -1,8 +1,9 @@
 package cn.cleanarch.dp.gateway.system.controller;
 
 import cn.cleanarch.dp.common.core.model.R;
-import cn.cleanarch.dp.common.security.service.SysUserService;
-import cn.cleanarch.dp.common.security.utils.AppContextHolder;
+import cn.cleanarch.dp.common.oauth.annotation.Inner;
+import cn.cleanarch.dp.common.oauth.util.AppContextHolder;
+import cn.cleanarch.dp.gateway.system.service.SysUserService;
 import cn.cleanarch.dp.system.domain.SysUserDO;
 import cn.cleanarch.dp.system.dto.SysUserDTO;
 import cn.cleanarch.dp.system.dto.SysUserInfoDTO;
@@ -37,6 +38,7 @@ public class SysUserController {
      * @param userName 用户名
      * @return 用户信息
      */
+    @Inner(value = false)
     @GetMapping("/info/{userName}")
     public R<SysUserInfoDTO> infoByUserName(@NotEmpty @PathVariable String userName) {
         return R.success(userService.findUserInfo(userName));

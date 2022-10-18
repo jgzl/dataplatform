@@ -2,7 +2,6 @@ package cn.cleanarch.dp.gateway.system.mapper;
 
 import cn.cleanarch.dp.common.data.mapper.ExtendBaseMapper;
 import cn.cleanarch.dp.system.domain.SysUserRoleDO;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -13,7 +12,6 @@ import org.apache.ibatis.annotations.Param;
  * @author li7hai26@gmail.com
  * @since 2017-10-29
  */
-@Mapper
 public interface SysUserRoleMapper extends ExtendBaseMapper<SysUserRoleDO> {
 
     /**

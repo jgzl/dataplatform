@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.system.service.impl;
 
-import cn.cleanarch.dp.common.security.utils.AppContextHolder;
+import cn.cleanarch.dp.common.oauth.util.AppContextHolder;
 import cn.cleanarch.dp.gateway.system.service.PermissionService;
 import cn.cleanarch.dp.gateway.system.service.SysMenuService;
 import cn.cleanarch.dp.system.domain.SysMenuDO;

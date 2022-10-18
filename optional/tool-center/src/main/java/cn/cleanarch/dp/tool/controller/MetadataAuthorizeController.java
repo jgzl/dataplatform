@@ -2,7 +2,7 @@ package cn.cleanarch.dp.tool.controller;
 
 import cn.cleanarch.dp.common.core.model.R;
 import cn.cleanarch.dp.metadata.dto.MetadataAuthorizeDto;
-import cn.cleanarch.dp.tool.mapstruct.MetadataAuthorizeMapper;
+import cn.cleanarch.dp.tool.convert.MetadataAuthorizeConvert;
 import cn.cleanarch.dp.tool.service.MetadataAuthorizeService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class MetadataAuthorizeController {
     private MetadataAuthorizeService metadataAuthorizeService;
 
     @Autowired
-    private MetadataAuthorizeMapper metadataAuthorizeMapper;
+    private MetadataAuthorizeConvert metadataAuthorizeMapper;
 
     @GetMapping("/getAuthorizedMetadata/{id}")
     public R getAuthorizedMetadata(@PathVariable String id) {

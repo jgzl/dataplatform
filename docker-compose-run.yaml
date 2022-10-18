@@ -48,4 +48,4 @@ services:
     container_name: tool-center
     image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
     ports:
-      - 9002:9002
+      - 9003:9003

@@ -72,13 +72,18 @@
 				if(!validate){ return false }
 
 				this.islogin = true
-				var data = {
-					userName: this.form.userName,
-					password: this.form.password
+				let data = {
+					username: this.form.userName,
+					password: this.form.password,
 					// password: this.$TOOL.crypto.MD5(this.form.password)
 				}
+
+				let header = {
+					'Authorization': 'Basic '+btoa("gateway-admin:gateway-admin"),
+					'Content-Type': 'application/x-www-form-urlencoded',
+				}
 				//获取token
-				var user = await this.$API.auth.token.post(data)
+				let user = await this.$API.auth.login.post(data,header)
 				if(user.code == 200){
 					this.$TOOL.cookie.set("TOKEN", user.data.token, {
 						expires: this.form.autologin? 24*60*60 : 0

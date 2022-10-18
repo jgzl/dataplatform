@@ -1,1 +1,8 @@
-cn.cleanarch.dp.common.security.SecurityAutoConfiguration
+cn.cleanarch.dp.common.oauth.component.DpSecurityInnerAspect
+cn.cleanarch.dp.common.oauth.component.DpSecurityMessageSourceConfiguration
+cn.cleanarch.dp.common.oauth.configuration.CorsConfiguration
+cn.cleanarch.dp.common.oauth.service.UserDpDetailsServiceImpl
+cn.cleanarch.dp.common.oauth.service.AppDpUserDetailsServiceImpl
+cn.cleanarch.dp.common.oauth.service.DpRedisOAuth2AuthorizationService
+cn.cleanarch.dp.common.oauth.service.DpRedisOAuth2AuthorizationConsentService
+cn.cleanarch.dp.common.oauth.service.DpRemoteRegisteredClientRepository

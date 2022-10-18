@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.system.domain;
 
-import cn.cleanarch.dp.common.BaseDO;
+import cn.cleanarch.dp.common.model.BaseDO;
 import cn.cleanarch.dp.system.constants.SysErrorCodeTypeEnum;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

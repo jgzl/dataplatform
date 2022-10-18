@@ -2,7 +2,6 @@ package cn.cleanarch.dp.gateway.system.mapper;
 
 import cn.cleanarch.dp.common.data.mapper.ExtendBaseMapper;
 import cn.cleanarch.dp.system.domain.SysRoleMenuDO;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -12,7 +11,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @author li7hai26@gmail.com
  * @since 2017-10-29
  */
-@Mapper
 public interface SysRoleMenuMapper extends ExtendBaseMapper<SysRoleMenuDO> {
 
 }

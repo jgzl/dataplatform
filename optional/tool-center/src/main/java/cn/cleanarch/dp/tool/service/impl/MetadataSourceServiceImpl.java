@@ -7,8 +7,8 @@ import cn.cleanarch.dp.common.database.DbQuery;
 import cn.cleanarch.dp.common.database.constants.DbQueryProperty;
 import cn.cleanarch.dp.common.database.core.DbColumn;
 import cn.cleanarch.dp.common.database.core.DbTable;
+import cn.cleanarch.dp.common.oauth.util.AppContextHolder;
 import cn.cleanarch.dp.common.redis.RedisHelper;
-import cn.cleanarch.dp.common.security.utils.AppContextHolder;
 import cn.cleanarch.dp.metadata.dto.DbSchema;
 import cn.cleanarch.dp.metadata.dto.MetadataSourceDto;
 import cn.cleanarch.dp.metadata.entity.MetadataAuthorizeEntity;
@@ -19,10 +19,10 @@ import cn.cleanarch.dp.metadata.enums.DataLevel;
 import cn.cleanarch.dp.metadata.enums.SyncStatus;
 import cn.cleanarch.dp.tool.async.AsyncTask;
 import cn.cleanarch.dp.tool.constants.RedisConstant;
-import cn.cleanarch.dp.tool.mapper.MetadataColumnDao;
-import cn.cleanarch.dp.tool.mapper.MetadataSourceDao;
-import cn.cleanarch.dp.tool.mapper.MetadataTableDao;
-import cn.cleanarch.dp.tool.mapstruct.MetadataSourceMapper;
+import cn.cleanarch.dp.tool.convert.MetadataSourceConvert;
+import cn.cleanarch.dp.tool.mapper.MetadataColumnMapper;
+import cn.cleanarch.dp.tool.mapper.MetadataSourceMapper;
+import cn.cleanarch.dp.tool.mapper.MetadataTableMapper;
 import cn.cleanarch.dp.tool.service.MetadataSourceService;
 import cn.cleanarch.dp.tool.util.WordUtil;
 import cn.hutool.core.util.StrUtil;
@@ -60,13 +60,13 @@ import java.util.stream.Stream;
  */
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class MetadataSourceServiceImpl extends ServiceImpl<MetadataSourceDao, MetadataSourceEntity> implements MetadataSourceService {
-
-    @Autowired
-    private MetadataSourceDao metadataSourceDao;
+public class MetadataSourceServiceImpl extends ServiceImpl<MetadataSourceMapper, MetadataSourceEntity> implements MetadataSourceService {
 
     @Autowired
     private MetadataSourceMapper metadataSourceMapper;
+
+    @Autowired
+    private MetadataSourceConvert metadataSourceConvert;
 
     @Autowired
     private DataSourceFactory dataSourceFactory;
@@ -75,10 +75,10 @@ public class MetadataSourceServiceImpl extends ServiceImpl<MetadataSourceDao, Me
     private AsyncTask asyncTask;
 
     @Autowired
-    private MetadataTableDao metadataTableDao;
+    private MetadataTableMapper metadataTableDao;
 
     @Autowired
-    private MetadataColumnDao metadataColumnDao;
+    private MetadataColumnMapper metadataColumnMapper;
 
     @Autowired
     private RedisHelper redisService;
@@ -89,16 +89,16 @@ public class MetadataSourceServiceImpl extends ServiceImpl<MetadataSourceDao, Me
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveMetadataSource(MetadataSourceDto metadataSourceDto) {
-        MetadataSourceEntity dataSource = metadataSourceMapper.toEntity(metadataSourceDto);
+        MetadataSourceEntity dataSource = metadataSourceConvert.toEntity(metadataSourceDto);
         dataSource.setIsSync(SyncStatus.NotSync.getKey());
-        metadataSourceDao.insert(dataSource);
+        metadataSourceMapper.insert(dataSource);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateMetadataSource(MetadataSourceDto metadataSourceDto) {
-        MetadataSourceEntity dataSource = metadataSourceMapper.toEntity(metadataSourceDto);
-        metadataSourceDao.updateById(dataSource);
+        MetadataSourceEntity dataSource = metadataSourceConvert.toEntity(metadataSourceDto);
+        metadataSourceMapper.updateById(dataSource);
     }
 
     @Override
@@ -134,24 +134,24 @@ public class MetadataSourceServiceImpl extends ServiceImpl<MetadataSourceDao, Me
         if (!admin) {
             roles = AppContextHolder.getRoles();
         }
-        return metadataSourceDao.selectPageWithAuth(page, queryWrapper, roles);
+        return metadataSourceMapper.selectPageWithAuth(page, queryWrapper, roles);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteMetadataSourceById(String id) {
-        metadataSourceDao.deleteById(id);
+        metadataSourceMapper.deleteById(id);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteMetadataSourceBatch(List<String> ids) {
-        metadataSourceDao.deleteBatchIds(ids);
+        metadataSourceMapper.deleteBatchIds(ids);
     }
 
     @Override
     public DbQuery checkConnection(MetadataSourceDto metadataSourceDto) {
-        MetadataSourceEntity dataSource = metadataSourceMapper.toEntity(metadataSourceDto);
+        MetadataSourceEntity dataSource = metadataSourceConvert.toEntity(metadataSourceDto);
         DbSchema dbSchema = dataSource.getDbSchema();
         DbQueryProperty dbQueryProperty = new DbQueryProperty(dataSource.getDbType(), dbSchema.getHost(),
                 dbSchema.getUsername(), dbSchema.getPassword(), dbSchema.getPort(), dbSchema.getDbName(), dbSchema.getSid());
@@ -198,7 +198,7 @@ public class MetadataSourceServiceImpl extends ServiceImpl<MetadataSourceDao, Me
             throw new DataException("元数据同步中");
         }
         metadataSourceEntity.setIsSync(SyncStatus.InSync.getKey());
-        metadataSourceDao.updateById(metadataSourceEntity);
+        metadataSourceMapper.updateById(metadataSourceEntity);
         // 异步执行同步任务
         asyncTask.doTask(metadataSourceEntity);
     }
@@ -230,7 +230,7 @@ public class MetadataSourceServiceImpl extends ServiceImpl<MetadataSourceDao, Me
         QueryWrapper<MetadataColumnEntity> columnQueryWrapper = new QueryWrapper<>();
         columnQueryWrapper.eq("source_id", id);
         columnQueryWrapper.orderByAsc("column_position");
-        List<MetadataColumnEntity> columnEntityList = metadataColumnDao.selectList(columnQueryWrapper);
+        List<MetadataColumnEntity> columnEntityList = metadataColumnMapper.selectList(columnQueryWrapper);
         // 元数据（子表） TableStart:ColumnList TableEnd:ColumnList
         DataTable columnTable = new DataTable("ColumnList");
         columnTable.getColumns().add("id");
@@ -289,7 +289,7 @@ public class MetadataSourceServiceImpl extends ServiceImpl<MetadataSourceDao, Me
         if (hasSourceKey) {
             redisService.delKey(sourceKey);
         }
-        List<MetadataSourceEntity> sourceEntityList = metadataSourceDao.selectList(Wrappers.emptyWrapper());
+        List<MetadataSourceEntity> sourceEntityList = metadataSourceMapper.selectList(Wrappers.emptyWrapper());
         redisService.objectSet(sourceKey, sourceEntityList);
 
         String tableKey = RedisConstant.METADATA_TABLE_KEY;
@@ -306,7 +306,7 @@ public class MetadataSourceServiceImpl extends ServiceImpl<MetadataSourceDao, Me
         if (hasColumnKey) {
             redisService.delKey(columnKey);
         }
-        List<MetadataColumnEntity> columnEntityList = metadataColumnDao.selectList(Wrappers.emptyWrapper());
+        List<MetadataColumnEntity> columnEntityList = metadataColumnMapper.selectList(Wrappers.emptyWrapper());
         Map<String, List<MetadataColumnEntity>> columnListMap = columnEntityList.stream().collect(Collectors.groupingBy(MetadataColumnEntity::getTableId));
         redisTemplate.opsForHash().putAll(columnKey, columnListMap);
     }

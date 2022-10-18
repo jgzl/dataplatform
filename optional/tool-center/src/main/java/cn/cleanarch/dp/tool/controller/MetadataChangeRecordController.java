@@ -5,7 +5,7 @@ import cn.cleanarch.dp.metadata.dto.MetadataChangeRecordDto;
 import cn.cleanarch.dp.metadata.entity.MetadataChangeRecordEntity;
 import cn.cleanarch.dp.metadata.query.MetadataChangeRecordQuery;
 import cn.cleanarch.dp.metadata.validate.ValidationGroups;
-import cn.cleanarch.dp.tool.mapstruct.MetadataChangeRecordMapper;
+import cn.cleanarch.dp.tool.convert.MetadataChangeRecordConvert;
 import cn.cleanarch.dp.tool.service.MetadataChangeRecordService;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -38,7 +38,7 @@ public class MetadataChangeRecordController {
     private MetadataChangeRecordService metadataChangeRecordService;
 
     @Autowired
-    private MetadataChangeRecordMapper metadataChangeRecordMapper;
+    private MetadataChangeRecordConvert metadataChangeRecordMapper;
 
     /**
      * 通过ID查询信息

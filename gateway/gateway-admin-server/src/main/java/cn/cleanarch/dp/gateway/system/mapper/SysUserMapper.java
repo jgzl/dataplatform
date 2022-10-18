@@ -6,7 +6,6 @@ import cn.cleanarch.dp.system.dto.SysUserDTO;
 import cn.cleanarch.dp.system.vo.SysUserVO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -19,7 +18,6 @@ import java.util.List;
  * @author li7hai26@gmail.com
  * @since 2017-10-29
  */
-@Mapper
 public interface SysUserMapper extends ExtendBaseMapper<SysUserDO> {
 
     /**

@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.convert;
 
-import cn.cleanarch.dp.common.BaseConvert;
+import cn.cleanarch.dp.common.model.BaseConvert;
 import cn.cleanarch.dp.gateway.domain.GatewayLogDO;
 import cn.cleanarch.dp.gateway.vo.GatewayLogVO;
 import org.mapstruct.Mapper;

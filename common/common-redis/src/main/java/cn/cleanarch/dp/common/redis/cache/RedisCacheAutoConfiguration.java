@@ -1,6 +1,5 @@
 package cn.cleanarch.dp.common.redis.cache;
 
-import cn.cleanarch.dp.common.redis.template.RedisObjectMapper;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers;
@@ -17,6 +16,7 @@ import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.lang.Nullable;
 
 import java.util.LinkedHashMap;
@@ -75,7 +75,7 @@ public class RedisCacheAutoConfiguration {
             CacheProperties.Redis redisProperties = this.cacheProperties.getRedis();
             RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
             config = config.serializeValuesWith(RedisSerializationContext.SerializationPair
-                    .fromSerializer(RedisObjectMapper.getRedisSerializer()));
+                    .fromSerializer(RedisSerializer.java()));
             if (redisProperties.getTimeToLive() != null) {
                 config = config.entryTtl(redisProperties.getTimeToLive());
             }

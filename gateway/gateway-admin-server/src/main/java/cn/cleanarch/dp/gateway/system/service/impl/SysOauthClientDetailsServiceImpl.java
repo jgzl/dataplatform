@@ -4,9 +4,13 @@ import cn.cleanarch.dp.common.core.constant.CacheConstants;
 import cn.cleanarch.dp.gateway.system.mapper.SysOauthClientDetailsMapper;
 import cn.cleanarch.dp.gateway.system.service.SysOauthClientDetailsService;
 import cn.cleanarch.dp.system.domain.SysOauthClientDetailsDO;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -19,6 +23,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysOauthClientDetailsServiceImpl extends ServiceImpl<SysOauthClientDetailsMapper, SysOauthClientDetailsDO>
 		implements SysOauthClientDetailsService {
+
+	/**
+	 * 根据客户端id获取客户端信息
+	 * @param clientId
+	 * @return
+	 */
+	@Override
+	@Cacheable(value = CacheConstants.CLIENT_DETAILS, key = "#clientId", unless = "#result == null")
+	public List<SysOauthClientDetailsDO> getByClientId(String clientId) {
+		return this.list(Wrappers.<SysOauthClientDetailsDO>lambdaQuery().eq(SysOauthClientDetailsDO::getClientId, clientId));
+	}
 
 	/**
 	 * 通过ID删除客户端

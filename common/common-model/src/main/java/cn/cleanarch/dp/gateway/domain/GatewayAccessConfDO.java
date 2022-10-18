@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.domain;
 
-import cn.cleanarch.dp.common.BaseDO;
+import cn.cleanarch.dp.common.model.BaseDO;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

@@ -1,6 +1,7 @@
 package cn.cleanarch.dp.gateway.system.controller;
 
 import cn.cleanarch.dp.common.core.model.R;
+import cn.cleanarch.dp.common.oauth.annotation.Inner;
 import cn.cleanarch.dp.gateway.system.service.SysOauthClientDetailsService;
 import cn.cleanarch.dp.system.domain.SysOauthClientDetailsDO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -28,14 +29,14 @@ public class SysOauthClientDetailsController {
 	private final SysOauthClientDetailsService sysOauthClientDetailsService;
 
 	/**
-	 * 通过ID查询
+	 * 通过clientId查询
 	 * @param clientId 客户端id
 	 * @return SysOauthClientDetails
 	 */
 	@GetMapping("/{clientId}")
 	public R<List<SysOauthClientDetailsDO>> getByClientId(@PathVariable String clientId) {
-		return R.success(sysOauthClientDetailsService
-				.list(Wrappers.<SysOauthClientDetailsDO>lambdaQuery().eq(SysOauthClientDetailsDO::getClientId, clientId)));
+		List<SysOauthClientDetailsDO> result = sysOauthClientDetailsService.getByClientId(clientId);
+		return R.success(result);
 	}
 
 	/**
@@ -93,7 +94,8 @@ public class SysOauthClientDetailsController {
 		sysOauthClientDetailsService.clearClientCache();
 		return R.success();
 	}
-	
+
+	@Inner(false)
 	@GetMapping("/getClientDetailsById/{clientId}")
 	public R getClientDetailsById(@PathVariable String clientId) {
 		return R.success(sysOauthClientDetailsService.getOne(

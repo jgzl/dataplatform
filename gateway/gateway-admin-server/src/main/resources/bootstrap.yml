@@ -13,3 +13,9 @@ spring:
     allow-bean-definition-overriding: true
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
+  security:
+    oauth2:
+      client:
+        client-id: gateway-admin
+        client-secret: gateway-admin
+        scope: server

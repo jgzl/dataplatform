@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
 
 @Slf4j
 public class RedisObjectMapper {
@@ -31,7 +32,7 @@ public class RedisObjectMapper {
         return objectMapper;
     }
 
-    public static Jackson2JsonRedisSerializer<Object> getRedisSerializer() {
+    public static RedisSerializer<Object> getRedisSerializer() {
         // 使用 JSON 序列化方式（库是 Jackson ），序列化 VALUE
         Jackson2JsonRedisSerializer<Object> redisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         redisSerializer.setObjectMapper(RedisObjectMapper.getInstance());

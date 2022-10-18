@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.metadata.entity;
 
-import cn.cleanarch.dp.common.DataScopeBaseDO;
+import cn.cleanarch.dp.common.model.DataScopeBaseDO;
 import cn.cleanarch.dp.metadata.dto.DbSchema;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;

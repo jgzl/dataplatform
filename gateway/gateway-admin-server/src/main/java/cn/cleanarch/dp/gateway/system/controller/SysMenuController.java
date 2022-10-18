@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.gateway.system.controller;
 
 import cn.cleanarch.dp.common.core.model.R;
-import cn.cleanarch.dp.common.security.utils.AppContextHolder;
+import cn.cleanarch.dp.common.oauth.util.AppContextHolder;
 import cn.cleanarch.dp.gateway.system.service.SysMenuService;
 import cn.cleanarch.dp.gateway.system.service.SysRoleService;
 import cn.cleanarch.dp.system.domain.SysMenuDO;

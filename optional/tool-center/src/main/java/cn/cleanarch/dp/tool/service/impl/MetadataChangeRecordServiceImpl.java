@@ -2,8 +2,8 @@ package cn.cleanarch.dp.tool.service.impl;
 
 import cn.cleanarch.dp.metadata.dto.MetadataChangeRecordDto;
 import cn.cleanarch.dp.metadata.entity.MetadataChangeRecordEntity;
-import cn.cleanarch.dp.tool.mapper.MetadataChangeRecordDao;
-import cn.cleanarch.dp.tool.mapstruct.MetadataChangeRecordMapper;
+import cn.cleanarch.dp.tool.convert.MetadataChangeRecordConvert;
+import cn.cleanarch.dp.tool.mapper.MetadataChangeRecordMapper;
 import cn.cleanarch.dp.tool.service.MetadataChangeRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,27 +23,27 @@ import java.util.List;
  */
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class MetadataChangeRecordServiceImpl extends ServiceImpl<MetadataChangeRecordDao, MetadataChangeRecordEntity> implements MetadataChangeRecordService {
-
-    @Autowired
-    private MetadataChangeRecordDao metadataChangeRecordDao;
+public class MetadataChangeRecordServiceImpl extends ServiceImpl<MetadataChangeRecordMapper, MetadataChangeRecordEntity> implements MetadataChangeRecordService {
 
     @Autowired
     private MetadataChangeRecordMapper metadataChangeRecordMapper;
 
+    @Autowired
+    private MetadataChangeRecordConvert metadataChangeRecordConvert;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public MetadataChangeRecordEntity saveMetadataChangeRecord(MetadataChangeRecordDto metadataChangeRecordDto) {
-        MetadataChangeRecordEntity metadataChangeRecord = metadataChangeRecordMapper.toEntity(metadataChangeRecordDto);
-        metadataChangeRecordDao.insert(metadataChangeRecord);
+        MetadataChangeRecordEntity metadataChangeRecord = metadataChangeRecordConvert.toEntity(metadataChangeRecordDto);
+        metadataChangeRecordMapper.insert(metadataChangeRecord);
         return metadataChangeRecord;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public MetadataChangeRecordEntity updateMetadataChangeRecord(MetadataChangeRecordDto metadataChangeRecordDto) {
-        MetadataChangeRecordEntity metadataChangeRecord = metadataChangeRecordMapper.toEntity(metadataChangeRecordDto);
-        metadataChangeRecordDao.updateById(metadataChangeRecord);
+        MetadataChangeRecordEntity metadataChangeRecord = metadataChangeRecordConvert.toEntity(metadataChangeRecordDto);
+        metadataChangeRecordMapper.updateById(metadataChangeRecord);
         return metadataChangeRecord;
     }
 
@@ -56,12 +56,12 @@ public class MetadataChangeRecordServiceImpl extends ServiceImpl<MetadataChangeR
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteMetadataChangeRecordById(String id) {
-        metadataChangeRecordDao.deleteById(id);
+        metadataChangeRecordMapper.deleteById(id);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteMetadataChangeRecordBatch(List<String> ids) {
-        metadataChangeRecordDao.deleteBatchIds(ids);
+        metadataChangeRecordMapper.deleteBatchIds(ids);
     }
 }

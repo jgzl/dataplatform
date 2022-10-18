@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ElNotification, ElMessageBox } from 'element-plus';
+import {ElMessageBox, ElNotification} from 'element-plus';
 import sysConfig from "@/config";
 import tool from '@/utils/tool';
 import router from '@/router';
@@ -102,12 +102,13 @@ var http = {
 	 * @param  {请求参数} data
 	 * @param  {参数} config
 	 */
-	post: function(url, data={}, config={}) {
+	post: function(url, data={}, params={}, config={}) {
 		return new Promise((resolve, reject) => {
 			axios({
 				method: 'post',
 				url: url,
 				data: data,
+				params: params,
 				...config
 			}).then((response) => {
 				resolve(response.data);

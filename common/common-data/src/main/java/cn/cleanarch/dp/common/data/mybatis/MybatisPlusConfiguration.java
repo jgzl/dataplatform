@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2020-02-08
  */
 @Configuration
-@MapperScan(value = "${" + CommonConstants.CONFIGURATION_PREFIX + ".mybatis.base-package}", annotationClass = Mapper.class,
-        lazyInitialization = "${" + CommonConstants.CONFIGURATION_PREFIX + ".mybatis.lazy-initialization:false}")
+@MapperScan(value = "${" + CommonConstants.CONFIGURATION_PREFIX + ".mybatis.base-package}",lazyInitialization = "${" + CommonConstants.CONFIGURATION_PREFIX + ".mybatis.lazy-initialization:false}")
 public class MybatisPlusConfiguration {
 
     /**

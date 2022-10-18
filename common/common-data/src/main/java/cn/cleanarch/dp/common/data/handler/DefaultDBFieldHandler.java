@@ -2,7 +2,7 @@ package cn.cleanarch.dp.common.data.handler;
 
 import cn.cleanarch.dp.common.core.constant.CommonConstants;
 import cn.cleanarch.dp.common.core.constant.SecurityConstants;
-import cn.cleanarch.dp.common.security.utils.AppContextHolder;
+import cn.cleanarch.dp.common.oauth.util.AppContextHolder;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;

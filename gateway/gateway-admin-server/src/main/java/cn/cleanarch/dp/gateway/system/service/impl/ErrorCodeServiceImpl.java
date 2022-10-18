@@ -3,7 +3,7 @@ package cn.cleanarch.dp.gateway.system.service.impl;
 import cn.cleanarch.dp.common.core.exception.enums.ErrorCodeConstants;
 import cn.cleanarch.dp.common.core.exception.util.ServiceExceptionUtil;
 import cn.cleanarch.dp.common.core.utils.collection.CollectionUtils;
-import cn.cleanarch.dp.gateway.system.mapper.ErrorCodeMapper;
+import cn.cleanarch.dp.gateway.system.mapper.SysErrorCodeMapper;
 import cn.cleanarch.dp.gateway.system.service.ErrorCodeService;
 import cn.cleanarch.dp.system.constants.SysErrorCodeTypeEnum;
 import cn.cleanarch.dp.system.convert.ErrorCodeConvert;
@@ -38,7 +38,7 @@ import java.util.Map;
 public class ErrorCodeServiceImpl implements ErrorCodeService {
 
     @Resource
-    private ErrorCodeMapper errorCodeMapper;
+    private SysErrorCodeMapper errorCodeMapper;
 
     @Override
     public String createErrorCode(SysErrorCodeCreateReqVO createReqVO) {

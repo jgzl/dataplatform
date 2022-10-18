@@ -2,7 +2,6 @@ package cn.cleanarch.dp.gateway.system.mapper;
 
 import cn.cleanarch.dp.common.data.mapper.ExtendBaseMapper;
 import cn.cleanarch.dp.system.domain.SysDeptDO;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -12,7 +11,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @author li7hai26@gmail.com
  * @since 2018-01-20
  */
-@Mapper
 public interface SysDeptMapper extends ExtendBaseMapper<SysDeptDO> {
 
 }

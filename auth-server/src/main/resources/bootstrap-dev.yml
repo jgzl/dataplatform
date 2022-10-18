@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos.oracle.cleanarch.cn:80
+        namespace: gw-dev
+      config:
+        server-addr: nacos.oracle.cleanarch.cn:80
+        namespace: gw-dev
+        file-extension: yml
+        shared-configs:
+          - application.${spring.cloud.nacos.config.file-extension}

@@ -11,4 +11,6 @@ public class ServiceNameConstants {
     public static final String GATEWAY_SERVICE = "gateway-server";
 
     public static final String GATEWAY_ADMIN_SERVICE = "gateway-admin-server";
+
+    public static final String AUTH_SERVICE = "auth-server";
 }
