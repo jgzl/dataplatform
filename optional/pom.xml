@@ -10,7 +10,7 @@
     <modules>
         <module>message-center</module>
         <module>monitor-center</module>
-        <module>tool-center</module>
+<!--        <module>tool-center</module>-->
     </modules>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>optional</artifactId>
