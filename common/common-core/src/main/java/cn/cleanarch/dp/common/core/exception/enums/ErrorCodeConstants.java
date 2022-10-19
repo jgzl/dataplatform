@@ -119,13 +119,29 @@ public interface ErrorCodeConstants {
     ErrorCode SOCIAL_USER_UNBIND_NOT_SELF = new ErrorCode(1002018001, "社交解绑失败，非当前用户绑定");
     ErrorCode SOCIAL_USER_NOT_FOUND = new ErrorCode(1002018002, "社交授权失败，找不到对应的用户");
 
-    // ========== 网关路由 1002019000 ==========
 
-    // ========== 网关访问 1002020000 ==========
-    ErrorCode GATEWAY_ACCESS_API_KEY_NOT_VALID = new ErrorCode(1002020001,"网关请求来源apiKey不合法");
-    ErrorCode GATEWAY_ACCESS_API_SECRET_NOT_VALID = new ErrorCode(1002020002,"网关请求来源apiSecret不合法");
-    ErrorCode GATEWAY_ACCESS_API_SYSTEM_NOT_VALID = new ErrorCode(1002020003,"网关请求来源system不合法");
-    ErrorCode GATEWAY_ACCESS_DISABLED = new ErrorCode(1002020004,"网关请求来源apiKey/apiSecret已禁用");
-    ErrorCode GATEWAY_ACCESS_INFO_NOT_NULL = new ErrorCode(1002020005,"网关请求来源apiKey/apiSecret/system不允许为空");;
+    // ========== 数据源配置 1003001000 ==========
+    ErrorCode DATA_SOURCE_CONFIG_NOT_EXISTS = new ErrorCode(1003001000, "数据源配置不存在");
+    ErrorCode DATA_SOURCE_CONFIG_NOT_OK = new ErrorCode(1003001001, "数据源配置不正确，无法进行连接");
+
+    // ========== 代码生成器 1001004000 ==========
+    ErrorCode CODEGEN_TABLE_EXISTS = new ErrorCode(1003002000, "表定义已经存在");
+    ErrorCode CODEGEN_IMPORT_TABLE_NULL = new ErrorCode(1003002001, "导入的表不存在");
+    ErrorCode CODEGEN_IMPORT_COLUMNS_NULL = new ErrorCode(1003002002, "导入的字段不存在");
+    ErrorCode CODEGEN_TABLE_NOT_EXISTS = new ErrorCode(1003002004, "表定义不存在");
+    ErrorCode CODEGEN_COLUMN_NOT_EXISTS = new ErrorCode(1003002005, "字段义不存在");
+    ErrorCode CODEGEN_SYNC_COLUMNS_NULL = new ErrorCode(1003002006, "同步的字段不存在");
+    ErrorCode CODEGEN_SYNC_NONE_CHANGE = new ErrorCode(1003002007, "同步失败，不存在改变");
+    ErrorCode CODEGEN_TABLE_INFO_TABLE_COMMENT_IS_NULL = new ErrorCode(1003002008, "数据库的表注释未填写");
+    ErrorCode CODEGEN_TABLE_INFO_COLUMN_COMMENT_IS_NULL = new ErrorCode(1003002009, "数据库的表字段({})注释未填写");
+    
+    // ========== 网关路由 1004001000 ==========
+
+    // ========== 网关访问 1004002000 ==========
+    ErrorCode GATEWAY_ACCESS_API_KEY_NOT_VALID = new ErrorCode(1004002001,"网关请求来源apiKey不合法");
+    ErrorCode GATEWAY_ACCESS_API_SECRET_NOT_VALID = new ErrorCode(1004002002,"网关请求来源apiSecret不合法");
+    ErrorCode GATEWAY_ACCESS_API_SYSTEM_NOT_VALID = new ErrorCode(1004002003,"网关请求来源system不合法");
+    ErrorCode GATEWAY_ACCESS_DISABLED = new ErrorCode(1004002004,"网关请求来源apiKey/apiSecret已禁用");
+    ErrorCode GATEWAY_ACCESS_INFO_NOT_NULL = new ErrorCode(1004002005,"网关请求来源apiKey/apiSecret/system不允许为空");
 
 }

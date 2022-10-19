@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.system.dto;
 
-import cn.cleanarch.dp.system.vo.SysUserVO;
+import cn.cleanarch.dp.system.vo.user.SysUserVO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

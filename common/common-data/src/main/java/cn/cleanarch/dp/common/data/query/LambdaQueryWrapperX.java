@@ -1,9 +1,9 @@
 package cn.cleanarch.dp.common.data.query;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.ArrayUtils;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.Collection;
@@ -91,6 +91,12 @@ public class LambdaQueryWrapperX<T> extends LambdaQueryWrapper<T> {
             return (LambdaQueryWrapperX<T>) le(column, val2);
         }
         return this;
+    }
+
+    public LambdaQueryWrapperX<T> betweenIfPresent(SFunction<T, ?> column, Object[] values) {
+        Object val1 = ArrayUtils.get(values, 0);
+        Object val2 = ArrayUtils.get(values, 1);
+        return betweenIfPresent(column, val1, val2);
     }
 
     // ========== 重写父类方法，方便链式调用 ==========

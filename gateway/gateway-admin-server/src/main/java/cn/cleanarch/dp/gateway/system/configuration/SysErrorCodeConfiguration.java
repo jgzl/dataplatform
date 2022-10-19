@@ -1,10 +1,6 @@
 package cn.cleanarch.dp.gateway.system.configuration;
 
-import cn.cleanarch.dp.gateway.system.service.ErrorCodeAutoGenerator;
-import cn.cleanarch.dp.gateway.system.service.ErrorCodeFrameworkService;
-import cn.cleanarch.dp.gateway.system.service.ErrorCodeLoader;
-import cn.cleanarch.dp.gateway.system.service.impl.ErrorCodeAutoGeneratorImpl;
-import cn.cleanarch.dp.gateway.system.service.impl.ErrorCodeLoaderImpl;
+import cn.cleanarch.dp.gateway.system.service.errorcode.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

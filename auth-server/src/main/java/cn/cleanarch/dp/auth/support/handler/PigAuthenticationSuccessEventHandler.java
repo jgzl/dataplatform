@@ -4,7 +4,7 @@ import cn.cleanarch.dp.common.core.constant.SecurityConstants;
 import cn.cleanarch.dp.common.core.model.R;
 import cn.cleanarch.dp.common.core.utils.WebmvcUtil;
 import cn.cleanarch.dp.common.oauth.vo.LoginUser;
-import cn.cleanarch.dp.system.vo.LoginUserVO;
+import cn.cleanarch.dp.system.vo.user.LoginUserVO;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import com.google.common.collect.Lists;

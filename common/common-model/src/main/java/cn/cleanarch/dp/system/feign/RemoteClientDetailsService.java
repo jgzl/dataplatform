@@ -22,7 +22,7 @@ package cn.cleanarch.dp.system.feign;
 import cn.cleanarch.dp.common.core.constant.SecurityConstants;
 import cn.cleanarch.dp.common.core.constant.ServiceNameConstants;
 import cn.cleanarch.dp.common.core.model.R;
-import cn.cleanarch.dp.system.domain.SysOauthClientDetailsDO;
+import cn.cleanarch.dp.system.dataobject.oauth.SysOauthClientDetailsDO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

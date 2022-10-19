@@ -2,6 +2,7 @@ package cn.cleanarch.dp.common.core.utils;
 
 import cn.cleanarch.dp.common.core.model.R;
 import cn.hutool.core.convert.Convert;
+import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.ContentType;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -260,5 +262,21 @@ public class WebmvcUtil extends org.springframework.web.util.WebUtils{
      */
     public HttpServletResponse getResponse() {
         return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+    }
+
+    /**
+     * 返回附件
+     *
+     * @param response 响应
+     * @param filename 文件名
+     * @param content 附件内容
+     * @throws IOException
+     */
+    public static void writeAttachment(HttpServletResponse response, String filename, byte[] content) throws IOException {
+        // 设置 header 和 contentType
+        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, "UTF-8"));
+        response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        // 输出附件
+        IoUtil.write(response.getOutputStream(), false, content);
     }
 }
