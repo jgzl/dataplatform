@@ -27,7 +27,6 @@ public abstract class AbstractGatewayApiFilter implements WebFilter {
         URI uri = request.getURI();
         String rawPath = uri.getRawPath();
         String apiPrefix = gatewayProperties.getApiPrefix();
-
         /**
          * 记录网关统一前缀访问路径访问的日志信息
          */

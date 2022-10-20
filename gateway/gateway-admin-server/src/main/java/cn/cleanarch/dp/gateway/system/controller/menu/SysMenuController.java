@@ -7,6 +7,7 @@ import cn.cleanarch.dp.gateway.system.service.role.SysRoleService;
 import cn.cleanarch.dp.system.dataobject.menu.SysMenuDO;
 import cn.hutool.core.lang.tree.Tree;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -38,6 +39,7 @@ public class SysMenuController {
      * @return 当前用户的树形菜单
      */
     @GetMapping(value = "/tree/user")
+    @PreAuthorize("@pms.hasPermission('system:sys-menu:query')")
     public R<List<Tree<String>>> getTreeWithUser(String type, String parentId) {
         Set<SysMenuDO> all = new HashSet<>();
         // 获取符合条件的菜单
@@ -56,6 +58,7 @@ public class SysMenuController {
      * @return 当前用户的树形菜单
      */
     @GetMapping(value = "/tree/role")
+    @PreAuthorize("@pms.hasPermission('system:sys-menu:query')")
     public R<List<Tree<String>>> getTreeWithRole(String type, String parentId, @RequestParam String roleId) {
         // 获取符合条件的菜单
         Set<SysMenuDO> all = new HashSet<>(sysMenuService.findMenuByRoleId(roleId));
@@ -70,6 +73,7 @@ public class SysMenuController {
      * @return 树形菜单
      */
     @GetMapping(value = "/tree")
+    @PreAuthorize("@pms.hasPermission('system:sys-menu:query')")
     public R<List<Tree<String>>> getTree(boolean lazy, String parentId) {
         return R.success(sysMenuService.treeMenu(lazy, parentId));
     }
@@ -81,6 +85,7 @@ public class SysMenuController {
      * @return 属性集合
      */
     @GetMapping("/list/{roleId}")
+    @PreAuthorize("@pms.hasPermission('system:sys-menu:query')")
     public R<List<String>> getRoleTree(@PathVariable String roleId) {
         return R.success(
                 sysMenuService.findMenuByRoleId(roleId).stream().map(SysMenuDO::getId).collect(Collectors.toList()));
@@ -93,6 +98,7 @@ public class SysMenuController {
      * @return 菜单详细信息
      */
     @GetMapping("/{id}")
+    @PreAuthorize("@pms.hasPermission('system:sys-menu:query')")
     public R<SysMenuDO> getById(@PathVariable String id) {
         return R.success(sysMenuService.getById(id));
     }
@@ -104,7 +110,7 @@ public class SysMenuController {
      * @return success/false
      */
     @PostMapping
-    //@PreAuthorize("@pms.hasPermission('sys_menu_add')")
+    @PreAuthorize("@pms.hasPermission('system:sys-menu:create')")
     public R<SysMenuDO> save(@Valid @RequestBody SysMenuDO sysMenuDO) {
         sysMenuService.save(sysMenuDO);
         return R.success(sysMenuDO);
@@ -117,7 +123,7 @@ public class SysMenuController {
      * @return success/false
      */
     @DeleteMapping("/{id}")
-    //@PreAuthorize("@pms.hasPermission('sys_menu_del')")
+    @PreAuthorize("@pms.hasPermission('system:sys-menu:delete')")
     public R<Boolean> removeById(@PathVariable String id) {
         return sysMenuService.removeMenuById(id);
     }
@@ -129,7 +135,7 @@ public class SysMenuController {
      * @return
      */
     @PutMapping
-    //@PreAuthorize("@pms.hasPermission('sys_menu_edit')")
+    @PreAuthorize("@pms.hasPermission('system:sys-menu:update')")
     public R<Boolean> update(@Valid @RequestBody SysMenuDO sysMenuDO) {
         return R.success(sysMenuService.updateMenuById(sysMenuDO));
     }

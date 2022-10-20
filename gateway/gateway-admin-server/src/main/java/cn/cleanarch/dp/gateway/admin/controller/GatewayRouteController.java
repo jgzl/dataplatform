@@ -1,13 +1,14 @@
 package cn.cleanarch.dp.gateway.admin.controller;
 
 import cn.cleanarch.dp.common.core.model.R;
-import cn.cleanarch.dp.gateway.admin.service.GatewayRouteConfService;
-import cn.cleanarch.dp.gateway.domain.GatewayRouteConfDO;
-import cn.cleanarch.dp.gateway.vo.GatewayRouteConfVO;
+import cn.cleanarch.dp.gateway.admin.service.GatewayRouteService;
+import cn.cleanarch.dp.gateway.domain.GatewayRouteDO;
+import cn.cleanarch.dp.gateway.vo.GatewayRouteVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,16 +22,17 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/gateway/route")
-public class GatewayRouteConfController {
+public class GatewayRouteController {
 
-    private final GatewayRouteConfService service;
+    private final GatewayRouteService service;
     /**
      * 分页获取当前定义的信息
      * @return
      */
     @GetMapping("/page")
-    public R<IPage<GatewayRouteConfDO>> pageListRoutes(Page page, GatewayRouteConfVO vo) {
-        return R.success(service.page(page, new QueryWrapper<GatewayRouteConfDO>(vo)));
+    @PreAuthorize("@pms.hasPermission('gateway:gateway-route:query')")
+    public R<IPage<GatewayRouteDO>> pageListRoutes(Page page, GatewayRouteVO vo) {
+        return R.success(service.page(page, new QueryWrapper<GatewayRouteDO>(vo)));
     }
 
     /**
@@ -39,7 +41,8 @@ public class GatewayRouteConfController {
      * @return
      */
     @GetMapping
-    public R<List<GatewayRouteConfDO>> listRoutes() {
+    @PreAuthorize("@pms.hasPermission('gateway:gateway-route:query')")
+    public R<List<GatewayRouteDO>> listRoutes() {
         return R.success(service.list());
     }
 
@@ -50,7 +53,8 @@ public class GatewayRouteConfController {
      * @return
      */
     @PostMapping
-    public R<Void> createRoutes(@RequestBody GatewayRouteConfDO vo) {
+    @PreAuthorize("@pms.hasPermission('gateway:gateway-route:create')")
+    public R<Void> createRoutes(@RequestBody GatewayRouteDO vo) {
         service.saveOrUpdate(vo);
         return R.success();
     }
@@ -62,7 +66,8 @@ public class GatewayRouteConfController {
      * @return
      */
     @PutMapping
-    public R<Void> updateRoutes(@RequestBody GatewayRouteConfDO vo) {
+    @PreAuthorize("@pms.hasPermission('gateway:gateway-route:update')")
+    public R<Void> updateRoutes(@RequestBody GatewayRouteDO vo) {
         service.saveOrUpdate(vo);
         return R.success();
     }
@@ -74,6 +79,7 @@ public class GatewayRouteConfController {
      * @return
      */
     @DeleteMapping("/{routeId}")
+    @PreAuthorize("@pms.hasPermission('gateway:gateway-route:delete')")
     public R<Void> deleteRoutes(@PathVariable String routeId) {
         service.deleteRoute(routeId);
         return R.success();

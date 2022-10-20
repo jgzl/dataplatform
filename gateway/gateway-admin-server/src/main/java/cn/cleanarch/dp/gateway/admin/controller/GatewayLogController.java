@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @RestController
-@RequestMapping("/gateway/logs")
+@RequestMapping("/gateway/log")
 public class GatewayLogController {
 
     @Autowired
@@ -37,6 +38,7 @@ public class GatewayLogController {
      * @return
      */
     @GetMapping
+    @PreAuthorize("@pms.hasPermission('gateway:gateway-log:query')")
     public R<List<GatewayLogDO>> findAll() {
         List<GatewayLogDO> result = service.findAll();
         return R.success(result);
@@ -49,6 +51,7 @@ public class GatewayLogController {
      * @return
      */
     @GetMapping("/{ids}")
+    @PreAuthorize("@pms.hasPermission('gateway:gateway-log:query')")
     public R<List<GatewayLogDO>> findAllById(@PathVariable String ids) {
         if (StrUtil.isBlank(ids)) {
             return R.success();
@@ -65,6 +68,7 @@ public class GatewayLogController {
      * @return
      */
     @PostMapping
+    @PreAuthorize("@pms.hasPermission('gateway:gateway-log:create')")
     public R<List<GatewayLogDO>> saveAll(@RequestBody List<GatewayLogDO> list) {
         if (CollUtil.isEmpty(list)) {
             list = ListUtil.toList();
@@ -82,6 +86,7 @@ public class GatewayLogController {
      * @return
      */
     @DeleteMapping
+    @PreAuthorize("@pms.hasPermission('gateway:gateway-log:delete')")
     public R<Void> deleteAll() {
         service.deleteAll();
         return R.success();
@@ -94,6 +99,7 @@ public class GatewayLogController {
      * @return
      */
     @DeleteMapping("/{ids}")
+    @PreAuthorize("@pms.hasPermission('gateway:gateway-log:delete')")
     public R<Void> deleteAllByIds(@PathVariable String ids) {
         if (StrUtil.isBlank(ids)) {
             return R.success();
@@ -110,6 +116,7 @@ public class GatewayLogController {
      * @return
      */
     @GetMapping("/search")
+    @PreAuthorize("@pms.hasPermission('gateway:gateway-log:query')")
     public R<IPage<GatewayLogVO>> search(Page<GatewayLogVO> page, GatewayLogVO gatewayRequestLog) {
         Page<GatewayLogVO> result = service.getByGatewayRequestLog(page,gatewayRequestLog);
         return R.success(result);

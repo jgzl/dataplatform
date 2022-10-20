@@ -46,9 +46,9 @@ export const systemUserForLockFlag = "/system/user/lockFlag";
 
 // 网关管理
 // 网关管理-日志搜索
-export const gatewayLogSearch = "/gateway/logs/search";
+export const gatewayLogSearch = "/gateway/log/search";
 // 网关管理-日志增删改
-export const gatewayLogs = "/gateway/logs";
+export const gatewayLogs = "/gateway/log";
 // 网关管理-路由增删改查
 export const gatewayRoute = "/gateway/route";
 // 网关管理-分页查询

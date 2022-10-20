@@ -4,8 +4,8 @@ import cn.cleanarch.dp.common.core.constant.CacheConstants;
 import cn.cleanarch.dp.common.core.utils.JacksonUtil;
 import cn.cleanarch.dp.gateway.admin.configuration.DynamicRouteInitEvent;
 import cn.cleanarch.dp.gateway.admin.mapper.GatewayRouteConfMapper;
-import cn.cleanarch.dp.gateway.admin.service.GatewayRouteConfService;
-import cn.cleanarch.dp.gateway.domain.GatewayRouteConfDO;
+import cn.cleanarch.dp.gateway.admin.service.GatewayRouteService;
+import cn.cleanarch.dp.gateway.domain.GatewayRouteDO;
 import cn.cleanarch.dp.gateway.vo.GatewayFilterDefinitionVO;
 import cn.cleanarch.dp.gateway.vo.GatewayPredicateDefinitionVO;
 import cn.cleanarch.dp.gateway.vo.GatewayRouteDefinitionVO;
@@ -32,9 +32,9 @@ import java.util.Map;
  */
 @Slf4j
 @AllArgsConstructor
-@Service("gatewayRouteConfService")
-public class GatewayRouteConfServiceImpl extends ServiceImpl<GatewayRouteConfMapper, GatewayRouteConfDO>
-        implements GatewayRouteConfService {
+@Service("gatewayRouteService")
+public class GatewayRouteServiceImpl extends ServiceImpl<GatewayRouteConfMapper, GatewayRouteDO>
+        implements GatewayRouteService {
 
     private final RedisTemplate<String, Object> redisTemplate;
 
@@ -46,7 +46,7 @@ public class GatewayRouteConfServiceImpl extends ServiceImpl<GatewayRouteConfMap
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean saveOrUpdate(GatewayRouteConfDO route) {
+    public boolean saveOrUpdate(GatewayRouteDO route) {
         // 清空Redis 缓存
         Long result = redisTemplate.opsForHash().delete(CacheConstants.ROUTE_KEY, route.getRouteId());
         log.info("清空网关路由条数:{} ", result);
@@ -101,7 +101,7 @@ public class GatewayRouteConfServiceImpl extends ServiceImpl<GatewayRouteConfMap
         Long result = redisTemplate.opsForHash().delete(CacheConstants.ROUTE_KEY, strRouteIdArray);
         log.info("清空网关路由条数:{} ", result);
         try {
-            this.remove(Wrappers.<GatewayRouteConfDO>update().lambda().in(GatewayRouteConfDO::getRouteId, strRouteIdArray));
+            this.remove(Wrappers.<GatewayRouteDO>update().lambda().in(GatewayRouteDO::getRouteId, strRouteIdArray));
             log.info("更新网关路由结束");
             // 通知网关重置路由
             redisTemplate.convertAndSend(CacheConstants.ROUTE_JVM_RELOAD_TOPIC, "路由信息,网关缓存更新");

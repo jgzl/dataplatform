@@ -74,6 +74,25 @@ public class AppContextHolder {
         return roleList;
     }
 
+
+    /**
+     * 获取用户角色信息
+     *
+     * @return 角色集合
+     */
+    public List<String> getPermissions() {
+        Authentication authentication = getAuthentication();
+        if (authentication == null) {
+            return Lists.newArrayList();
+        }
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+        List<String> roleList = new ArrayList<>();
+        authorities.stream().filter(granted -> !StrUtil.startWith(granted.getAuthority(), SecurityConstants.ROLE_PREFIX))
+                .forEach(granted -> roleList.add(granted.getAuthority()));
+        return roleList;
+    }
+
     public static boolean isAdmin() {
         LoginUser user = getUser();
         if (user != null){

@@ -1,9 +1,9 @@
 package cn.cleanarch.dp.gateway.admin.configuration;
 
 import cn.cleanarch.dp.common.core.constant.CacheConstants;
-import cn.cleanarch.dp.gateway.admin.service.GatewayAccessConfService;
+import cn.cleanarch.dp.gateway.admin.service.GatewayAccessService;
 import cn.cleanarch.dp.gateway.convert.GatewayAccessConfConvert;
-import cn.cleanarch.dp.gateway.vo.GatewayAccessConfVO;
+import cn.cleanarch.dp.gateway.vo.GatewayAccessVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -18,7 +18,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 @Configuration
 public class SwarmDataInitRunner implements CommandLineRunner{
 
-    private final GatewayAccessConfService accessConfService;
+    private final GatewayAccessService accessConfService;
     private final RedisTemplate<String, Object> redisTemplate;
 
     @Override
@@ -26,7 +26,7 @@ public class SwarmDataInitRunner implements CommandLineRunner{
         log.info("开始预热MySQL数据至Redis缓存数据");
         redisTemplate.delete(CacheConstants.ACCESS_CONF_KEY);
         accessConfService.list().forEach(item -> {
-            GatewayAccessConfVO vo = GatewayAccessConfConvert.INSTANCE.convertDo2Vo(item);
+            GatewayAccessVO vo = GatewayAccessConfConvert.INSTANCE.convertDo2Vo(item);
             redisTemplate.opsForHash().put(CacheConstants.ACCESS_CONF_KEY,vo.getApiKey(),vo);
         });
         redisTemplate.convertAndSend(CacheConstants.ACCESS_CONF_JVM_RELOAD_TOPIC,"缓存更新");

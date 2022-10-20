@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -50,6 +51,7 @@ public class SysUserController {
      * @return 用户信息
      */
     @GetMapping(value = {"/info"})
+    @PreAuthorize("@pms.hasPermission('system:sys-user:query')")
     public R<SysUserInfoDTO> info() {
         return R.success(userService.findUserInfo(AppContextHolder.getUser().getUsername()));
     }
@@ -61,7 +63,8 @@ public class SysUserController {
      * @return 用户信息
      */
     @GetMapping("/{id}")
-    public R<SysUserVO> user(@PathVariable Integer id) {
+    @PreAuthorize("@pms.hasPermission('system:sys-user:query')")
+    public R<SysUserVO> queryUserById(@PathVariable String id) {
         return R.success(userService.selectUserVoById(id));
     }
 
@@ -72,7 +75,8 @@ public class SysUserController {
      * @return
      */
     @GetMapping("/details/{userName}")
-    public R<SysUserDO> user(@PathVariable String userName) {
+    @PreAuthorize("@pms.hasPermission('system:sys-user:query')")
+    public R<SysUserDO> queryUserByUserName(@PathVariable String userName) {
         SysUserDO condition = new SysUserDO();
         condition.setUserName(userName);
         return R.success(userService.getOne(new QueryWrapper<>(condition)));
@@ -85,6 +89,7 @@ public class SysUserController {
      * @return R
      */
     @DeleteMapping("/{id}")
+    @PreAuthorize("@pms.hasPermission('system:sys-user:delete')")
     public R<Boolean> userDel(@PathVariable String id) {
         SysUserDO sysUserDO = userService.getById(id);
         return R.success(userService.deleteUserById(sysUserDO));
@@ -97,7 +102,7 @@ public class SysUserController {
      * @return success/false
      */
     @PostMapping
-    //@PreAuthorize("@pms.hasPermission('sys_user_add')")
+    @PreAuthorize("@pms.hasPermission('system:sys-user:create')")
     public R<Boolean> user(@RequestBody SysUserDTO userDto) {
         return R.success(userService.saveUser(userDto));
     }
@@ -109,7 +114,7 @@ public class SysUserController {
      * @return R
      */
     @PutMapping
-    //@PreAuthorize("@pms.hasPermission('sys_user_edit')")
+    @PreAuthorize("@pms.hasPermission('system:sys-user:update')")
     public R<Boolean> updateUser(@Valid @RequestBody SysUserDTO userDto) {
         return R.success(userService.updateUser(userDto));
     }
@@ -121,7 +126,7 @@ public class SysUserController {
      * @return R
      */
     @PutMapping("/lockFlag")
-    //@PreAuthorize("@pms.hasPermission('sys_user_edit')")
+    @PreAuthorize("@pms.hasPermission('system:sys-user:update')")
     public R<Boolean> updateUserForLockFlag(@Valid @RequestBody SysUserDTO userDto) {
         return R.success(userService.updateUserForLockFlag(userDto));
     }
@@ -134,6 +139,7 @@ public class SysUserController {
      * @return 用户集合
      */
     @GetMapping("/page")
+    @PreAuthorize("@pms.hasPermission('system:sys-user:query')")
     public R<IPage<SysUserVO>> getUserPage(Page page, SysUserDTO userDTO) {
         return R.success(userService.getUsersWithDeptPage(page, userDTO));
     }
@@ -145,6 +151,7 @@ public class SysUserController {
      * @return 用户集合
      */
     @GetMapping("/list")
+    @PreAuthorize("@pms.hasPermission('system:sys-user:query')")
     public R<List<SysUserVO>> getUserList(SysUserDTO userDTO) {
         return R.success(userService.getUsersWithDept(userDTO));
     }
@@ -156,6 +163,7 @@ public class SysUserController {
      * @return success/false
      */
     @PutMapping("/edit")
+    @PreAuthorize("@pms.hasPermission('system:sys-user:update')")
     public R<Boolean> updateUserInfo(@Valid @RequestBody SysUserDTO userDto) {
         return userService.updateUserInfo(userDto);
     }
@@ -167,6 +175,7 @@ public class SysUserController {
      * @return
      */
     @GetMapping("/ancestor/{userName}")
+    @PreAuthorize("@pms.hasPermission('system:sys-user:query')")
     public R<List<SysUserDO>> listAncestorUsers(@PathVariable String userName) {
         return R.success(userService.listAncestorUsers(userName));
     }

@@ -51,7 +51,7 @@ public class CodegenController {
             @ApiImplicitParam(name = "name", value = "表名，模糊匹配", example = "yudao", dataTypeClass = String.class),
             @ApiImplicitParam(name = "comment", value = "描述，模糊匹配", example = "芋道", dataTypeClass = String.class)
     })
-    @PreAuthorize("@ss.hasPermission('infra:codegen:query')")
+    @PreAuthorize("@pms.hasPermission('infra:codegen:query')")
     public R<List<DatabaseTableRespVO>> getDatabaseTableList(
             @RequestParam(value = "dataSourceConfigId") Long dataSourceConfigId,
             @RequestParam(value = "name", required = false) String name,
@@ -61,7 +61,7 @@ public class CodegenController {
 
     @GetMapping("/table/page")
     @ApiOperation("获得表定义分页")
-    @PreAuthorize("@ss.hasPermission('infra:codegen:query')")
+    @PreAuthorize("@pms.hasPermission('infra:codegen:query')")
     public R<IPage<CodegenTableRespVO>> getCodeGenTablePage(@Valid CodegenTablePageReqVO pageReqVO) {
         IPage<CodegenTableDO> pageResult = codegenService.getCodegenTablePage(pageReqVO);
         return R.success(PageCovertUtil.pageVoCovert(pageResult,CodegenTableRespVO.class));
@@ -70,7 +70,7 @@ public class CodegenController {
     @GetMapping("/detail")
     @ApiOperation("获得表和字段的明细")
     @ApiImplicitParam(name = "tableId", value = "表编号", required = true, example = "1024", dataTypeClass = Long.class)
-    @PreAuthorize("@ss.hasPermission('infra:codegen:query')")
+    @PreAuthorize("@pms.hasPermission('infra:codegen:query')")
     public R<CodegenDetailRespVO> getCodegenDetail(@RequestParam("tableId") String tableId) {
         CodegenTableDO table = codegenService.getCodegenTablePage(tableId);
         List<CodegenColumnDO> columns = codegenService.getCodegenColumnListByTableId(tableId);
@@ -80,14 +80,14 @@ public class CodegenController {
 
     @ApiOperation("基于数据库的表结构，创建代码生成器的表和字段定义")
     @PostMapping("/create-list")
-    @PreAuthorize("@ss.hasPermission('infra:codegen:create')")
+    @PreAuthorize("@pms.hasPermission('infra:codegen:create')")
     public R<List<String>> createCodegenList(@Valid @RequestBody CodegenCreateListReqVO reqVO) {
         return R.success(codegenService.createCodegenList(AppContextHolder.getUser().getUserId(), reqVO));
     }
 
     @ApiOperation("更新数据库的表和字段定义")
     @PutMapping("/update")
-    @PreAuthorize("@ss.hasPermission('infra:codegen:update')")
+    @PreAuthorize("@pms.hasPermission('infra:codegen:update')")
     public R<Boolean> updateCodegen(@Valid @RequestBody CodegenUpdateReqVO updateReqVO) {
         codegenService.updateCodegen(updateReqVO);
         return R.success(true);
@@ -96,7 +96,7 @@ public class CodegenController {
     @ApiOperation("基于数据库的表结构，同步数据库的表和字段定义")
     @PutMapping("/sync-from-db")
     @ApiImplicitParam(name = "tableId", value = "表编号", required = true, example = "1024", dataTypeClass = Long.class)
-    @PreAuthorize("@ss.hasPermission('infra:codegen:update')")
+    @PreAuthorize("@pms.hasPermission('infra:codegen:update')")
     public R<Boolean> syncCodegenFromDB(@RequestParam("tableId") String tableId) {
         codegenService.syncCodegenFromDB(tableId);
         return R.success(true);
@@ -105,7 +105,7 @@ public class CodegenController {
     @ApiOperation("删除数据库的表和字段定义")
     @DeleteMapping("/delete")
     @ApiImplicitParam(name = "tableId", value = "表编号", required = true, example = "1024", dataTypeClass = Long.class)
-    @PreAuthorize("@ss.hasPermission('infra:codegen:delete')")
+    @PreAuthorize("@pms.hasPermission('infra:codegen:delete')")
     public R<Boolean> deleteCodegen(@RequestParam("tableId") String tableId) {
         codegenService.deleteCodegen(tableId);
         return R.success(true);
@@ -114,7 +114,7 @@ public class CodegenController {
     @ApiOperation("预览生成代码")
     @GetMapping("/preview")
     @ApiImplicitParam(name = "tableId", value = "表编号", required = true, example = "1024", dataTypeClass = Long.class)
-    @PreAuthorize("@ss.hasPermission('infra:codegen:preview')")
+    @PreAuthorize("@pms.hasPermission('infra:codegen:preview')")
     public R<List<CodegenPreviewRespVO>> previewCodegen(@RequestParam("tableId") String tableId) {
         Map<String, String> codes = codegenService.generationCodes(tableId);
         return R.success(CodegenConvert.INSTANCE.convert(codes));
@@ -123,7 +123,7 @@ public class CodegenController {
     @ApiOperation("下载生成代码")
     @GetMapping("/download")
     @ApiImplicitParam(name = "tableId", value = "表编号", required = true, example = "1024", dataTypeClass = Long.class)
-    @PreAuthorize("@ss.hasPermission('infra:codegen:download')")
+    @PreAuthorize("@pms.hasPermission('infra:codegen:download')")
     public void downloadCodegen(@RequestParam("tableId") String tableId,
                                 HttpServletResponse response) throws IOException {
         // 生成代码

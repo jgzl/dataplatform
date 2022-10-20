@@ -1,7 +1,6 @@
 package cn.cleanarch.dp.gateway.domain;
 
 import cn.cleanarch.dp.common.model.BaseDO;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,38 +12,44 @@ import lombok.ToString;
  * @author li7hai26@gmail.com
  * @date 2021/12/23
  */
-@TableName("gateway_access_conf")
+@TableName("gateway_route_conf")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class GatewayAccessConfDO extends BaseDO {
+public class GatewayRouteDO extends BaseDO {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 网关访问key
+     * 路由ID
      */
-    private String apiKey;
+    private String routeId;
 
     /**
-     * 网关访问secret
+     * 路由名称
      */
-    private String apiSecret;
+    private String routeName;
 
     /**
-     * 访问系统
+     * 断言
      */
-    @TableField(value = "`system`")
-    private String system;
+    private String predicates;
 
     /**
-     * 备注
+     * 过滤器
      */
-    private String remark;
+    private String filters;
 
     /**
-     * 状态
+     * uri
      */
-    private String status;
+    private String uri;
+
+    /**
+     * 排序
+     */
+    private Integer sort;
+
+    private String metadata;
 
 }

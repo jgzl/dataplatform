@@ -19,5 +19,5 @@ public class GatewayConstants extends HttpHeaderConstants{
     /**
      * 网关管理访问统一前缀
      */
-    public static final String ADMIN_PREFIX = "/admin";
+    public static final String ADMIN_PREFIX = "/gateway-admin";
 }

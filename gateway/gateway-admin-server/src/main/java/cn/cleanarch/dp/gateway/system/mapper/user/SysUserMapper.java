@@ -51,6 +51,6 @@ public interface SysUserMapper extends ExtendBaseMapper<SysUserDO> {
      * @param id 用户ID
      * @return sysUserVo
      */
-    SysUserVO getUserVoById(Integer id);
+    SysUserVO getUserVoById(String id);
 
 }

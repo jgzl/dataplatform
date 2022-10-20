@@ -14,6 +14,6 @@ import java.util.List;
 public interface GatewayAdminFeign {
     @GetMapping("/heartbeat")
     public R<String> heartbeat();
-    @PostMapping(value = "/gateway/logs")
+    @PostMapping(value = "/gateway/log")
     public R<List<GatewayLogDO>> saveAll(@RequestBody List<GatewayLogDO> list);
 }

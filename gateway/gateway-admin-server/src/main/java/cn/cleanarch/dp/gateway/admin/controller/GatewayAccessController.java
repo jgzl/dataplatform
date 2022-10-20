@@ -1,13 +1,14 @@
 package cn.cleanarch.dp.gateway.admin.controller;
 
 import cn.cleanarch.dp.common.core.model.R;
-import cn.cleanarch.dp.gateway.admin.service.GatewayAccessConfService;
-import cn.cleanarch.dp.gateway.domain.GatewayAccessConfDO;
-import cn.cleanarch.dp.gateway.vo.GatewayAccessConfVO;
+import cn.cleanarch.dp.gateway.admin.service.GatewayAccessService;
+import cn.cleanarch.dp.gateway.domain.GatewayAccessDO;
+import cn.cleanarch.dp.gateway.vo.GatewayAccessVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,17 +23,18 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/gateway/access")
-public class GatewayAccessConfController {
+public class GatewayAccessController {
 
-    private final GatewayAccessConfService service;
+    private final GatewayAccessService service;
 
     /**
      * 分页获取当前定义的信息
      * @return
      */
     @GetMapping("/page")
-    public R<IPage<GatewayAccessConfVO>> pageListRoutes(Page page, GatewayAccessConfVO vo) {
-        return R.success(service.page(page, new QueryWrapper<GatewayAccessConfDO>(vo)));
+    @PreAuthorize("@pms.hasPermission('gateway:gateway-access:query')")
+    public R<IPage<GatewayAccessVO>> pageListRoutes(Page page, GatewayAccessVO vo) {
+        return R.success(service.page(page, new QueryWrapper<GatewayAccessDO>(vo)));
     }
 
     /**
@@ -41,7 +43,8 @@ public class GatewayAccessConfController {
      * @return
      */
     @GetMapping
-    public R<List<GatewayAccessConfDO>> listRoutes() {
+    @PreAuthorize("@pms.hasPermission('gateway:gateway-access:query')")
+    public R<List<GatewayAccessDO>> listRoutes() {
         return R.success(service.list());
     }
 
@@ -52,7 +55,8 @@ public class GatewayAccessConfController {
      * @return
      */
     @PostMapping
-    public R<GatewayAccessConfDO> save(@RequestBody GatewayAccessConfDO vo) {
+    @PreAuthorize("@pms.hasPermission('gateway:gateway-access:save')")
+    public R<GatewayAccessDO> save(@RequestBody GatewayAccessDO vo) {
         service.save(vo);
         return R.success(vo);
     }
@@ -64,7 +68,8 @@ public class GatewayAccessConfController {
      * @return
      */
     @PutMapping
-    public R<GatewayAccessConfDO> updateById(@RequestBody GatewayAccessConfDO vo) {
+    @PreAuthorize("@pms.hasPermission('gateway:gateway-access:update')")
+    public R<GatewayAccessDO> updateById(@RequestBody GatewayAccessDO vo) {
         service.updateById(vo);
         return R.success(vo);
     }
@@ -76,6 +81,7 @@ public class GatewayAccessConfController {
      * @return
      */
     @DeleteMapping("/{id}")
+    @PreAuthorize("@pms.hasPermission('gateway:gateway-access:delete')")
     public R<Void> deleteItem(@PathVariable String id) {
         service.deleteItem(id);
         return R.success();
@@ -88,7 +94,8 @@ public class GatewayAccessConfController {
      * @return R
      */
     @PutMapping("/status")
-    public R<Boolean> updateUserForLockFlag(@Valid @RequestBody GatewayAccessConfVO vo) {
+    @PreAuthorize("@pms.hasPermission('gateway:gateway-access:update')")
+    public R<Boolean> updateUserForLockFlag(@Valid @RequestBody GatewayAccessVO vo) {
         return R.success(service.updateStatus(vo));
     }
 }

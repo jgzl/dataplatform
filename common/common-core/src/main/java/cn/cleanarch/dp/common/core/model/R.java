@@ -74,7 +74,7 @@ public class R<T> implements Serializable {
     public static R<Void> error(ErrorCode errorCode) {
         R<Void> apiResult = new R<>();
         apiResult.setCode(errorCode.getCode());
-        apiResult.setMsg(error().getMsg());
+        apiResult.setMsg(errorCode.getMsg());
         return apiResult;
     }
 }

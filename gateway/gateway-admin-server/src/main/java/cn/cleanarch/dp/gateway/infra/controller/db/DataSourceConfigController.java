@@ -29,14 +29,14 @@ public class DataSourceConfigController {
 
     @PostMapping("/create")
     @ApiOperation("创建数据源配置")
-    @PreAuthorize("@ss.hasPermission('infra:data-source-config:create')")
+    @PreAuthorize("@pms.hasPermission('infra:data-source-config:create')")
     public R<String> createDataSourceConfig(@Valid @RequestBody DataSourceConfigCreateReqVO createReqVO) {
         return R.success(dataSourceConfigService.createDataSourceConfig(createReqVO));
     }
 
     @PutMapping("/update")
     @ApiOperation("更新数据源配置")
-    @PreAuthorize("@ss.hasPermission('infra:data-source-config:update')")
+    @PreAuthorize("@pms.hasPermission('infra:data-source-config:update')")
     public R<Boolean> updateDataSourceConfig(@Valid @RequestBody DataSourceConfigUpdateReqVO updateReqVO) {
         dataSourceConfigService.updateDataSourceConfig(updateReqVO);
         return R.success(true);
@@ -45,7 +45,7 @@ public class DataSourceConfigController {
     @DeleteMapping("/delete")
     @ApiOperation("删除数据源配置")
     @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = Long.class)
-    @PreAuthorize("@ss.hasPermission('infra:data-source-config:delete')")
+    @PreAuthorize("@pms.hasPermission('infra:data-source-config:delete')")
     public R<Boolean> deleteDataSourceConfig(@RequestParam("id") Long id) {
         dataSourceConfigService.deleteDataSourceConfig(id);
         return R.success(true);
@@ -54,7 +54,7 @@ public class DataSourceConfigController {
     @GetMapping("/get")
     @ApiOperation("获得数据源配置")
     @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
-    @PreAuthorize("@ss.hasPermission('infra:data-source-config:query')")
+    @PreAuthorize("@pms.hasPermission('infra:data-source-config:query')")
     public R<DataSourceConfigRespVO> getDataSourceConfig(@RequestParam("id") Long id) {
         DataSourceConfigDO dataSourceConfig = dataSourceConfigService.getDataSourceConfig(id);
         return R.success(DataSourceConfigConvert.INSTANCE.convert(dataSourceConfig));
@@ -62,7 +62,7 @@ public class DataSourceConfigController {
 
     @GetMapping("/list")
     @ApiOperation("获得数据源配置列表")
-    @PreAuthorize("@ss.hasPermission('infra:data-source-config:query')")
+    @PreAuthorize("@pms.hasPermission('infra:data-source-config:query')")
     public R<List<DataSourceConfigRespVO>> getDataSourceConfigList() {
         List<DataSourceConfigDO> list = dataSourceConfigService.getDataSourceConfigList();
         return R.success(DataSourceConfigConvert.INSTANCE.convertList(list));

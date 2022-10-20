@@ -8,6 +8,7 @@ import cn.cleanarch.dp.system.dataobject.dept.SysDeptRelationDO;
 import cn.hutool.core.lang.tree.Tree;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -36,6 +37,7 @@ public class SysDeptController {
      * @return SysDept
      */
     @GetMapping("/{id}")
+    @PreAuthorize("@pms.hasPermission('system:sys-dept:query')")
     public R<SysDeptDO> getById(@PathVariable Integer id) {
         return R.success(sysDeptService.getById(id));
     }
@@ -46,6 +48,7 @@ public class SysDeptController {
      * @return 树形菜单
      */
     @GetMapping(value = "/tree")
+    @PreAuthorize("@pms.hasPermission('system:sys-dept:query')")
     public R<List<Tree<String>>> getTree() {
         return R.success(sysDeptService.selectTree());
     }
@@ -57,7 +60,7 @@ public class SysDeptController {
      * @return success/false
      */
     @PostMapping
-    //@PreAuthorize("@pms.hasPermission('sys_dept_add')")
+    @PreAuthorize("@pms.hasPermission('system:sys-dept:create')")
     public R<Boolean> save(@Valid @RequestBody SysDeptDO sysDeptDO) {
         return R.success(sysDeptService.saveDept(sysDeptDO));
     }
@@ -69,7 +72,7 @@ public class SysDeptController {
      * @return success/false
      */
     @DeleteMapping("/{id}")
-    //@PreAuthorize("@pms.hasPermission('sys_dept_del')")
+    @PreAuthorize("@pms.hasPermission('system:sys-dept:delete')")
     public R<Boolean> removeById(@PathVariable String id) {
         return R.success(sysDeptService.removeDeptById(id));
     }
@@ -81,7 +84,7 @@ public class SysDeptController {
      * @return success/false
      */
     @PutMapping
-    //@PreAuthorize("@pms.hasPermission('sys_dept_edit')")
+    @PreAuthorize("@pms.hasPermission('system:sys-dept:update')")
     public R<Boolean> update(@Valid @RequestBody SysDeptDO sysDeptDO) {
         sysDeptDO.setUpdateTime(LocalDateTime.now());
         return R.success(sysDeptService.updateDeptById(sysDeptDO));
@@ -94,6 +97,7 @@ public class SysDeptController {
      * @return 返回子级
      */
     @GetMapping(value = "/getDescendantList/{deptId}")
+    @PreAuthorize("@pms.hasPermission('system:sys-dept:query')")
     public R<List<SysDeptRelationDO>> getDescendantList(@PathVariable Integer deptId) {
         return R.success(
                 relationService.list(Wrappers.<SysDeptRelationDO>lambdaQuery().eq(SysDeptRelationDO::getAncestor, deptId)));

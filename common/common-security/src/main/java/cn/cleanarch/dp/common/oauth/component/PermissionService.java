@@ -1,14 +1,9 @@
 
 package cn.cleanarch.dp.common.oauth.component;
 
+import cn.cleanarch.dp.common.oauth.util.AppContextHolder;
 import cn.hutool.core.util.ArrayUtil;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.PatternMatchUtils;
-import org.springframework.util.StringUtils;
-
-import java.util.Collection;
 
 /**
  * @author li7hai26@outlook.com
@@ -25,13 +20,19 @@ public class PermissionService {
 		if (ArrayUtil.isEmpty(permissions)) {
 			return false;
 		}
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication == null) {
-			return false;
-		}
-		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-		return authorities.stream().map(GrantedAuthority::getAuthority).filter(StringUtils::hasText)
-				.anyMatch(x -> PatternMatchUtils.simpleMatch(permissions, x));
+		return AppContextHolder.getPermissions().stream().anyMatch(permission->PatternMatchUtils.simpleMatch(permissions, permission));
 	}
 
+	/**
+	 * 判断接口是否有任意xxx，xxx角色
+	 * @param roles 角色
+	 * @return {boolean}
+	 */
+	public boolean hasRole(String... roles) {
+		// 如果为空，说明已经有权限
+		if (ArrayUtil.isEmpty(roles)) {
+			return true;
+		}
+		return AppContextHolder.getRoles().stream().anyMatch(role->PatternMatchUtils.simpleMatch(roles, role));
+	}
 }

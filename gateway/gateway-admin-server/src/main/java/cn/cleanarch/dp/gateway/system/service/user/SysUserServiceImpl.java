@@ -153,7 +153,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserDO> im
      * @return 用户信息
      */
     @Override
-    public SysUserVO selectUserVoById(Integer id) {
+    public SysUserVO selectUserVoById(String id) {
         return baseMapper.getUserVoById(id);
     }
 

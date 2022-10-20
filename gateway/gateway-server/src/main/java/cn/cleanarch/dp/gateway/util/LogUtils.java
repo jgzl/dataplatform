@@ -39,7 +39,6 @@ public class LogUtils {
      *
      * @param gatewayLog
      * @param buffer
-     * @param actionEnum
      * @param webEnum
      * @param <T>
      * @return

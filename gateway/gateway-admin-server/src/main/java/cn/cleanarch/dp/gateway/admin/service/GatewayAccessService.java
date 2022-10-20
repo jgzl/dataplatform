@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.gateway.admin.service;
 
-import cn.cleanarch.dp.gateway.domain.GatewayAccessConfDO;
-import cn.cleanarch.dp.gateway.vo.GatewayAccessConfVO;
+import cn.cleanarch.dp.gateway.domain.GatewayAccessDO;
+import cn.cleanarch.dp.gateway.vo.GatewayAccessVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author li7hai26@gmail.com
  * @date 2018-11-06 10:17:18
  */
-public interface GatewayAccessConfService extends IService<GatewayAccessConfDO> {
+public interface GatewayAccessService extends IService<GatewayAccessDO> {
 
     /**
      * 删除路由信息
@@ -20,5 +20,5 @@ public interface GatewayAccessConfService extends IService<GatewayAccessConfDO> 
      */
 	void deleteItem(String id);
 
-    Boolean updateStatus(GatewayAccessConfVO vo);
+    Boolean updateStatus(GatewayAccessVO vo);
 }

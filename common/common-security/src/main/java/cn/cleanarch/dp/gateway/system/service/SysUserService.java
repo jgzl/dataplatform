@@ -72,7 +72,7 @@ public interface SysUserService extends IService<SysUserDO> {
      * @param id 用户ID
      * @return 用户信息
      */
-    SysUserVO selectUserVoById(Integer id);
+    SysUserVO selectUserVoById(String id);
 
     /**
      * 查询上级部门的用户信息

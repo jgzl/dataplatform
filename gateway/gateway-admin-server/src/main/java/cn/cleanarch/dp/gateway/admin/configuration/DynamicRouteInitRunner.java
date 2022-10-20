@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.gateway.admin.configuration;
 
 import cn.cleanarch.dp.common.core.constant.CacheConstants;
-import cn.cleanarch.dp.gateway.admin.service.GatewayRouteConfService;
+import cn.cleanarch.dp.gateway.admin.service.GatewayRouteService;
 import cn.cleanarch.dp.gateway.vo.GatewayFilterDefinitionVO;
 import cn.cleanarch.dp.gateway.vo.GatewayPredicateDefinitionVO;
 import cn.cleanarch.dp.gateway.vo.GatewayRouteDefinitionVO;
@@ -29,7 +29,7 @@ public class DynamicRouteInitRunner {
 
     private final RedisTemplate<String,Object> redisTemplate;
 
-    private final GatewayRouteConfService routeConfService;
+    private final GatewayRouteService routeConfService;
 
     @Async
     @Order
@@ -63,7 +63,7 @@ public class DynamicRouteInitRunner {
      *
      */
     public DynamicRouteInitRunner(RedisTemplate<String,Object> redisTemplate,
-                                  GatewayRouteConfService routeConfService,
+                                  GatewayRouteService routeConfService,
                                   RedisMessageListenerContainer container) {
         this.redisTemplate = redisTemplate;
         this.routeConfService = routeConfService;

@@ -1,8 +1,8 @@
 package cn.cleanarch.dp.common.gateway.configuration;
 
 import cn.cleanarch.dp.common.core.constant.CacheConstants;
-import cn.cleanarch.dp.common.gateway.support.GatewayAccessConfCacheHolder;
-import cn.cleanarch.dp.gateway.vo.GatewayAccessConfVO;
+import cn.cleanarch.dp.common.gateway.support.GatewayAccessCacheHolder;
+import cn.cleanarch.dp.gateway.vo.GatewayAccessVO;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.lang.TypeReference;
@@ -27,7 +27,7 @@ import java.util.List;
 @Slf4j
 @Configuration
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
-public class DynamicGatewayAccessConfAutoConfiguration {
+public class DynamicGatewayAccessAutoConfiguration {
 
     @Bean
     public RedisMessageListenerContainer gatewayAccessConfRedisMessageListenerContainer(RedisConnectionFactory connectionFactory) {
@@ -35,13 +35,13 @@ public class DynamicGatewayAccessConfAutoConfiguration {
         container.setConnectionFactory(connectionFactory);
         container.addMessageListener((message, bytes) -> {
             log.warn("接收到重新加载网关访问事件");
-            GatewayAccessConfCacheHolder.removeList();
+            GatewayAccessCacheHolder.removeList();
             RedisTemplate<String,Object> redisTemplate = SpringUtil.getBean(new TypeReference<RedisTemplate<String,Object>>() {});
-            List<GatewayAccessConfVO> values = redisTemplate.<String, GatewayAccessConfVO>opsForHash().values(CacheConstants.ACCESS_CONF_KEY);
+            List<GatewayAccessVO> values = redisTemplate.<String, GatewayAccessVO>opsForHash().values(CacheConstants.ACCESS_CONF_KEY);
             if (CollUtil.isEmpty(values)) {
                 values = ListUtil.empty();
             }
-            GatewayAccessConfCacheHolder.setList(values);
+            GatewayAccessCacheHolder.setList(values);
         }, new ChannelTopic(CacheConstants.ACCESS_CONF_JVM_RELOAD_TOPIC));
         return container;
     }

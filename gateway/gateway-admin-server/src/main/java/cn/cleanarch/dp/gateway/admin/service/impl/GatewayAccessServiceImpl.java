@@ -1,11 +1,11 @@
 package cn.cleanarch.dp.gateway.admin.service.impl;
 
 import cn.cleanarch.dp.common.core.constant.CacheConstants;
-import cn.cleanarch.dp.gateway.admin.mapper.GatewayAccessConfMapper;
-import cn.cleanarch.dp.gateway.admin.service.GatewayAccessConfService;
+import cn.cleanarch.dp.gateway.admin.mapper.GatewayAccessMapper;
+import cn.cleanarch.dp.gateway.admin.service.GatewayAccessService;
 import cn.cleanarch.dp.gateway.convert.GatewayAccessConfConvert;
-import cn.cleanarch.dp.gateway.domain.GatewayAccessConfDO;
-import cn.cleanarch.dp.gateway.vo.GatewayAccessConfVO;
+import cn.cleanarch.dp.gateway.domain.GatewayAccessDO;
+import cn.cleanarch.dp.gateway.vo.GatewayAccessVO;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +24,8 @@ import java.time.LocalDateTime;
 @Slf4j
 @RequiredArgsConstructor
 @Service("gatewayAccessConfService")
-public class GatewayAccessConfServiceImpl extends ServiceImpl<GatewayAccessConfMapper, GatewayAccessConfDO>
-        implements GatewayAccessConfService {
+public class GatewayAccessServiceImpl extends ServiceImpl<GatewayAccessMapper, GatewayAccessDO>
+        implements GatewayAccessService {
 
     private final RedisTemplate<String, Object> redisTemplate;
 
@@ -37,10 +37,10 @@ public class GatewayAccessConfServiceImpl extends ServiceImpl<GatewayAccessConfM
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean saveOrUpdate(GatewayAccessConfDO item) {
+    public boolean saveOrUpdate(GatewayAccessDO item) {
         try {
             boolean result = super.saveOrUpdate(item);
-            GatewayAccessConfVO vo = GatewayAccessConfConvert.INSTANCE.convertDo2Vo(item);
+            GatewayAccessVO vo = GatewayAccessConfConvert.INSTANCE.convertDo2Vo(item);
             // redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(GatewayAccessConfVo.class));
             redisTemplate.opsForHash().put(CacheConstants.ACCESS_CONF_KEY, vo.getApiKey(), vo);
             redisTemplate.convertAndSend(CacheConstants.ACCESS_CONF_JVM_RELOAD_TOPIC, "缓存更新");
@@ -60,7 +60,7 @@ public class GatewayAccessConfServiceImpl extends ServiceImpl<GatewayAccessConfM
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteItem(String id) {
-        GatewayAccessConfDO item = this.getById(id);
+        GatewayAccessDO item = this.getById(id);
         try {
             super.removeById(id);
             redisTemplate.opsForHash().delete(CacheConstants.ACCESS_CONF_KEY, item.getApiKey());
@@ -73,9 +73,9 @@ public class GatewayAccessConfServiceImpl extends ServiceImpl<GatewayAccessConfM
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Boolean updateStatus(GatewayAccessConfVO vo) {
+    public Boolean updateStatus(GatewayAccessVO vo) {
         vo.setUpdateTime(LocalDateTime.now());
-        GatewayAccessConfDO domain = GatewayAccessConfConvert.INSTANCE.convertVo2Do(vo);
+        GatewayAccessDO domain = GatewayAccessConfConvert.INSTANCE.convertVo2Do(vo);
         try {
             boolean result = super.updateById(domain);
             // redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(GatewayAccessConfVo.class));

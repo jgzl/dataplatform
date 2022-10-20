@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,6 +35,7 @@ public class SysOauthClientDetailsController {
 	 * @return SysOauthClientDetails
 	 */
 	@GetMapping("/{clientId}")
+	@PreAuthorize("@pms.hasPermission('system:sys-oauth-client:query')")
 	public R<List<SysOauthClientDetailsDO>> getByClientId(@PathVariable String clientId) {
 		List<SysOauthClientDetailsDO> result = sysOauthClientDetailsService.getByClientId(clientId);
 		return R.success(result);
@@ -46,6 +48,7 @@ public class SysOauthClientDetailsController {
 	 * @return
 	 */
 	@GetMapping("/page")
+	@PreAuthorize("@pms.hasPermission('system:sys-oauth-client:query')")
 	public R<IPage<SysOauthClientDetailsDO>> getOauthClientDetailsPage(Page page,
 			SysOauthClientDetailsDO sysOauthClientDetails) {
 		return R.success(sysOauthClientDetailsService.page(page, Wrappers.query(sysOauthClientDetails)));
@@ -57,7 +60,7 @@ public class SysOauthClientDetailsController {
 	 * @return success/false
 	 */
 	@PostMapping
-//	@PreAuthorize("@pms.hasPermission('sys.client.add')")
+	@PreAuthorize("@pms.hasPermission('system:sys-oauth-client:create')")
 	public R<Boolean> add(@Valid @RequestBody SysOauthClientDetailsDO sysOauthClientDetails) {
 		return R.success(sysOauthClientDetailsService.save(sysOauthClientDetails));
 	}
@@ -68,7 +71,7 @@ public class SysOauthClientDetailsController {
 	 * @return success/false
 	 */
 	@DeleteMapping("/{id}")
-//	@PreAuthorize("@pms.hasPermission('sys.client.del')")
+	@PreAuthorize("@pms.hasPermission('system:sys-oauth-client:delete')")
 	public R<Boolean> removeById(@PathVariable String id) {
 		return R.success(sysOauthClientDetailsService.removeClientDetailsById(id));
 	}
@@ -79,7 +82,7 @@ public class SysOauthClientDetailsController {
 	 * @return success/false
 	 */
 	@PutMapping
-//	@PreAuthorize("@pms.hasPermission('sys.client.edit')")
+	@PreAuthorize("@pms.hasPermission('system:sys-oauth-client:update')")
 	public R<Boolean> update(@Valid @RequestBody SysOauthClientDetailsDO sysOauthClientDetails) {
 		return R.success(sysOauthClientDetailsService.updateClientDetailsById(sysOauthClientDetails));
 	}
@@ -89,7 +92,7 @@ public class SysOauthClientDetailsController {
 	 * @return
 	 */
 	@DeleteMapping("/cache")
-//	@PreAuthorize("@pms.hasPermission('sys.client.del')")
+	@PreAuthorize("@pms.hasPermission('system:sys-oauth-client:delete')")
 	public R clearClientCache() {
 		sysOauthClientDetailsService.clearClientCache();
 		return R.success();
