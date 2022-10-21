@@ -15,10 +15,10 @@ services:
       context: ./gateway/gateway-admin-server
     image: $IMAGE_REPO_URL/gateway-admin-server:${IMAGE_VERSION}
 
-  gateway-admin-ui:
+  admin-ui:
     build:
-      context: ./gateway/gateway-admin-ui
-    image: $IMAGE_REPO_URL/gateway-admin-ui:${IMAGE_VERSION}
+      context: ./admin-ui
+    image: $IMAGE_REPO_URL/admin-ui:${IMAGE_VERSION}
 
 #  monitor-center:
 #    build:

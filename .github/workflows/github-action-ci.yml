@@ -23,9 +23,9 @@ jobs:
         with:
           node-version: '16'
       - name: Install with nodejs
-        run: cd gateway/gateway-admin-ui && npm install
+        run: cd admin-ui && npm install
       - name: Build with nodejs
-        run: cd gateway/gateway-admin-ui && npm run build
+        run: cd admin-ui && npm run build
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -53,12 +53,12 @@ jobs:
       - name: Build and push 网关管理服务前端
         uses: docker/build-push-action@v3
         with:
-          context: gateway/gateway-admin-ui
+          context: admin-ui
           platforms: linux/amd64,linux/arm64/v8
           push: true
           tags: |
-            dlhf/gateway-admin-ui:latest
-            ghcr.io/jgzl/gateway-admin-ui:latest
+            dlhf/admin-ui:latest
+            ghcr.io/jgzl/admin-ui:latest
       - name: Build and push 网关管理服务后端
         uses: docker/build-push-action@v3
         with:

@@ -1,6 +1,6 @@
 # 数据中台
 ## 项目结构
-gateway-admin-ui为前端,参考前端项目 [vue-admin-work-x](https://gitee.com/qingqingxuan/vue-admin-work-x)
+admin-ui为前端,参考前端项目 [vue-admin-work-x](https://gitee.com/qingqingxuan/vue-admin-work-x)
 
 ## 平台简介
 数据中台-拥有数据治理,数据质量,数据集市功能

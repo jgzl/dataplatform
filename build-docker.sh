@@ -19,10 +19,10 @@ if [ -z $IMAGE_VERSION ]; then
 fi
 
 build_frontend() {
-  cd $DIR/gateway/gateway-admin-ui/
-  echo '开始删除网关管理平台前端包'
+  cd $DIR/admin-ui/
+  echo '开始删除数据中台管理服务前端包'
   rm -rf dist
-  echo '结束删除网关管理平台前端包'
+  echo '结束删除数据中台管理服务前端包'
   yarn
   yarn build
 }

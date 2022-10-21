@@ -27,16 +27,15 @@ services:
     ports:
       - 8000:8000
 
-  gateway-admin-ui:
+  admin-ui:
     restart: always
-    container_name: gateway-admin-ui
-    image: $IMAGE_REPO_URL/gateway-admin-ui:${IMAGE_VERSION}
+    container_name: admin-ui
+    image: $IMAGE_REPO_URL/admin-ui:${IMAGE_VERSION}
     volumes:
       - /var/log/nginx:/var/log/nginx
     ports:
       - 80:80
     depends_on:
-      - gateway-admin-server
       - gateway-server
 #
 #  monitor-center:
