@@ -30,15 +30,16 @@
 </template>
 
 <script lang="ts">
-  import { post } from '@/api/http'
-  import { getTableList } from '@/api/url'
-  import { renderTag } from '@/hooks/form'
-  import { usePagination, useRowKey, useTable, useTableColumn } from '@/hooks/table'
-  import { TablePropsType } from '@/types/components'
-  import { sortColumns } from '@/utils'
-  import { DataTableColumn, NAvatar, useDialog, useMessage } from 'naive-ui'
-  import { defineComponent, h, onMounted, reactive } from 'vue'
-  export default defineComponent({
+import {post, Response} from '@/api/http'
+import {getTableList} from '@/api/url'
+import {renderTag} from '@/hooks/form'
+import {usePagination, useRowKey, useTable, useTableColumn} from '@/hooks/table'
+import {TablePropsType} from '@/types/components'
+import {sortColumns} from '@/utils'
+import {DataTableColumn, NAvatar, useDialog, useMessage} from 'naive-ui'
+import {defineComponent, h, onMounted, reactive} from 'vue'
+
+export default defineComponent({
     name: 'TableCustom',
     setup() {
       const table = useTable()
@@ -113,15 +114,16 @@
           url: getTableList,
           data: () => {
             return {
-              page: pagination.page,
-              pageSize: pagination.pageSize,
+              current: pagination.page,
+              size: pagination.pageSize,
             }
           },
         })
-          .then((res) => {
-            table.handleSuccess(res)
-            pagination.setTotalSize(res.totalSize)
+          .then(({ data }: Response) => {
+            pagination.setTotalSize(data.totalSize)
+            return data.records
           })
+          .then(table.handleSuccess)
           .catch(console.log)
       }
       function onDeleteItem() {

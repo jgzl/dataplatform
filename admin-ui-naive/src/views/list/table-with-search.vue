@@ -39,26 +39,27 @@
 </template>
 
 <script lang="ts">
-  import { post } from '@/api/http'
-  import { getTableList } from '@/api/url'
-  import { renderTag } from '@/hooks/form'
-  import { usePagination, useRowKey, useTable, useTableColumn, useTableHeight } from '@/hooks/table'
-  import { DataFormType, FormItem } from '@/types/components'
-  import {
-    DataTableColumn,
-    NAvatar,
-    NCheckbox,
-    NCheckboxGroup,
-    NDatePicker,
-    NInput,
-    NSelect,
-    NSpace,
-    NTimePicker,
-    SelectOption,
-    useMessage,
-  } from 'naive-ui'
-  import { defineComponent, h, onMounted, ref } from 'vue'
-  const conditionItems: Array<FormItem> = [
+import {post, Response} from '@/api/http'
+import {getTableList} from '@/api/url'
+import {renderTag} from '@/hooks/form'
+import {usePagination, useRowKey, useTable, useTableColumn, useTableHeight} from '@/hooks/table'
+import {DataFormType, FormItem} from '@/types/components'
+import {
+  DataTableColumn,
+  NAvatar,
+  NCheckbox,
+  NCheckboxGroup,
+  NDatePicker,
+  NInput,
+  NSelect,
+  NSpace,
+  NTimePicker,
+  SelectOption,
+  useMessage,
+} from 'naive-ui'
+import {defineComponent, h, onMounted, ref} from 'vue'
+
+const conditionItems: Array<FormItem> = [
     {
       key: 'name',
       label: '用户姓名',
@@ -255,15 +256,16 @@
           url: getTableList,
           data: () => {
             return {
-              page: pagination.page,
-              pageSize: pagination.pageSize,
+              current: pagination.page,
+              size: pagination.pageSize,
             }
           },
         })
-          .then((res) => {
-            table.handleSuccess(res)
-            pagination.setTotalSize(res.totalSize || 10)
+          .then(({ data }: Response) => {
+            pagination.setTotalSize(data.totalSize)
+            return data.records
           })
+          .then(table.handleSuccess)
           .catch(console.log)
       }
       function onSearch() {

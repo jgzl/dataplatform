@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import {post} from '@/api/http'
+import {post, Response} from '@/api/http'
 import {getCardList} from '@/api/url'
 import {usePagination, useTable} from '@/hooks/table'
 import {defineComponent, onMounted} from 'vue'
@@ -46,15 +46,16 @@ export default defineComponent({
           url: getCardList,
           data: () => {
             return {
-              page: pagination.page,
-              pageSize: pagination.pageSize,
+              current: pagination.page,
+              size: pagination.pageSize,
             }
           },
         })
-          .then((res) => {
-            table.handleSuccess(res)
-            pagination.setTotalSize(res.totalSize || 10)
+          .then(({ data }: Response) => {
+            pagination.setTotalSize(data.totalSize)
+            return data.records
           })
+          .then(table.handleSuccess)
           .catch(console.log)
       }
       onMounted(doRefresh)

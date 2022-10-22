@@ -19,6 +19,7 @@
             block-line
             :pattern="pattern"
             :data="departmentData"
+            key-field="id"
             selectable
             :on-update:expanded-keys="onUpdateExpandedKeys"
             :on-update:selected-keys="onCheckedKeys"
@@ -59,7 +60,7 @@
 
 <script lang="ts">
 import {get, Response} from '@/api/http'
-import {systemUserPage} from '@/api/url'
+import {systemDeptTree, systemUserPage} from '@/api/url'
 import {renderTag} from '@/hooks/form'
 import {
   TableActionModel,
@@ -82,96 +83,7 @@ export default defineComponent({
       const message = useMessage()
       const pagination = usePagination(doRefresh)
       const checkedRowKeys = [] as Array<any>
-      const departmentData = [
-        {
-          label: '东部地区',
-          key: 1,
-          children: [
-            {
-              label: '总裁部',
-              key: 11,
-            },
-            {
-              label: '财务部',
-              key: 12,
-            },
-            {
-              label: '技术部',
-              key: 13,
-            },
-            {
-              label: '销售部',
-              key: 14,
-            },
-          ],
-        },
-        {
-          label: '西部地区',
-          key: 2,
-          children: [
-            {
-              label: '总裁部',
-              key: 21,
-            },
-            {
-              label: '财务部',
-              key: 22,
-            },
-            {
-              label: '技术部',
-              key: 23,
-            },
-            {
-              label: '销售部',
-              key: 24,
-            },
-          ],
-        },
-        {
-          label: '南部地区',
-          key: 3,
-          children: [
-            {
-              label: '总裁部',
-              key: 31,
-            },
-            {
-              label: '财务部',
-              key: 32,
-            },
-            {
-              label: '技术部',
-              key: 33,
-            },
-            {
-              label: '销售部',
-              key: 34,
-            },
-          ],
-        },
-        {
-          label: '北部地区',
-          key: 4,
-          children: [
-            {
-              label: '总裁部',
-              key: 41,
-            },
-            {
-              label: '财务部',
-              key: 42,
-            },
-            {
-              label: '技术部',
-              key: 43,
-            },
-            {
-              label: '销售部',
-              key: 44,
-            },
-          ],
-        },
-      ]
+      const departmentData = ref([])
       const tableColumns = useTableColumn(
         [
           table.selectionColumn,
@@ -243,24 +155,30 @@ export default defineComponent({
           align: 'center',
         } as DataTableColumn
       )
-      const expandAllFlag = ref(false)
-      function doRefresh() {
+      const expandAllFlag = ref(true)
+      function doRefresh(data: {}) {
+        searchUserList(data)
+        searchDeptTree(data)
+      }
+      function searchUserList(data: {}) {
         get({
           url: systemUserPage,
-          data: () => {
-            return {
-              page: pagination.page,
-              pageSize: pagination.pageSize,
-            }
-          },
+          data: data,
         })
           .then(({ data }: Response) => {
-            console.log('data: ' + data)
-            console.log('data.records: ' + data.records)
             pagination.setTotalSize(data.totalSize)
             return data.records
           })
           .then(table.handleSuccess)
+          .catch(console.log)
+      }
+      function searchDeptTree() {
+        get({
+          url: systemDeptTree,
+        })
+          .then(({ data }: Response) => {
+            departmentData.value = data
+          })
           .catch(console.log)
       }
       function onDeleteItems() {
@@ -293,19 +211,20 @@ export default defineComponent({
       }
       function onCheckedKeys(keys: any) {
         message.success('选中的值为--->' + JSON.stringify(keys))
+        searchUserList({ deptId: keys[0] })
       }
       const getExpandedKeys = shallowReactive([] as Array<number>)
       watch(
         () => expandAllFlag.value,
         (newVal) => {
           newVal
-            ? getExpandedKeys.push(...departmentData.map((it) => it.key))
+            ? getExpandedKeys.push(...departmentData.value.map((it) => it.id))
             : (getExpandedKeys.length = 0)
         }
       )
       onMounted(async () => {
         table.tableHeight.value = await useTableHeight()
-        doRefresh()
+        doRefresh({})
       })
       return {
         ...table,
