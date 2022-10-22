@@ -1,6 +1,6 @@
 import {AppConfigState, DeviceType, LayoutMode, PageAnim, SideTheme, ThemeMode,} from '@/store/types'
 
-export const projectName = 'Admin Work'
+export const projectName = '数据中台'
 
 export default {
   theme: ThemeMode.LIGHT,

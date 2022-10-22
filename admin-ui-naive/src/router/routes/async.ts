@@ -2,21 +2,21 @@ import {LAYOUT} from '@/store/keys'
 
 export const asyncRoutes = [
   {
-    path: '/index',
+    path: '/home',
     component: LAYOUT,
-    name: 'Index',
+    name: '首页',
     meta: {
-      title: 'Dashboard',
+      title: '首页',
       iconPrefix: 'iconfont',
       icon: 'dashboard',
     },
     children: [
       {
-        path: 'home',
+        path: '/dashboard',
         name: 'Home',
-        component: () => import('@/views/index/main.vue'),
+        component: () => import('@/views/home/main.vue'),
         meta: {
-          title: '主控台',
+          title: '工作台',
           affix: true,
           cacheable: true,
           iconPrefix: 'iconfont',
@@ -24,11 +24,11 @@ export const asyncRoutes = [
         },
       },
       {
-        path: 'work-place',
-        name: 'WorkPlace',
-        component: () => import('@/views/index/work-place.vue'),
+        path: '/userCenter',
+        name: '用户中心',
+        component: () => import('@/views/home/work-place.vue'),
         meta: {
-          title: '工作台',
+          title: '用户中心',
           affix: true,
           iconPrefix: 'iconfont',
           icon: 'menu',

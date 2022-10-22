@@ -3,7 +3,7 @@ import viteSvgIcons from 'vite-plugin-svg-icons'
 import path from 'path'
 import vitePluginCompression from 'vite-plugin-compression'
 import ViteComponents from 'unplugin-vue-components/vite'
-import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+import {NaiveUiResolver} from 'unplugin-vue-components/resolvers'
 
 import vueJsx from '@vitejs/plugin-vue-jsx'
 
@@ -45,15 +45,15 @@ export default () => {
       port: 2900,
       // 是否开启 https
       https: false,
+      // 设置反向代理，跨域
+      proxy: {
+        '/api': {
+          // 后台地址
+          target: 'http://127.0.0.1:7000/',
+          changeOrigin: true,
+          // rewrite: (path) => path.replace(/^\/api/, ''),
+        },
+      },
     },
-    // 设置反向代理，跨域
-    proxy: {
-      '/api': {
-        // 后台地址
-        target: 'http://127.0.0.1:8990/',
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/api/, '')
-      }
-    }
   }
 }

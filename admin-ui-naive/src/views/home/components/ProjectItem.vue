@@ -16,8 +16,9 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, toRef } from 'vue'
-  interface ItemData {
+import {defineComponent, PropType, toRef} from 'vue'
+
+interface ItemData {
     title: string
     gitee: string
     target?: string

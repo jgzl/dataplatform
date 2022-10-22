@@ -24,9 +24,10 @@ export function getComponent(it: OriginRoute) {
 
 export function getFilePath(it: OriginRoute) {
   if (!it.localFilePath) {
-    it.localFilePath = it.menuUrl
+    it.localFilePath = it.component
   }
   it.localFilePath = resolve('/', it.localFilePath)
+  console.log('it.localFilePath ' + it.localFilePath)
   return '/src/views' + it.localFilePath + '.vue'
 }
 
@@ -43,17 +44,26 @@ export function findRootPathRoute(routes: RouteRecordRaw[]) {
     : '/'
 }
 
+/**
+ * 过滤动态路由和本地路由一致的路由
+ * @param route
+ * @param localRoutes
+ * @param path
+ */
 export function filterRoutesFromLocalRoutes(
   route: OriginRoute,
   localRoutes: Array<RouteRecordRaw>,
   path = '/'
 ) {
   const filterRoute = localRoutes.find((it) => {
-    return resolve(path, it.path) === route.menuUrl
+    // console.log('resolve(path, it.path) ' + resolve(path, it.path))
+    // console.log('it.path ' + it.path)
+    // console.log('route.component ' + route.path)
+    return resolve(path, it.path) === route.path
   })
   if (filterRoute) {
     filterRoute.meta = {
-      title: route.menuName,
+      title: route.name,
       affix: !!route.affix,
       cacheable: !!route.cacheable,
       icon: route.icon || 'menu',
@@ -86,8 +96,8 @@ export function isMenu(it: OriginRoute) {
   return it.children && it.children.length > 0
 }
 
-export function getNameByUrl(menuUrl: string) {
-  const temp = menuUrl.split('/')
+export function getNameByUrl(component: string) {
+  const temp = component.split('/')
   return toHump(temp[temp.length - 1])
 }
 
@@ -100,12 +110,12 @@ export function generatorRoutes(res: Array<OriginRoute>) {
       tempRoutes.push(localRoute as RouteRecordRaw)
     } else {
       const route: RouteRecordRaw = {
-        path: it.outLink && isExternal(it.outLink) ? it.outLink : it.menuUrl,
-        name: it.routeName || getNameByUrl(it.menuUrl),
+        path: it.outLink && isExternal(it.outLink) ? it.outLink : it.path,
+        name: it.routeName || getNameByUrl(it.path),
         component: isMenuFlag ? LAYOUT : getComponent(it),
         meta: {
           hidden: !!it.hidden,
-          title: it.menuName,
+          title: it.name,
           affix: !!it.affix,
           cacheable: !!it.cacheable,
           icon: it.icon || 'menu',
@@ -127,6 +137,9 @@ export function generatorRoutes(res: Array<OriginRoute>) {
 export function mapTwoLevelRouter(srcRoutes: Array<RouteRecordRaw>) {
   function addParentRoute(routes: any, parent: any, parentPath: string) {
     routes.forEach((it: RouteRecordRaw) => {
+      if (it.path === null || it.path === undefined) {
+        console.log(it)
+      }
       if (!isExternal(it.path)) {
         it.path = resolve(parentPath, it.path)
       }

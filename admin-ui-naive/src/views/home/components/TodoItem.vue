@@ -11,9 +11,9 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent } from '@vue/runtime-core'
+import {computed, defineComponent} from '@vue/runtime-core'
 
-  export default defineComponent({
+export default defineComponent({
     name: 'TodoItem',
     props: {
       item: {

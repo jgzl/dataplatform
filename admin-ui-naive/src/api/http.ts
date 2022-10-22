@@ -12,7 +12,6 @@ export interface HttpOption {
 }
 
 export interface Response<T = any> {
-  totalSize: number | 0
   code: number
   msg: string
   data: T

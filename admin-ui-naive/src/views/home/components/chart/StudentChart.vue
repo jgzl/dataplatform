@@ -20,11 +20,11 @@
 </template>
 
 <script lang="ts">
-  import useEcharts from '@/hooks/useEcharts'
-  import { defineComponent, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
-  import { dispose, graphic } from 'echarts'
+import useEcharts from '@/hooks/useEcharts'
+import {defineComponent, nextTick, onBeforeUnmount, onMounted, ref} from 'vue'
+import {dispose, graphic} from 'echarts'
 
-  export default defineComponent({
+export default defineComponent({
     name: 'StudentChart',
     setup() {
       const loading = ref(true)

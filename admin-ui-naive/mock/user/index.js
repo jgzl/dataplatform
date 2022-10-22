@@ -54,9 +54,9 @@ Mock.mock(RegExp(getAllMenuByRoleId), 'post', function (options) {
   }
   const allRoutes = [...adminRoutes]
   allRoutes.forEach((it) => {
-    it.isSelect = parseInt(roleId) === 1 || it.menuUrl.indexOf('authority') === -1
+    it.isSelect = parseInt(roleId) === 1 || it.component.indexOf('authority') === -1
     it.children.forEach((child) => {
-      child.isSelect = parseInt(roleId) === 1 || child.menuUrl.indexOf('authority') === -1
+      child.isSelect = parseInt(roleId) === 1 || child.component.indexOf('authority') === -1
     })
   })
   return Mock.mock({ code: 200, data: allRoutes, msg: '获取菜单列表成功' })

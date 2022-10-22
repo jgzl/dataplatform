@@ -58,21 +58,22 @@
 </template>
 
 <script lang="ts">
-  import { post } from '@/api/http'
-  import { getTableList } from '@/api/url'
-  import { renderTag } from '@/hooks/form'
-  import {
-    TableActionModel,
-    usePagination,
-    useRenderAction,
-    useRowKey,
-    useTable,
-    useTableColumn,
-    useTableHeight,
-  } from '@/hooks/table'
-  import { DataTableColumn, NAvatar, useDialog, useMessage } from 'naive-ui'
-  import { defineComponent, h, onMounted, ref, shallowReactive, watch } from 'vue'
-  export default defineComponent({
+import {get, Response} from '@/api/http'
+import {systemUserPage} from '@/api/url'
+import {renderTag} from '@/hooks/form'
+import {
+  TableActionModel,
+  usePagination,
+  useRenderAction,
+  useRowKey,
+  useTable,
+  useTableColumn,
+  useTableHeight,
+} from '@/hooks/table'
+import {DataTableColumn, NAvatar, useDialog, useMessage} from 'naive-ui'
+import {defineComponent, h, onMounted, ref, shallowReactive, watch} from 'vue'
+
+export default defineComponent({
     name: 'UserList',
     setup() {
       const table = useTable()
@@ -244,8 +245,8 @@
       )
       const expandAllFlag = ref(false)
       function doRefresh() {
-        post({
-          url: getTableList,
+        get({
+          url: systemUserPage,
           data: () => {
             return {
               page: pagination.page,
@@ -253,10 +254,13 @@
             }
           },
         })
-          .then((res) => {
-            table.handleSuccess(res)
-            pagination.setTotalSize((res as any).totalSize)
+          .then(({ data }: Response) => {
+            console.log('data: ' + data)
+            console.log('data.records: ' + data.records)
+            pagination.setTotalSize(data.totalSize)
+            return data.records
           })
+          .then(table.handleSuccess)
           .catch(console.log)
       }
       function onDeleteItems() {

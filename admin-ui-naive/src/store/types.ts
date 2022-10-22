@@ -1,5 +1,5 @@
-import { Ref, UnwrapRef } from 'vue'
-import { RouteMeta, RouteRecordNormalized, RouteRecordRaw } from 'vue-router'
+import {Ref, UnwrapRef} from 'vue'
+import {RouteMeta, RouteRecordNormalized, RouteRecordRaw} from 'vue-router'
 
 export enum LayoutMode {
   LTR = 'ltr',
@@ -72,8 +72,9 @@ export interface CachedRouteState {
 
 export interface OriginRoute {
   parentPath?: string
-  menuUrl: string
-  menuName?: string
+  path: string
+  component: string
+  name?: string
   routeName?: string
   hidden?: boolean
   outLink?: string

@@ -44,23 +44,23 @@ export default defineComponent({
     name: 'Menu',
     setup() {
       let actionModel = 'add'
-      let tempItem: { menuUrl: string } | null = null
+      let tempItem: { component: string } | null = null
       const table = useTable()
       const naiveDialog = useDialog()
       const message = useMessage()
       const permissionStore = usePermissionStore()
       const modalDialog = ref<ModalDialogType | null>(null)
       const dataForm = ref<DataFormType | null>(null)
-      const rowKey = useRowKey('menuUrl')
+      const rowKey = useRowKey('component')
       const tableColumns = useTableColumn(
         [
           {
             title: '菜单名称',
-            key: 'menuName',
+            key: 'name',
           },
           {
             title: '菜单地址',
-            key: 'menuUrl',
+            key: 'component',
           },
           {
             title: '菜单图标',
@@ -150,7 +150,7 @@ export default defineComponent({
           render: (formItem) =>
             renderTreeSelect(
               formItem.value,
-              transformTreeSelect(unref(table.dataList)!, 'menuName', 'menuUrl'),
+              transformTreeSelect(unref(table.dataList)!, 'name', 'component'),
               {
                 showPath: true,
               }
@@ -158,7 +158,7 @@ export default defineComponent({
         },
         {
           label: '菜单名称',
-          key: 'menuName',
+          key: 'name',
           required: true,
           value: ref(null),
           render: (formItem) =>
@@ -168,7 +168,7 @@ export default defineComponent({
         },
         {
           label: '菜单地址',
-          key: 'menuUrl',
+          key: 'component',
           required: true,
           value: ref(null),
           disabled: ref(false),
@@ -242,16 +242,16 @@ export default defineComponent({
         tempItem = item
         itemFormOptions.forEach((it) => {
           it.value.value = item[it.key] || null
-          if (it.key === 'menuUrl' && it.disabled) {
-            if (isExternal(item.menuUrl)) {
+          if (it.key === 'component' && it.disabled) {
+            if (isExternal(item.component)) {
               it.value.value = ''
             }
             ;(it.disabled as Ref<boolean>).value = true
           }
         })
         const external = itemFormOptions.find((it) => it.key === 'redirect')
-        if (isExternal(item.menuUrl)) {
-          external!.value.value = item.menuUrl
+        if (isExternal(item.component)) {
+          external!.value.value = item.component
         }
         modalDialog.value?.show()
       }
@@ -268,7 +268,7 @@ export default defineComponent({
             if (tempItem) {
               const tempRoute = findRouteByUrl(
                 permissionStore.getPermissionSideBar,
-                tempItem.menuUrl
+                tempItem.component
               )
               if (tempRoute && tempRoute.meta && tempRoute.meta.badge) {
                 ;(tempRoute.meta as any).badge = (params as any).badge || ''

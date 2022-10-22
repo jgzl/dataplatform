@@ -45,21 +45,21 @@
 
 - 新增：在菜单数据结构中新增`routeName`属性，方便在有些时候可以自己命令菜单路由名称
 
-  - 在定义路由的时候，需要指定 `name` 属性，项目目前使用的方式是根据 `menuUrl` 获取最后的路径为 `name` 属性值，如 `/system/department`，就会以 `department` 为 `name`属性。
-  - 但在某些场景下，可能需要自定义 `name`，这个时候就可以根据 `routeName` 配置项来指定，如指定为 `my-department`。当没有配置此配置项时，还是会使用根据 `menuUrl` 获取最后的路径为 `name`属性值。
+  - 在定义路由的时候，需要指定 `name` 属性，项目目前使用的方式是根据 `component` 获取最后的路径为 `name` 属性值，如 `/system/department`，就会以 `department` 为 `name`属性。
+  - 但在某些场景下，可能需要自定义 `name`，这个时候就可以根据 `routeName` 配置项来指定，如指定为 `my-department`。当没有配置此配置项时，还是会使用根据 `component` 获取最后的路径为 `name`属性值。
 
 - 新增：在菜单数据结构中新增`localFilePath`属性，方便在有些时候可以自己自定义 `vue` 文件路径
 
-  - 在动态加载路由的时候，系统会根据 `menuUrl` 从 `src/views` 中动态加载 `.vue` 文件。
+  - 在动态加载路由的时候，系统会根据 `component` 从 `src/views` 中动态加载 `.vue` 文件。
   - 但在某些场景下，可能会根据自定义的 `path` 从 `src/views` 中动态加载 `.vue` 文件。
   - 注：`localFilePath` 在配置的时候要以`views`为参考，可以配置成，如：`system/department` 或者 `./system/department` 或者 `/system/department`。切记：不要加文件后缀名`.vue`
 
 - 新增：在菜单数据结构中新增`isRootPath`属性，可以自定义 `/` 路径跳转的页面地址
 
   - 在动态加载路由的时候，会增加一个 `path` 为 `/` 的路由，在访问 `http://localhost:3000/` 的时候会加载此配置路由，此路由不方便指定具体的 `component`，但可以指定一个 `redirect` 属性，这样就可以动态配置此路由的跳转页面
-  - 如果对某个具体的路由指定 `isRootPath` 为 `true` 的时候，会把此路由的 `path或者menuUrl` 指定为 `/` 路由的 `redirect`属性值
+  - 如果对某个具体的路由指定 `isRootPath` 为 `true` 的时候，会把此路由的 `path或者component` 指定为 `/` 路由的 `redirect`属性值
   - 注：
-    - 如果没有指定任何路由为 `isRootPath`，则会以根据权限获取的菜单中的第一个元素的 `children` 属性的第一个元素的 `menuUrl` 指定为 `/` 路由的 `redirect`属性值
+    - 如果没有指定任何路由为 `isRootPath`，则会以根据权限获取的菜单中的第一个元素的 `children` 属性的第一个元素的 `component` 指定为 `/` 路由的 `redirect`属性值
     - 如果指定了多个路由配置项 `isRootPath` 为 `true`，则会以按顺序获取第一个路由
     - 要指定到某个具体的叶子路由中，如果某个路由下面有 `children` 属性并且不为空，则判定该路由不是叶子路由
 

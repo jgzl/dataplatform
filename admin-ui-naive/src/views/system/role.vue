@@ -38,19 +38,14 @@
 </template>
 
 <script lang="ts">
-  import { post } from '@/api/http'
-  import { getMenuListByRoleId, getRoleList } from '@/api/url'
-  import {
-    TableActionModel,
-    useRenderAction,
-    useRowKey,
-    useTable,
-    useTableColumn,
-  } from '@/hooks/table'
-  import { DataFormType, ModalDialogType, FormItem } from '@/types/components'
-  import { DataTableColumn, NInput, TreeOption, useDialog, useMessage } from 'naive-ui'
-  import { defineComponent, h, nextTick, onMounted, ref, shallowReactive } from 'vue'
-  interface RoleModeType {
+import {post} from '@/api/http'
+import {getRoleList, systemMenuTreeByUser} from '@/api/url'
+import {TableActionModel, useRenderAction, useRowKey, useTable, useTableColumn,} from '@/hooks/table'
+import {DataFormType, FormItem, ModalDialogType} from '@/types/components'
+import {DataTableColumn, NInput, TreeOption, useDialog, useMessage} from 'naive-ui'
+import {defineComponent, h, nextTick, onMounted, ref, shallowReactive} from 'vue'
+
+interface RoleModeType {
     roleName: string
     roleCode: string
     description: string
@@ -141,8 +136,8 @@
     const tempMenus = [] as Array<TreeOption>
     menuData.forEach((it) => {
       const tempMenu = {} as TreeOption
-      tempMenu.key = it.menuUrl
-      tempMenu.label = it.menuName
+      tempMenu.key = it.component
+      tempMenu.label = it.name
       defaultCheckedKeys.push(tempMenu.key as string)
       if (it.children) {
         defaultExpandedKeys.push(tempMenu.key as string)
@@ -267,7 +262,7 @@
       }
       function onShowMenu(item: any) {
         post({
-          url: getMenuListByRoleId,
+          url: systemMenuTreeByUser,
           data: {
             roleId: item.id,
           },

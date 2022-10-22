@@ -83,15 +83,16 @@
 </template>
 
 <script lang="ts">
-  import ProjectItem from './components/ProjectItem.vue'
-  import TodoItem from './components/TodoItem.vue'
-  import { computed, defineComponent } from 'vue'
-  import { useRouter } from 'vue-router'
-  import { random } from 'lodash'
-  import useUserStore from '@/store/modules/user'
-  import { DeviceType } from '@/store/types'
-  import useAppConfigStore from '@/store/modules/app-config'
-  const COLORS = ['#67C23A', '#E6A23C', '#F56C6C', '#409EFF']
+import ProjectItem from './components/ProjectItem.vue'
+import TodoItem from './components/TodoItem.vue'
+import {computed, defineComponent} from 'vue'
+import {useRouter} from 'vue-router'
+import {random} from 'lodash'
+import useUserStore from '@/store/modules/user'
+import {DeviceType} from '@/store/types'
+import useAppConfigStore from '@/store/modules/app-config'
+
+const COLORS = ['#67C23A', '#E6A23C', '#F56C6C', '#409EFF']
   const date = new Date()
   export default defineComponent({
     name: 'WorkPlace',

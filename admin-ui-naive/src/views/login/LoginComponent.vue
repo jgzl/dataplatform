@@ -7,10 +7,10 @@
           <div class="logo-wrapper">
             <img src="../../assets/logo.png" />
           </div>
-          <div class="title">Admin Work</div>
+          <div class="title">数据中台</div>
           <div class="sub-title">Vue3 + Vite2 + Typescript + Naive UI</div>
           <div class="flex-1 flex justify-center items-center ttppii"> 生活，应该还有诗和远方 </div>
-          <div class="bottom-wrapper">Admin Work {{ version }} · Made by qingqingxuan</div>
+          <div class="bottom-wrapper">数据中台 {{ version }} · Made by 架构之路在何方</div>
         </div>
       </div>
       <div class="right">
@@ -64,7 +64,7 @@
     <div v-else class="m-login-container">
       <div class="header">
         <div class="the-p"> P </div>
-        <div class="mt-4 text-lg font-bold text-white"> Admin Work </div>
+        <div class="mt-4 text-lg font-bold text-white"> 数据中台 </div>
       </div>
       <div class="content">
         <n-input round placeholder="请输入用户名/手机号" size="large" v-model:value="username">
@@ -134,6 +134,8 @@ import {
 import useAppInfo from '@/hooks/useAppInfo'
 import useUserStore from '@/store/modules/user'
 import useAppConfigStore from '@/store/modules/app-config'
+import {FORM_URLENCODED} from '@/api/axios.config'
+import {Base64} from 'js-base64'
 
 export default defineComponent({
     name: 'Login',
@@ -154,12 +156,17 @@ export default defineComponent({
       })
       const onLogin = () => {
         loading.value = true
+        const headers = {
+          Authorization: 'Basic ' + Base64.encode('gateway-admin:gateway-admin'),
+          'Content-Type': FORM_URLENCODED,
+        }
         post({
           url: login,
           data: {
             username: username.value,
             password: password.value,
           },
+          headers: headers,
         })
           .then(({ data }: Response) => {
             userStore.saveUser(data as UserState).then(() => {

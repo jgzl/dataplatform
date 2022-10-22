@@ -1,7 +1,7 @@
-import { h, reactive, Ref, ref, unref, VNode } from 'vue'
+import {h, reactive, Ref, ref, unref, VNode} from 'vue'
 
-import { DataTableColumn, NButton } from 'naive-ui'
-import { TableFooterType, TableHeaderType } from '@/types/components'
+import {DataTableColumn, NButton} from 'naive-ui'
+import {TableFooterType, TableHeaderType} from '@/types/components'
 
 export interface TableActionModel {
   label: string
@@ -18,7 +18,7 @@ interface Table<T = any> {
   tableHeaderRef: Ref<TableHeaderType | null>
   tableFooterRef: Ref<TableFooterType | null>
   tableHeight: Ref<number>
-  handleSuccess: ({ data }: { data: T[] }) => Promise<T[]>
+  handleSuccess: (data: T[]) => Promise<T[]>
   handleSelectionChange: (tempSelectRows: Array<string | number>) => void
   useTableColumn: (columns: DataTableColumn[], options: DataTableColumn) => Array<DataTableColumn>
   selectionColumn: { type: 'selection' }
@@ -57,7 +57,7 @@ export const useTable = function <T = any>(): Table<T> {
   const tableHeight = ref(200)
   const bordered = ref(false)
   const tableLoading = ref(true)
-  const handleSuccess = ({ data = [] }: { data: T[] }): Promise<T[]> => {
+  const handleSuccess = (data: T[]): Promise<T[]> => {
     tableLoading.value = false
     dataList.value = data
     return Promise.resolve(data)
