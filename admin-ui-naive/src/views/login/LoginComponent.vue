@@ -120,8 +120,8 @@
 import {computed, defineComponent, ref} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 import ImageBg1 from '@/assets/img_login_bg.png'
-import {post, Response} from '@/api/http'
-import {login} from '@/api/url'
+import {get, post, Response} from '@/api/http'
+import {defaultUrl, login} from '@/api/url'
 import {DeviceType, UserState} from '@/store/types'
 import {useMessage} from 'naive-ui'
 import {
@@ -141,6 +141,20 @@ export default defineComponent({
     name: 'Login',
     components: { PhoneIcon, PasswordIcon, LogoGithub, LogoAlipay, LogoWechat },
     setup() {
+      ;(function init() {
+        get({
+          url: defaultUrl,
+        })
+          .then(({ data }: Response) => {
+            console.log(data)
+            router.replace({
+              path: '/',
+            })
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      })()
       const { version } = useAppInfo()
       const username = ref('admin')
       const password = ref('123456')

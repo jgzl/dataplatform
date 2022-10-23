@@ -28,6 +28,8 @@ export const getCardList = '/getCardList'
 
 export const getCommentList = '/getCommentList'
 
+export const defaultUrl = '/gateway-admin/services/current'
+
 // 系统管理
 // 系统管理-菜单树形根据用户
 export const systemMenuTreeByUser = '/gateway-admin/system/menu/tree/user'

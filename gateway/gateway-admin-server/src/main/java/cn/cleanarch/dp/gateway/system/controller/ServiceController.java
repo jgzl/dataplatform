@@ -1,5 +1,6 @@
 package cn.cleanarch.dp.gateway.system.controller;
 
+import cn.cleanarch.dp.common.core.model.R;
 import cn.hutool.core.collection.CollUtil;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
@@ -11,7 +12,6 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -36,11 +36,11 @@ public class ServiceController {
      * @return
      */
     @GetMapping("/services/current")
-    public Mono<ServiceInfo> currentServices() {
+    public R<ServiceInfo> currentServices() {
         String serviceNameId = environment.getProperty("spring.application.name");
         List<ServiceInstance> instances = discoveryClient.getInstances(serviceNameId);
         ServiceInfo serviceInfo = new ServiceInfo(serviceNameId, instances);
-        return Mono.just(serviceInfo);
+        return R.success(serviceInfo);
     }
 
     /**
@@ -49,7 +49,7 @@ public class ServiceController {
      * @return
      */
     @GetMapping("/services/all")
-    public Mono<List<ServiceInfo>> allServices() {
+    public R<List<ServiceInfo>> allServices() {
         List<String> services = discoveryClient.getServices();
         List<ServiceInfo> serviceInfos = Lists.newArrayList();
         if (CollUtil.isNotEmpty(services)) {
@@ -59,7 +59,7 @@ public class ServiceController {
                 serviceInfos.add(serviceInfo);
             }
         }
-        return Mono.just(serviceInfos);
+        return R.success(serviceInfos);
     }
 
     @Data
