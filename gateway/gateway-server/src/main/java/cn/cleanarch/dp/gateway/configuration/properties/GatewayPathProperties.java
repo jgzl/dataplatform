@@ -20,5 +20,5 @@ public class GatewayPathProperties {
     /**
      * 网关黑名单(访问，限流，降级)
      */
-    private List<String> blackPath = Lists.newArrayList("gateway-admin/**");
+    private List<String> blackPath = Lists.newArrayList("/gateway-admin/**");
 }
