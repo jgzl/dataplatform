@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
+ * @see cn.cleanarch.dp.auth.support.CustomOAAuth2AccessTokenGenerator#generate
  * @author li7hai26@outlook.com
  * @date 2022-06-02
  */

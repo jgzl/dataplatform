@@ -29,7 +29,7 @@ public class CustomOAAuth2TokenCustomizer implements OAuth2TokenCustomizer<OAuth
 		}
 
 		LoginUser LoginUser = (LoginUser) context.getPrincipal().getPrincipal();
-		claims.claim(SecurityConstants.DEFAULT_USER, LoginUser);
+		claims.claim(SecurityConstants.DETAILS_USER_INFO, LoginUser);
 	}
 
 }

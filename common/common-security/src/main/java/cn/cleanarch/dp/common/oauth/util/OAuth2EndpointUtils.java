@@ -6,7 +6,6 @@ import cn.cleanarch.dp.common.core.utils.WebmvcUtil;
 import cn.cleanarch.dp.common.oauth.vo.LoginUser;
 import cn.cleanarch.dp.system.vo.user.LoginUserVO;
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.convert.Convert;
 import com.google.common.collect.Lists;
 import lombok.experimental.UtilityClass;
 import org.jetbrains.annotations.NotNull;
@@ -86,8 +85,7 @@ public class OAuth2EndpointUtils {
 		result.setRoles(roles);
 		result.setPermissions(permissions);
 		if (!CollectionUtils.isEmpty(additionalParameters)) {
-			String username = Convert.toStr(additionalParameters.get("sub"));
-			LoginUser user = (LoginUser) additionalParameters.get(username);
+			LoginUser user = (LoginUser) additionalParameters.get(SecurityConstants.DETAILS_USER_INFO);
 			result.setUserId(user.getUserId());
 			result.setUserName(user.getUsername());
 			result.setNickName(user.getNickName());
