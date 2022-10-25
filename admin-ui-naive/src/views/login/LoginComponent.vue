@@ -121,7 +121,7 @@ import {computed, defineComponent, ref} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 import ImageBg1 from '@/assets/img_login_bg.png'
 import {get, post, Response} from '@/api/http'
-import {defaultUrl, login} from '@/api/url'
+import {checkToken, login} from '@/api/url'
 import {DeviceType, UserState} from '@/store/types'
 import {useMessage} from 'naive-ui'
 import {
@@ -143,7 +143,10 @@ export default defineComponent({
     setup() {
       ;(function init() {
         get({
-          url: defaultUrl,
+          url: checkToken,
+          data: {
+            token: useUserStore().token,
+          },
         })
           .then(({ data }: Response) => {
             console.log(data)

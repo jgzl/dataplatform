@@ -19,9 +19,9 @@ package cn.cleanarch.dp.auth.config;
 import cn.cleanarch.dp.auth.support.CustomOAAuth2AccessTokenGenerator;
 import cn.cleanarch.dp.auth.support.core.CustomOAAuth2TokenCustomizer;
 import cn.cleanarch.dp.auth.support.core.FormIdentityLoginConfigurer;
-import cn.cleanarch.dp.auth.support.core.PigDaoAuthenticationProvider;
-import cn.cleanarch.dp.auth.support.handler.PigAuthenticationFailureEventHandler;
-import cn.cleanarch.dp.auth.support.handler.PigAuthenticationSuccessEventHandler;
+import cn.cleanarch.dp.auth.support.core.InfraDaoAuthenticationProvider;
+import cn.cleanarch.dp.auth.support.handler.InfraAuthenticationFailureEventHandler;
+import cn.cleanarch.dp.auth.support.handler.InfraAuthenticationSuccessEventHandler;
 import cn.cleanarch.dp.auth.support.password.OAuth2ResourceOwnerPasswordAuthenticationConverter;
 import cn.cleanarch.dp.auth.support.password.OAuth2ResourceOwnerPasswordAuthenticationProvider;
 import cn.cleanarch.dp.auth.support.sms.OAuth2ResourceOwnerSmsAuthenticationConverter;
@@ -67,10 +67,10 @@ public class AuthorizationServerConfiguration {
 
 		http.apply(authorizationServerConfigurer.tokenEndpoint((tokenEndpoint) -> {// 个性化认证授权端点
 			tokenEndpoint.accessTokenRequestConverter(accessTokenRequestConverter()) // 注入自定义的授权认证Converter
-					.accessTokenResponseHandler(new PigAuthenticationSuccessEventHandler()) // 登录成功处理器
-					.errorResponseHandler(new PigAuthenticationFailureEventHandler());// 登录失败处理器
+					.accessTokenResponseHandler(new InfraAuthenticationSuccessEventHandler()) // 登录成功处理器
+					.errorResponseHandler(new InfraAuthenticationFailureEventHandler());// 登录失败处理器
 		}).clientAuthentication(oAuth2ClientAuthenticationConfigurer -> // 个性化客户端认证
-		oAuth2ClientAuthenticationConfigurer.errorResponseHandler(new PigAuthenticationFailureEventHandler()))// 处理客户端认证异常
+		oAuth2ClientAuthenticationConfigurer.errorResponseHandler(new InfraAuthenticationFailureEventHandler()))// 处理客户端认证异常
 				.authorizationEndpoint(authorizationEndpoint -> authorizationEndpoint// 授权码端点个性化confirm页面
 						.consentPage(SecurityConstants.CUSTOM_CONSENT_PAGE_URI)));
 
@@ -132,7 +132,7 @@ public class AuthorizationServerConfiguration {
 				authenticationManager, authorizationService, oAuth2TokenGenerator());
 
 		// 处理 UsernamePasswordAuthenticationToken
-		http.authenticationProvider(new PigDaoAuthenticationProvider());
+		http.authenticationProvider(new InfraDaoAuthenticationProvider());
 		// 处理 OAuth2ResourceOwnerPasswordAuthenticationToken
 		http.authenticationProvider(resourceOwnerPasswordAuthenticationProvider);
 		// 处理 OAuth2ResourceOwnerSmsAuthenticationToken

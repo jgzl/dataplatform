@@ -1,18 +1,30 @@
 package cn.cleanarch.dp.common.oauth.util;
 
-import cn.hutool.core.map.MapUtil;
+import cn.cleanarch.dp.common.core.constant.SecurityConstants;
+import cn.cleanarch.dp.common.core.model.R;
+import cn.cleanarch.dp.common.core.utils.WebmvcUtil;
+import cn.cleanarch.dp.common.oauth.vo.LoginUser;
+import cn.cleanarch.dp.system.vo.user.LoginUserVO;
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.convert.Convert;
+import com.google.common.collect.Lists;
 import lombok.experimental.UtilityClass;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.*;
-import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.core.endpoint.PkceParameterNames;
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.temporal.ChronoUnit;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,30 +63,48 @@ public class OAuth2EndpointUtils {
 
 	/**
 	 * 格式化输出token 信息
-	 * @param authentication 用户认证信息
+	 * @param auth 用户认证信息
 	 * @param claims 扩展信息
 	 * @return
 	 * @throws IOException
 	 */
-	public OAuth2AccessTokenResponse sendAccessTokenResponse(OAuth2Authorization authentication,
-			Map<String, Object> claims) {
-
-		OAuth2AccessToken accessToken = authentication.getAccessToken().getToken();
-		OAuth2RefreshToken refreshToken = authentication.getRefreshToken().getToken();
-
-		OAuth2AccessTokenResponse.Builder builder = OAuth2AccessTokenResponse.withToken(accessToken.getTokenValue())
-				.tokenType(accessToken.getTokenType()).scopes(accessToken.getScopes());
-		if (accessToken.getIssuedAt() != null && accessToken.getExpiresAt() != null) {
-			builder.expiresIn(ChronoUnit.SECONDS.between(accessToken.getIssuedAt(), accessToken.getExpiresAt()));
-		}
-		if (refreshToken != null) {
-			builder.refreshToken(refreshToken.getTokenValue());
-		}
-
-		if (MapUtil.isNotEmpty(claims)) {
-			builder.additionalParameters(claims);
-		}
-		return builder.build();
+	public void sendAccessTokenResponse(HttpServletResponse response, OAuth2Authorization auth, Map<String, Object> claims) {
+		OAuth2AccessToken accessToken = auth.getAccessToken().getToken();
+		OAuth2RefreshToken refreshToken = auth.getRefreshToken().getToken();
+		LoginUserVO result = OAuth2EndpointUtils.getLoginUserVO(accessToken, refreshToken, claims);
+		// 无状态 注意删除 context 上下文的信息
+		SecurityContextHolder.clearContext();
+		WebmvcUtil.okOut(response, R.success(result));
 	}
 
+	@NotNull
+	public static LoginUserVO getLoginUserVO(OAuth2AccessToken accessToken, OAuth2RefreshToken refreshToken, Map<String, Object> additionalParameters) {
+		LoginUserVO result = new LoginUserVO();
+		result.setToken(accessToken.getTokenValue());
+		List<String> roles = Lists.newArrayList();
+		List<String> permissions = Lists.newArrayList();
+		result.setRoles(roles);
+		result.setPermissions(permissions);
+		if (!CollectionUtils.isEmpty(additionalParameters)) {
+			String username = Convert.toStr(additionalParameters.get("sub"));
+			LoginUser user = (LoginUser) additionalParameters.get(username);
+			result.setUserId(user.getUserId());
+			result.setUserName(user.getUsername());
+			result.setNickName(user.getNickName());
+			Collection<GrantedAuthority> authorities = user.getAuthorities();
+			if (CollUtil.isNotEmpty(authorities)) {
+				authorities.stream().map(GrantedAuthority::getAuthority).forEach(authority -> {
+					if (authority.startsWith(SecurityConstants.ROLE_PREFIX)) {
+						roles.add(authority);
+					} else {
+						permissions.add(authority);
+					}
+				});
+			}
+		}
+		if (refreshToken != null) {
+			result.setRefreshToken(refreshToken.getTokenValue());
+		}
+		return result;
+	}
 }

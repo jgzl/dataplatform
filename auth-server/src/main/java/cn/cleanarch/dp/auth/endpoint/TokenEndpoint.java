@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.auth.endpoint;
 
-import cn.cleanarch.dp.auth.support.handler.PigAuthenticationFailureEventHandler;
+import cn.cleanarch.dp.auth.support.handler.InfraAuthenticationFailureEventHandler;
 import cn.cleanarch.dp.common.core.constant.CacheConstants;
 import cn.cleanarch.dp.common.core.constant.CommonConstants;
 import cn.cleanarch.dp.common.core.constant.SecurityConstants;
@@ -24,7 +24,6 @@ import org.springframework.cache.CacheManager;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.security.authentication.event.LogoutSuccessEvent;
@@ -62,7 +61,7 @@ public class TokenEndpoint {
 
 	private final HttpMessageConverter<OAuth2AccessTokenResponse> accessTokenHttpResponseConverter = new OAuth2AccessTokenResponseHttpMessageConverter();
 
-	private final AuthenticationFailureHandler authenticationFailureHandler = new PigAuthenticationFailureEventHandler();
+	private final AuthenticationFailureHandler authenticationFailureHandler = new InfraAuthenticationFailureEventHandler();
 
 	private final OAuth2AuthorizationService authorizationService;
 
@@ -130,6 +129,7 @@ public class TokenEndpoint {
 			httpResponse.setStatusCode(HttpStatus.UNAUTHORIZED);
 			this.authenticationFailureHandler.onAuthenticationFailure(request, response,
 					new InvalidBearerTokenException(OAuth2ErrorCodesExpand.TOKEN_MISSING));
+			return;
 		}
 		OAuth2Authorization authorization = authorizationService.findByToken(token, OAuth2TokenType.ACCESS_TOKEN);
 
@@ -137,12 +137,11 @@ public class TokenEndpoint {
 		if (authorization == null || authorization.getAccessToken() == null) {
 			this.authenticationFailureHandler.onAuthenticationFailure(request, response,
 					new InvalidBearerTokenException(OAuth2ErrorCodesExpand.INVALID_BEARER_TOKEN));
+			return;
 		}
 
 		Map<String, Object> claims = authorization.getAccessToken().getClaims();
-		OAuth2AccessTokenResponse sendAccessTokenResponse = OAuth2EndpointUtils.sendAccessTokenResponse(authorization,
-				claims);
-		this.accessTokenHttpResponseConverter.write(sendAccessTokenResponse, MediaType.APPLICATION_JSON, httpResponse);
+		OAuth2EndpointUtils.sendAccessTokenResponse(response,authorization, claims);
 	}
 
 	/**

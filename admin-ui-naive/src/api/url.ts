@@ -2,6 +2,8 @@ export const test = '/test'
 
 export const login = '/auth/oauth2/token?grant_type=password&scope=server'
 
+export const checkToken = '/auth/token/check_token'
+
 export const updateUserInfo = '/updateUser'
 
 export const addUserInfo = '/addUser'
@@ -27,8 +29,6 @@ export const getTableList = '/getTableList'
 export const getCardList = '/getCardList'
 
 export const getCommentList = '/getCommentList'
-
-export const defaultUrl = '/gateway-admin/services/current'
 
 // 系统管理
 // 系统管理-菜单树形根据用户

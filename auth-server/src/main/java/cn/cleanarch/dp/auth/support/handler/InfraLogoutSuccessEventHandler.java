@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class PigLogoutSuccessEventHandler implements ApplicationListener<LogoutSuccessEvent> {
+public class InfraLogoutSuccessEventHandler implements ApplicationListener<LogoutSuccessEvent> {
 
 	@Override
 	public void onApplicationEvent(LogoutSuccessEvent event) {

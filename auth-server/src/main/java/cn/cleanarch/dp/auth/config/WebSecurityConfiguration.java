@@ -17,7 +17,7 @@
 package cn.cleanarch.dp.auth.config;
 
 import cn.cleanarch.dp.auth.support.core.FormIdentityLoginConfigurer;
-import cn.cleanarch.dp.auth.support.core.PigDaoAuthenticationProvider;
+import cn.cleanarch.dp.auth.support.core.InfraDaoAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -45,7 +45,7 @@ public class WebSecurityConfiguration {
 				.anyRequest().authenticated()).headers().frameOptions().sameOrigin()// 避免iframe同源无法登录
 				.and().apply(new FormIdentityLoginConfigurer()); // 表单登录个性化
 		// 处理 UsernamePasswordAuthenticationToken
-		http.authenticationProvider(new PigDaoAuthenticationProvider());
+		http.authenticationProvider(new InfraDaoAuthenticationProvider());
 		return http.build();
 	}
 
