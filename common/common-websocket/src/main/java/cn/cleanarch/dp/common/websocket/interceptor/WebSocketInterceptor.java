@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.common.websocket.interceptor;
 
 import cn.cleanarch.dp.common.core.constant.TokenConstants;
-import cn.cleanarch.dp.common.websocket.config.WebSocketConfig;
+import cn.cleanarch.dp.common.websocket.config.WebSocketProperties;
 import cn.cleanarch.dp.common.websocket.constant.WebSocketConstant;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
@@ -45,6 +45,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
      */
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
+        System.out.println("握手开始");
         if (request instanceof ServletServerHttpRequest) {
             boolean result = true;
             ServletServerHttpRequest serverHttpRequest = (ServletServerHttpRequest) request;
@@ -68,7 +69,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
             // 密钥链接
             if (attributes.containsKey(WebSocketConstant.Attributes.SECRET_KEY)) {
                 // 验证密钥
-                String key = SpringUtil.getBean(WebSocketConfig.class).getSecretKey();
+                String key = SpringUtil.getBean(WebSocketProperties.class).getSecretKey();
                 if (!Objects.equals(attributes.get(WebSocketConstant.Attributes.SECRET_KEY), key)) {
                     return false;
                 }
@@ -91,6 +92,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
 
     @Override
     public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception exception) {
+        System.out.println("握手完成");
         if (request instanceof ServletServerHttpRequest) {
             ServletServerHttpRequest serverHttpRequest = (ServletServerHttpRequest) request;
             // 获取所有拦截器

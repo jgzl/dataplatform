@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.common.websocket;
 
-import cn.cleanarch.dp.common.websocket.config.WebSocketConfig;
+import cn.cleanarch.dp.common.websocket.config.WebSocketProperties;
 import cn.cleanarch.dp.common.websocket.constant.WebSocketConstant;
 import cn.cleanarch.dp.common.websocket.handler.WebSocketHandler;
 import cn.cleanarch.dp.common.websocket.interceptor.WebSocketInterceptor;
@@ -30,9 +30,9 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @ComponentScan
 public class WebSocketAutoConfig implements WebSocketConfigurer {
 
-    private final WebSocketConfig config;
+    private final WebSocketProperties config;
 
-    public WebSocketAutoConfig(WebSocketConfig config) {
+    public WebSocketAutoConfig(WebSocketProperties config) {
         this.config = config;
     }
 
@@ -41,11 +41,11 @@ public class WebSocketAutoConfig implements WebSocketConfigurer {
         // webSocket通道
         registry.addHandler(new WebSocketHandler(), config.getWebsocket())
                 .addInterceptors(new WebSocketInterceptor())
-                .setAllowedOrigins("*");
-        // sockJs通道
+                .setAllowedOriginPatterns("*");
+//        // sockJs通道
         registry.addHandler(new WebSocketHandler(), config.getSockJs())
                 .addInterceptors(new WebSocketInterceptor())
-                .setAllowedOrigins("*")
+                .setAllowedOriginPatterns("*")
                 .withSockJS();
     }
 
@@ -71,10 +71,10 @@ public class WebSocketAutoConfig implements WebSocketConfigurer {
     }
 
     @Bean("websocket-check-executor")
-    public AsyncTaskExecutor asyncTaskExecutor(WebSocketConfig config) {
-        WebSocketConfig.ThreadPoolProperties threadPoolProperties = config.getThreadPoolProperties();
+    public AsyncTaskExecutor asyncTaskExecutor(WebSocketProperties config) {
+        WebSocketProperties.ThreadPoolProperties threadPoolProperties = config.getThreadPoolProperties();
         if (threadPoolProperties == null) {
-            threadPoolProperties = new WebSocketConfig.ThreadPoolProperties();
+            threadPoolProperties = new WebSocketProperties.ThreadPoolProperties();
         }
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(threadPoolProperties.getCorePoolSize());

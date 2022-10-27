@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.common.websocket.redis;
 
 import cn.cleanarch.dp.common.redis.RedisHelper;
-import cn.cleanarch.dp.common.websocket.config.WebSocketConfig;
+import cn.cleanarch.dp.common.websocket.config.WebSocketProperties;
 import cn.hutool.extra.spring.SpringUtil;
 
 /**
@@ -12,7 +12,7 @@ import cn.hutool.extra.spring.SpringUtil;
 public abstract class WebSocketRedis {
 
     private volatile static RedisHelper redisHelper;
-    private volatile static WebSocketConfig config;
+    private volatile static WebSocketProperties config;
 
     protected WebSocketRedis() {
     }
@@ -28,11 +28,11 @@ public abstract class WebSocketRedis {
         return redisHelper;
     }
 
-    protected static WebSocketConfig getConfig() {
+    protected static WebSocketProperties getConfig() {
         if (null == config) {
             synchronized (SessionRedis.class) {
                 if (null == config) {
-                    config = SpringUtil.getBean(WebSocketConfig.class);
+                    config = SpringUtil.getBean(WebSocketProperties.class);
                 }
             }
         }

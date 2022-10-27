@@ -2,6 +2,8 @@ package cn.cleanarch.dp.common.websocket.redis;
 
 import cn.cleanarch.dp.common.redis.RedisHelper;
 import cn.cleanarch.dp.common.websocket.constant.WebSocketConstant;
+import cn.cleanarch.dp.common.websocket.vo.SessionVO;
+import cn.cleanarch.dp.common.websocket.vo.UserVO;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 
@@ -23,21 +25,20 @@ public class UserSessionRedis extends WebSocketRedis {
      * @param user 用户Id
      * @return key
      */
-    private static String getCacheKey(String user) {
-        return WebSocketConstant.REDIS_KEY + "user-sessions:" + user;
+    private static String getCacheKey(UserVO user) {
+        return WebSocketConstant.REDIS_KEY + "user-sessions:" + user.getUser() + ":app:" + user.getApp() + ":tenant:" + user.getTenant();
     }
 
     /**
      * 添加缓存
      *
-     * @param user    用户Id
-     * @param sessionId sessionId
+     * @param session session对象
      */
-    public static void addCache(String user, String sessionId) {
+    public static void addCache(SessionVO session) {
         RedisHelper redisHelper = getRedisHelper();
         redisHelper.setCurrentDatabase(getConfig().getRedisDb());
         try {
-            redisHelper.hshPut(getCacheKey(user), sessionId, StrUtil.EMPTY);
+            redisHelper.hshPut(getCacheKey(session.toUserVO()), session.getSessionId(), StrUtil.EMPTY);
         } finally {
             redisHelper.clearCurrentDatabase();
         }
@@ -46,14 +47,13 @@ public class UserSessionRedis extends WebSocketRedis {
     /**
      * 刪除缓存
      *
-     * @param user    用户Id
-     * @param sessionId sessionId
+     * @param session session对象
      */
-    public static void clearCache(String user, String sessionId) {
+    public static void clearCache(SessionVO session) {
         RedisHelper redisHelper = getRedisHelper();
         redisHelper.setCurrentDatabase(getConfig().getRedisDb());
         try {
-            redisHelper.hshDelete(getCacheKey(user), sessionId);
+            redisHelper.hshDelete(getCacheKey(session.toUserVO()), session.getSessionId());
         } finally {
             redisHelper.clearCurrentDatabase();
         }
@@ -62,14 +62,14 @@ public class UserSessionRedis extends WebSocketRedis {
     /**
      * 查询缓存
      *
-     * @param user 用户Id
+     * @param userVO 用户Id
      */
-    public static List<String> getSessionIds(String user) {
+    public static List<String> getSessionIds(UserVO userVO) {
         RedisHelper redisHelper = getRedisHelper();
         redisHelper.setCurrentDatabase(getConfig().getRedisDb());
         Set<String> set;
         try {
-            set = ObjectUtil.defaultIfNull(redisHelper.hshKeys(getCacheKey(user)), new HashSet<>());
+            set = ObjectUtil.defaultIfNull(redisHelper.hshKeys(getCacheKey(userVO)), new HashSet<>());
         } finally {
             redisHelper.clearCurrentDatabase();
         }

@@ -98,7 +98,7 @@ public class ClientInit implements CommandLineRunner {
                                     // 清除在线用户
                                     OnlineUserRedis.deleteCache(session);
                                     // 清理用户session
-                                    UserSessionRedis.clearCache(user, sessionId);
+                                    UserSessionRedis.clearCache(session);
                                 }
                                 String group = session.getGroup();
                                 if (StrUtil.isNotBlank(group)) {
@@ -141,32 +141,32 @@ public class ClientInit implements CommandLineRunner {
                 List<SessionVO> sessionList;
                 do {
                     sessionList = OnlineUserRedis.getCache(page, size);
-                    for (SessionVO item : sessionList) {
-                        String sessionId = item.getSessionId();
+                    for (SessionVO session : sessionList) {
+                        String sessionId = session.getSessionId();
                         // 所属客户端已下线
-                        if (StrUtil.isBlank(item.getBrokerId()) || !liveBrokerList.contains(item.getBrokerId())) {
+                        if (StrUtil.isBlank(session.getBrokerId()) || !liveBrokerList.contains(session.getBrokerId())) {
                             SessionRedis.clearCache(sessionId);
                             // 清除在线用户
-                            OnlineUserRedis.deleteCache(item);
+                            OnlineUserRedis.deleteCache(session);
                             // 清除用户session
-                            UserSessionRedis.clearCache(item.getUser(), sessionId);
+                            UserSessionRedis.clearCache(session);
                             // 清理节点session
-                            BrokerSessionRedis.clearCache(item.getBrokerId(), sessionId);
+                            BrokerSessionRedis.clearCache(session.getBrokerId(), sessionId);
                             continue;
                         }
                         // 只处理本客户端的
-                        if (!Objects.equals(item.getBrokerId(), brokerId)) {
+                        if (!Objects.equals(session.getBrokerId(), brokerId)) {
                             continue;
                         }
                         // access_token已失效
-                        if (checkAccessToken(item.getAccessToken())) {
-                            clear(item);
+                        if (checkAccessToken(session.getAccessToken())) {
+                            clear(session);
                             continue;
                         }
                         WebSocketSession webSocketSession = UserSessionRegistry.getSession(sessionId);
                         // websocket已失效
                         if (webSocketSession == null || !webSocketSession.isOpen()) {
-                            clear(item);
+                            clear(session);
                         }
                     }
                     page++;
@@ -182,7 +182,7 @@ public class ClientInit implements CommandLineRunner {
             // 清除在线用户
             OnlineUserRedis.deleteCache(session);
             // 清除用户session
-            UserSessionRedis.clearCache(session.getUser(), sessionId);
+            UserSessionRedis.clearCache(session);
             // 清理节点session
             BrokerSessionRedis.clearCache(session.getBrokerId(), sessionId);
             // 清理内存

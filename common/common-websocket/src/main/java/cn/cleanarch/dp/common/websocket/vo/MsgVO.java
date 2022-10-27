@@ -12,9 +12,10 @@ import java.nio.charset.StandardCharsets;
  */
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class MsgVO {
-
-    private String user;
+public class MsgVO extends UserVO{
+    /**
+     * 分组
+     */
     private String group;
     /**
      * websocketSession Id
@@ -44,15 +45,6 @@ public class MsgVO {
      * 消息来源节点id
      */
     private String brokerId;
-
-    public String getUser() {
-        return user;
-    }
-
-    public MsgVO setUser(String user) {
-        this.user = user;
-        return this;
-    }
 
     public String getGroup() {
         return group;
@@ -131,5 +123,9 @@ public class MsgVO {
     public MsgVO setBrokerId(String brokerId) {
         this.brokerId = brokerId;
         return this;
+    }
+
+    public UserVO toUserVO(){
+        return new UserVO().setUser(getUser()).setApp(getApp()).setTenant(getTenant());
     }
 }

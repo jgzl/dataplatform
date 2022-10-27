@@ -29,8 +29,8 @@ public class OnlineUserRedis extends WebSocketRedis {
      *
      * @return key
      */
-    private static String getCacheKey(String tenant) {
-        return WebSocketConstant.REDIS_KEY + "online-users:tenant:" + tenant;
+    private static String getCacheKey(String app,String tenant) {
+        return WebSocketConstant.REDIS_KEY + "online-users:app:" + app+":tenant:" + tenant;
     }
 
     /**
@@ -45,7 +45,7 @@ public class OnlineUserRedis extends WebSocketRedis {
             // 缓存记录sessionId 与用户的关系，还要考虑分页排序
             long date = System.nanoTime();
             redisHelper.zSetAdd(getCacheKey(), session.getSessionId(), date);
-            redisHelper.zSetAdd(getCacheKey(session.getTenant()), session.getSessionId(), date);
+            redisHelper.zSetAdd(getCacheKey(session.getApp(), session.getTenant()), session.getSessionId(), date);
         } finally {
             redisHelper.clearCurrentDatabase();
         }
@@ -61,7 +61,7 @@ public class OnlineUserRedis extends WebSocketRedis {
         redisHelper.setCurrentDatabase(getConfig().getRedisDb());
         try {
             redisHelper.zSetRemove(getCacheKey(), session.getSessionId());
-            redisHelper.zSetRemove(getCacheKey(session.getTenant()), session.getSessionId());
+            redisHelper.zSetRemove(getCacheKey(session.getApp(), session.getTenant()), session.getSessionId());
         } finally {
             redisHelper.clearCurrentDatabase();
         }
@@ -78,7 +78,7 @@ public class OnlineUserRedis extends WebSocketRedis {
         try {
             for (SessionVO session : sessionList) {
                 redisHelper.zSetRemove(getCacheKey(), session.getSessionId());
-                redisHelper.zSetRemove(getCacheKey(session.getTenant()), session.getSessionId());
+                redisHelper.zSetRemove(getCacheKey(session.getApp(), session.getTenant()), session.getSessionId());
             }
         } finally {
             redisHelper.clearCurrentDatabase();
@@ -103,12 +103,12 @@ public class OnlineUserRedis extends WebSocketRedis {
     /**
      * 指定租户获取在线人数
      */
-    public static Long getSize(String tenant) {
+    public static Long getSize(String app,String tenant) {
         RedisHelper redisHelper = getRedisHelper();
         redisHelper.setCurrentDatabase(getConfig().getRedisDb());
         Long total;
         try {
-            total = redisHelper.zSetSize(getCacheKey(tenant));
+            total = redisHelper.zSetSize(getCacheKey(app, tenant));
         } finally {
             redisHelper.clearCurrentDatabase();
         }
@@ -147,14 +147,14 @@ public class OnlineUserRedis extends WebSocketRedis {
      * @param page 页
      * @param size 每页数量
      */
-    public static List<SessionVO> getCache(int page, int size, String tenant) {
+    public static List<SessionVO> getCache(int page, int size, String app, String tenant) {
         RedisHelper redisHelper = getRedisHelper();
         redisHelper.setCurrentDatabase(getConfig().getRedisDb());
         List<SessionVO> list = new ArrayList<>();
         try {
             int start = size * page;
             int end = start + size - 1;
-            Set<String> keySets = redisHelper.zSetRange(getCacheKey(tenant), (long) start, (long) end);
+            Set<String> keySets = redisHelper.zSetRange(getCacheKey(app, tenant), (long) start, (long) end);
             keySets.forEach(item -> {
                 SessionVO session = SessionRedis.getSession(item);
                 if (session != null && session.getUser() != null) {
@@ -192,13 +192,13 @@ public class OnlineUserRedis extends WebSocketRedis {
     /**
      * 指定租户查询所有在线用户
      */
-    public static List<SessionVO> getCache(String tenant) {
+    public static List<SessionVO> getCache(String app, String tenant) {
         RedisHelper redisHelper = getRedisHelper();
         redisHelper.setCurrentDatabase(getConfig().getRedisDb());
         List<SessionVO> list = new ArrayList<>();
         try {
             Long count = redisHelper.zSetSize(getCacheKey());
-            Set<String> keySets = redisHelper.zSetRange(getCacheKey(tenant), 0L, count);
+            Set<String> keySets = redisHelper.zSetRange(getCacheKey(app, tenant), 0L, count);
             keySets.forEach(item -> {
                 SessionVO session = SessionRedis.getSession(item);
                 if (session != null && session.getUser() != null) {

@@ -40,7 +40,7 @@ public abstract class BaseSessionRegistry {
             // 清除在线用户
             OnlineUserRedis.deleteCache(session);
             // 清理用户session
-            UserSessionRedis.clearCache(user, sessionId);
+            UserSessionRedis.clearCache(session);
             // 清理内存
             UserSessionRegistry.removeSession(sessionId);
         }

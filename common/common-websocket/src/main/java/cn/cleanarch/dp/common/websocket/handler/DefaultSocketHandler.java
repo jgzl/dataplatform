@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.common.websocket.handler;
 
 import cn.cleanarch.dp.common.redis.RedisHelper;
-import cn.cleanarch.dp.common.websocket.config.WebSocketConfig;
+import cn.cleanarch.dp.common.websocket.config.WebSocketProperties;
 import cn.cleanarch.dp.common.websocket.constant.WebSocketConstant;
 import cn.cleanarch.dp.common.websocket.helper.SocketMessageHandler;
 import cn.cleanarch.dp.common.websocket.redis.*;
@@ -37,7 +37,7 @@ public class DefaultSocketHandler implements SocketHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultSocketHandler.class);
 
-    private final WebSocketConfig config;
+    private final WebSocketProperties config;
     private final ObjectMapper objectMapper;
     private final RedisHelper redisHelper;
 
@@ -74,9 +74,9 @@ public class DefaultSocketHandler implements SocketHandler {
             try {
                 session.close();
             } catch (IOException ex) {
-                logger.debug("session : {} closed failed.", session);
+                logger.error("session : {} closed failed.", session);
             }
-            logger.debug("webSocket connection failed. message : {}, token : {}", e.getMessage(), session.getAttributes().get(WebSocketConstant.Attributes.TOKEN));
+            logger.error("webSocket connection failed. message : {}, token : {}", e.getMessage(), session.getAttributes().get(WebSocketConstant.Attributes.TOKEN));
         }
     }
 
@@ -111,6 +111,7 @@ public class DefaultSocketHandler implements SocketHandler {
         // 获取用户信息
         String token = String.valueOf(webSocketSession.getAttributes().get(WebSocketConstant.Attributes.TOKEN));
         UserVO userVO = getAuthentication(token);
+        String app = userVO.getApp();
         String tenant = userVO.getTenant();
         String user = userVO.getUser();
         String role = userVO.getRole();
@@ -118,13 +119,13 @@ public class DefaultSocketHandler implements SocketHandler {
         // 内存中存储webSocketSession
         UserSessionRegistry.addSession(webSocketSession, sessionId);
         String brokerId = UserSessionRegistry.getBrokerId();
-        SessionVO session = new SessionVO(sessionId, user, tenant, role, token, brokerId);
+        SessionVO session = new SessionVO(sessionId, user, app, tenant, role, token, brokerId);
         // 记录session
         SessionRedis.addCache(session);
         // 记录在线用户
         OnlineUserRedis.refreshCache(session);
         // 记录用户session
-        UserSessionRedis.addCache(user, sessionId);
+        UserSessionRedis.addCache(session);
         // 记录节点session
         BrokerSessionRedis.addCache(brokerId, sessionId);
     }

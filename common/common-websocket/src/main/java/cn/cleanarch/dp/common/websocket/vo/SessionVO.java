@@ -10,24 +10,12 @@ import lombok.Data;
  */
 @Data
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
-public class SessionVO {
+public class SessionVO extends UserVO{
 
     /**
      * websocketSession id
      */
     private String sessionId;
-    /**
-     * 用户Id
-     */
-    private String user;
-    /**
-     * 当前租户
-     */
-    private String tenant;
-    /**
-     * 当前角色
-     */
-    private String role;
     /**
      * token
      */
@@ -36,8 +24,6 @@ public class SessionVO {
      * brokerId
      */
     private String brokerId;
-
-
     /**
      * group
      */
@@ -47,11 +33,9 @@ public class SessionVO {
 
     }
 
-    public SessionVO(String sessionId, String user, String tenant, String role, String accessToken, String brokerId) {
+    public SessionVO(String sessionId, String user, String app, String tenant, String role, String accessToken, String brokerId) {
+        super(user, app, tenant, role);
         this.sessionId = sessionId;
-        this.user = user;
-        this.tenant = tenant;
-        this.role = role;
         this.accessToken = accessToken;
         this.brokerId = brokerId;
     }
@@ -62,4 +46,7 @@ public class SessionVO {
         this.brokerId = brokerId;
     }
 
+    public UserVO toUserVO(){
+        return new UserVO().setUser(getUser()).setApp(getApp()).setTenant(getTenant());
+    }
 }

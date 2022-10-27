@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
  * @author shuangfei.zhu@hand-china.com 2019/04/19 11:43
  */
 @Component
-@ConfigurationProperties(prefix = WebSocketConfig.PREFIX)
-public class WebSocketConfig {
+@ConfigurationProperties(prefix = WebSocketProperties.PREFIX)
+public class WebSocketProperties {
 
     static final String PREFIX = CommonConstants.CONFIGURATION_PREFIX+".websocket";
     /**
@@ -125,7 +125,7 @@ public class WebSocketConfig {
         return websocket;
     }
 
-    public WebSocketConfig setWebsocket(String websocket) {
+    public WebSocketProperties setWebsocket(String websocket) {
         this.websocket = websocket;
         return this;
     }
@@ -134,7 +134,7 @@ public class WebSocketConfig {
         return sockJs;
     }
 
-    public WebSocketConfig setSockJs(String sockJs) {
+    public WebSocketProperties setSockJs(String sockJs) {
         this.sockJs = sockJs;
         return this;
     }
@@ -143,7 +143,7 @@ public class WebSocketConfig {
         return redisDb;
     }
 
-    public WebSocketConfig setRedisDb(Integer redisDb) {
+    public WebSocketProperties setRedisDb(Integer redisDb) {
         this.redisDb = redisDb;
         return this;
     }
@@ -152,7 +152,7 @@ public class WebSocketConfig {
         return heartbeat;
     }
 
-    public WebSocketConfig setHeartbeat(String heartbeat) {
+    public WebSocketProperties setHeartbeat(String heartbeat) {
         this.heartbeat = heartbeat;
         return this;
     }
@@ -161,7 +161,7 @@ public class WebSocketConfig {
         return secretKey;
     }
 
-    public WebSocketConfig setSecretKey(String secretKey) {
+    public WebSocketProperties setSecretKey(String secretKey) {
         this.secretKey = secretKey;
         return this;
     }
@@ -170,7 +170,7 @@ public class WebSocketConfig {
         return threadPoolProperties;
     }
 
-    public WebSocketConfig setThreadPoolProperties(ThreadPoolProperties threadPoolProperties) {
+    public WebSocketProperties setThreadPoolProperties(ThreadPoolProperties threadPoolProperties) {
         this.threadPoolProperties = threadPoolProperties;
         return this;
     }
