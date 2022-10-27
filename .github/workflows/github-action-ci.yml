@@ -77,3 +77,21 @@ jobs:
           tags: |
             dlhf/gateway-server:latest
             ghcr.io/jgzl/gateway-server:latest
+      - name: Build and push 消息中心服务
+        uses: docker/build-push-action@v3
+        with:
+          context: optional/message-center
+          platforms: linux/amd64,linux/arm64/v8
+          push: true
+          tags: |
+            dlhf/message-center:latest
+            ghcr.io/jgzl/message-server:latest
+      - name: Build and push 监控中心服务
+        uses: docker/build-push-action@v3
+        with:
+          context: optional/monitor-center
+          platforms: linux/amd64,linux/arm64/v8
+          push: true
+          tags: |
+            dlhf/monitor-center:latest
+            ghcr.io/jgzl/monitor-server:latest

@@ -24,6 +24,8 @@ services:
     restart: always
     container_name: gateway-admin-server
     image: $IMAGE_REPO_URL/gateway-admin-server:${IMAGE_VERSION}
+    volumes:
+      - /app/logs:/app/logs
     ports:
       - 8000:8000
 
@@ -37,20 +39,24 @@ services:
       - 80:80
     depends_on:
       - gateway-server
-#
-#  monitor-center:
-#    restart: always
-#    container_name: monitor-center
-#    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
-#    ports:
-#      - 9002:9002
-#
-#  message-center:
-#    restart: always
-#    container_name: message-center
-#    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
-#    ports:
-#      - 9001:9001
+
+  monitor-center:
+    restart: always
+    container_name: monitor-center
+    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
+    volumes:
+      - /app/logs:/app/logs
+    ports:
+      - 9002:9002
+
+  message-center:
+    restart: always
+    container_name: message-center
+    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
+    volumes:
+      - /app/logs:/app/logs
+    ports:
+      - 9001:9001
 #
 #  tool-center:
 #    restart: always
