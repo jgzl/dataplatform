@@ -43,7 +43,7 @@ services:
   monitor-center:
     restart: always
     container_name: monitor-center
-    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
+    image: $IMAGE_REPO_URL/monitor-center:${IMAGE_VERSION}
     volumes:
       - /app/logs:/app/logs
     ports:
@@ -52,7 +52,7 @@ services:
   message-center:
     restart: always
     container_name: message-center
-    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
+    image: $IMAGE_REPO_URL/message-center:${IMAGE_VERSION}
     volumes:
       - /app/logs:/app/logs
     ports:

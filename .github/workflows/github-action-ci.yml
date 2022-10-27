@@ -85,7 +85,7 @@ jobs:
           push: true
           tags: |
             dlhf/message-center:latest
-            ghcr.io/jgzl/message-server:latest
+            ghcr.io/jgzl/message-center:latest
       - name: Build and push 监控中心服务
         uses: docker/build-push-action@v3
         with:
@@ -94,4 +94,4 @@ jobs:
           push: true
           tags: |
             dlhf/monitor-center:latest
-            ghcr.io/jgzl/monitor-server:latest
+            ghcr.io/jgzl/monitor-center:latest
