@@ -41,7 +41,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push 认证授权服务
+      - name: Build and push 认证中心服务
         uses: docker/build-push-action@v3
         with:
           context: auth-center
@@ -50,6 +50,15 @@ jobs:
           tags: |
             dlhf/auth-center:latest
             ghcr.io/jgzl/auth-center:latest
+      - name: Build and push 系统中心服务
+        uses: docker/build-push-action@v3
+        with:
+          context: system-center
+          platforms: linux/amd64,linux/arm64/v8
+          push: true
+          tags: |
+            dlhf/system-center:latest
+            ghcr.io/jgzl/system-center:latest
       - name: Build and push 网关管理服务前端
         uses: docker/build-push-action@v3
         with:
@@ -80,7 +89,7 @@ jobs:
       - name: Build and push 消息中心服务
         uses: docker/build-push-action@v3
         with:
-          context: optional/message-center
+          context: message-center
           platforms: linux/amd64,linux/arm64/v8
           push: true
           tags: |
@@ -89,7 +98,7 @@ jobs:
       - name: Build and push 监控中心服务
         uses: docker/build-push-action@v3
         with:
-          context: optional/monitor-center
+          context: monitor-center
           platforms: linux/amd64,linux/arm64/v8
           push: true
           tags: |
