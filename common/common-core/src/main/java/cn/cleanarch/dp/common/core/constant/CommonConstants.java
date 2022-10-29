@@ -39,7 +39,7 @@ public class CommonConstants {
     /**
      * 系统标志前缀
      */
-    public final static String CACHE_PREFIX = CONFIGURATION_PREFIX +"::";
+    public final static String CACHE_PREFIX = CONFIGURATION_PREFIX +":";
 
     /**
      * 网站图标路径

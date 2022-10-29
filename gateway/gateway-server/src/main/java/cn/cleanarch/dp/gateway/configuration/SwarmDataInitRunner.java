@@ -26,7 +26,7 @@ public class SwarmDataInitRunner implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
         log.info("开始预热Redis缓存数据至本地缓存");
-        List<GatewayAccessVO> vos = redisTemplate.<String, GatewayAccessVO>opsForHash().values(CacheConstants.ACCESS_CONF_KEY);
+        List<GatewayAccessVO> vos = redisTemplate.<String, GatewayAccessVO>opsForHash().values(CacheConstants.ACCESS_KEY);
         if (CollUtil.isEmpty(vos)) {
             vos = ListUtil.empty();
         }

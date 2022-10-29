@@ -20,22 +20,22 @@ public class CacheConstants extends CommonConstants{
     /**
      * 权限缓存前缀
      */
-    public final static String LOGIN_TOKEN_KEY = CACHE_PREFIX + "login_tokens::";
+    public final static String LOGIN_TOKEN_KEY = CACHE_PREFIX + "login_token:";
 
     /**
      * 验证码缓存key
      */
-    public final static String DEFAULT_CODE_KEY = CACHE_PREFIX + "validate_code::";
+    public final static String VALIDATE_CODE_KEY = CACHE_PREFIX + "validate_code:";
 
     /**
      * 网关访问存放
      */
-    public final static String ACCESS_CONF_KEY = CACHE_PREFIX + "gateway_access_conf_key";
+    public final static String ACCESS_KEY = CACHE_PREFIX + "gateway_accessS_key";
 
     /**
      * 网关访问内存reload 时间
      */
-    public final static String ACCESS_CONF_JVM_RELOAD_TOPIC = CACHE_PREFIX + "access_conf_jvm_route_reload_topic";
+    public final static String ACCESS_JVM_RELOAD_TOPIC = CACHE_PREFIX + "access_jvm_route_reload_topic";
 
     /**
      * 路由存放
@@ -75,5 +75,5 @@ public class CacheConstants extends CommonConstants{
     /**
      * OAUTH2 token
      */
-    public static final String PROJECT_OAUTH_ACCESS = CACHE_PREFIX + "token::access_token";
+    public static final String PROJECT_OAUTH_ACCESS = CACHE_PREFIX + "token:access_token";
 }

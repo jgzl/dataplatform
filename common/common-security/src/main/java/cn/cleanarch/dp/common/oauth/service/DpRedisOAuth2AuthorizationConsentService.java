@@ -1,5 +1,6 @@
 package cn.cleanarch.dp.common.oauth.service;
 
+import cn.cleanarch.dp.common.core.constant.CacheConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsent;
@@ -39,7 +40,7 @@ public class DpRedisOAuth2AuthorizationConsentService implements OAuth2Authoriza
 	}
 
 	private static String buildKey(String registeredClientId, String principalName) {
-		return "token:consent:" + registeredClientId + ":" + principalName;
+		return CacheConstants.CACHE_PREFIX + "token:consent:" + registeredClientId + ":" + principalName;
 	}
 
 	private static String buildKey(OAuth2AuthorizationConsent authorizationConsent) {

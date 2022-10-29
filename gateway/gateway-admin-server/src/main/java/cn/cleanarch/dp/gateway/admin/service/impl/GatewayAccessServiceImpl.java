@@ -42,8 +42,8 @@ public class GatewayAccessServiceImpl extends ServiceImpl<GatewayAccessMapper, G
             boolean result = super.saveOrUpdate(item);
             GatewayAccessVO vo = GatewayAccessConfConvert.INSTANCE.convertDo2Vo(item);
             // redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(GatewayAccessConfVo.class));
-            redisTemplate.opsForHash().put(CacheConstants.ACCESS_CONF_KEY, vo.getApiKey(), vo);
-            redisTemplate.convertAndSend(CacheConstants.ACCESS_CONF_JVM_RELOAD_TOPIC, "缓存更新");
+            redisTemplate.opsForHash().put(CacheConstants.ACCESS_KEY, vo.getApiKey(), vo);
+            redisTemplate.convertAndSend(CacheConstants.ACCESS_JVM_RELOAD_TOPIC, "缓存更新");
             return result;
         } catch (Exception e) {
             log.error("更新数据发生异常", e);
@@ -63,8 +63,8 @@ public class GatewayAccessServiceImpl extends ServiceImpl<GatewayAccessMapper, G
         GatewayAccessDO item = this.getById(id);
         try {
             super.removeById(id);
-            redisTemplate.opsForHash().delete(CacheConstants.ACCESS_CONF_KEY, item.getApiKey());
-            redisTemplate.convertAndSend(CacheConstants.ACCESS_CONF_JVM_RELOAD_TOPIC, "缓存更新");
+            redisTemplate.opsForHash().delete(CacheConstants.ACCESS_KEY, item.getApiKey());
+            redisTemplate.convertAndSend(CacheConstants.ACCESS_JVM_RELOAD_TOPIC, "缓存更新");
         } catch (Exception e) {
             log.error("更新数据发生异常", e);
             throw new RuntimeException(e);
@@ -79,8 +79,8 @@ public class GatewayAccessServiceImpl extends ServiceImpl<GatewayAccessMapper, G
         try {
             boolean result = super.updateById(domain);
             // redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(GatewayAccessConfVo.class));
-            redisTemplate.opsForHash().put(CacheConstants.ACCESS_CONF_KEY, vo.getApiKey(), vo);
-            redisTemplate.convertAndSend(CacheConstants.ACCESS_CONF_JVM_RELOAD_TOPIC, "缓存更新");
+            redisTemplate.opsForHash().put(CacheConstants.ACCESS_KEY, vo.getApiKey(), vo);
+            redisTemplate.convertAndSend(CacheConstants.ACCESS_JVM_RELOAD_TOPIC, "缓存更新");
             return result;
         } catch (Exception e) {
             log.error("更新数据发生异常", e);

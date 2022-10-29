@@ -37,12 +37,12 @@ public class DynamicGatewayAccessAutoConfiguration {
             log.warn("接收到重新加载网关访问事件");
             GatewayAccessCacheHolder.removeList();
             RedisTemplate<String,Object> redisTemplate = SpringUtil.getBean(new TypeReference<RedisTemplate<String,Object>>() {});
-            List<GatewayAccessVO> values = redisTemplate.<String, GatewayAccessVO>opsForHash().values(CacheConstants.ACCESS_CONF_KEY);
+            List<GatewayAccessVO> values = redisTemplate.<String, GatewayAccessVO>opsForHash().values(CacheConstants.ACCESS_KEY);
             if (CollUtil.isEmpty(values)) {
                 values = ListUtil.empty();
             }
             GatewayAccessCacheHolder.setList(values);
-        }, new ChannelTopic(CacheConstants.ACCESS_CONF_JVM_RELOAD_TOPIC));
+        }, new ChannelTopic(CacheConstants.ACCESS_JVM_RELOAD_TOPIC));
         return container;
     }
 

@@ -1,6 +1,5 @@
 package cn.cleanarch.dp.common.websocket.registry;
 
-import cn.cleanarch.dp.common.websocket.constant.WebSocketConstant;
 import cn.cleanarch.dp.common.websocket.redis.*;
 import cn.cleanarch.dp.common.websocket.vo.SessionVO;
 import cn.hutool.core.util.IdUtil;
@@ -16,7 +15,7 @@ public abstract class BaseSessionRegistry {
     protected BaseSessionRegistry() {
     }
 
-    private static final String BROKER_ID = WebSocketConstant.REDIS_KEY+IdUtil.fastUUID();
+    private static final String BROKER_ID = IdUtil.fastUUID();
 
     public static String getBrokerId() {
         return BROKER_ID;
