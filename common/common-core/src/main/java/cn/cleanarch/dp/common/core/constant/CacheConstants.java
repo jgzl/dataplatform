@@ -30,7 +30,7 @@ public class CacheConstants extends CommonConstants{
     /**
      * 网关访问存放
      */
-    public final static String ACCESS_KEY = CACHE_PREFIX + "gateway_accessS_key";
+    public final static String ACCESS_KEY = CACHE_PREFIX + "gateway_access_key";
 
     /**
      * 网关访问内存reload 时间
