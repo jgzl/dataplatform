@@ -62,11 +62,11 @@
 
         <!-- bom依赖配置管理 -->
         <!-- 在升级springboot版本时，需要同时更改dependencies-bom和根目录的版本 -->
-        <spring-boot.version>2.7.2</spring-boot.version>
-        <spring-boot-admin.version>2.7.2</spring-boot-admin.version>
-        <spring-cloud.version>2021.0.3</spring-cloud.version>
+        <spring-boot.version>2.7.5</spring-boot.version>
+        <spring-boot-admin.version>2.7.5</spring-boot-admin.version>
+        <spring-cloud.version>2021.0.4</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
-        <spring.version>5.3.22</spring.version>
+        <spring.version>5.3.23</spring.version>
         <spring.security-oauth2.version>2.5.1.RELEASE</spring.security-oauth2.version>
     </properties>
 

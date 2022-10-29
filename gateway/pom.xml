@@ -8,8 +8,8 @@
         <version>${revision}</version>
     </parent>
     <modules>
-        <module>gateway-server</module>
-        <module>gateway-admin-server</module>
+        <module>gateway-center</module>
+        <module>gateway-admin-center</module>
     </modules>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>gateway</artifactId>

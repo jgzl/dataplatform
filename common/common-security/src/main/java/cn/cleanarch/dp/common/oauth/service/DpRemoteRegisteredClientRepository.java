@@ -9,6 +9,7 @@ import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.OAuth2TokenFormat;
@@ -28,6 +29,7 @@ import java.util.Optional;
  * @author li7hai26@outlook.com
  * @date 2022/5/29
  */
+@Slf4j
 @RequiredArgsConstructor
 public class DpRemoteRegisteredClientRepository implements RegisteredClientRepository {
 
@@ -85,7 +87,10 @@ public class DpRemoteRegisteredClientRepository implements RegisteredClientRepos
 
 		SysOauthClientDetailsDO clientDetails = RetOps
 				.of(clientDetailsService.getClientDetailsById(clientId, SecurityConstants.FROM_IN)).getData()
-				.orElseThrow(() -> new OAuthClientException("客户端查询异常，请检查数据库链接"));
+				.orElseThrow(() -> {
+					log.error("客户端查询异常，请检查数据库链接");
+					return new OAuthClientException("客户端查询异常，请检查数据库链接");
+				});
 
 		RegisteredClient.Builder builder = RegisteredClient.withId(clientDetails.getClientId())
 				.clientId(clientDetails.getClientId())

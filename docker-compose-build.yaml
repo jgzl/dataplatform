@@ -1,19 +1,24 @@
 version: '3'
 services:
-  auth-server:
+  auth-center:
     build:
-      context: ./auth-server
-    image: $IMAGE_REPO_URL/auth-server:${IMAGE_VERSION}
+      context: ./auth-center
+    image: $IMAGE_REPO_URL/auth-center:${IMAGE_VERSION}
 
-  gateway-server:
+  system-center:
     build:
-      context: ./gateway/gateway-server
-    image: $IMAGE_REPO_URL/gateway-server:${IMAGE_VERSION}
+      context: ./system-center
+    image: $IMAGE_REPO_URL/system-center:${IMAGE_VERSION}
 
-  gateway-admin-server:
+  gateway-center:
     build:
-      context: ./gateway/gateway-admin-server
-    image: $IMAGE_REPO_URL/gateway-admin-server:${IMAGE_VERSION}
+      context: ./gateway/gateway-center
+    image: $IMAGE_REPO_URL/gateway-center:${IMAGE_VERSION}
+
+  gateway-admin-center:
+    build:
+      context: ./gateway/gateway-admin-center
+    image: $IMAGE_REPO_URL/gateway-admin-center:${IMAGE_VERSION}
 
   admin-ui:
     build:

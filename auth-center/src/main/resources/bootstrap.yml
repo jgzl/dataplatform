@@ -1,0 +1,15 @@
+server:
+  port: 7100
+logging:
+  file:
+    prefix: /app/logs
+    path: ${logging.file.prefix}/${spring.application.name}
+spring:
+  profiles:
+    active: @profiles.active@
+  application:
+    name: @artifactId@
+  main:
+    allow-bean-definition-overriding: true
+  freemarker:
+    suffix: .ftl

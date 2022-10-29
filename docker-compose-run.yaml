@@ -1,29 +1,38 @@
 version: '3'
 services:
-  auth-server:
+  auth-center:
     restart: always
-    container_name: auth-server
-    image: $IMAGE_REPO_URL/auth-server:${IMAGE_VERSION}
+    container_name: auth-center
+    image: $IMAGE_REPO_URL/auth-center:${IMAGE_VERSION}
     volumes:
       - /app/logs:/app/logs
     ports:
-      - 6000:6000
+      - 7100:7100
 
-  gateway-server:
+  system-center:
     restart: always
-    container_name: gateway-server
-    image: $IMAGE_REPO_URL/gateway-server:${IMAGE_VERSION}
+    container_name: system-center
+    image: $IMAGE_REPO_URL/system-center:${IMAGE_VERSION}
+    volumes:
+      - /app/logs:/app/logs
+    ports:
+      - 7200:7200
+
+  gateway-center:
+    restart: always
+    container_name: gateway-center
+    image: $IMAGE_REPO_URL/gateway-center:${IMAGE_VERSION}
     volumes:
       - /app/logs:/app/logs
     ports:
       - 7000:7000
     depends_on:
-      - gateway-admin-server
+      - gateway-admin-center
 
-  gateway-admin-server:
+  gateway-admin-center:
     restart: always
-    container_name: gateway-admin-server
-    image: $IMAGE_REPO_URL/gateway-admin-server:${IMAGE_VERSION}
+    container_name: gateway-admin-center
+    image: $IMAGE_REPO_URL/gateway-admin-center:${IMAGE_VERSION}
     volumes:
       - /app/logs:/app/logs
     ports:
@@ -38,7 +47,7 @@ services:
     ports:
       - 80:80
     depends_on:
-      - gateway-server
+      - gateway-center
 
   monitor-center:
     restart: always

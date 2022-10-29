@@ -55,6 +55,19 @@ public class CommonConstants {
      * SpringBoot Admin Client actuator接口路径
      */
     public final static String ACTUATOR_URL = "/actuator";
+
+    /**
+     * SpringBoot Admin Client actuator接口路径
+     */
+    public final static String ACTUATOR_URL_PATTERN = ACTUATOR_URL+"/**";
+
+    /**
+     * 分页参数-当前页
+     */
     public static final String CURRENT = "current" ;
+
+    /**
+     * 分页参数-分页条数
+     */
     public static final String SIZE = "size" ;
 }

@@ -17,7 +17,7 @@ import java.util.Set;
  * @author li7hai26@outlook.com
  * @date 2019/2/1
  */
-@FeignClient(contextId = "remoteUserService", value = ServiceNameConstants.GATEWAY_ADMIN_SERVICE)
+@FeignClient(contextId = "remoteUserService", value = ServiceNameConstants.SYSTEM_SERVICE)
 public interface RemoteUserService {
 
 	/**
@@ -26,7 +26,7 @@ public interface RemoteUserService {
 	 * @param from 调用标志
 	 * @return R
 	 */
-	@GetMapping("/system/user/info/{username}")
+	@GetMapping("/user/info/{username}")
 	R<SysUserInfoDTO> info(@PathVariable("username") String username, @RequestHeader(SecurityConstants.FROM) String from);
 
 	/**
@@ -35,7 +35,7 @@ public interface RemoteUserService {
 	 * @param from 调用标志
 	 * @return R
 	 */
-	@GetMapping("/system/user/app/info/{phone}")
+	@GetMapping("/user/app/info/{phone}")
 	R<SysUserInfoDTO> infoByMobile(@PathVariable("phone") String phone, @RequestHeader(SecurityConstants.FROM) String from);
 
 	/**
@@ -44,7 +44,7 @@ public interface RemoteUserService {
 	 * @param from 调用标志
 	 * @return 用户 id 集合
 	 */
-	@GetMapping("/system/user/ids")
+	@GetMapping("/user/ids")
 	R<List<Long>> listUserIdByDeptIds(@RequestParam("deptIds") Set<Long> deptIds,
 			@RequestHeader(SecurityConstants.FROM) String from);
 

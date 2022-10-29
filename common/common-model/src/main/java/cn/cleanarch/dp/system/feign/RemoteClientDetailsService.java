@@ -34,7 +34,7 @@ import java.util.List;
  * @author li7hai26@outlook.com
  * @date 2020/12/05
  */
-@FeignClient(contextId = "remoteClientDetailsService", value = ServiceNameConstants.GATEWAY_ADMIN_SERVICE)
+@FeignClient(contextId = "remoteClientDetailsService", value = ServiceNameConstants.SYSTEM_SERVICE)
 public interface RemoteClientDetailsService {
 
 	/**

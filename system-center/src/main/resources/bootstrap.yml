@@ -1,0 +1,20 @@
+server:
+  shutdown: graceful
+  port: 7200
+logging:
+  file:
+    prefix: ~/data/logs
+    path: ${logging.file.prefix}/${spring.application.name}
+spring:
+  profiles:
+    active: @profiles.active@
+  application:
+    name: @artifactId@
+  main:
+    allow-bean-definition-overriding: true
+  security:
+    oauth2:
+      client:
+        client-id: system-center
+        client-secret: system-center
+        scope: server

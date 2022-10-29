@@ -31,6 +31,7 @@
 </template>
 
 <script>
+	import {Base64} from 'js-base64'
 	export default {
 		data() {
 			return {
@@ -76,10 +77,12 @@
 					username: this.form.userName,
 					password: this.form.password,
 					// password: this.$TOOL.crypto.MD5(this.form.password)
+					grant_type: this.$CONFIG.MY_OAUTH2_GRANT_TYPE,
+					scope: this.$CONFIG.MY_OAUTH2_SCOPE,
 				}
 
 				let header = {
-					'Authorization': 'Basic '+btoa("gateway-admin:gateway-admin"),
+					'Authorization': 'Basic '+ Base64.encode(this.$CONFIG.MY_OAUTH2_CLIENT_ID+":"+this.$CONFIG.MY_OAUTH2_CLIENT_SECRET),
 					'Content-Type': 'application/x-www-form-urlencoded',
 				}
 				//获取token

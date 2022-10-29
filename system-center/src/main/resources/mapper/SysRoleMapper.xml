@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cleanarch.dp.system.mapper.role.SysRoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.cleanarch.dp.system.dataobject.role.SysRoleDO">
+        <id column="id" property="id"/>
+        <result property="role_name" column="roleName"/>
+        <result property="role_code" column="roleCode"/>
+        <result property="role_desc" column="roleDesc"/>
+        <result property="ds_type" column="dsType"/>
+        <result property="ds_scope" column="dsScope"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+        <result property="version" column="version"/>
+    </resultMap>
+
+	<!-- 通过用户ID，查询角色信息-->
+	<select id="listRolesByUserId" resultMap="BaseResultMap">
+        SELECT
+            r.*
+        FROM
+        sys_role r, sys_user_role ur WHERE r.id = ur.role_id AND r.deleted = '0' and ur.deleted = '0' and  ur.user_id IN (#{userId})
+    </select>
+</mapper>

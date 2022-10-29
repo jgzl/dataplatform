@@ -1,6 +1,6 @@
 export const test = '/test'
 
-export const login = '/auth/oauth2/token?grant_type=password&scope=server'
+export const login = '/auth/oauth2/token'
 
 export const checkToken = '/auth/token/check_token'
 
@@ -32,35 +32,35 @@ export const getCommentList = '/getCommentList'
 
 // 系统管理
 // 系统管理-菜单树形根据用户
-export const systemMenuTreeByUser = '/gateway-admin/system/menu/tree/user'
+export const systemMenuTreeByUser = '/system/menu/tree/user'
 // 系统管理-菜单树形根据角色
-export const systemMenuTreeByRole = '/gateway-admin/system/menu/tree/role'
+export const systemMenuTreeByRole = '/system/menu/tree/role'
 // 系统管理-菜单树形
-export const systemMenuTree = '/gateway-admin/system/menu/tree'
+export const systemMenuTree = '/system/menu/tree'
 // 系统管理-菜单列表根据角色
-export const systemMenuList = '/gateway-admin/system/menu/list'
+export const systemMenuList = '/system/menu/list'
 // 系统管理-菜单增删改
-export const systemMenu = '/gateway-admin/system/menu'
+export const systemMenu = '/system/menu'
 // 系统管理-部门树形
-export const systemDeptTree = '/gateway-admin/system/dept/tree'
+export const systemDeptTree = '/system/dept/tree'
 // 系统管理-部门增删改
-export const systemDept = '/gateway-admin/system/dept'
+export const systemDept = '/system/dept'
 // 系统管理-角色增删改
-export const systemRole = '/gateway-admin/system/role'
+export const systemRole = '/system/role'
 // 系统管理-根据角色更新菜单
-export const systemRoleMenu = '/gateway-admin/system/role/menu'
+export const systemRoleMenu = '/system/role/menu'
 // 系统管理-角色列表查询
-export const systemRoleList = '/gateway-admin/system/role/list'
+export const systemRoleList = '/system/role/list'
 // 系统管理-角色分页列表查询
-export const systemRolePage = '/gateway-admin/system/role/page'
+export const systemRolePage = '/system/role/page'
 // 系统管理-用户列表查询
-export const systemUserList = '/gateway-admin/system/user/list'
+export const systemUserList = '/system/user/list'
 // 系统管理-用户分页列表查询
-export const systemUserPage = '/gateway-admin/system/user/page'
+export const systemUserPage = '/system/user/page'
 // 系统管理-用户增删改
-export const systemUser = '/gateway-admin/system/user'
+export const systemUser = '/system/user'
 // 系统管理-用户禁用启用
-export const systemUserForLockFlag = '/gateway-admin/system/user/lockFlag'
+export const systemUserForLockFlag = '/system/user/lockFlag'
 
 // 网关管理
 // 网关管理-日志搜索

@@ -13,12 +13,14 @@
     <description>${project.name}</description>
 
     <modules>
-        <module>auth-server</module>
+        <module>auth-center</module>
         <module>common</module>
         <module>dependencies-bom</module>
         <module>gateway</module>
-        <module>optional</module>
+        <module>message-center</module>
+        <module>monitor-center</module>
         <module>spi</module>
+        <module>system-center</module>
     </modules>
 
     <properties>
@@ -38,7 +40,7 @@
         <lombok.version>1.18.24</lombok.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <!-- 在升级springboot版本时，需要同时更改dependencies-bom和根目录的版本 -->
-        <spring-boot.version>2.7.2</spring-boot.version>
+        <spring-boot.version>2.7.5</spring-boot.version>
     </properties>
 
     <dependencies>

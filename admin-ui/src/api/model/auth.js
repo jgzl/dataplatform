@@ -3,7 +3,7 @@ import http from "@/utils/request"
 
 export default {
 	login: {
-		url: `${config.API_URL}/auth/oauth2/token?grant_type=password&scope=server`,
+		url: `${config.API_URL}/auth/oauth2/token`,
 		name: "登录",
 		post: async function(data={},headers={}){
 			let config = {}

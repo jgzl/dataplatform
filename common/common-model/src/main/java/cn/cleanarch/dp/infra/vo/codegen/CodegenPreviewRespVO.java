@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class CodegenPreviewRespVO {
 
-    @ApiModelProperty(value = "文件路径", required = true, example = "java/cn/iocoder/yudao/adminserver/modules/system/controller/test/SysTestDemoController.java")
+    @ApiModelProperty(value = "文件路径", required = true, example = "java/cn/iocoder/yudao/adminserver/modules/controller/test/SysTestDemoController.java")
     private String filePath;
 
     @ApiModelProperty(value = "代码", required = true, example = "Hello World")

@@ -44,12 +44,12 @@ jobs:
       - name: Build and push 认证授权服务
         uses: docker/build-push-action@v3
         with:
-          context: auth-server
+          context: auth-center
           platforms: linux/amd64,linux/arm64/v8
           push: true
           tags: |
-            dlhf/auth-server:latest
-            ghcr.io/jgzl/auth-server:latest
+            dlhf/auth-center:latest
+            ghcr.io/jgzl/auth-center:latest
       - name: Build and push 网关管理服务前端
         uses: docker/build-push-action@v3
         with:
@@ -62,21 +62,21 @@ jobs:
       - name: Build and push 网关管理服务后端
         uses: docker/build-push-action@v3
         with:
-          context: gateway/gateway-admin-server
+          context: gateway/gateway-admin-center
           platforms: linux/amd64,linux/arm64/v8
           push: true
           tags: |
-            dlhf/gateway-admin-server:latest
-            ghcr.io/jgzl/gateway-admin-server:latest
+            dlhf/gateway-admin-center:latest
+            ghcr.io/jgzl/gateway-admin-center:latest
       - name: Build and push 网关核心服务
         uses: docker/build-push-action@v3
         with:
-          context: gateway/gateway-server
+          context: gateway/gateway-center
           platforms: linux/amd64,linux/arm64/v8
           push: true
           tags: |
-            dlhf/gateway-server:latest
-            ghcr.io/jgzl/gateway-server:latest
+            dlhf/gateway-center:latest
+            ghcr.io/jgzl/gateway-center:latest
       - name: Build and push 消息中心服务
         uses: docker/build-push-action@v3
         with:

@@ -2,9 +2,9 @@ filebeat.inputs:
   - type: log
     enabled: true
     paths:
-      - /app/logs/gateway-server/gateway.log
+      - /app/logs/gateway-center/gateway.log
     fields:
-      source: gateway-server
+      source: gateway-center
     json.keys_under_root: true
     json.add_error_key: true
 
@@ -37,9 +37,9 @@ output.elasticsearch:
   password: '${ELASTICSEARCH_PASSWORD:}'
   index: "gw-%{[fields.source]}-*"
   indices:
-    - index: "gw-gateway-server-%{+yyyy.MM.dd}"
+    - index: "gw-gateway-center-%{+yyyy.MM.dd}"
       when.equals:
-        fields.source: "gateway-server"
+        fields.source: "gateway-center"
     - index: "gw-nginx-access-%{+yyyy.MM.dd}"
       when.equals:
         fields.source: "nginx-access"

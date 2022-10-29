@@ -136,6 +136,7 @@ import useUserStore from '@/store/modules/user'
 import useAppConfigStore from '@/store/modules/app-config'
 import {FORM_URLENCODED} from '@/api/axios.config'
 import {Base64} from 'js-base64'
+import {OAUTH2_CLIENT_GRANT_TYPE, OAUTH2_CLIENT_ID, OAUTH2_CLIENT_SCOPE, OAUTH2_CLIENT_SECRET} from "@/setting";
 
 export default defineComponent({
     name: 'Login',
@@ -174,7 +175,7 @@ export default defineComponent({
       const onLogin = () => {
         loading.value = true
         const headers = {
-          Authorization: 'Basic ' + Base64.encode('gateway-admin:gateway-admin'),
+          'Authorization': 'Basic ' + Base64.encode(`${OAUTH2_CLIENT_ID}:${OAUTH2_CLIENT_SECRET}`),
           'Content-Type': FORM_URLENCODED,
         }
         post({
@@ -182,6 +183,8 @@ export default defineComponent({
           data: {
             username: username.value,
             password: password.value,
+            grant_type: OAUTH2_CLIENT_GRANT_TYPE,
+            scope: OAUTH2_CLIENT_SCOPE,
           },
           headers: headers,
         })

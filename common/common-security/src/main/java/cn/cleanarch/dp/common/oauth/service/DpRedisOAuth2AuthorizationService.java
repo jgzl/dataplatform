@@ -116,7 +116,7 @@ public class DpRedisOAuth2AuthorizationService implements OAuth2AuthorizationSer
 	}
 
 	private String buildKey(String type, String id) {
-		return String.format("%s::%s::%s", AUTHORIZATION, type, id);
+		return String.format("%s:%s:%s", AUTHORIZATION, type, id);
 	}
 
 	private static boolean isState(OAuth2Authorization authorization) {
