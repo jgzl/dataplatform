@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @author li7hai26@outlook.com
- * @date 2018年06月21日 认证授权中心
+ * @date 2018年06月21日 认证中心
  */
 @EnableFeignClients
 @EnableDiscoveryClient
