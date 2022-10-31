@@ -8,6 +8,7 @@
         <version>${revision}</version>
     </parent>
     <modules>
+        <module>common-bom</module>
         <module>common-core</module>
         <module>common-data</module>
         <module>common-database</module>
