@@ -2,11 +2,11 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: nacos.cleanarch.cn:8848
-        namespace: gw-prod
+        server-addr: nacos.oracle.cleanarch.cn:80
+        namespace: dp-prod
       config:
-        server-addr: nacos.cleanarch.cn:8848
-        namespace: gw-prod
+        server-addr: nacos.oracle.cleanarch.cn:80
+        namespace: dp-prod
         file-extension: yml
         shared-configs:
           - application.${spring.cloud.nacos.config.file-extension}

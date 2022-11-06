@@ -2,11 +2,11 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: nacos.cleanarch.cn:8848
-        namespace: gw-test
+        server-addr: nacos.oracle.cleanarch.cn:80
+        namespace: dp-test
       config:
-        server-addr: nacos.cleanarch.cn:8848
-        namespace: gw-test
+        server-addr: nacos.oracle.cleanarch.cn:80
+        namespace: dp-test
         file-extension: yml
         shared-configs:
           - application.${spring.cloud.nacos.config.file-extension}

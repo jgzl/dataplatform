@@ -34,7 +34,7 @@ public class CommonConstants {
     /**
      * 系统标志前缀
      */
-    public final static String CONFIGURATION_PREFIX = "infra";
+    public final static String CONFIGURATION_PREFIX = "dp";
 
     /**
      * 系统标志前缀

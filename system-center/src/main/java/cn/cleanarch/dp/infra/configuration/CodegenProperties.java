@@ -17,7 +17,7 @@ public class CodegenProperties {
      * 生成的 Java 代码的基础包
      */
     @NotNull(message = "Java 代码的基础包不能为空")
-    private String basePackage = "cn.cleanarch.dp.gateway.infra";
+    private String basePackage = "cn.cleanarch.dp.system";
 
     /**
      * 数据库名数组
