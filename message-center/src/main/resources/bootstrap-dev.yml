@@ -2,10 +2,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: nacos.oracle.cleanarch.cn:80
+        server-addr: nacos.cleanarch.cn:8848
         namespace: gw-dev
       config:
-        server-addr: nacos.oracle.cleanarch.cn:80
+        server-addr: nacos.cleanarch.cn:8848
         namespace: gw-dev
         file-extension: yml
         shared-configs:

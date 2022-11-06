@@ -25,7 +25,7 @@ public class GatewayRequestLogApplicationListener implements ApplicationListener
 
     @Override
     public void onApplicationEvent(GatewayRequestLogApplicationEvent event) {
-        GatewayLogDO gatewayLog = event.getGatewayLog();
+         GatewayLogDO gatewayLog = event.getGatewayLog();
         log.info("开始日志入库");
         RecordLogService recordLogService;
         if (gatewayProperties.getLogType()==null) {
