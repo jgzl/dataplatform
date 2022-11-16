@@ -13,8 +13,9 @@
     <description>${project.name}</description>
     <properties>
         <spring-cloud.version>2021.0.0</spring-cloud.version>
-        <magic.version>2.0.1</magic.version>
+        <magic.version>2.0.2</magic.version>
         <grpc.version>1.37.0</grpc.version>
+        <grpc-spring-boot-starter.version>2.12.0.RELEASE</grpc-spring-boot-starter.version>
     </properties>
     <dependencies>
         <dependency>
@@ -46,30 +47,26 @@
             <artifactId>hutool-all</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.ssssssss</groupId>-->
-<!--            <artifactId>magic-api-spring-boot-starter</artifactId>-->
-<!--            <version>${magic.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.ssssssss</groupId>
+            <artifactId>magic-api-spring-boot-starter</artifactId>
+            <version>${magic.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ssssssss</groupId>
+            <artifactId>magic-api-plugin-cluster</artifactId>
+            <version>${magic.version}</version>
+        </dependency>
         <dependency>
             <groupId>net.devh</groupId>
             <artifactId>grpc-spring-boot-starter</artifactId>
-            <version>2.12.0.RELEASE</version>
-        </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.ssssssss</groupId>-->
-<!--            <artifactId>magic-api-plugin-cluster</artifactId>-->
-<!--            <version>${magic.version}</version>-->
-<!--        </dependency>-->
-        <dependency>
-            <groupId>com.aspose</groupId>
-            <artifactId>aspose-words</artifactId>
-            <version>20.3</version>
+            <version>${grpc-spring-boot-starter.version}</version>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
+
         <dependency>
             <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-data</artifactId>

@@ -24,28 +24,17 @@ import cn.cleanarch.dp.tool.mapper.MetadataColumnMapper;
 import cn.cleanarch.dp.tool.mapper.MetadataSourceMapper;
 import cn.cleanarch.dp.tool.mapper.MetadataTableMapper;
 import cn.cleanarch.dp.tool.service.MetadataSourceService;
-import cn.cleanarch.dp.tool.util.WordUtil;
-import cn.hutool.core.util.StrUtil;
-import com.aspose.words.Document;
-import com.aspose.words.MailMerge;
-import com.aspose.words.net.System.Data.DataRelation;
-import com.aspose.words.net.System.Data.DataRow;
-import com.aspose.words.net.System.Data.DataSet;
-import com.aspose.words.net.System.Data.DataTable;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -201,85 +190,6 @@ public class MetadataSourceServiceImpl extends ServiceImpl<MetadataSourceMapper,
         metadataSourceMapper.updateById(metadataSourceEntity);
         // 异步执行同步任务
         asyncTask.doTask(metadataSourceEntity);
-    }
-
-    @Override
-    public Document wordMetadata(String id) throws Exception {
-        MetadataSourceEntity metadataSourceEntity = super.getById(id);
-        DbSchema dbSchema = metadataSourceEntity.getDbSchema();
-        String dbName = dbSchema.getDbName();
-        if (StrUtil.isBlank(dbName)) {
-            dbName = dbSchema.getUsername();
-        }
-        QueryWrapper<MetadataTableEntity> tableQueryWrapper = new QueryWrapper<>();
-        tableQueryWrapper.eq("source_id", id);
-        List<MetadataTableEntity> tableEntityList = metadataTableDao.selectList(tableQueryWrapper);
-        // 数据表（主表） TableStart:TableList TableEnd:TableList
-        DataTable tableTable = new DataTable("TableList");
-        tableTable.getColumns().add("id");
-        tableTable.getColumns().add("tableName");
-        tableTable.getColumns().add("tableComment");
-        for (int i = 0; i < tableEntityList.size(); i++) {
-            DataRow row = tableTable.newRow();
-            MetadataTableEntity table = tableEntityList.get(i);
-            row.set(0, table.getId());
-            row.set(1, table.getTableName());
-            row.set(2, table.getTableComment());
-            tableTable.getRows().add(row);
-        }
-        QueryWrapper<MetadataColumnEntity> columnQueryWrapper = new QueryWrapper<>();
-        columnQueryWrapper.eq("source_id", id);
-        columnQueryWrapper.orderByAsc("column_position");
-        List<MetadataColumnEntity> columnEntityList = metadataColumnMapper.selectList(columnQueryWrapper);
-        // 元数据（子表） TableStart:ColumnList TableEnd:ColumnList
-        DataTable columnTable = new DataTable("ColumnList");
-        columnTable.getColumns().add("id");
-        columnTable.getColumns().add("tid");
-        columnTable.getColumns().add("columnPosition");
-        columnTable.getColumns().add("columnName");
-        columnTable.getColumns().add("dataType");
-        columnTable.getColumns().add("dataLength");
-        columnTable.getColumns().add("dataPrecision");
-        columnTable.getColumns().add("dataScale");
-        columnTable.getColumns().add("columnNullable");
-        columnTable.getColumns().add("columnKey");
-        columnTable.getColumns().add("dataDefault");
-        columnTable.getColumns().add("columnComment");
-        for (int i = 0; i < columnEntityList.size(); i++) {
-            DataRow row = columnTable.newRow();
-            MetadataColumnEntity column = columnEntityList.get(i);
-            row.set(0, column.getId());
-            row.set(1, column.getTableId());
-            row.set(2, column.getColumnPosition());
-            row.set(3, column.getColumnName());
-            row.set(4, column.getDataType());
-            row.set(5, column.getDataLength());
-            row.set(6, column.getDataPrecision());
-            row.set(7, column.getDataScale());
-            row.set(8, "1".equals(column.getColumnNullable()) ? "Y" : "N");
-            row.set(9, "1".equals(column.getColumnKey()) ? "Y" : "N");
-            row.set(10, column.getDataDefault());
-            row.set(11, column.getColumnComment());
-            columnTable.getRows().add(row);
-        }
-        // 提供数据源
-        DataSet dataSet = new DataSet();
-        dataSet.getTables().add(tableTable);
-        dataSet.getTables().add(columnTable);
-        DataRelation dataRelation = new DataRelation("TableColumnRelation", tableTable.getColumns().get("id"), columnTable.getColumns().get("tid"));
-        dataSet.getRelations().add(dataRelation);
-        // 合并模版
-        ClassPathResource classPathResource = new ClassPathResource("templates/metadata_1.0.0.doc");
-        InputStream inputStream = classPathResource.getInputStream();
-        Document doc = WordUtil.getInstance().getDocument(inputStream);
-        // 提供数据源
-        String[] fieldNames = new String[] {"database"};
-        Object[] fieldValues = new Object[] {dbName.toUpperCase()};
-        MailMerge mailMerge = doc.getMailMerge();
-        mailMerge.execute(fieldNames, fieldValues);
-        mailMerge.executeWithRegions(dataSet);
-        WordUtil.getInstance().insertWatermarkText(doc, AppContextHolder.getUser().getUsername());
-        return doc;
     }
 
     @Override

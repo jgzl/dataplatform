@@ -21,6 +21,7 @@
         <module>monitor-center</module>
         <module>spi</module>
         <module>system-center</module>
+        <module>tool-center</module>
     </modules>
 
     <properties>

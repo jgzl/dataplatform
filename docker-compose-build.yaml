@@ -27,15 +27,15 @@ services:
 
   monitor-center:
     build:
-      context: ./optional/monitor-center
+      context: ./monitor-center
     image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
 
   message-center:
     build:
-      context: ./optional/message-center
+      context: ./message-center
     image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
-#
-#  tool-center:
-#    build:
-#      context: ./optional/tool-center
-#    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
+
+  tool-center:
+    build:
+      context: ./tool-center
+    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}

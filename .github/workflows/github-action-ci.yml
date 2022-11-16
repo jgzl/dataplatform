@@ -95,6 +95,15 @@ jobs:
           tags: |
             dlhf/message-center:latest
             ghcr.io/jgzl/message-center:latest
+      - name: Build and push 工具中心服务
+        uses: docker/build-push-action@v3
+        with:
+          context: tool-center
+          platforms: linux/amd64,linux/arm64/v8
+          push: true
+          tags: |
+            dlhf/tool-center:latest
+            ghcr.io/jgzl/tool-center:latest
       - name: Build and push 监控中心服务
         uses: docker/build-push-action@v3
         with:

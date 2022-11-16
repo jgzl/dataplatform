@@ -66,10 +66,10 @@ services:
       - /app/logs:/app/logs
     ports:
       - 9001:9001
-#
-#  tool-center:
-#    restart: always
-#    container_name: tool-center
-#    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
-#    ports:
-#      - 9003:9003
+
+  tool-center:
+    restart: always
+    container_name: tool-center
+    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
+    ports:
+      - 9003:9003
