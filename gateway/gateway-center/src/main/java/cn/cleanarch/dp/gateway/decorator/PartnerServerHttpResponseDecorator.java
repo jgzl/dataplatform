@@ -1,7 +1,6 @@
 package cn.cleanarch.dp.gateway.decorator;
 
 import cn.cleanarch.dp.gateway.domain.GatewayLogDO;
-import cn.cleanarch.dp.gateway.common.WebEnum;
 import cn.cleanarch.dp.gateway.util.LogUtils;
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
@@ -18,8 +17,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
-
-import static reactor.core.scheduler.Schedulers.single;
 
 /**
  * @author li7hai26@gmail.com
@@ -57,12 +54,10 @@ public class PartnerServerHttpResponseDecorator extends ServerHttpResponseDecora
         if (LogUtils.legalLogMediaTypes.contains(contentType)) {
             if (body instanceof Mono) {
                 final Mono<DataBuffer> monoBody = (Mono<DataBuffer>) body;
-                return super.writeWith(monoBody.publishOn(single())
-                        .map(dataBuffer -> LogUtils.logging(gatewayLog, dataBuffer, WebEnum.RESPONSE)));
+                return super.writeWith(monoBody.map(dataBuffer -> LogUtils.logging(gatewayLog, dataBuffer)));
             } else if (body instanceof Flux) {
                 final Flux<DataBuffer> monoBody = (Flux<DataBuffer>) body;
-                return super.writeWith(monoBody.publishOn(single())
-                        .map(dataBuffer -> LogUtils.logging(gatewayLog, dataBuffer, WebEnum.RESPONSE)));
+                return super.writeWith(monoBody.buffer().map(dataBuffers -> LogUtils.logging(gatewayLog, dataBuffers)));
             }
         } else {
             if (log.isDebugEnabled()) {

@@ -1,9 +1,7 @@
 package cn.cleanarch.dp.gateway.util;
 
-import cn.cleanarch.dp.gateway.common.WebEnum;
 import cn.cleanarch.dp.gateway.domain.GatewayLogDO;
 import cn.cleanarch.dp.gateway.listener.GatewayRequestLogApplicationEvent;
-import cn.hutool.core.io.IoUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import io.netty.buffer.UnpooledByteBufAllocator;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +10,7 @@ import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.core.io.buffer.NettyDataBufferFactory;
 import org.springframework.http.MediaType;
 
-import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,31 +37,46 @@ public class LogUtils {
      *
      * @param gatewayLog
      * @param buffer
-     * @param webEnum
      * @param <T>
      * @return
      */
     @SuppressWarnings("unchecked")
-    public static <T extends DataBuffer> T logging(GatewayLogDO gatewayLog, T buffer, WebEnum webEnum) {
+    public static <T extends DataBuffer> T logging(GatewayLogDO gatewayLog, T buffer) {
         GatewayRequestLogApplicationEvent event = new GatewayRequestLogApplicationEvent(gatewayLog.getId(), gatewayLog);
-        InputStream dataBuffer = buffer.asInputStream();
-        byte[] bytes = IoUtil.readBytes(dataBuffer);
-        NettyDataBufferFactory nettyDataBufferFactory = new NettyDataBufferFactory(new UnpooledByteBufAllocator(false));
-        String body = new String(bytes);
-        switch (webEnum) {
-            case REQUEST:
-                gatewayLog.setRequestBody(body);
-                break;
-            case RESPONSE:
-                gatewayLog.setResponseBody(body);
-                SpringUtil.publishEvent(event);
-                break;
-            default:
-                log.error("非法参数类型,不记录数据体");
-        }
+//        DataBufferFactory dataBufferFactory = new DefaultDataBufferFactory();
+        NettyDataBufferFactory dataBufferFactory = new NettyDataBufferFactory(new UnpooledByteBufAllocator(false));
+        byte[] content = new byte[buffer.readableByteCount()];
+        String body = new String(content);
+        gatewayLog.setResponseBody(body);
+        SpringUtil.publishEvent(event);
 
         DataBufferUtils.release(buffer);
-        return (T) nettyDataBufferFactory.wrap(bytes);
+        return (T) dataBufferFactory.wrap(content);
+    }
+
+    /**
+     * 记录xml/json格式请求返回日志数据-有body
+     *
+     * @param gatewayLog
+     * @param dataBuffers
+     * @param <T>
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public static <T extends DataBuffer> T logging(GatewayLogDO gatewayLog, List<T> dataBuffers) {
+        GatewayRequestLogApplicationEvent event = new GatewayRequestLogApplicationEvent(gatewayLog.getId(), gatewayLog);
+//        DataBufferFactory dataBufferFactory = new DefaultDataBufferFactory();
+        NettyDataBufferFactory dataBufferFactory = new NettyDataBufferFactory(new UnpooledByteBufAllocator(false));
+        DataBuffer join = dataBufferFactory.join(dataBuffers);
+        byte[] content = new byte[join.readableByteCount()];
+        join.read(content);
+
+        // 释放掉内存
+        DataBufferUtils.release(join);
+        String responseBody = new String(content, StandardCharsets.UTF_8);
+        gatewayLog.setResponseBody(responseBody);
+        SpringUtil.publishEvent(event);
+        return (T) dataBufferFactory.wrap(content);
     }
 
     /**
