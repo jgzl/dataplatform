@@ -46,11 +46,13 @@ public class LogUtils {
 //        DataBufferFactory dataBufferFactory = new DefaultDataBufferFactory();
         NettyDataBufferFactory dataBufferFactory = new NettyDataBufferFactory(new UnpooledByteBufAllocator(false));
         byte[] content = new byte[buffer.readableByteCount()];
-        String body = new String(content);
-        gatewayLog.setResponseBody(body);
-        SpringUtil.publishEvent(event);
+        buffer.read(content);
 
+        // 释放掉内存
         DataBufferUtils.release(buffer);
+        String responseBody = new String(content, StandardCharsets.UTF_8);
+        gatewayLog.setResponseBody(responseBody);
+        SpringUtil.publishEvent(event);
         return (T) dataBufferFactory.wrap(content);
     }
 
@@ -67,12 +69,12 @@ public class LogUtils {
         GatewayRequestLogApplicationEvent event = new GatewayRequestLogApplicationEvent(gatewayLog.getId(), gatewayLog);
 //        DataBufferFactory dataBufferFactory = new DefaultDataBufferFactory();
         NettyDataBufferFactory dataBufferFactory = new NettyDataBufferFactory(new UnpooledByteBufAllocator(false));
-        DataBuffer join = dataBufferFactory.join(dataBuffers);
-        byte[] content = new byte[join.readableByteCount()];
-        join.read(content);
+        DataBuffer buffer = dataBufferFactory.join(dataBuffers);
+        byte[] content = new byte[buffer.readableByteCount()];
+        buffer.read(content);
 
         // 释放掉内存
-        DataBufferUtils.release(join);
+        DataBufferUtils.release(buffer);
         String responseBody = new String(content, StandardCharsets.UTF_8);
         gatewayLog.setResponseBody(responseBody);
         SpringUtil.publishEvent(event);
