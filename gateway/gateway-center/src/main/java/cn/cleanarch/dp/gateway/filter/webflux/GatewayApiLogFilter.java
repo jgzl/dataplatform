@@ -6,7 +6,6 @@ import cn.cleanarch.dp.common.core.utils.WebfluxUtil;
 import cn.cleanarch.dp.gateway.configuration.properties.GatewayProperties;
 import cn.cleanarch.dp.gateway.decorator.PayloadServerWebExchangeDecorator;
 import cn.cleanarch.dp.gateway.domain.GatewayLogDO;
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -18,7 +17,6 @@ import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -33,8 +31,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class GatewayApiLogFilter extends AbstractGatewayApiFilter {
 
     public static final String FILTER_NAME = "gatewayApiLogFilter";
-
-    private static final String GATEWAY_START_LOG_TIME = GatewayApiLogFilter.class.getName() + ".GATEWAY_START_LOG_TIME";
 
     private static final ConcurrentHashMap<String,Boolean> cachePathFilterMap = new ConcurrentHashMap<>();
 
@@ -70,7 +66,6 @@ public class GatewayApiLogFilter extends AbstractGatewayApiFilter {
         String query = uri.getQuery();
         String pathAndQuery = StrUtil.isBlank(query) ? rawPath : rawPath + "?" + query;
         HttpHeaders httpHeaders = request.getHeaders();
-        String fastUUID = IdUtil.fastUUID();
         String methodValue = Optional.ofNullable(request.getMethod()).orElse(HttpMethod.GET).name();
         String jsonHeader = JacksonUtil.toJsonString(httpHeaders);
 
@@ -84,7 +79,6 @@ public class GatewayApiLogFilter extends AbstractGatewayApiFilter {
         String system = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_SYSTEM);
 
         GatewayLogDO gatewayLog = new GatewayLogDO();
-        gatewayLog.setId(fastUUID);
         gatewayLog.setRequestHeader(jsonHeader);
         gatewayLog.setRequestPath(rawPath);
         gatewayLog.setRequestPathAndQuery(pathAndQuery);
@@ -95,20 +89,5 @@ public class GatewayApiLogFilter extends AbstractGatewayApiFilter {
         gatewayLog.setApiSecret(apiSecret);
         gatewayLog.setSourceService(system);
         return chain.filter(new PayloadServerWebExchangeDecorator(exchange, gatewayLog));
-    }
-
-    @Override
-    public Mono<Void> disMatch(ServerWebExchange exchange, WebFilterChain chain) {
-        /**
-         * 不记录日志信息
-         */
-        exchange.getAttributes().put(GATEWAY_START_LOG_TIME, Instant.now().toEpochMilli());
-        return chain.filter(exchange).then(
-                Mono.fromRunnable(() -> {
-                    long startTime = exchange.getAttribute(GATEWAY_START_LOG_TIME);
-                    long endTime = (Instant.now().toEpochMilli() - startTime);
-                    log.info("结束访问[{}],共消耗时间为:{}ms", exchange.getRequest().getURI().getRawPath(), endTime);
-                })
-        );
     }
 }
