@@ -30,7 +30,7 @@ public class LogUtils {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public static <T extends DataBuffer> T logging(GatewayLogDO gatewayLog, T buffer) {
+    public static <T extends DataBuffer> T loggingResponse(GatewayLogDO gatewayLog, T buffer) {
         GatewayRequestLogApplicationEvent event = new GatewayRequestLogApplicationEvent(gatewayLog.getId(), gatewayLog);
 //        DataBufferFactory dataBufferFactory = new DefaultDataBufferFactory();
         NettyDataBufferFactory dataBufferFactory = new NettyDataBufferFactory(new UnpooledByteBufAllocator(false));
@@ -54,7 +54,7 @@ public class LogUtils {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public static <T extends DataBuffer> T logging(GatewayLogDO gatewayLog, List<T> dataBuffers) {
+    public static <T extends DataBuffer> T loggingResponse(GatewayLogDO gatewayLog, List<T> dataBuffers) {
         GatewayRequestLogApplicationEvent event = new GatewayRequestLogApplicationEvent(gatewayLog.getId(), gatewayLog);
 //        DataBufferFactory dataBufferFactory = new DefaultDataBufferFactory();
         NettyDataBufferFactory dataBufferFactory = new NettyDataBufferFactory(new UnpooledByteBufAllocator(false));
@@ -75,7 +75,7 @@ public class LogUtils {
      *
      * @param gatewayLog
      */
-    public static void logging(GatewayLogDO gatewayLog) {
+    public static void loggingResponse(GatewayLogDO gatewayLog) {
         GatewayRequestLogApplicationEvent event = new GatewayRequestLogApplicationEvent(gatewayLog.getId(), gatewayLog);
         SpringUtil.publishEvent(event);
     }

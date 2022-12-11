@@ -55,16 +55,16 @@ public class PartnerServerHttpResponseDecorator extends ServerHttpResponseDecora
         if (ContentTypeUtils.validText(contentType)) {
             if (body instanceof Mono) {
                 final Mono<DataBuffer> monoBody = (Mono<DataBuffer>) body;
-                return super.writeWith(monoBody.map(dataBuffer -> LogUtils.logging(gatewayLog, dataBuffer)));
+                return super.writeWith(monoBody.map(dataBuffer -> LogUtils.loggingResponse(gatewayLog, dataBuffer)));
             } else if (body instanceof Flux) {
                 final Flux<DataBuffer> monoBody = (Flux<DataBuffer>) body;
-                return super.writeWith(monoBody.buffer().map(dataBuffers -> LogUtils.logging(gatewayLog, dataBuffers)));
+                return super.writeWith(monoBody.buffer().map(dataBuffers -> LogUtils.loggingResponse(gatewayLog, dataBuffers)));
             }
         } else {
             if (log.isDebugEnabled()) {
                 log.debug("网关只记录非xml,json格式的请求内容,当前请求的Content-Type为{}", contentType);
             }
-            LogUtils.logging(gatewayLog);
+            LogUtils.loggingResponse(gatewayLog);
         }
         log.info("结束访问[{}],合计共消耗时间为:{}ms", gatewayLog.getRequestPath(), gatewayLog.getExecuteTime());
         return super.writeWith(body);
