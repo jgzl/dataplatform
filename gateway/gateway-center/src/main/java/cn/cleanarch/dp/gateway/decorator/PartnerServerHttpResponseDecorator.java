@@ -1,6 +1,7 @@
 package cn.cleanarch.dp.gateway.decorator;
 
 import cn.cleanarch.dp.gateway.domain.GatewayLogDO;
+import cn.cleanarch.dp.gateway.util.ContentTypeUtils;
 import cn.cleanarch.dp.gateway.util.LogUtils;
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
@@ -51,7 +52,7 @@ public class PartnerServerHttpResponseDecorator extends ServerHttpResponseDecora
         gatewayLog.setResponseTime(updateTime);
         gatewayLog.setHttpStatus(response.getStatusCode() != null ? response.getStatusCode().value() + "" : null);
         final MediaType contentType = super.getHeaders().getContentType();
-        if (LogUtils.legalLogMediaTypes.contains(contentType)) {
+        if (ContentTypeUtils.validText(contentType)) {
             if (body instanceof Mono) {
                 final Mono<DataBuffer> monoBody = (Mono<DataBuffer>) body;
                 return super.writeWith(monoBody.map(dataBuffer -> LogUtils.logging(gatewayLog, dataBuffer)));

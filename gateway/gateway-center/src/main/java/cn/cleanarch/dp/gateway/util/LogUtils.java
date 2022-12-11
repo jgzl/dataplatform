@@ -8,10 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.core.io.buffer.NettyDataBufferFactory;
-import org.springframework.http.MediaType;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -22,15 +20,6 @@ import java.util.List;
  */
 @Slf4j
 public class LogUtils {
-
-    public static final List<MediaType> legalLogMediaTypes = Arrays.asList(
-            MediaType.TEXT_XML,
-            MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_JSON,
-            MediaType.APPLICATION_JSON_UTF8,
-            MediaType.TEXT_PLAIN,
-            MediaType.TEXT_XML,
-            MediaType.MULTIPART_FORM_DATA);
 
     /**
      * 记录xml/json格式请求返回日志数据-有body

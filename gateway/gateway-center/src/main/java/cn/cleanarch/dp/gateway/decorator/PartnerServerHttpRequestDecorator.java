@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.gateway.decorator;
 
 import cn.cleanarch.dp.gateway.domain.GatewayLogDO;
-import cn.cleanarch.dp.gateway.util.LogUtils;
+import cn.cleanarch.dp.gateway.util.ContentTypeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -18,7 +18,7 @@ public class PartnerServerHttpRequestDecorator extends ServerHttpRequestDecorato
     PartnerServerHttpRequestDecorator(ServerWebExchange exchange,ServerHttpRequest request, GatewayLogDO gatewayLog) {
         super(request);
         final MediaType contentType = request.getHeaders().getContentType();
-        if (contentType == null || LogUtils.legalLogMediaTypes.contains(contentType)) {
+        if (contentType == null || ContentTypeUtils.validText(contentType)) {
             Object bodyObject = exchange.getAttribute("cachedRequestBodyObject");
             if (bodyObject !=null) {
                 String body = String.valueOf(bodyObject);

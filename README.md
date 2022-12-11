@@ -84,3 +84,18 @@ zerotier-cli join 83048a0632ecb930
 使用smart-doc + torna来管理接口文档
 
 ~~torna地址 http://192.168.192.3:7700,账号密码自行注册~~
+
+## APM(Skywalking)
+JVM参数中需要加入如下
+```
+-javaagent:D:\\soft\\skywalking-agent\\skywalking-agent.jar
+-Dskywalking.agent.service_name=gateway-admin-server
+-Dskywalking.collector.backend_service=192.168.192.2:11800
+-Dplugin.toolkit.log.grpc.reporter.server_host=192.168.192.2
+-Dplugin.toolkit.log.grpc.reporter.server_port=11800
+-Dskywalking.trace.ignore_path=HikariCP/**,Kafka/**,Redisson/**,Lettuce/**,/actuator/**
+```
+1. javaagent以实际目录为准
+2. service_name以应用名为准
+3. backend_service以实际skywalking-oap-serive地址为准
+4. log收集以实际skywalking-oap-serive地址为准

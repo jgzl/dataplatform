@@ -68,6 +68,10 @@
             <version>4.0.5</version>
             <type>pom</type>
         </dependency>
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-logback-1.x</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

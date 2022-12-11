@@ -2,12 +2,13 @@ package cn.cleanarch.dp.system.controller.oauth;
 
 import cn.cleanarch.dp.common.core.model.R;
 import cn.cleanarch.dp.common.oauth.annotation.Inner;
-import cn.cleanarch.dp.system.service.oauth.SysOauthClientDetailsService;
 import cn.cleanarch.dp.system.dataobject.oauth.SysOauthClientDetailsDO;
+import cn.cleanarch.dp.system.service.oauth.SysOauthClientDetailsService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,8 @@ import java.util.List;
  * @author li7hai26@outlook.com
  * @since 2018-05-15
  */
+
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/client")
@@ -101,6 +104,7 @@ public class SysOauthClientDetailsController {
 	@Inner(false)
 	@GetMapping("/getClientDetailsById/{clientId}")
 	public R getClientDetailsById(@PathVariable String clientId) {
+		log.info("客户端id为:{}",clientId);
 		return R.success(sysOauthClientDetailsService.getOne(
 				Wrappers.<SysOauthClientDetailsDO>lambdaQuery().eq(SysOauthClientDetailsDO::getClientId, clientId), false));
 	}

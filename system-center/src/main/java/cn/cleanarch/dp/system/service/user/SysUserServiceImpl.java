@@ -2,12 +2,7 @@ package cn.cleanarch.dp.system.service.user;
 
 import cn.cleanarch.dp.common.core.constant.CacheConstants;
 import cn.cleanarch.dp.common.core.model.R;
-import cn.cleanarch.dp.system.mapper.user.SysUserMapper;
 import cn.cleanarch.dp.gateway.system.service.SysUserService;
-import cn.cleanarch.dp.system.service.dept.SysDeptRelationService;
-import cn.cleanarch.dp.system.service.dept.SysDeptService;
-import cn.cleanarch.dp.system.service.menu.SysMenuService;
-import cn.cleanarch.dp.system.service.role.SysRoleService;
 import cn.cleanarch.dp.system.convert.SysUserConvert;
 import cn.cleanarch.dp.system.dataobject.dept.SysDeptDO;
 import cn.cleanarch.dp.system.dataobject.menu.SysMenuDO;
@@ -16,6 +11,11 @@ import cn.cleanarch.dp.system.dataobject.user.SysUserDO;
 import cn.cleanarch.dp.system.dataobject.user.SysUserRoleDO;
 import cn.cleanarch.dp.system.dto.SysUserDTO;
 import cn.cleanarch.dp.system.dto.SysUserInfoDTO;
+import cn.cleanarch.dp.system.mapper.user.SysUserMapper;
+import cn.cleanarch.dp.system.service.dept.SysDeptRelationService;
+import cn.cleanarch.dp.system.service.dept.SysDeptService;
+import cn.cleanarch.dp.system.service.menu.SysMenuService;
+import cn.cleanarch.dp.system.service.role.SysRoleService;
 import cn.cleanarch.dp.system.vo.user.SysUserVO;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -89,6 +89,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserDO> im
      */
     @Override
     public SysUserInfoDTO findUserInfo(String userName) {
+        log.info("获取用户信息,用户名为:{}",userName);
         SysUserDO sysUserDO = this.getOne(Wrappers.<SysUserDO>query().lambda().eq(SysUserDO::getUserName, userName));
         if (sysUserDO == null) {
             return null;

@@ -63,6 +63,7 @@ public class IndexController {
     @SneakyThrows
     @GetMapping(GatewayConstants.ADMIN_PREFIX+"/heartbeat")
     public Mono<R<String>> heartbeat() {
+        log.info("发起心跳请求");
         R<String> result = ThreadUtil.execAsync(gatewayAdminFeign::heartbeat).get();
         return Mono.just(result);
     }

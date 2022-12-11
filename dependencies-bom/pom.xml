@@ -54,7 +54,7 @@
         <fastjson.version>1.2.83</fastjson.version>
         <jsoup.version>1.14.3</jsoup.version>
         <podam.version>7.2.6.RELEASE</podam.version>
-        <skywalking.version>8.8.0</skywalking.version>
+        <skywalking-apm-toolkit.version>8.13.0</skywalking-apm-toolkit.version>
         <lock4j.version>2.2.0</lock4j.version>
         <resilience4j.version>1.7.0</resilience4j.version>
         <jedis-mock.version>0.1.16</jedis-mock.version>
@@ -416,7 +416,12 @@
             <dependency>
                 <groupId>org.apache.skywalking</groupId>
                 <artifactId>apm-toolkit-trace</artifactId>
-                <version>${skywalking.version}</version>
+                <version>${skywalking-apm-toolkit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.skywalking</groupId>
+                <artifactId>apm-toolkit-logback-1.x</artifactId>
+                <version>${skywalking-apm-toolkit.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.github.resilience4j</groupId>
