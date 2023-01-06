@@ -42,7 +42,7 @@ public class GatewayApiPrefixFilter extends AbstractGatewayApiFilter {
         addOriginalRequestUrl(exchange, uri);
         String rawPath = uri.getRawPath();
         String apiPrefix = gatewayProperties.getApiPrefix();
-        String newPath = rawPath.replace(apiPrefix,"/");
+        String newPath = rawPath.replaceFirst(apiPrefix,"/");
         ServerHttpRequest newRequest = request.mutate().path(newPath).build();
         exchange.getAttributes().put(GATEWAY_REQUEST_URL_ATTR, newRequest.getURI());
         return chain.filter(exchange.mutate().request(newRequest).build());
