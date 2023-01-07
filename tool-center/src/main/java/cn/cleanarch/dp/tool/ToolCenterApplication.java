@@ -16,10 +16,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication
-public class ToolApplication {
+public class ToolCenterApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ToolApplication.class, args);
+        SpringApplication.run(ToolCenterApplication.class, args);
     }
 
 }

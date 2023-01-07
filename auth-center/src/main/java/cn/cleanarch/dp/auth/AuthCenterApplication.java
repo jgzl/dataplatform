@@ -12,10 +12,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication
-public class AuthApplication {
+public class AuthCenterApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AuthApplication.class, args);
+		SpringApplication.run(AuthCenterApplication.class, args);
 	}
 
 }
