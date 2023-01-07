@@ -28,7 +28,7 @@ import java.util.List;
 @Valid
 @RestController
 @AllArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/system/user")
 public class SysUserController {
 
     private final SysUserService userService;

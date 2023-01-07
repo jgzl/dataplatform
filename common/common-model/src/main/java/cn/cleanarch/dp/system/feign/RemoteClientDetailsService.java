@@ -24,7 +24,7 @@ public interface RemoteClientDetailsService {
 	 * @param from 调用标志
 	 * @return R
 	 */
-	@GetMapping("/client/getClientDetailsById/{clientId}")
+	@GetMapping("/system/client/getClientDetailsById/{clientId}")
 	R<SysOauthClientDetailsDO> getClientDetailsById(@PathVariable("clientId") String clientId,
 			@RequestHeader(SecurityConstants.FROM) String from);
 
@@ -33,7 +33,7 @@ public interface RemoteClientDetailsService {
 	 * @param from 调用标识
 	 * @return R
 	 */
-	@GetMapping("/client/list")
+	@GetMapping("/system/client/list")
 	R<List<SysOauthClientDetailsDO>> listClientDetails(@RequestHeader(SecurityConstants.FROM) String from);
 
 }

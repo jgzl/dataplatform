@@ -143,5 +143,6 @@ public interface ErrorCodeConstants {
     ErrorCode GATEWAY_ACCESS_API_SYSTEM_NOT_VALID = new ErrorCode(1004002003,"网关请求来源system不合法");
     ErrorCode GATEWAY_ACCESS_DISABLED = new ErrorCode(1004002004,"网关请求来源apiKey/apiSecret已禁用");
     ErrorCode GATEWAY_ACCESS_INFO_NOT_NULL = new ErrorCode(1004002005,"网关请求来源apiKey/apiSecret/system不允许为空");
+    ErrorCode GATEWAY_ACCESS_AUTHENTICATION_NOT_EXIST = new ErrorCode(1004002006,"网关请求认证不存在");
 
 }

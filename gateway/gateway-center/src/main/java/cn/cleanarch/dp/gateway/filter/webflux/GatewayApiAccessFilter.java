@@ -39,23 +39,32 @@ public class GatewayApiAccessFilter extends AbstractGatewayApiFilter {
         String apiKey = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_KEY);
         String apiSecret = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_SECRET);
         String system = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_SYSTEM);
+        String type = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_TYPE);
         ServerHttpResponse response = exchange.getResponse();
-        if (StrUtil.isNotBlank(apiKey)&&StrUtil.isNotBlank(apiSecret)) {
-            GatewayAccessVO vo = GatewayAccessCacheHolder.get(apiKey);
-            if (vo == null) {
-                return WebfluxUtil.errorOut(response, ErrorCodeConstants.GATEWAY_ACCESS_API_KEY_NOT_VALID);
+        if (StrUtil.isBlank(type)) {
+            if (StrUtil.isNotBlank(apiKey)&&StrUtil.isNotBlank(apiSecret)) {
+                GatewayAccessVO vo = GatewayAccessCacheHolder.get(apiKey);
+                if (vo == null) {
+                    return WebfluxUtil.errorOut(response, ErrorCodeConstants.GATEWAY_ACCESS_API_KEY_NOT_VALID);
+                }
+                if (!vo.getApiSecret().equals(apiSecret)) {
+                    return WebfluxUtil.errorOut(response, ErrorCodeConstants.GATEWAY_ACCESS_API_SECRET_NOT_VALID);
+                }
+                if (!vo.getSystem().equals(system)) {
+                    return WebfluxUtil.errorOut(response, ErrorCodeConstants.GATEWAY_ACCESS_API_SYSTEM_NOT_VALID);
+                }
+                if (StatusEnum.DISABLE.getCode().equals(vo.getStatus())) {
+                    return WebfluxUtil.errorOut(response, ErrorCodeConstants.GATEWAY_ACCESS_DISABLED);
+                }
+            } else {
+                return WebfluxUtil.errorOut(response, ErrorCodeConstants.GATEWAY_ACCESS_INFO_NOT_NULL);
             }
-            if (!vo.getApiSecret().equals(apiSecret)) {
-                return WebfluxUtil.errorOut(response, ErrorCodeConstants.GATEWAY_ACCESS_API_SECRET_NOT_VALID);
-            }
-            if (!vo.getSystem().equals(system)) {
-                return WebfluxUtil.errorOut(response, ErrorCodeConstants.GATEWAY_ACCESS_API_SYSTEM_NOT_VALID);
-            }
-            if (StatusEnum.DISABLE.getCode().equals(vo.getStatus())) {
-                return WebfluxUtil.errorOut(response, ErrorCodeConstants.GATEWAY_ACCESS_DISABLED);
-            }
+        } else if ("none".equals(type)) {
+            return chain.filter(exchange);
+        } else if ("token".equals(type)) {
+            return WebfluxUtil.errorOut(response, ErrorCodeConstants.GATEWAY_ACCESS_AUTHENTICATION_NOT_EXIST);
         } else {
-            return WebfluxUtil.errorOut(response, ErrorCodeConstants.GATEWAY_ACCESS_INFO_NOT_NULL);
+            return WebfluxUtil.errorOut(response, ErrorCodeConstants.GATEWAY_ACCESS_AUTHENTICATION_NOT_EXIST);
         }
         return chain.filter(exchange);
     }

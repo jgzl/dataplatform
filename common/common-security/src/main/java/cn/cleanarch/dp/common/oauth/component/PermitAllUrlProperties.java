@@ -58,6 +58,7 @@ public class PermitAllUrlProperties implements InitializingBean {
             Optional.ofNullable(controller).ifPresent(inner -> Objects.requireNonNull(info.getPathPatternsCondition())
                     .getPatternValues().forEach(url -> urls.add(ReUtil.replaceAll(url, PATTERN, "*"))));
         });
+        log.info(urls.toString());
     }
 
 }

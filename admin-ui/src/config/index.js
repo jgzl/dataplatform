@@ -25,10 +25,11 @@ const DEFAULT_CONFIG = {
 
 	//追加其他头
 	HEADERS: {
-		'x-business-api-key': process.env.VUE_APP_API_KEY,
-		'x-business-api-secret': process.env.VUE_APP_API_SECRET,
-		'x-business-api-system': process.env.VUE_APP_API_SYSTEM,
-		'x-business-api-env': process.env.VUE_APP_API_ENV,
+		// 'x-business-api-key': process.env.VUE_APP_API_KEY,
+		// 'x-business-api-secret': process.env.VUE_APP_API_SECRET,
+		// 'x-business-api-system': process.env.VUE_APP_API_SYSTEM,
+		// 'x-business-api-env': process.env.VUE_APP_API_ENV,
+		'x-business-api-type': process.env.VUE_APP_API_TYPE,
 	},
 
 	//请求是否开启缓存

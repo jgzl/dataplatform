@@ -26,7 +26,7 @@ public interface RemoteUserService {
 	 * @param from 调用标志
 	 * @return R
 	 */
-	@GetMapping("/user/info/{username}")
+	@GetMapping("/system/user/info/{username}")
 	R<SysUserInfoDTO> info(@PathVariable("username") String username, @RequestHeader(SecurityConstants.FROM) String from);
 
 	/**
@@ -35,7 +35,7 @@ public interface RemoteUserService {
 	 * @param from 调用标志
 	 * @return R
 	 */
-	@GetMapping("/user/app/info/{phone}")
+	@GetMapping("/system/user/app/info/{phone}")
 	R<SysUserInfoDTO> infoByMobile(@PathVariable("phone") String phone, @RequestHeader(SecurityConstants.FROM) String from);
 
 	/**
@@ -44,7 +44,7 @@ public interface RemoteUserService {
 	 * @param from 调用标志
 	 * @return 用户 id 集合
 	 */
-	@GetMapping("/user/ids")
+	@GetMapping("/system/user/ids")
 	R<List<Long>> listUserIdByDeptIds(@RequestParam("deptIds") Set<Long> deptIds,
 			@RequestHeader(SecurityConstants.FROM) String from);
 

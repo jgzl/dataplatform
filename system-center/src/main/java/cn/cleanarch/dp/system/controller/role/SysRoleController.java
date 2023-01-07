@@ -26,7 +26,7 @@ import java.util.List;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/role")
+@RequestMapping("/system/role")
 public class SysRoleController {
 
     private final SysRoleService sysRoleService;

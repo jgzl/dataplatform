@@ -23,7 +23,7 @@ public interface RemoteTokenService {
 	 * @return page
 	 */
 
-	@PostMapping("/token/page")
+	@PostMapping("/system/token/page")
 	R getTokenPage(@RequestBody Map<String, Object> params, @RequestHeader(SecurityConstants.FROM) String from);
 
 
@@ -34,7 +34,7 @@ public interface RemoteTokenService {
 	 * @return
 	 */
 
-	@DeleteMapping("/token/{token}")
+	@DeleteMapping("/system/token/{token}")
 	R<Boolean> removeToken(@PathVariable("token") String token, @RequestHeader(SecurityConstants.FROM) String from);
 
 }

@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/menu")
+@RequestMapping("/system/menu")
 public class SysMenuController {
 
     private final SysMenuService sysMenuService;

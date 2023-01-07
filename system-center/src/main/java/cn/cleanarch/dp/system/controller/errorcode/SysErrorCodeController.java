@@ -21,7 +21,7 @@ import javax.validation.Valid;
 
 @Api(tags = "系统管理-错误码")
 @RestController
-@RequestMapping("/error-code")
+@RequestMapping("/system/error-code")
 @Validated
 public class SysErrorCodeController {
 

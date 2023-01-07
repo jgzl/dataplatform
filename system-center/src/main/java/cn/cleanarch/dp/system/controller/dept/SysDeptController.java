@@ -23,7 +23,7 @@ import java.util.List;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/dept")
+@RequestMapping("/system/dept")
 public class SysDeptController {
 
     private final SysDeptRelationService relationService;

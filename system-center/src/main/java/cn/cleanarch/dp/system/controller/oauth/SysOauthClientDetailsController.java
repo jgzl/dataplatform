@@ -27,7 +27,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/client")
+@RequestMapping("/system/client")
 public class SysOauthClientDetailsController {
 
 	private final SysOauthClientDetailsService sysOauthClientDetailsService;
