@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
-import cn.cleanarch.dp.gateway.domain.GatewayApplicationDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayApplicationDO;
 import org.apache.ibatis.annotations.Param;
 
  /**

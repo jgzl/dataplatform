@@ -3,7 +3,7 @@ package cn.cleanarch.dp.gateway.controller;
 import cn.cleanarch.dp.common.core.annotation.ApiVersion;
 import cn.cleanarch.dp.common.core.constant.GatewayConstants;
 import cn.cleanarch.dp.common.core.model.R;
-import cn.cleanarch.dp.gateway.domain.GatewayLogDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayLogDO;
 import cn.cleanarch.dp.gateway.feign.GatewayAdminFeign;
 import cn.hutool.core.thread.ThreadUtil;
 import com.google.common.collect.Lists;

@@ -1,4 +1,4 @@
-package cn.cleanarch.dp.gateway.domain;
+package cn.cleanarch.dp.gateway.dataobject;
 
 import cn.cleanarch.dp.common.model.BaseDO;
 import io.swagger.annotations.ApiModel;

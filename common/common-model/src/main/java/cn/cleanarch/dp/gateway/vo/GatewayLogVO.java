@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.vo;
 
-import cn.cleanarch.dp.gateway.domain.GatewayLogDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayLogDO;
 import lombok.Data;
 
 /**

@@ -3,7 +3,7 @@ package cn.cleanarch.dp.gateway.listener;
 import cn.cleanarch.dp.common.core.constant.enums.RecordLogEnum;
 import cn.cleanarch.dp.common.core.spi.ExtensionLoader;
 import cn.cleanarch.dp.gateway.configuration.properties.GatewayProperties;
-import cn.cleanarch.dp.gateway.domain.GatewayLogDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayLogDO;
 import cn.cleanarch.dp.gateway.spi.log.service.RecordLogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

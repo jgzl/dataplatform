@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.vo;
 
-import cn.cleanarch.dp.gateway.domain.GatewayRouteDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayRouteDO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

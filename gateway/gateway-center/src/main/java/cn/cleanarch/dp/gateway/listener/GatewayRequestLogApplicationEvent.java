@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.listener;
 
-import cn.cleanarch.dp.gateway.domain.GatewayLogDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayLogDO;
 import org.springframework.context.ApplicationEvent;
 
 /**

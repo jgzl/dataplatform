@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.decorator;
 
-import cn.cleanarch.dp.gateway.domain.GatewayLogDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayLogDO;
 import cn.cleanarch.dp.gateway.util.ContentTypeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

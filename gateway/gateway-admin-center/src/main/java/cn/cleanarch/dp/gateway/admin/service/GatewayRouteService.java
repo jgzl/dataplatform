@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.admin.service;
 
-import cn.cleanarch.dp.gateway.domain.GatewayRouteDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayRouteDO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

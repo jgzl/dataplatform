@@ -2,7 +2,7 @@ package cn.cleanarch.dp.gateway.spi.log.service;
 
 import cn.cleanarch.dp.gateway.admin.mapper.GatewayLogMapper;
 import cn.cleanarch.dp.gateway.convert.GatewayLogConvert;
-import cn.cleanarch.dp.gateway.domain.GatewayLogDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayLogDO;
 import cn.cleanarch.dp.gateway.vo.GatewayLogVO;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

@@ -5,7 +5,7 @@ import cn.cleanarch.dp.common.model.PageParam;
 import cn.cleanarch.dp.common.core.model.R;
 import cn.cleanarch.dp.common.core.utils.poi.ExcelUtil;
 import cn.cleanarch.dp.gateway.convert.GatewayMetadataConvert;
-import cn.cleanarch.dp.gateway.domain.GatewayMetadataDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayMetadataDO;
 import cn.cleanarch.dp.gateway.admin.service.GatewayMetadataService;
 import cn.cleanarch.dp.gateway.vo.GatewayMetadataVO;
 import io.swagger.annotations.Api;

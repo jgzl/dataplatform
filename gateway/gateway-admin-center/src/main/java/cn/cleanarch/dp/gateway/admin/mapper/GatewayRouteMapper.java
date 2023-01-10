@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.gateway.admin.mapper;
 
 import cn.cleanarch.dp.common.data.mapper.ExtendBaseMapper;
-import cn.cleanarch.dp.gateway.domain.GatewayRouteDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayRouteDO;
 
 /**
  * 路由

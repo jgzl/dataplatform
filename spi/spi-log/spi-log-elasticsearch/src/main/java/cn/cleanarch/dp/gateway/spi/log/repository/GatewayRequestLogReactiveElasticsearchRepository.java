@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.spi.log.repository;
 
-import cn.cleanarch.dp.gateway.domain.GatewayLogDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayLogDO;
 import org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository;
 
 /**

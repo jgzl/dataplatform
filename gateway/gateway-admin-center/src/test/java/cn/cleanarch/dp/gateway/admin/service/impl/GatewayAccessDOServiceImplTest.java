@@ -4,7 +4,7 @@ import cn.cleanarch.dp.common.core.constant.enums.StatusEnum;
 import cn.cleanarch.dp.common.test.core.ut.BaseDbAndRedisUnitTest;
 import cn.cleanarch.dp.common.test.core.util.RandomUtil;
 import cn.cleanarch.dp.gateway.convert.GatewayAccessConfConvert;
-import cn.cleanarch.dp.gateway.domain.GatewayAccessDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayAccessDO;
 import cn.cleanarch.dp.gateway.vo.GatewayAccessVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;

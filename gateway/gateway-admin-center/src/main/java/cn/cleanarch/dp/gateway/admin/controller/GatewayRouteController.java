@@ -2,7 +2,7 @@ package cn.cleanarch.dp.gateway.admin.controller;
 
 import cn.cleanarch.dp.common.core.model.R;
 import cn.cleanarch.dp.gateway.admin.service.GatewayRouteService;
-import cn.cleanarch.dp.gateway.domain.GatewayRouteDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayRouteDO;
 import cn.cleanarch.dp.gateway.vo.GatewayRouteVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;

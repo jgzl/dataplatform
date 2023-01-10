@@ -2,7 +2,7 @@ package cn.cleanarch.dp.gateway.feign;
 
 import cn.cleanarch.dp.common.core.constant.ServiceNameConstants;
 import cn.cleanarch.dp.common.core.model.R;
-import cn.cleanarch.dp.gateway.domain.GatewayLogDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayLogDO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

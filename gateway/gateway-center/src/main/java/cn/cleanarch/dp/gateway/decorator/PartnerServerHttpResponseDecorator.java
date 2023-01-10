@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.decorator;
 
-import cn.cleanarch.dp.gateway.domain.GatewayLogDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayLogDO;
 import cn.cleanarch.dp.gateway.util.ContentTypeUtils;
 import cn.cleanarch.dp.gateway.util.LogUtils;
 import cn.hutool.core.date.DateUnit;

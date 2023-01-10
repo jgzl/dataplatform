@@ -2,7 +2,7 @@ package cn.cleanarch.dp.gateway.admin.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import cn.cleanarch.dp.gateway.domain.GatewayMetadataDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayMetadataDO;
 
  /**
  * 网关管理-元数据管理;(GW_GATEWAY_METADATA)表服务接口

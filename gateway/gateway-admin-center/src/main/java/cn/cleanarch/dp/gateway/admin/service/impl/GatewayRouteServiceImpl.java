@@ -5,7 +5,7 @@ import cn.cleanarch.dp.common.core.utils.JacksonUtil;
 import cn.cleanarch.dp.gateway.admin.configuration.DynamicRouteInitEvent;
 import cn.cleanarch.dp.gateway.admin.mapper.GatewayRouteMapper;
 import cn.cleanarch.dp.gateway.admin.service.GatewayRouteService;
-import cn.cleanarch.dp.gateway.domain.GatewayRouteDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayRouteDO;
 import cn.cleanarch.dp.gateway.vo.GatewayFilterDefinitionVO;
 import cn.cleanarch.dp.gateway.vo.GatewayPredicateDefinitionVO;
 import cn.cleanarch.dp.gateway.vo.GatewayRouteDefinitionVO;

@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.spi.log.service;
 
-import cn.cleanarch.dp.gateway.domain.GatewayLogDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayLogDO;
 import cn.cleanarch.dp.gateway.vo.GatewayLogVO;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 

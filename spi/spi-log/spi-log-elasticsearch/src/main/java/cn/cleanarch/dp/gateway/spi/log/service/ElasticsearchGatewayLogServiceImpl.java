@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.spi.log.service;
 
-import cn.cleanarch.dp.gateway.domain.GatewayLogDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayLogDO;
 import cn.cleanarch.dp.gateway.spi.log.repository.GatewayLogElasticsearchRepository;
 import cn.cleanarch.dp.gateway.vo.GatewayLogVO;
 import cn.hutool.core.date.DatePattern;

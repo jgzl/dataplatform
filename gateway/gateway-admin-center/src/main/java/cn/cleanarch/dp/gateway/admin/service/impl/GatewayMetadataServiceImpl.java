@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import cn.cleanarch.dp.gateway.domain.GatewayMetadataDO;
+import cn.cleanarch.dp.gateway.dataobject.GatewayMetadataDO;
 import cn.cleanarch.dp.gateway.admin.mapper.GatewayMetadataMapper;
 import cn.cleanarch.dp.gateway.admin.service.GatewayMetadataService;
  /**

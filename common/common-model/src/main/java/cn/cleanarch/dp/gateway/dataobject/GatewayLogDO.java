@@ -1,4 +1,4 @@
-package cn.cleanarch.dp.gateway.domain;
+package cn.cleanarch.dp.gateway.dataobject;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
