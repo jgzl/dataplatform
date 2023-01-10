@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: 统计数值组件演示
  * @version: 1.0
- * @Author: sakuya
- * @Date: 2021年6月23日10:28:17
+ * @author sakuya
+ * @date 2021年6月23日10:28:17
  * @LastEditors:
  * @LastEditTime:
 -->

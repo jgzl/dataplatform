@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: 字典选择器组件演示
  * @version: 1.0
- * @Author: sakuya
- * @Date: 2021年8月3日15:51:20
+ * @author sakuya
+ * @date 2021年8月3日15:51:20
  * @LastEditors:
  * @LastEditTime:
 -->

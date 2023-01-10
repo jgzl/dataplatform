@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: scContextmenuItem组件
  * @version: 1.2
- * @Author: sakuya
- * @Date: 2021年7月23日16:29:36
+ * @author sakuya
+ * @date 2021年7月23日16:29:36
  * @LastEditors: sakuya
  * @LastEditTime: 2022年2月8日15:51:07
 -->

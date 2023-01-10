@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.controller;
 
-import cn.cleanarch.dp.common.core.annotaion.ApiVersion;
+import cn.cleanarch.dp.common.core.annotation.ApiVersion;
 import cn.cleanarch.dp.common.core.constant.GatewayConstants;
 import cn.cleanarch.dp.common.core.model.R;
 import cn.cleanarch.dp.gateway.domain.GatewayLogDO;

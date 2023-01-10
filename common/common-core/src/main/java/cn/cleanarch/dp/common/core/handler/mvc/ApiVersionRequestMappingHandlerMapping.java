@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.common.core.handler.mvc;
 
-import cn.cleanarch.dp.common.core.annotaion.ApiVersion;
+import cn.cleanarch.dp.common.core.annotation.ApiVersion;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.servlet.mvc.condition.RequestCondition;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;

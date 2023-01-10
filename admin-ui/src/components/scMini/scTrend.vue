@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: 趋势标记
  * @version: 1.0
- * @Author: sakuya
- * @Date: 2021年11月11日11:07:10
+ * @author sakuya
+ * @date 2021年11月11日11:07:10
  * @LastEditors:
  * @LastEditTime:
 -->

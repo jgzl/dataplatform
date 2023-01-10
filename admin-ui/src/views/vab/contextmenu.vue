@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: 右键简单组件演示文件
  * @version: 1.0
- * @Author: sakuya
- * @Date: 2021年7月22日16:31:14
+ * @author sakuya
+ * @date 2021年7月22日16:31:14
  * @LastEditors:
  * @LastEditTime:
 -->

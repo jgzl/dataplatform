@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: 异步选择器
  * @version: 1.0
- * @Author: sakuya
- * @Date: 2021年8月3日15:53:37
+ * @author sakuya
+ * @date 2021年8月3日15:53:37
  * @LastEditors:
  * @LastEditTime:
 -->

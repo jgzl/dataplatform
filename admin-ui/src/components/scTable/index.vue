@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: 数据表格组件
  * @version: 1.10
- * @Author: sakuya
- * @Date: 2021年11月29日21:51:15
+ * @author sakuya
+ * @date 2021年11月29日21:51:15
  * @LastEditors: sakuya
  * @LastEditTime: 2022年6月4日17:35:26
 -->

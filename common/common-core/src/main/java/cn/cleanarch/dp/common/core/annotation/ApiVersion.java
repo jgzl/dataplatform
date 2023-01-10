@@ -1,4 +1,4 @@
-package cn.cleanarch.dp.common.core.annotaion;
+package cn.cleanarch.dp.common.core.annotation;
 
 import java.lang.annotation.*;
 

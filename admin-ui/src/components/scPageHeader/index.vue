@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: 页面头部样式组件
  * @version: 1.0
- * @Author: sakuya
- * @Date: 2021年7月20日08:49:07
+ * @author sakuya
+ * @date 2021年7月20日08:49:07
  * @LastEditors:
  * @LastEditTime:
 -->

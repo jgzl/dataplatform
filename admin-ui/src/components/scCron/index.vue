@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: cron规则生成器
  * @version: 1.0
- * @Author: sakuya
- * @Date: 2021年12月29日15:23:54
+ * @author sakuya
+ * @date 2021年12月29日15:23:54
  * @LastEditors:
  * @LastEditTime:
 -->

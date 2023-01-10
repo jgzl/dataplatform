@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: 图像剪裁组件演示文件
  * @version: 1.0
- * @Author: sakuya
- * @Date: 2021年7月24日20:58:51
+ * @author sakuya
+ * @date 2021年7月24日20:58:51
  * @LastEditors:
  * @LastEditTime:
 -->

@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 /**
- * @author vlfac
+ * @author li7hai26@gmail.com
  */
 public class SentinelBlockRequestHandler implements BlockRequestHandler {
 

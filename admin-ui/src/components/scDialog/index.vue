@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: 弹窗扩展组件
  * @version: 2.0
- * @Author: sakuya
- * @Date: 2021年8月27日08:51:52
+ * @author sakuya
+ * @date 2021年8月27日08:51:52
  * @LastEditors: sakuya
  * @LastEditTime: 2022年5月14日15:13:41
 -->

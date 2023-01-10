@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: 表格选择器组件演示
  * @version: 1.0
- * @Author: sakya
- * @Date: 2021年6月8日09:29:14
+ * @author sakya
+ * @date 2021年6月8日09:29:14
  * @LastEditors: sakya
  * @LastEditTime: 2021年6月8日09:29:14
 -->

@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: 模拟触发错误
  * @version: 1.0
- * @Author: sakuya
- * @Date: 2021年6月25日08:53:13
+ * @author sakuya
+ * @date 2021年6月25日08:53:13
  * @LastEditors:
  * @LastEditTime:
 -->

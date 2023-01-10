@@ -5,7 +5,7 @@ package cn.cleanarch.dp.common.core.constant;
  * @version 1.0
  * @title: ServiceNameConstants
  * @description: 服务名常量类
- * @date: 2022/5/30 21:07
+ * @date 2022/5/30 21:07
  */
 public class ServiceNameConstants {
     public static final String GATEWAY_SERVICE = "gateway-center";

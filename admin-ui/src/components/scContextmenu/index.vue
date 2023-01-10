@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: scContextmenu组件
  * @version: 1.1
- * @Author: sakuya
- * @Date: 2021年7月23日09:25:57
+ * @author sakuya
+ * @date 2021年7月23日09:25:57
  * @LastEditors: sakuya
  * @LastEditTime: 2022年5月30日20:17:42
  * @other: 代码完全开源，欢迎参考，也欢迎PR

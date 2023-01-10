@@ -1,4 +1,4 @@
-package cn.cleanarch.dp.gateway;
+package cn.cleanarch.dp.gateway.admin;
 
 import cn.cleanarch.dp.common.feign.EnableFeignClients;
 import cn.cleanarch.dp.common.oauth.annotation.EnableResourceServer;

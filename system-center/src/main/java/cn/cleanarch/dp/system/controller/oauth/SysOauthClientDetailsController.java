@@ -106,7 +106,7 @@ public class SysOauthClientDetailsController {
 	public R getClientDetailsById(@PathVariable String clientId) {
 		log.info("客户端id为:{}",clientId);
 		return R.success(sysOauthClientDetailsService.getOne(
-				Wrappers.<SysOauthClientDetailsDO>lambdaQuery().eq(SysOauthClientDetailsDO::getClientId, clientId), false));
+				Wrappers.<SysOauthClientDetailsDO>lambdaQuery().eq(SysOauthClientDetailsDO::getClientId, clientId), true));
 	}
 
 }

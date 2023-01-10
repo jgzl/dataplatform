@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: scDialog 弹窗扩展演示文件
  * @version: 1.0
- * @Author: sakuya
- * @Date: 2021年8月27日08:56:30
+ * @author sakuya
+ * @date 2021年8月27日08:56:30
  * @LastEditors:
  * @LastEditTime:
 -->

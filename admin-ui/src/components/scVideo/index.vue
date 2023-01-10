@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: xgplayer二次封装
  * @version: 1.1
- * @Author: sakuya
- * @Date: 2021年11月29日12:10:06
+ * @author sakuya
+ * @date 2021年11月29日12:10:06
  * @LastEditors: sakuya
  * @LastEditTime: 2022年5月30日21:02:50
 -->

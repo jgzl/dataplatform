@@ -5,17 +5,17 @@ USE `dataplatform`;
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 192.168.192.1
+ Source Server         : 192.168.192.2
  Source Server Type    : MySQL
- Source Server Version : 50739
- Source Host           : 192.168.192.1:3306
+ Source Server Version : 50740
+ Source Host           : 192.168.192.2:3306
  Source Schema         : dataplatform
 
  Target Server Type    : MySQL
- Target Server Version : 50739
+ Target Server Version : 50740
  File Encoding         : 65001
 
- Date: 30/10/2022 00:37:00
+ Date: 10/01/2023 22:36:10
 */
 
 SET NAMES utf8mb4;
@@ -46,6 +46,30 @@ CREATE TABLE `gateway_access_conf` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `gateway_access_conf` (`id`, `api_key`, `api_secret`, `system`, `status`, `remark`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('1', 'testApiKey', 'testApiSecret', 'testApi', '0', '', '2022-06-04 01:27:53', '2022-06-04 01:27:27', '1', '1', '0', 1);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for gateway_application
+-- ----------------------------
+DROP TABLE IF EXISTS `gateway_application`;
+CREATE TABLE `gateway_application` (
+                                       `id` varchar(64) NOT NULL COMMENT 'ID',
+                                       `application_code` varchar(64) DEFAULT NULL COMMENT '应用编码',
+                                       `application_name` varchar(64) DEFAULT NULL COMMENT '应用名称',
+                                       `deployment_mode` varchar(64) DEFAULT NULL COMMENT '部署模式',
+                                       `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                       `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+                                       `creator` varchar(64) NOT NULL DEFAULT '1' COMMENT '创建人',
+                                       `updater` varchar(64) NOT NULL DEFAULT '1' COMMENT '更新人',
+                                       `deleted` varchar(64) NOT NULL DEFAULT '0' COMMENT '删除标记;0:正常,非0已删除',
+                                       `version` bigint(20) NOT NULL DEFAULT '1' COMMENT '乐观锁版本',
+                                       PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='网关-网关访问';
+
+-- ----------------------------
+-- Records of gateway_application
+-- ----------------------------
+BEGIN;
 COMMIT;
 
 -- ----------------------------
@@ -82,6 +106,34 @@ BEGIN;
 COMMIT;
 
 -- ----------------------------
+-- Table structure for gateway_metadata
+-- ----------------------------
+DROP TABLE IF EXISTS `gateway_metadata`;
+CREATE TABLE `gateway_metadata` (
+                                    `id` varchar(64) NOT NULL COMMENT 'ID',
+                                    `application_code` varchar(64) DEFAULT NULL COMMENT '应用编码-提供服务方',
+                                    `method` varchar(64) DEFAULT NULL COMMENT '请求类型|GET',
+                                    `path` varchar(64) DEFAULT NULL COMMENT '请求路径',
+                                    `description` varchar(255) DEFAULT NULL COMMENT '接口描述',
+                                    `rpc_type` varchar(64) DEFAULT NULL COMMENT 'RPC接口类型(http,dubbo)',
+                                    `rpc_extra` varchar(2000) DEFAULT NULL COMMENT 'RPC扩展参数',
+                                    `tag` varchar(64) DEFAULT NULL COMMENT '接口标签/请求标签',
+                                    `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                    `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+                                    `creator` varchar(64) NOT NULL DEFAULT '1' COMMENT '创建人',
+                                    `updater` varchar(64) NOT NULL DEFAULT '1' COMMENT '更新人',
+                                    `deleted` varchar(64) NOT NULL DEFAULT '0' COMMENT '删除标记;0:正常,非0已删除',
+                                    `version` bigint(20) NOT NULL DEFAULT '1' COMMENT '乐观锁版本',
+                                    PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='网关-网关访问';
+
+-- ----------------------------
+-- Records of gateway_metadata
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
 -- Table structure for gateway_route_conf
 -- ----------------------------
 DROP TABLE IF EXISTS `gateway_route_conf`;
@@ -107,12 +159,12 @@ CREATE TABLE `gateway_route_conf` (
 -- Records of gateway_route_conf
 -- ----------------------------
 BEGIN;
-INSERT INTO `gateway_route_conf` (`id`, `route_name`, `route_id`, `predicates`, `filters`, `uri`, `sort`, `metadata`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('1', '', 'monitor-center', '[{\"args\": {\"_genkey_0\": \"/monitor-center/**\"}, \"name\": \"Path\"}]', '[]', 'lb://monitor-center', 0, '{\"version\": \"1\"}', '2021-12-27 02:43:25', '2022-01-06 02:40:46', '1', '1', '0', 1);
-INSERT INTO `gateway_route_conf` (`id`, `route_name`, `route_id`, `predicates`, `filters`, `uri`, `sort`, `metadata`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('2', '', 'baidu', '[{\"args\": {\"_genkey_0\": \"/baidu/**\"}, \"name\": \"Path\"}]', '[]', 'https://www.baidu.com', 0, '{\"version\": \"1\"}', '2022-06-03 08:39:53', '2022-07-03 05:55:04', '1', '1', '0', 1);
-INSERT INTO `gateway_route_conf` (`id`, `route_name`, `route_id`, `predicates`, `filters`, `uri`, `sort`, `metadata`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('3', '', 'auth-center', '[{\"args\": {\"_genkey_0\": \"/auth-center/**\"}, \"name\": \"Path\"}]', '[]', 'lb://auth-center', 0, '{\"version\": \"1\"}', '2021-12-27 02:43:25', '2022-01-06 02:40:46', '1', '1', '0', 1);
-INSERT INTO `gateway_route_conf` (`id`, `route_name`, `route_id`, `predicates`, `filters`, `uri`, `sort`, `metadata`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('4', '', 'system-center', '[{\"args\": {\"_genkey_0\": \"/system-center/**\"}, \"name\": \"Path\"}]', '[]', 'lb://system-center', 0, '{\"version\": \"1\"}', '2021-12-27 02:43:25', '2022-01-06 02:40:46', '1', '1', '0', 1);
-INSERT INTO `gateway_route_conf` (`id`, `route_name`, `route_id`, `predicates`, `filters`, `uri`, `sort`, `metadata`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('5', '', 'gateway-admin-center', '[{\"args\": {\"_genkey_0\": \"/gateway-admin/**\"}, \"name\": \"Path\"}]', '[]', 'lb://gateway-admin-center', 0, '{\"version\": \"1\"}', '2021-12-27 02:43:25', '2022-10-20 22:01:13', '1', '1', '0', 2);
-INSERT INTO `gateway_route_conf` (`id`, `route_name`, `route_id`, `predicates`, `filters`, `uri`, `sort`, `metadata`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('6', '', 'message-center', '[{\"args\": {\"_genkey_0\": \"/message-center/**\"}, \"name\": \"Path\"}]', '[]', 'lb://message-center', 0, '{\"version\": \"1\"}', '2021-12-27 02:43:25', '2022-01-06 02:40:46', '1', '1', '0', 1);
+INSERT INTO `gateway_route_conf` (`id`, `route_name`, `route_id`, `predicates`, `filters`, `uri`, `sort`, `metadata`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('1', 'monitor-center', 'monitor-center', '[{\"args\": {\"_genkey_0\": \"/monitor-center/**\"}, \"name\": \"Path\"}]', '[]', 'lb://monitor-center', 0, '{\"version\": \"1\"}', '2021-12-27 02:43:25', '2022-12-10 22:14:45', '1', '1', '0', 2);
+INSERT INTO `gateway_route_conf` (`id`, `route_name`, `route_id`, `predicates`, `filters`, `uri`, `sort`, `metadata`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('2', 'baidu', 'baidu', '[{\"args\": {\"_genkey_0\": \"/baidu/**\"}, \"name\": \"Path\"}]', '[]', 'https://www.baidu.com', 0, '{\"version\": \"1\"}', '2022-06-03 08:39:53', '2022-12-10 22:14:53', '1', '1', '0', 2);
+INSERT INTO `gateway_route_conf` (`id`, `route_name`, `route_id`, `predicates`, `filters`, `uri`, `sort`, `metadata`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('3', 'auth-center', 'auth-center', '[{\"args\": {\"_genkey_0\": \"/auth-center/**\"}, \"name\": \"Path\"}]', '[]', 'lb://auth-center', 0, '{\"version\": \"1\"}', '2021-12-27 02:43:25', '2022-12-10 22:15:00', '1', '1', '0', 2);
+INSERT INTO `gateway_route_conf` (`id`, `route_name`, `route_id`, `predicates`, `filters`, `uri`, `sort`, `metadata`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('4', 'system-center', 'system-center', '[{\"args\": {\"_genkey_0\": \"/system-center/**\"}, \"name\": \"Path\"}]', '[]', 'lb://system-center', 0, '{\"version\": \"1\"}', '2021-12-27 02:43:25', '2022-12-10 22:15:08', '1', '1', '0', 2);
+INSERT INTO `gateway_route_conf` (`id`, `route_name`, `route_id`, `predicates`, `filters`, `uri`, `sort`, `metadata`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('5', 'gateway-admin-center', 'gateway-admin-center', '[{\"args\": {\"_genkey_0\": \"/gateway-admin/**\"}, \"name\": \"Path\"}]', '[]', 'lb://gateway-admin-center', 0, '{\"version\": \"1\"}', '2021-12-27 02:43:25', '2022-12-10 22:15:15', '1', '1', '0', 3);
+INSERT INTO `gateway_route_conf` (`id`, `route_name`, `route_id`, `predicates`, `filters`, `uri`, `sort`, `metadata`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('6', 'message-center', 'message-center', '[{\"args\": {\"_genkey_0\": \"/message-center/**\"}, \"name\": \"Path\"}]', '[]', 'lb://message-center', 0, '{\"version\": \"1\"}', '2021-12-27 02:43:25', '2022-12-10 22:15:23', '1', '1', '0', 2);
 COMMIT;
 
 -- ----------------------------
@@ -524,7 +576,7 @@ INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`,
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_time`, `update_time`, `component`, `tag`, `creator`, `updater`, `deleted`, `version`) VALUES ('1800', '系统设置', NULL, '/system/setting', '1000', 'el-icon-tools', 10, '0', '0', '2018-01-20 13:17:19', '2021-12-28 20:14:16', 'system/setting', NULL, '1', '1', '0', 1);
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_time`, `update_time`, `component`, `tag`, `creator`, `updater`, `deleted`, `version`) VALUES ('1900', '系统日志', NULL, '/system/log', '1000', 'el-icon-warning', 9, '0', '0', '2018-01-20 13:17:19', '2021-12-28 20:14:16', 'system/log', NULL, '1', '1', '0', 1);
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_time`, `update_time`, `component`, `tag`, `creator`, `updater`, `deleted`, `version`) VALUES ('200', '用户中心', NULL, '/userCenter', '0', 'el-icon-user', 2, '0', '0', '2018-01-20 13:17:19', '2021-12-28 20:14:16', 'userCenter', NULL, '1', '1', '0', 1);
-INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_time`, `update_time`, `component`, `tag`, `creator`, `updater`, `deleted`, `version`) VALUES ('2000', '网关管理', NULL, '/gateway', '-1', 'el-icon-coin', 20, '0', '0', '2018-09-04 05:58:41', '2022-09-23 00:21:19', 'gateway', NULL, '1', '1', '0', 1);
+INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_time`, `update_time`, `component`, `tag`, `creator`, `updater`, `deleted`, `version`) VALUES ('2000', '网关管理', NULL, '/gateway', '-1', 'el-icon-coin', 20, '0', '0', '2018-09-04 05:58:41', '2023-01-10 22:34:34', 'gateway', NULL, '1', '1', '0', 1);
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_time`, `update_time`, `component`, `tag`, `creator`, `updater`, `deleted`, `version`) VALUES ('2100', '网关日志', NULL, '/gateway/log', '2000', 'el-icon-edit-pen', 1, '0', '0', '2018-09-04 05:58:41', '2022-09-23 00:19:37', 'gateway/log', NULL, '1', '1', '0', 1);
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_time`, `update_time`, `component`, `tag`, `creator`, `updater`, `deleted`, `version`) VALUES ('2101', '网关日志新增', 'gateway:gateway-log:create', NULL, '2100', NULL, 1, '0', '1', '2018-01-20 14:56:16', '2021-05-25 03:12:55', NULL, NULL, '1', '1', '0', 1);
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_time`, `update_time`, `component`, `tag`, `creator`, `updater`, `deleted`, `version`) VALUES ('2102', '网关日志修改', 'gateway:gateway-log:update', NULL, '2100', NULL, 1, '0', '1', '2018-01-20 14:56:59', '2021-05-25 03:12:55', NULL, NULL, '1', '1', '0', 1);
@@ -545,6 +597,11 @@ INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`,
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_time`, `update_time`, `component`, `tag`, `creator`, `updater`, `deleted`, `version`) VALUES ('2402', '网关元数据修改', 'gateway:gateway-metadata:update', NULL, '2400', NULL, 1, '0', '1', '2022-09-19 17:01:58', '2022-09-19 17:01:58', NULL, NULL, '1', '1', '0', 1);
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_time`, `update_time`, `component`, `tag`, `creator`, `updater`, `deleted`, `version`) VALUES ('2403', '网关元数据删除', 'gateway:gateway-metadata:delete', NULL, '2400', NULL, 1, '0', '1', '2022-09-19 17:01:59', '2022-09-19 17:01:59', NULL, NULL, '1', '1', '0', 1);
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_time`, `update_time`, `component`, `tag`, `creator`, `updater`, `deleted`, `version`) VALUES ('2404', '网关元数据查询', 'gateway:gateway-metadata:query', NULL, '2400', NULL, 1, '0', '1', '2022-09-19 17:01:56', '2022-09-19 17:01:56', NULL, NULL, '1', '1', '0', 1);
+INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_time`, `update_time`, `component`, `tag`, `creator`, `updater`, `deleted`, `version`) VALUES ('2500', '网关应用', NULL, '/gateway/application', '2000', 'el-icon-collection-tag', 5, '0', '0', '2022-09-19 17:01:58', '2022-09-23 00:21:03', 'gateway/application', NULL, '1', '1', '0', 1);
+INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_time`, `update_time`, `component`, `tag`, `creator`, `updater`, `deleted`, `version`) VALUES ('2501', '网关应用新增', 'gateway:gateway-application:crea', NULL, '2500', NULL, 1, '0', '1', '2022-09-19 17:01:58', '2022-09-19 17:01:58', NULL, NULL, '1', '1', '0', 1);
+INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_time`, `update_time`, `component`, `tag`, `creator`, `updater`, `deleted`, `version`) VALUES ('2502', '网关应用修改', 'gateway:gateway-application:upda', NULL, '2500', NULL, 1, '0', '1', '2022-09-19 17:01:58', '2022-09-19 17:01:58', NULL, NULL, '1', '1', '0', 1);
+INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_time`, `update_time`, `component`, `tag`, `creator`, `updater`, `deleted`, `version`) VALUES ('2503', '网关应用删除', 'gateway:gateway-application:dele', NULL, '2500', NULL, 1, '0', '1', '2022-09-19 17:01:59', '2022-09-19 17:01:59', NULL, NULL, '1', '1', '0', 1);
+INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_time`, `update_time`, `component`, `tag`, `creator`, `updater`, `deleted`, `version`) VALUES ('2504', '网关应用查询', 'gateway:gateway-application:quer', NULL, '2500', NULL, 1, '0', '1', '2022-09-19 17:01:56', '2022-09-19 17:01:56', NULL, NULL, '1', '1', '0', 1);
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `path`, `parent_id`, `icon`, `sort`, `keep_alive`, `type`, `create_time`, `update_time`, `component`, `tag`, `creator`, `updater`, `deleted`, `version`) VALUES ('3000', '关于', NULL, '/other/about', '-1', 'el-icon-info-filled', 30, '0', '0', '2018-09-04 05:58:41', '2022-09-23 00:24:30', 'other/about', NULL, '1', '1', '0', 1);
 COMMIT;
 
@@ -610,7 +667,7 @@ CREATE TABLE `sys_role` (
 -- Records of sys_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_role` (`id`, `role_name`, `role_code`, `role_desc`, `ds_type`, `ds_scope`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('1', '超级管理员', 'ROLE_admin', '超级管理员', '0', '2', '2017-10-29 07:45:51', '2021-12-31 06:19:46', '1', '1', '0', 1);
+INSERT INTO `sys_role` (`id`, `role_name`, `role_code`, `role_desc`, `ds_type`, `ds_scope`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('1', '超级管理员', 'ROLE_admin', '超级管理员', '0', '2', '2017-10-29 07:45:51', '2023-01-10 22:34:15', '1', '1', '0', 2);
 INSERT INTO `sys_role` (`id`, `role_name`, `role_code`, `role_desc`, `ds_type`, `ds_scope`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('2', '普通用户', 'ROLE_normal', '普通用户', '0', '2', '2021-12-31 06:19:20', '2021-12-31 06:20:27', '1', '1', '0', 1);
 COMMIT;
 
@@ -692,6 +749,11 @@ INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`, `update_
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('12402', 1, 2402, '2022-09-19 17:02:00', '2022-09-19 17:02:00', '1', '1', '0', 1);
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('12403', 1, 2403, '2022-09-19 17:02:00', '2022-09-19 17:02:00', '1', '1', '0', 1);
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('12404', 1, 2404, '2022-09-19 17:01:07', '2022-09-19 17:01:07', '1', '1', '0', 1);
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('12500', 1, 2500, '2022-09-19 17:01:07', '2022-09-19 17:01:07', '1', '1', '0', 1);
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('12501', 1, 2501, '2022-09-19 17:01:07', '2022-09-19 17:01:07', '1', '1', '0', 1);
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('12502', 1, 2502, '2022-09-19 17:01:07', '2022-09-19 17:01:07', '1', '1', '0', 1);
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('12503', 1, 2503, '2022-09-19 17:01:07', '2022-09-19 17:01:07', '1', '1', '0', 1);
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('12504', 1, 2504, '2022-09-19 17:01:07', '2022-09-19 17:01:07', '1', '1', '0', 1);
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('13000', 1, 3000, '2022-09-19 17:01:07', '2022-09-19 17:01:07', '1', '1', '0', 1);
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('22200', 2, 2200, '2022-09-19 17:01:07', '2022-09-19 17:01:07', '1', '1', '0', 1);
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`, `update_time`, `creator`, `updater`, `deleted`, `version`) VALUES ('22300', 2, 2300, '2022-09-19 17:01:07', '2022-09-19 17:01:07', '1', '1', '0', 1);

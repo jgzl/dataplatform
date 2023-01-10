@@ -6,7 +6,7 @@ import cn.hutool.extra.spring.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author vlfac
+ * @author li7hai26@gmail.com
  */
 @Slf4j
 @Join

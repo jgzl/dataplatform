@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 注册处理器
- * @author vlfac
+ * @author li7hai26@gmail.com
  */
 @Slf4j
 @Configuration

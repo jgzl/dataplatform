@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: 资源文件选择器
  * @version: 1.0
- * @Author: sakuya
- * @Date: 2021年10月11日16:01:40
+ * @author sakuya
+ * @date 2021年10月11日16:01:40
  * @LastEditors:
  * @LastEditTime:
 -->

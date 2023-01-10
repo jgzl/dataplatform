@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  * @version 1.0
  * @title: DefaultDBFieldHandler
  * @description: 通用参数填充实现类, 如果没有显式的对通用参数进行赋值，这里会对通用参数进行填充、赋值
- * @date: 2022/5/30 20:51
+ * @date 2022/5/30 20:51
  */
 @Slf4j
 public class DefaultDBFieldHandler implements MetaObjectHandler {

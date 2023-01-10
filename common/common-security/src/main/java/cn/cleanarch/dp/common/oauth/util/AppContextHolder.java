@@ -18,7 +18,7 @@ import java.util.List;
  * @version 1.0
  * @title: AppContextHolder
  * @description: 应用上下文
- * @date: 2022/5/30 20:55
+ * @date 2022/5/30 20:55
  */
 @UtilityClass
 public class AppContextHolder {

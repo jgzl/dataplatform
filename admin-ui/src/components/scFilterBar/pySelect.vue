@@ -1,8 +1,8 @@
 <!--
  * @Descripttion: 二次封装el-select 支持拼音
  * @version: 1.0
- * @Author: sakuya
- * @Date: 2021年7月31日22:26:56
+ * @author sakuya
+ * @date 2021年7月31日22:26:56
  * @LastEditors:
  * @LastEditTime:
 -->
