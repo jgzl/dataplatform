@@ -205,7 +205,7 @@
 					this.infoForm = obj.row;
 				} else if (obj.command === 'edit'){
 					this.infoForm = obj.row;
-					this.$router.push({path:'/gateway/dashboard/gateway/dashboard/createGateway',query:{handleType:'edit',route:routeData}});
+					this.$router.push({path:'/gateway/dashboard/createGateway',query:{handleType:'edit',route:routeData}});
 				} else if (obj.command === 'rule'){
 					this.$router.push({path:'/gateway/dashboard/addGroovyScript',query:{route:routeData}});
 				} else if (obj.command === 'start'){
