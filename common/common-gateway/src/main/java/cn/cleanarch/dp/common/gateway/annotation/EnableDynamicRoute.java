@@ -3,7 +3,7 @@ package cn.cleanarch.dp.common.gateway.annotation;
 import cn.cleanarch.dp.common.gateway.configuration.DynamicGatewayAccessAutoConfiguration;
 import cn.cleanarch.dp.common.gateway.configuration.DynamicGatewayRouteConfAutoConfiguration;
 import cn.cleanarch.dp.common.gateway.configuration.GatewayExceptionHandlerConfiguration;
-import cn.cleanarch.dp.common.gateway.support.RedisRouteDefinitionWriter;
+import cn.cleanarch.dp.common.gateway.support.RedisRouteDefinitionRepository;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -19,10 +19,10 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @Import({
-        DynamicGatewayRouteConfAutoConfiguration.class,
+//        DynamicGatewayRouteConfAutoConfiguration.class,
         DynamicGatewayAccessAutoConfiguration.class,
         GatewayExceptionHandlerConfiguration.class,
-        RedisRouteDefinitionWriter.class,
+//        RedisRouteDefinitionRepository.class,
 })
 public @interface EnableDynamicRoute {
 

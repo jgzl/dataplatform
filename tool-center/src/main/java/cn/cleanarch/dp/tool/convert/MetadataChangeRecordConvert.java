@@ -1,9 +1,9 @@
 package cn.cleanarch.dp.tool.convert;
 
 import cn.cleanarch.dp.common.model.EntityMapper;
-import cn.cleanarch.dp.metadata.dto.MetadataChangeRecordDto;
-import cn.cleanarch.dp.metadata.entity.MetadataChangeRecordEntity;
-import cn.cleanarch.dp.metadata.vo.MetadataChangeRecordVo;
+import cn.cleanarch.dp.tool.metadata.dto.MetadataChangeRecordDto;
+import cn.cleanarch.dp.tool.metadata.entity.MetadataChangeRecordEntity;
+import cn.cleanarch.dp.tool.metadata.vo.MetadataChangeRecordVo;
 import org.mapstruct.Mapper;
 
 /**

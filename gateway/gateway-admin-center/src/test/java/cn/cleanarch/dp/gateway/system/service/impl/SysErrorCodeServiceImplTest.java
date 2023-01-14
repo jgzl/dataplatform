@@ -3,8 +3,8 @@ package cn.cleanarch.dp.gateway.system.service.impl;
 import cn.cleanarch.dp.common.test.core.ut.BaseDbAndRedisUnitTest;
 import cn.cleanarch.dp.common.test.core.util.RandomUtil;
 import cn.cleanarch.dp.gateway.system.service.errorcode.SysErrorCodeServiceImpl;
-import cn.cleanarch.dp.system.dataobject.errorcode.SysErrorCodeDO;
-import cn.cleanarch.dp.system.vo.errorcode.SysErrorCodeCreateReqVO;
+import cn.cleanarch.dp.system.sys.dataobject.errorcode.SysErrorCodeDO;
+import cn.cleanarch.dp.system.sys.vo.errorcode.SysErrorCodeCreateReqVO;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
 

@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.tool.service;
 
-import cn.cleanarch.dp.metadata.dto.SqlConsoleDto;
-import cn.cleanarch.dp.metadata.vo.SqlConsoleVo;
+import cn.cleanarch.dp.tool.metadata.dto.SqlConsoleDto;
+import cn.cleanarch.dp.tool.metadata.vo.SqlConsoleVo;
 
 import java.util.List;
 

@@ -3,7 +3,7 @@ package cn.cleanarch.dp.auth.support.handler;
 import cn.cleanarch.dp.common.core.model.R;
 import cn.cleanarch.dp.common.core.utils.WebmvcUtil;
 import cn.cleanarch.dp.common.oauth.util.OAuth2EndpointUtils;
-import cn.cleanarch.dp.system.vo.user.LoginUserVO;
+import cn.cleanarch.dp.system.sys.vo.user.LoginUserVO;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageConverter;

@@ -2,7 +2,7 @@ package cn.cleanarch.dp.gateway.spi.log.service;
 
 import cn.cleanarch.dp.common.core.spi.Join;
 import cn.cleanarch.dp.common.core.utils.JacksonUtil;
-import cn.cleanarch.dp.gateway.dataobject.GatewayLogDO;
+import cn.cleanarch.dp.gateway.admin.dataobject.GatewayLogDO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j(topic = "gateway")

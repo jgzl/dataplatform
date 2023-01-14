@@ -1,11 +1,11 @@
 package cn.cleanarch.dp.tool.controller;
 
 import cn.cleanarch.dp.common.core.model.R;
-import cn.cleanarch.dp.metadata.dto.MetadataTableDto;
-import cn.cleanarch.dp.metadata.entity.MetadataTableEntity;
-import cn.cleanarch.dp.metadata.query.MetadataTableQuery;
-import cn.cleanarch.dp.metadata.validate.ValidationGroups;
-import cn.cleanarch.dp.metadata.vo.MetadataTableVo;
+import cn.cleanarch.dp.tool.metadata.dto.MetadataTableDto;
+import cn.cleanarch.dp.tool.metadata.entity.MetadataTableEntity;
+import cn.cleanarch.dp.tool.metadata.query.MetadataTableQuery;
+import cn.cleanarch.dp.tool.metadata.validate.ValidationGroups;
+import cn.cleanarch.dp.tool.metadata.vo.MetadataTableVo;
 import cn.cleanarch.dp.tool.convert.MetadataTableConvert;
 import cn.cleanarch.dp.tool.service.MetadataTableService;
 import cn.hutool.core.util.StrUtil;

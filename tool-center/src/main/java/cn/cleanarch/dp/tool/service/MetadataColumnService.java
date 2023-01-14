@@ -1,9 +1,9 @@
 package cn.cleanarch.dp.tool.service;
 
-import cn.cleanarch.dp.metadata.dto.MetadataColumnDto;
-import cn.cleanarch.dp.metadata.entity.MetadataColumnEntity;
-import cn.cleanarch.dp.metadata.query.MetadataColumnQuery;
-import cn.cleanarch.dp.metadata.vo.MetadataTreeVo;
+import cn.cleanarch.dp.tool.metadata.dto.MetadataColumnDto;
+import cn.cleanarch.dp.tool.metadata.entity.MetadataColumnEntity;
+import cn.cleanarch.dp.tool.metadata.query.MetadataColumnQuery;
+import cn.cleanarch.dp.tool.metadata.vo.MetadataTreeVo;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;

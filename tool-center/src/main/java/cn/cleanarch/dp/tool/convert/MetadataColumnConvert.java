@@ -1,9 +1,9 @@
 package cn.cleanarch.dp.tool.convert;
 
 import cn.cleanarch.dp.common.model.EntityMapper;
-import cn.cleanarch.dp.metadata.dto.MetadataColumnDto;
-import cn.cleanarch.dp.metadata.entity.MetadataColumnEntity;
-import cn.cleanarch.dp.metadata.vo.MetadataColumnVo;
+import cn.cleanarch.dp.tool.metadata.dto.MetadataColumnDto;
+import cn.cleanarch.dp.tool.metadata.entity.MetadataColumnEntity;
+import cn.cleanarch.dp.tool.metadata.vo.MetadataColumnVo;
 import org.mapstruct.Mapper;
 
 /**

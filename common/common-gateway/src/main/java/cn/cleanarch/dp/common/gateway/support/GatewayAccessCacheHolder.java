@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.common.gateway.support;
 
-import cn.cleanarch.dp.gateway.vo.GatewayAccessVO;
+import cn.cleanarch.dp.gateway.admin.vo.GatewayAccessVO;
 import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;

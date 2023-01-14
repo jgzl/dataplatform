@@ -1,9 +1,8 @@
-import config from "@/config"
-import http from "@/utils/request"
+import { http } from "@/utils/request"
 
 export default {
 	login: {
-		url: `${config.API_URL}/auth-center/oauth2/token`,
+		url: `/auth-center/oauth2/token`,
 		name: "登录",
 		post: async function(data={},headers={}){
 			let config = {}
@@ -12,7 +11,7 @@ export default {
 		}
 	},
 	currentUserInfo: {
-		url: `${config.API_URL}/system-center/system/user/info`,
+		url: `/system-center/system/user/info`,
 		name: "获取当前用户信息",
 		get: async function(data){
 			return await http.get(`${this.url}/${data}`);

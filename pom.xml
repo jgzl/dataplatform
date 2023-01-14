@@ -41,7 +41,7 @@
         <lombok.version>1.18.24</lombok.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <!-- 在升级springboot版本时，需要同时更改dependencies-bom和根目录的版本 -->
-        <spring-boot.version>2.7.5</spring-boot.version>
+        <spring-boot.version>2.7.7</spring-boot.version>
     </properties>
 
     <dependencies>

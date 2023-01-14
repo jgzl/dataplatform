@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.tool.service.impl;
 
-import cn.cleanarch.dp.metadata.dto.MetadataChangeRecordDto;
-import cn.cleanarch.dp.metadata.entity.MetadataChangeRecordEntity;
+import cn.cleanarch.dp.tool.metadata.dto.MetadataChangeRecordDto;
+import cn.cleanarch.dp.tool.metadata.entity.MetadataChangeRecordEntity;
 import cn.cleanarch.dp.tool.convert.MetadataChangeRecordConvert;
 import cn.cleanarch.dp.tool.mapper.MetadataChangeRecordMapper;
 import cn.cleanarch.dp.tool.service.MetadataChangeRecordService;

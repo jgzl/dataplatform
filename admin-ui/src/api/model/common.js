@@ -1,30 +1,29 @@
-import config from "@/config"
-import http from "@/utils/request"
+import { http } from "@/utils/request"
 
 export default {
 	upload: {
-		url: `${config.API_URL}/gateway-admin/upload`,
+		url: `/gateway-admin/upload`,
 		name: "文件上传",
 		post: async function(data, config={}){
 			return await http.post(this.url, data, config);
 		}
 	},
 	uploadFile: {
-		url: `${config.API_URL}/gateway-admin/uploadFile`,
+		url: `/gateway-admin/uploadFile`,
 		name: "附件上传",
 		post: async function(data, config={}){
 			return await http.post(this.url, data, config);
 		}
 	},
 	exportFile: {
-		url: `${config.API_URL}/gateway-admin/fileExport`,
+		url: `/gateway-admin/fileExport`,
 		name: "导出附件",
 		get: async function(data, config={}){
 			return await http.get(this.url, data, config);
 		}
 	},
 	importFile: {
-		url: `${config.API_URL}/gateway-admin/fileImport`,
+		url: `/gateway-admin/fileImport`,
 		name: "导入附件",
 		post: async function(data, config={}){
 			return await http.post(this.url, data, config);
@@ -32,14 +31,14 @@ export default {
 	},
 	file: {
 		menu: {
-			url: `${config.API_URL}/gateway-admin/file/menu`,
+			url: `/gateway-admin/file/menu`,
 			name: "获取文件分类",
 			get: async function(){
 				return await http.get(this.url);
 			}
 		},
 		list: {
-			url: `${config.API_URL}/gateway-admin/file/list`,
+			url: `/gateway-admin/file/list`,
 			name: "获取文件列表",
 			get: async function(params){
 				return await http.get(this.url, params);

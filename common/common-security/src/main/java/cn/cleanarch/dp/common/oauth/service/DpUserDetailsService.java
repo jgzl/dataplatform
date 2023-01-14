@@ -3,7 +3,7 @@ package cn.cleanarch.dp.common.oauth.service;
 import cn.cleanarch.dp.common.core.constant.CommonConstants;
 import cn.cleanarch.dp.common.core.constant.SecurityConstants;
 import cn.cleanarch.dp.common.oauth.vo.LoginUser;
-import cn.cleanarch.dp.system.dto.SysUserInfoDTO;
+import cn.cleanarch.dp.system.sys.dto.SysUserInfoDTO;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import org.springframework.core.Ordered;

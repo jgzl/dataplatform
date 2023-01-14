@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.gateway.admin.service;
 
-import cn.cleanarch.dp.gateway.dataobject.GatewayAccessDO;
-import cn.cleanarch.dp.gateway.vo.GatewayAccessVO;
+import cn.cleanarch.dp.gateway.admin.dataobject.GatewayAccessDO;
+import cn.cleanarch.dp.gateway.admin.vo.GatewayAccessVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

@@ -2,7 +2,7 @@ package cn.cleanarch.dp.common.gateway.configuration;
 
 import cn.cleanarch.dp.common.core.constant.CacheConstants;
 import cn.cleanarch.dp.common.gateway.support.GatewayAccessCacheHolder;
-import cn.cleanarch.dp.gateway.vo.GatewayAccessVO;
+import cn.cleanarch.dp.gateway.admin.vo.GatewayAccessVO;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.lang.TypeReference;

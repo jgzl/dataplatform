@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.tool.service;
 
-import cn.cleanarch.dp.metadata.dto.MetadataAuthorizeDto;
-import cn.cleanarch.dp.metadata.entity.MetadataAuthorizeEntity;
+import cn.cleanarch.dp.tool.metadata.dto.MetadataAuthorizeDto;
+import cn.cleanarch.dp.tool.metadata.entity.MetadataAuthorizeEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;

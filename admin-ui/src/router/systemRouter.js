@@ -5,31 +5,31 @@ const routes = [
 	{
 		name: "layout",
 		path: "/",
-		component: () => import(/* webpackChunkName: "layout" */ '@/layout'),
+		component: () => import('@/layout'),
 		redirect: config.DASHBOARD_URL || '/dashboard',
 		children: []
 	},
 	{
 		path: "/login",
-		component: () => import(/* webpackChunkName: "login" */ '@/views/login'),
+		component: () => import('@/views/login'),
 		meta: {
 			title: "登录"
 		}
 	},
 	{
 		path: "/user_register",
-		component: () => import(/* webpackChunkName: "userRegister" */ '@/views/login/userRegister'),
+		component: () => import('@/views/login/userRegister'),
 		meta: {
 			title: "注册"
 		}
 	},
 	{
 		path: "/reset_password",
-		component: () => import(/* webpackChunkName: "resetPassword" */ '@/views/login/resetPassword'),
+		component: () => import('@/views/login/resetPassword'),
 		meta: {
 			title: "重置密码"
 		}
-	}
+	},
 ]
 
 export default routes;

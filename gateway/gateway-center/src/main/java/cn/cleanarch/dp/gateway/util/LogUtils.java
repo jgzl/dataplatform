@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.util;
 
-import cn.cleanarch.dp.gateway.dataobject.GatewayLogDO;
+import cn.cleanarch.dp.gateway.admin.dataobject.GatewayLogDO;
 import cn.cleanarch.dp.gateway.listener.GatewayRequestLogApplicationEvent;
 import cn.hutool.extra.spring.SpringUtil;
 import io.netty.buffer.UnpooledByteBufAllocator;

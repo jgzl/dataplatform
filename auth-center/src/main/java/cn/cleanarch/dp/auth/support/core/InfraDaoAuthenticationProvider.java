@@ -70,7 +70,7 @@ public class InfraDaoAuthenticationProvider extends AbstractUserDetailsAuthentic
 			UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
 
 		// app 模式不用校验密码
-		String grantType = WebmvcUtil.getRequest().get().getParameter(OAuth2ParameterNames.GRANT_TYPE);
+		String grantType = WebmvcUtil.getRequest().getParameter(OAuth2ParameterNames.GRANT_TYPE);
 		if (StrUtil.equals(SecurityConstants.APP, grantType)) {
 			return;
 		}
@@ -93,11 +93,8 @@ public class InfraDaoAuthenticationProvider extends AbstractUserDetailsAuthentic
 
 	protected final UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) {
 		prepareTimingAttackProtection();
-		HttpServletRequest request = WebmvcUtil.getRequest().orElseThrow(
-				(Supplier<Throwable>) () -> {
-					log.error("web request is empty");
-					return new InternalAuthenticationServiceException("web request is empty");
-				});
+		HttpServletRequest request = WebmvcUtil.getRequest();
+		Assert.notNull(request,"HttpServletRequest is null");
 
 		Map<String, String> paramMap = ServletUtil.getParamMap(request);
 		String grantType = paramMap.get(OAuth2ParameterNames.GRANT_TYPE);

@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.admin.mapper;
 
-import cn.cleanarch.dp.gateway.dataobject.GatewayLogDO;
+import cn.cleanarch.dp.gateway.admin.dataobject.GatewayLogDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

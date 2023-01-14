@@ -3,11 +3,12 @@ package cn.cleanarch.dp.gateway.listener;
 import cn.cleanarch.dp.common.core.constant.enums.RecordLogEnum;
 import cn.cleanarch.dp.common.core.spi.ExtensionLoader;
 import cn.cleanarch.dp.gateway.configuration.properties.GatewayProperties;
-import cn.cleanarch.dp.gateway.dataobject.GatewayLogDO;
+import cn.cleanarch.dp.gateway.admin.dataobject.GatewayLogDO;
 import cn.cleanarch.dp.gateway.spi.log.service.RecordLogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 /**
@@ -23,6 +24,7 @@ public class GatewayRequestLogApplicationListener implements ApplicationListener
 
     private final GatewayProperties gatewayProperties;
 
+    @Async
     @Override
     public void onApplicationEvent(GatewayRequestLogApplicationEvent event) {
          GatewayLogDO gatewayLog = event.getGatewayLog();

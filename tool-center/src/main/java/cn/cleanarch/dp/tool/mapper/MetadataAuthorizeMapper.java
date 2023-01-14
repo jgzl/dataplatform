@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.tool.mapper;
 
 
-import cn.cleanarch.dp.metadata.entity.MetadataAuthorizeEntity;
+import cn.cleanarch.dp.tool.metadata.entity.MetadataAuthorizeEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

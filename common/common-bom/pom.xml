@@ -40,6 +40,14 @@
         </dependency>
         <dependency>
             <groupId>cn.cleanarch.dp</groupId>
+            <artifactId>common-gateway-ext</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.cleanarch.dp</groupId>
+            <artifactId>common-gray</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-model</artifactId>
         </dependency>
         <dependency>

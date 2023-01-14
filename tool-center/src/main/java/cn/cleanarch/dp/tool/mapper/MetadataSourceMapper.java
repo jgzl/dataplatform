@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.tool.mapper;
 
 
-import cn.cleanarch.dp.metadata.entity.MetadataSourceEntity;
+import cn.cleanarch.dp.tool.metadata.entity.MetadataSourceEntity;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;

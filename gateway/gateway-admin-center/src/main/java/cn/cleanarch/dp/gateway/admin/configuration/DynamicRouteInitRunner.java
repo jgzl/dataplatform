@@ -2,9 +2,9 @@ package cn.cleanarch.dp.gateway.admin.configuration;
 
 import cn.cleanarch.dp.common.core.constant.CacheConstants;
 import cn.cleanarch.dp.gateway.admin.service.GatewayRouteService;
-import cn.cleanarch.dp.gateway.vo.GatewayFilterDefinitionVO;
-import cn.cleanarch.dp.gateway.vo.GatewayPredicateDefinitionVO;
-import cn.cleanarch.dp.gateway.vo.GatewayRouteDefinitionVO;
+import cn.cleanarch.dp.gateway.admin.vo.GatewayFilterDefinitionVO;
+import cn.cleanarch.dp.gateway.admin.vo.GatewayPredicateDefinitionVO;
+import cn.cleanarch.dp.gateway.admin.vo.GatewayRouteDefinitionVO;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;

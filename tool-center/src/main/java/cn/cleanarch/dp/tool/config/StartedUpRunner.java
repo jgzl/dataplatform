@@ -1,10 +1,10 @@
 package cn.cleanarch.dp.tool.config;
 
 import cn.cleanarch.dp.common.redis.RedisHelper;
-import cn.cleanarch.dp.metadata.entity.MetadataAuthorizeEntity;
-import cn.cleanarch.dp.metadata.entity.MetadataColumnEntity;
-import cn.cleanarch.dp.metadata.entity.MetadataSourceEntity;
-import cn.cleanarch.dp.metadata.entity.MetadataTableEntity;
+import cn.cleanarch.dp.tool.metadata.entity.MetadataAuthorizeEntity;
+import cn.cleanarch.dp.tool.metadata.entity.MetadataColumnEntity;
+import cn.cleanarch.dp.tool.metadata.entity.MetadataSourceEntity;
+import cn.cleanarch.dp.tool.metadata.entity.MetadataTableEntity;
 import cn.cleanarch.dp.tool.constants.RedisConstant;
 import cn.cleanarch.dp.tool.mapper.MetadataAuthorizeMapper;
 import cn.cleanarch.dp.tool.mapper.MetadataColumnMapper;

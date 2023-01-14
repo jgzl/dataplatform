@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.tool.concurrent;
 
-import cn.cleanarch.dp.metadata.vo.SqlConsoleVo;
+import cn.cleanarch.dp.tool.metadata.vo.SqlConsoleVo;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;

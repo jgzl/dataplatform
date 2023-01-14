@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.tool.controller;
 
 import cn.cleanarch.dp.common.core.model.R;
-import cn.cleanarch.dp.metadata.dto.MetadataAuthorizeDto;
+import cn.cleanarch.dp.tool.metadata.dto.MetadataAuthorizeDto;
 import cn.cleanarch.dp.tool.convert.MetadataAuthorizeConvert;
 import cn.cleanarch.dp.tool.service.MetadataAuthorizeService;
 import io.swagger.annotations.Api;

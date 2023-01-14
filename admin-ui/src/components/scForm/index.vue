@@ -117,7 +117,7 @@
 </template>
 
 <script>
-import http from "@/utils/request"
+import { http } from "@/utils/request"
 
 import {defineAsyncComponent} from 'vue'
 

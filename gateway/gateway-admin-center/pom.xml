@@ -20,7 +20,7 @@
         </dependency>
         <dependency>
             <groupId>cn.cleanarch.dp</groupId>
-            <artifactId>common-security</artifactId>
+            <artifactId>common-gateway-ext</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.cleanarch.dp</groupId>
@@ -29,6 +29,10 @@
         <dependency>
             <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.cleanarch.dp</groupId>
+            <artifactId>common-security</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.cleanarch.dp</groupId>
@@ -52,6 +56,10 @@
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
         </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -64,18 +72,7 @@
         <!--web 模块-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--undertow容器-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-undertow</artifactId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

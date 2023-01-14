@@ -2,8 +2,8 @@ package cn.cleanarch.dp.gateway.admin.configuration;
 
 import cn.cleanarch.dp.common.core.constant.CacheConstants;
 import cn.cleanarch.dp.gateway.admin.service.GatewayAccessService;
-import cn.cleanarch.dp.gateway.convert.GatewayAccessConfConvert;
-import cn.cleanarch.dp.gateway.vo.GatewayAccessVO;
+import cn.cleanarch.dp.gateway.admin.convert.GatewayAccessConfConvert;
+import cn.cleanarch.dp.gateway.admin.vo.GatewayAccessVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;

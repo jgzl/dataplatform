@@ -1,10 +1,10 @@
 package cn.cleanarch.dp.gateway.system.service;
 
 import cn.cleanarch.dp.common.core.model.R;
-import cn.cleanarch.dp.system.dataobject.user.SysUserDO;
-import cn.cleanarch.dp.system.dto.SysUserDTO;
-import cn.cleanarch.dp.system.dto.SysUserInfoDTO;
-import cn.cleanarch.dp.system.vo.user.SysUserVO;
+import cn.cleanarch.dp.system.sys.dataobject.user.SysUserDO;
+import cn.cleanarch.dp.system.sys.dto.SysUserDTO;
+import cn.cleanarch.dp.system.sys.dto.SysUserInfoDTO;
+import cn.cleanarch.dp.system.sys.vo.user.SysUserVO;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;

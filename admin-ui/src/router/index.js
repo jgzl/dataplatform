@@ -73,7 +73,9 @@ router.beforeEach(async (to, from, next) => {
 		})
 		let menu = [...userMenu, ...apiMenu]
 		var menuRouter = filterAsyncRouter(menu)
+		console.log(menuRouter)
 		menuRouter = flatAsyncRoutes(menuRouter)
+		console.log(menuRouter)
 		menuRouter.forEach(item => {
 			router.addRoute("layout", item)
 		})

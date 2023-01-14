@@ -1,10 +1,10 @@
 package cn.cleanarch.dp.tool.controller;
 
 import cn.cleanarch.dp.common.core.model.R;
-import cn.cleanarch.dp.metadata.dto.MetadataChangeRecordDto;
-import cn.cleanarch.dp.metadata.entity.MetadataChangeRecordEntity;
-import cn.cleanarch.dp.metadata.query.MetadataChangeRecordQuery;
-import cn.cleanarch.dp.metadata.validate.ValidationGroups;
+import cn.cleanarch.dp.tool.metadata.dto.MetadataChangeRecordDto;
+import cn.cleanarch.dp.tool.metadata.entity.MetadataChangeRecordEntity;
+import cn.cleanarch.dp.tool.metadata.query.MetadataChangeRecordQuery;
+import cn.cleanarch.dp.tool.metadata.validate.ValidationGroups;
 import cn.cleanarch.dp.tool.convert.MetadataChangeRecordConvert;
 import cn.cleanarch.dp.tool.service.MetadataChangeRecordService;
 import cn.hutool.core.util.StrUtil;

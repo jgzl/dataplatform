@@ -2,8 +2,8 @@ package cn.cleanarch.dp.gateway.admin.controller;
 
 import cn.cleanarch.dp.common.core.model.R;
 import cn.cleanarch.dp.gateway.admin.service.GatewayAccessService;
-import cn.cleanarch.dp.gateway.dataobject.GatewayAccessDO;
-import cn.cleanarch.dp.gateway.vo.GatewayAccessVO;
+import cn.cleanarch.dp.gateway.admin.dataobject.GatewayAccessDO;
+import cn.cleanarch.dp.gateway.admin.vo.GatewayAccessVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

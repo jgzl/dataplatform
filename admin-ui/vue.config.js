@@ -15,11 +15,8 @@ module.exports = defineConfig({
 		port: process.env.VUE_APP_PORT, //挂载端口
 		proxy: {
 			'/api': {
-				target: process.env.VUE_APP_API_BASEURL,
-				ws: true,
-				pathRewrite: {
-					'^/api': '/'
-				}
+				target: "http://localhost:7000",
+				ws: true
 			}
 		}
 	},

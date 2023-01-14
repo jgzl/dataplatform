@@ -4,7 +4,7 @@ import cn.cleanarch.dp.common.core.constant.CommonConstants;
 import cn.cleanarch.dp.common.core.constant.enums.StatusEnum;
 import cn.cleanarch.dp.common.test.core.ut.BaseDbUnitTest;
 import cn.cleanarch.dp.common.test.core.util.RandomUtil;
-import cn.cleanarch.dp.gateway.dataobject.GatewayAccessDO;
+import cn.cleanarch.dp.gateway.admin.dataobject.GatewayAccessDO;
 import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;

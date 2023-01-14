@@ -12,7 +12,7 @@ const DEFAULT_CONFIG = {
 	CORE_VER: "1.6.6",
 
 	//接口地址
-	API_URL: process.env.NODE_ENV === 'development' && process.env.VUE_APP_PROXY === 'true' ? "/api" : process.env.VUE_APP_API_BASEURL,
+	API_URL: process.env.VUE_APP_API_BASEURL,
 
 	//请求超时
 	TIMEOUT: 10000,
@@ -26,6 +26,7 @@ const DEFAULT_CONFIG = {
 	//追加其他头
 	HEADERS: {
 		'x-business-api-type': process.env.VUE_APP_API_TYPE,
+		// 'x-business-api-version': 'v1.0.0',
 	},
 
 	//请求是否开启缓存

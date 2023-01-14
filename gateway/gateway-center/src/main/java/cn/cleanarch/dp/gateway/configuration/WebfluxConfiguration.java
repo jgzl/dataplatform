@@ -2,10 +2,10 @@ package cn.cleanarch.dp.gateway.configuration;
 
 import cn.cleanarch.dp.gateway.common.FilterOrderConstants;
 import cn.cleanarch.dp.gateway.configuration.properties.GatewayProperties;
-import cn.cleanarch.dp.gateway.filter.webflux.FileSizeFilter;
+//import cn.cleanarch.dp.gateway.filter.webflux.FileSizeFilter;
 import cn.cleanarch.dp.gateway.filter.webflux.GatewayApiAccessFilter;
 import cn.cleanarch.dp.gateway.filter.webflux.GatewayApiLogFilter;
-import cn.cleanarch.dp.gateway.filter.webflux.GatewayApiPrefixFilter;
+//import cn.cleanarch.dp.gateway.filter.webflux.GatewayApiPrefixFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -31,24 +31,24 @@ import java.util.stream.Collectors;
 public class WebfluxConfiguration implements WebFluxConfigurer {
 
     private final GatewayProperties gatewayProperties;
-
-    @Bean(FileSizeFilter.FILTER_NAME)
-    public FileSizeFilter fileSizeFilter() {
-        return new FileSizeFilter(gatewayProperties.getFile().getFileMaxSize());
-    }
-
+//
+//    @Bean(FileSizeFilter.FILTER_NAME)
+//    public FileSizeFilter fileSizeFilter() {
+//        return new FileSizeFilter(gatewayProperties.getFile().getFileMaxSize());
+//    }
+//
     @Order(FilterOrderConstants.GATEWAY_API_ACCESS_FILTER)
     @Bean(GatewayApiAccessFilter.FILTER_NAME)
     public GatewayApiAccessFilter gatewayApiAccessFilter() {
         return new GatewayApiAccessFilter(gatewayProperties);
     }
-
-    @Order(FilterOrderConstants.GATEWAY_API_PREFIX_FILTER)
-    @Bean(GatewayApiPrefixFilter.FILTER_NAME)
-    public GatewayApiPrefixFilter gatewayApiPrefixFilter() {
-        return new GatewayApiPrefixFilter(gatewayProperties);
-    }
-
+//
+//    @Order(FilterOrderConstants.GATEWAY_API_PREFIX_FILTER)
+//    @Bean(GatewayApiPrefixFilter.FILTER_NAME)
+//    public GatewayApiPrefixFilter gatewayApiPrefixFilter() {
+//        return new GatewayApiPrefixFilter(gatewayProperties);
+//    }
+//
     @Order(FilterOrderConstants.GATEWAY_API_LOG_FILTER)
     @Bean(GatewayApiLogFilter.FILTER_NAME)
     public GatewayApiLogFilter gatewayApiLogFilter() {

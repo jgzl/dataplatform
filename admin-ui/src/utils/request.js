@@ -4,9 +4,9 @@ import sysConfig from "@/config";
 import tool from '@/utils/tool';
 import router from '@/router';
 
-axios.defaults.baseURL = ''
-
+axios.defaults.baseURL = sysConfig.API_URL
 axios.defaults.timeout = sysConfig.TIMEOUT
+axios.defaults.withCredentials = true
 
 // HTTP request 拦截器
 axios.interceptors.request.use(
@@ -203,4 +203,4 @@ var http = {
 	}
 }
 
-export default http;
+export { http,axios };

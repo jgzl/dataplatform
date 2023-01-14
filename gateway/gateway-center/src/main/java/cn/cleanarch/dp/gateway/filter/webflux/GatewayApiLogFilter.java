@@ -5,7 +5,7 @@ import cn.cleanarch.dp.common.core.utils.JacksonUtil;
 import cn.cleanarch.dp.common.core.utils.WebfluxUtil;
 import cn.cleanarch.dp.gateway.configuration.properties.GatewayProperties;
 import cn.cleanarch.dp.gateway.decorator.PayloadServerWebExchangeDecorator;
-import cn.cleanarch.dp.gateway.dataobject.GatewayLogDO;
+import cn.cleanarch.dp.gateway.admin.dataobject.GatewayLogDO;
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;

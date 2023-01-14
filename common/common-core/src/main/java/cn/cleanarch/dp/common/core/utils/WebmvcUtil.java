@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -206,8 +207,8 @@ public class WebmvcUtil extends org.springframework.web.util.WebUtils{
      * @return cookie value
      */
     public String getCookieVal(String name) {
-        if (getRequest().isPresent()) {
-            return getCookieVal(getRequest().get(), name);
+        if (getRequest()!=null) {
+            return getCookieVal(getRequest(), name);
         }
         return null;
     }
@@ -251,9 +252,15 @@ public class WebmvcUtil extends org.springframework.web.util.WebUtils{
      * 获取 HttpServletRequest
      * @return {HttpServletRequest}
      */
-    public Optional<HttpServletRequest> getRequest() {
-        return Optional
-                .ofNullable(((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
+    public HttpServletRequest getRequest() {
+        try {
+            ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            assert servletRequestAttributes != null;
+            HttpServletRequest request = servletRequestAttributes.getRequest();
+            return request;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -261,7 +268,14 @@ public class WebmvcUtil extends org.springframework.web.util.WebUtils{
      * @return {HttpServletResponse}
      */
     public HttpServletResponse getResponse() {
-        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+        try {
+            ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            assert servletRequestAttributes != null;
+            HttpServletResponse response = servletRequestAttributes.getResponse();
+            return response;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**

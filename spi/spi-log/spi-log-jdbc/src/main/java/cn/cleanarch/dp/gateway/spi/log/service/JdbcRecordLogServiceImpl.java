@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.gateway.spi.log.service;
 
 import cn.cleanarch.dp.common.core.spi.Join;
-import cn.cleanarch.dp.gateway.dataobject.GatewayLogDO;
+import cn.cleanarch.dp.gateway.admin.dataobject.GatewayLogDO;
 import cn.hutool.extra.spring.SpringUtil;
 import lombok.extern.slf4j.Slf4j;
 

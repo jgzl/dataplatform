@@ -46,10 +46,10 @@ public class DpOAuthRequestInterceptor implements RequestInterceptor {
 		}
 
 		// 非web 请求直接跳过
-		if (!WebmvcUtil.getRequest().isPresent()) {
+		if (WebmvcUtil.getRequest()==null) {
 			return;
 		}
-		HttpServletRequest request = WebmvcUtil.getRequest().get();
+		HttpServletRequest request = WebmvcUtil.getRequest();
 		// 避免请求参数的 query token 无法传递
 		String token = tokenResolver.resolve(request);
 		if (StrUtil.isBlank(token)) {

@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.tool.service;
 
-import cn.cleanarch.dp.metadata.dto.MetadataChangeRecordDto;
-import cn.cleanarch.dp.metadata.entity.MetadataChangeRecordEntity;
+import cn.cleanarch.dp.tool.metadata.dto.MetadataChangeRecordDto;
+import cn.cleanarch.dp.tool.metadata.entity.MetadataChangeRecordEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;

@@ -1,8 +1,8 @@
 package cn.cleanarch.dp.tool.service.impl;
 
 import cn.cleanarch.dp.common.redis.RedisHelper;
-import cn.cleanarch.dp.metadata.dto.MetadataAuthorizeDto;
-import cn.cleanarch.dp.metadata.entity.MetadataAuthorizeEntity;
+import cn.cleanarch.dp.tool.metadata.dto.MetadataAuthorizeDto;
+import cn.cleanarch.dp.tool.metadata.entity.MetadataAuthorizeEntity;
 import cn.cleanarch.dp.tool.constants.RedisConstant;
 import cn.cleanarch.dp.tool.convert.MetadataAuthorizeConvert;
 import cn.cleanarch.dp.tool.mapper.MetadataAuthorizeMapper;

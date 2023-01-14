@@ -15,6 +15,8 @@
         <module>common-excel</module>
         <module>common-feign</module>
         <module>common-gateway</module>
+        <module>common-gateway-ext</module>
+        <module>common-gray</module>
         <module>common-model</module>
         <module>common-qrcode</module>
         <module>common-redis</module>

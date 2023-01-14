@@ -4,7 +4,6 @@
 					<div class="left-panel">
 						<el-button type="primary" icon="el-icon-plus" @click="add"></el-button>
 						<el-button type="danger" plain icon="el-icon-delete" :disabled="selection.length==0" @click="batch_del"></el-button>
-						<el-button type="primary" :disabled="selection.length!==1" @click="prettyHeader(selection[0])">格式化展示Header</el-button>
 					</div>
 					<div class="right-panel">
 						<div class="right-panel-search">

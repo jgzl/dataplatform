@@ -6,7 +6,7 @@ import cn.cleanarch.dp.common.core.exception.enums.ErrorCodeConstants;
 import cn.cleanarch.dp.common.core.utils.WebfluxUtil;
 import cn.cleanarch.dp.common.gateway.support.GatewayAccessCacheHolder;
 import cn.cleanarch.dp.gateway.configuration.properties.GatewayProperties;
-import cn.cleanarch.dp.gateway.vo.GatewayAccessVO;
+import cn.cleanarch.dp.gateway.admin.vo.GatewayAccessVO;
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.reactive.ServerHttpRequest;

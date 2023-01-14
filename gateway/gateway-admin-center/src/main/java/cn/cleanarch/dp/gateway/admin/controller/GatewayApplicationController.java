@@ -7,7 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import cn.cleanarch.dp.gateway.dataobject.GatewayApplicationDO;
+import cn.cleanarch.dp.gateway.admin.dataobject.GatewayApplicationDO;
 import cn.cleanarch.dp.gateway.admin.service.GatewayApplicationService;
 
 import java.util.Arrays;

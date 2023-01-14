@@ -25,3 +25,7 @@ spring:
     name: @artifactId@
   main:
     allow-bean-definition-overriding: true
+  mail:
+    host: smtp.163.com
+    username: cleanarch@163.com
+    password: mnymbpdcdsbeffbb
