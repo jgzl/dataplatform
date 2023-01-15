@@ -41,7 +41,7 @@
 				</div>
 			</el-dialog>
 			<div slot="footer" class="dialog-footer">
-				<el-button icon="el-icon-s-claim" size="small" type="success" @click="submitForm">提 交</el-button>
+				<el-button icon="el-icon-promotion" size="small" type="success" @click="submitForm">提 交</el-button>
 				<el-button icon="el-icon-s-release" size="small" type="warning" @click="dialogFormVisible = false">关 闭</el-button>
 			</div>
 		</el-dialog>

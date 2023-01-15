@@ -99,8 +99,9 @@
 					</el-table-column>
 					<el-table-column label="查看" width="58">
 						<template v-slot:default="scope" style="border: 1px solid red;">
-							<el-button size="small" @click="handleClickBalanced(scope.row)" circle title="请点击选中查看"
-							:class="(selectedId === scope.row.id)?'el-icon-arrow-right breathe-keyframes btn-select':'el-icon-arrow-down btn-not-select'">
+							<el-button size="small" @click="handleClickBalanced(scope.row)" circle title="请点击选中查看">
+								<el-icon v-if="selectedId === scope.row.id"><el-icon-arrow-right/></el-icon>
+								<el-icon v-if="selectedId !== scope.row.id"><el-icon-arrow-down/></el-icon>
 							</el-button>
 						</template>
 					</el-table-column>

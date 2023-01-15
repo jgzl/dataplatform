@@ -19,7 +19,7 @@
 					<el-button icon="el-icon-delete" size="small" type="warning" @click="resetForm">清 空</el-button>
 				</div>
 				<div style="float: right; margin-left: 10px;">
-					<el-button icon="el-icon-s-claim" size="small" type="success" @click="submit">发 布</el-button>
+					<el-button icon="el-icon-promotion" size="small" type="success" @click="submit">发 布</el-button>
 				</div>
 				<div style="float: right; margin-left: 10px;">
 					<el-button icon="el-icon-connection" size="small" type="primary" @click="search" title="查找服务端">添加服务</el-button>

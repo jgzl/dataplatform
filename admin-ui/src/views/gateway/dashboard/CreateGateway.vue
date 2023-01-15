@@ -36,8 +36,8 @@
 								</el-button>
 							</div>
 							<div style="float: right; margin-left: 10px;">
-								<el-button icon="el-icon-s-claim" size="small" type="success" @click="submit">
-									发 布<el-icon class="el-icon--right"><el-icon-s-claim/></el-icon>
+								<el-button icon="el-icon-promotion" size="small" type="success" @click="submit">
+									发 布<el-icon class="el-icon--right"><el-icon-promotion/></el-icon>
 								</el-button>
 							</div>
 						</div>

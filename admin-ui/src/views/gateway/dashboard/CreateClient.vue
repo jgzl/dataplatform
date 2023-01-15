@@ -7,7 +7,7 @@
 					<div slot="header" class="clearfix">
 						<span>客户端配置</span>
 						<div style="float: right; margin-left: 10px;"><el-button icon="el-icon-delete" size="small" type="warning" @click="resetForm">清 空</el-button></div>
-						<div style="float: right; margin-left: 10px;"><el-button icon="el-icon-s-claim" size="small" type="success" @click="submit">发 布</el-button></div>
+						<div style="float: right; margin-left: 10px;"><el-button icon="el-icon-promotion" size="small" type="success" @click="submit">发 布</el-button></div>
 					</div>
 
 					<el-form size="small" :rules="rules" ref="form" :model="form" label-width="100px">

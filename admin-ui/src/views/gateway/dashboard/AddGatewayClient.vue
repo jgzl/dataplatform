@@ -63,7 +63,7 @@
 						    <el-button icon="el-icon-circle-plus-outline" size="small" type="success" @click="search" title="查找客户端">添加客户端</el-button>
 						</div>
 						<div style="float: right; margin-left: 10px;">
-						    <el-button icon="el-icon-s-claim" size="small" type="primary" @click="startAll" title="启用所有客户端通行">全部允许</el-button>
+						    <el-button icon="el-icon-promotion" size="small" type="primary" @click="startAll" title="启用所有客户端通行">全部允许</el-button>
 						</div>
 						<div style="float: right; margin-left: 10px;">
 						    <el-button icon="el-icon-circle-close" size="small" type="danger" @click="stopAll" title="禁用所有客户端通行">全部禁止</el-button>
