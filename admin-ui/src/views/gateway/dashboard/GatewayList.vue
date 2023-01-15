@@ -12,19 +12,26 @@
 					    <el-button icon="el-icon-folder-add" type="primary" @click="handleCreateGateway" title="创建网关服务"></el-button>
 					</div>
 					<div style="float: right;">
-					  <el-input placeholder="请输入网关服务名称" v-model="form.name" class="input-with-select" style="width: 620px;" clearable>
-						  <el-select v-model="form.groupCode" slot="prepend" placeholder="请选择分组" style="width: 140px; margin-right: 10px;">
-						  	<el-option label="所有" value=""/>
-						  	<el-option v-for="item in groupOptions" :key="item.value" :label="item.label" :value="item.value"/>
-						  </el-select>
-						  <el-popover placement="bottom" slot="prepend" trigger="click">
-						  	<el-radio v-model="form.status" v-for="item in statusOptions" :key="item.value" :label="item.value">{{item.label}}</el-radio>
-						  	<el-button slot="reference">
-						  		服务状态:{{form.status === '0' ? '启用': form.status === '1' ? '禁用' : '所有'}}<i class="el-icon-caret-bottom el-icon--right"></i>
-						  	</el-button>
-						  </el-popover>
-						  <el-button slot="append" icon="el-icon-search" @click="search" title="查询网关服务"></el-button>
-					  </el-input>
+						<el-input placeholder="请输入网关服务名称" v-model="form.name" class="input-with-select" style="width: 620px;" clearable>
+							<template #prepend>
+								<el-select v-model="form.groupCode" placeholder="请选择分组" style="width: 140px; margin-right: 10px;">
+									<el-option label="所有" value=""/>
+									<el-option v-for="item in groupOptions" :key="item.value" :label="item.label" :value="item.value"/>
+								</el-select>
+								<el-popover placement="bottom" trigger="click">
+									<el-radio v-model="form.status" v-for="item in statusOptions" :key="item.value" :label="item.value">{{item.label}}</el-radio>
+									<template #reference>
+										<el-button>
+											服务状态:{{form.status === '0' ? '启用': form.status === '1' ? '禁用' : '所有'}}
+											<el-icon class="el-icon--right"><el-icon-arrow-down /></el-icon>
+										</el-button>
+									</template>
+								</el-popover>
+							</template>
+							<template #append>
+								<el-button icon="el-icon-search" @click="search" title="查询网关服务"></el-button>
+							</template>
+						</el-input>
 					</div>
 				</el-col>
 			</el-row>
@@ -55,7 +62,6 @@
 						<el-popover trigger="click" placement="bottom">
 							<div style="font-size: 10pt;">
 								<div style="margin-bottom: 8px;">
-									<i class="iconfont icon-zuzhiqunzu" style="font-size: 16pt; color: #90A0A5;"></i>
 									<span class="route-title">网关代理地址</span>
 								</div>
 								<span>

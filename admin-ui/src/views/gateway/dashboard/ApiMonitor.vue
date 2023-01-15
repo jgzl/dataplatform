@@ -38,10 +38,12 @@
 					<el-tag size="small" type="" effect="dark">{{infoForm.sendTime}}</el-tag>
 				</el-form-item>
 			</el-form>
-			<div slot="footer" class="dialog-footer">
-				<el-button icon="el-icon-document-delete" v-show="infoForm.status == '2'" size="small" type="success" @click="close">关闭本次告警</el-button>
-				<el-button icon="el-icon-s-release" size="small" type="warning" @click="dialogFormVisible = false">关 闭</el-button>
-			</div>
+			<template #footer>
+				<div class="dialog-footer">
+					<el-button icon="el-icon-document-delete" v-show="infoForm.status == '2'" size="small" type="success" @click="close">关闭本次告警</el-button>
+					<el-button icon="el-icon-s-release" size="small" type="warning" @click="dialogFormVisible = false">关 闭</el-button>
+				</div>
+			</template>
 		</el-dialog>
 
 		<el-card class="box-card" style="padding-bottom: 20px;">

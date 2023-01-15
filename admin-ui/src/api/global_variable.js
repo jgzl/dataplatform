@@ -5,6 +5,7 @@ const errMsg = "操作失败"
 const successMsg = "操作成功"
 const contentType = "application/json;charset=UTF-8"
 const systemVersion = "snapshot-nacos.v.3.2"
+const gatewayRoutesURL = process.env.VUE_APP_GATEWAY_URL
 
 // 分组类型，暂不放到数据字典，直接由前端添加
 const groups = [
@@ -20,6 +21,7 @@ const groups = [
 export default{
 	contentType,
 	systemVersion,
+	gatewayRoutesURL,
 	errMsg,
 	successMsg,
 	groups

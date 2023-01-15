@@ -13,10 +13,12 @@
 					<el-input type="textarea" :rows="3" v-model="form.remarks" :maxlength="200" autocomplete="off"></el-input>
 				</el-form-item>
 			</el-form>
-			<div slot="footer" class="dialog-footer">
-				<el-button icon="el-icon-s-claim" size="small" type="success" @click="submit">提 交</el-button>
-				<el-button icon="el-icon-s-release" size="small" type="warning" @click="dialogFormVisible = false">关 闭</el-button>
-			</div>
+			<template #footer>
+				<div class="dialog-footer">
+					<el-button icon="el-icon-s-claim" size="small" type="success" @click="submit">提 交</el-button>
+					<el-button icon="el-icon-s-release" size="small" type="warning" @click="dialogFormVisible = false">关 闭</el-button>
+				</div>
+			</template>
 		</el-dialog>
 
 		<el-card class="box-card">
@@ -32,10 +34,12 @@
 					</div>
 					<div style="float: right;">
 						<el-input placeholder="请输入IP" v-model="ip" :maxlength="15" class="input-with-select" style="width: 520px;" clearable>
-							<el-select v-model="status" slot="prepend" placeholder="请选择" style="width: 120px;">
-								<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
-							</el-select>
-							<el-button slot="append" icon="el-icon-search" @click="search"></el-button>
+							<template #prepend>
+								<el-select v-model="status" placeholder="请选择" style="width: 120px;">
+									<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+								</el-select>
+								<el-button icon="el-icon-search" @click="search"></el-button>
+							</template>
 						</el-input>
 					</div>
 				</el-col>

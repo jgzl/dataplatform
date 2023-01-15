@@ -13,17 +13,24 @@
 					</div>
 					<div style="float: right;">
 					  <el-input placeholder="请输入网关服务名称" v-model="form.name" class="input-with-select" style="width: 620px;" clearable>
-						  <el-select v-model="form.groupCode" slot="prepend" placeholder="请选择分组" style="width: 140px; margin-right: 10px;">
-						  	<el-option label="所有" value=""/>
-						  	<el-option v-for="item in groupOptions" :key="item.value" :label="item.label" :value="item.value"/>
-						  </el-select>
-						  <el-popover placement="bottom" slot="prepend" trigger="click">
-						  	<el-radio v-model="form.status" v-for="item in statusOptions" :key="item.value" :label="item.value">{{item.label}}</el-radio>
-						  	<el-button slot="reference">
-						  		服务状态:{{form.status === '0' ? '启用': form.status === '1' ? '禁用' : '所有'}}<i class="el-icon-caret-bottom el-icon--right"></i>
-						  	</el-button>
-						  </el-popover>
-						  <el-button slot="append" icon="el-icon-search" @click="search" title="查询网关服务"></el-button>
+						  <template #prepend>
+							  <el-select v-model="form.groupCode" placeholder="请选择分组" style="width: 140px; margin-right: 10px;">
+								  <el-option label="所有" value=""/>
+								  <el-option v-for="item in groupOptions" :key="item.value" :label="item.label" :value="item.value"/>
+							  </el-select>
+							  <el-popover placement="bottom" trigger="click">
+								  <el-radio v-model="form.status" v-for="item in statusOptions" :key="item.value" :label="item.value">{{item.label}}</el-radio>
+								  <template #reference>
+									  <el-button>
+										  服务状态:{{form.status === '0' ? '启用': form.status === '1' ? '禁用' : '所有'}}
+										  <el-icon><el-icon-arrow-down /></el-icon>
+									  </el-button>
+								  </template>
+							  </el-popover>
+						  </template>
+						  <template #append>
+						  	<el-button icon="el-icon-search" @click="search" title="查询网关服务"></el-button>
+						  </template>
 					  </el-input>
 					</div>
 				</el-col>
@@ -50,19 +57,19 @@
 					<el-table-column label="断言地址" width="250" :show-overflow-tooltip="true">
 						<template v-slot:default="scope">
 							{{parent}}{{scope.row.loadUri}}
-							<el-popover trigger="click" placement="bottom">
+							<el-popover trigger="click" placement="bottom" width="20%">
 								<div style="font-size: 10pt;">
 									<div style="margin-bottom: 8px;">
-										<i class="iconfont icon-zuzhiqunzu" style="font-size: 16pt; color: #90A0A5;"></i>
 										<span class="route-title">网关代理地址</span>
 									</div>
 									<span>
 										<el-tag size="small" type="success" style="font-weight: bold;">{{GLOBAL_VAR.gatewayRoutesURL}}{{parent}}{{scope.row.loadUri}}</el-tag>
-										<el-button slot="reference" style="padding: 3px 0; " icon="el-icon-document-copy" text @click="handleCopy(scope.row.loadUri)" title="复制"></el-button>
-									</span>
-									<br/>
+										<el-button style="padding: 3px 0; " icon="el-icon-document-copy" text @click="handleCopy(scope.row.loadUri)" title="复制"></el-button>
+									</span><br/>
 								</div>
-								<el-button slot="reference" style="padding: 3px 0; " text title="网关代理地址"></el-button>
+								<template #reference>
+									<el-button style="padding: 3px 0; " icon="el-icon-arrow-down" text title="网关代理地址"></el-button>
+								</template>
 							</el-popover>
 						</template>
 					</el-table-column>
@@ -114,12 +121,12 @@
 			<el-col :span="5">
 				<el-card class="box-card">
 					<div style="margin-bottom: 14px;">
-						<i class="iconfont icon-wumoxing" style="font-size: 16pt; color: #90A0A5;"></i>
+						<el-icon><el-icon-arrow-down/></el-icon>
 						<span class="route-title">转发路由</span>
 					</div>
 					<el-collapse v-model="activeName">
 					  <el-collapse-item v-for="(item, index) in routeTable" :key="index" :name='(index + 1)'>
-					    <template slot="title" style="width: 100%;">
+					    <template #title style="width: 100%;">
 							<div style="width: 100%;">
 								<el-tag size="" type="success" style="font-weight: bold; background-color: #FFFFFF; color: #303133;">{{item.name}}
 									<i class="el-icon-circle-check" v-if="item.status === '0'" style="font-size: 12pt; font-weight: bold; color: #409EFF;" title="服务已启用"></i>

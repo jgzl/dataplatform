@@ -1,25 +1,27 @@
 <template>
 	<el-card class="box-card-component">
-		<div slot="header" class="box-card-header">
-			<el-row>
-				<el-col :span="12">&nbsp;
-				<div style="margin-left: 20px;">
-					<i class="iconfont icon-guizeyinqing" style="font-size: 16pt; color: #90A0A5;"></i>
-					<span style="font-size: 14pt; color: #90A0A5; font-weight: bold; margin-left: 6px;">访问量统计</span>
-				</div>
-				</el-col>
-				<el-col :span="12">
-					<el-radio-group v-model="dateType" size="small" style="margin-top: 18px; margin-right: 18px; float: right;" @change="loadAccessCard">
-					  <el-radio-button label="min">60分</el-radio-button>
-					  <el-radio-button label="hour">24小时</el-radio-button>
-					  <el-radio-button label="day">7天</el-radio-button>
-					</el-radio-group>
-				</el-col>
-			</el-row>
-			<el-divider style="width: 80%;"></el-divider>
-			<!-- <img src="https://wpimg.wallstcn.com/e7d23d71-cf19-4b90-a1cc-f56af8c0903d.png"> -->
-			<RouteAccessChart ref="routeAccessChart"></RouteAccessChart>
-		</div>
+		<template #header>
+			<div class="box-card-header">
+				<el-row>
+					<el-col :span="12">&nbsp;
+						<div style="margin-left: 20px;">
+							<i class="iconfont icon-guizeyinqing" style="font-size: 16pt; color: #90A0A5;"></i>
+							<span style="font-size: 14pt; color: #90A0A5; font-weight: bold; margin-left: 6px;">访问量统计</span>
+						</div>
+					</el-col>
+					<el-col :span="12">
+						<el-radio-group v-model="dateType" size="small" style="margin-top: 18px; margin-right: 18px; float: right;" @change="loadAccessCard">
+							<el-radio-button label="min">60分</el-radio-button>
+							<el-radio-button label="hour">24小时</el-radio-button>
+							<el-radio-button label="day">7天</el-radio-button>
+						</el-radio-group>
+					</el-col>
+				</el-row>
+				<el-divider style="width: 80%;"></el-divider>
+				<!-- <img src="https://wpimg.wallstcn.com/e7d23d71-cf19-4b90-a1cc-f56af8c0903d.png"> -->
+				<RouteAccessChart ref="routeAccessChart"></RouteAccessChart>
+			</div>
+		</template>
 
 		<div style="position:relative;">
 			<!-- <pan-thumb :image="avatar" class="panThumb" /> -->

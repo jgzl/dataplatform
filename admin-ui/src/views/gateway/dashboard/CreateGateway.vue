@@ -4,10 +4,10 @@
 		<el-row :gutter="20" style="margin-top: 20px;">
 			<el-col>
 				<el-card class="box-card">
-					<div slot="header" class="clearfix">
-						<span>网关路由》服务配置</span>
-						<el-popover trigger="hover" placement="bottom" width="50%">
-							<template #default>
+					<template #header>
+						<div class="clearfix">
+							<span>网关路由>>>服务配置</span>
+							<el-popover trigger="hover" placement="bottom" width="50%">
 								<div style="font-size: 10pt;">
 									<span>配置说明：</span><br/>
 									<span>1.服务URL，支持http、https、server-id(lb://xxx)模式转发。</span><br/>
@@ -24,21 +24,24 @@
 									<span>&nbsp;&nbsp;f.断言Header示例：Header=X-Request-Id, \d+，其中\d+表示正则匹配的任意值，需满足java正则表达示或参见官方。</span><br/>
 									<span>7.如配置多个断言项，则gateway网关采用断言组合匹配方式（and关系）转发到符合的路由服务中。</span>
 								</div>
-							</template>
-							<template #reference>
-								<el-button style="padding: 3px 0;" icon="el-icon-question-filled" text
-										   title="说明"></el-button>
-							</template>
-						</el-popover>
-						<div style="float: right; margin-left: 10px;">
-							<el-button icon="el-icon-delete" size="small" type="warning" @click="resetForm"> 清 空
-							</el-button>
+								<template #reference>
+									<el-button style="padding: 3px 0;" text title="说明">
+										说明<el-icon class="el-icon--right"><el-icon-question-filled/></el-icon>
+									</el-button>
+								</template>
+							</el-popover>
+							<div style="float: right; margin-left: 10px;">
+								<el-button icon="el-icon-delete" size="small" type="warning" @click="resetForm">
+									清 空<el-icon class="el-icon--right"><el-icon-question-delete/></el-icon>
+								</el-button>
+							</div>
+							<div style="float: right; margin-left: 10px;">
+								<el-button icon="el-icon-s-claim" size="small" type="success" @click="submit">
+									发 布<el-icon class="el-icon--right"><el-icon-s-claim/></el-icon>
+								</el-button>
+							</div>
 						</div>
-						<div style="float: right; margin-left: 10px;">
-							<el-button icon="el-icon-s-claim" size="small" type="success" @click="submit"> 发 布
-							</el-button>
-						</div>
-					</div>
+					</template>
 
 					<el-row>
 						<el-col :span="24">
@@ -64,8 +67,9 @@
 									<el-radio v-model="form.status" label="0">启用</el-radio>
 									<el-radio v-model="form.status" label="1">禁用</el-radio>
 									<template #reference>
-										<el-button>服务状态:{{ form.status === '0' ? '启用' : '禁用' }}<i
-											class="el-icon-caret-bottom el-icon--right"></i></el-button>
+										<el-button>服务状态:{{ form.status === '0' ? '启用' : '禁用' }}
+											<el-icon class="el-icon--right"><el-icon-caret-bottom/></el-icon>
+										</el-button>
 									</template>
 								</el-popover>
 							</div>
@@ -77,8 +81,9 @@
 										</el-radio-button>
 									</el-radio-group>
 									<template #reference>
-										<el-button>分组:{{ groupName }}<i
-											class="el-icon-caret-bottom el-icon--right"></i></el-button>
+										<el-button>分组:{{ groupName }}
+											<el-icon class="el-icon--right"><el-icon-caret-bottom/></el-icon>
+										</el-button>
 									</template>
 								</el-popover>
 							</div>
@@ -106,8 +111,9 @@
 										<template #prepend>Path=</template>
 									</el-input>
 									<template #reference>
-										<el-button>断言Path={{ form.path }}<i
-											class="el-icon-caret-bottom el-icon--right"></i></el-button>
+										<el-button>断言Path={{ form.path }}
+											<el-icon class="el-icon--right"><el-icon-caret-bottom/></el-icon>
+										</el-button>
 									</template>
 								</el-popover>
 							</div>
@@ -117,8 +123,9 @@
 										<template #prepend>Header=</template>
 									</el-input>
 									<template #reference>
-										<el-button>断言Header={{ form.header }}<i
-											class="el-icon-caret-bottom el-icon--right"></i></el-button>
+										<el-button>断言Header={{ form.header }}
+											<el-icon class="el-icon--right"><el-icon-caret-bottom/></el-icon>
+										</el-button>
 									</template>
 								</el-popover>
 							</div>
@@ -128,8 +135,9 @@
 										<template #prepend>StripPrefix=</template>
 									</el-input>
 									<template #reference>
-										<el-button>过滤StripPrefix={{ form.stripPrefix }}<i
-											class="el-icon-caret-bottom el-icon--right"></i></el-button>
+										<el-button>过滤StripPrefix={{ form.stripPrefix }}
+											<el-icon class="el-icon--right"><el-icon-caret-bottom/></el-icon>
+										</el-button>
 									</template>
 								</el-popover>
 							</div>
@@ -144,8 +152,9 @@
 										<template #prepend>Host=</template>
 									</el-input>
 									<template #reference>
-										<el-button>断言Host={{ form.host }}<i
-											class="el-icon-caret-bottom el-icon--right"></i></el-button>
+										<el-button>断言Host={{ form.host }}
+											<el-icon class="el-icon--right"><el-icon-caret-bottom/></el-icon>
+										</el-button>
 									</template>
 								</el-popover>
 							</div>
@@ -155,8 +164,9 @@
 										<template #prepend>RemoteAddr=</template>
 									</el-input>
 									<template #reference>
-										<el-button>断言RemoteAddr={{ form.remoteAddr }}<i
-											class="el-icon-caret-bottom el-icon--right"></i></el-button>
+										<el-button>断言RemoteAddr={{ form.remoteAddr }}
+											<el-icon class="el-icon--right"><el-icon-caret-bottom/></el-icon>
+										</el-button>
 									</template>
 								</el-popover>
 							</div>
@@ -167,8 +177,9 @@
 										<template #prepend>RequestParameter=</template>
 									</el-input>
 									<template #reference>
-										<el-button>参数RequestParameter={{ form.requestParameter }}<i
-											class="el-icon-caret-bottom el-icon--right"></i></el-button>
+										<el-button>参数RequestParameter={{ form.requestParameter }}
+											<el-icon class="el-icon--right"><el-icon-caret-bottom/></el-icon>
+										</el-button>
 									</template>
 								</el-popover>
 							</div>
@@ -179,8 +190,9 @@
 										<template #prepend>RewritePath=</template>
 									</el-input>
 									<template #reference>
-										<el-button>重定向RewritePath={{ form.rewritePath }}<i
-											class="el-icon-caret-bottom el-icon--right"></i></el-button>
+										<el-button>重定向RewritePath={{ form.rewritePath }}
+											<el-icon class="el-icon--right"><el-icon-caret-bottom/></el-icon>
+										</el-button>
 									</template>
 								</el-popover>
 							</div>
@@ -194,13 +206,17 @@
 		<el-row :gutter="20" style="margin-top: 20px;">
 			<el-col :span="6">
 				<el-card class="box-card">
-					<div slot="header" class="clearfix">
-						<span>熔断器</span>
-						<el-button style="float: right; padding: 3px 0; " icon="el-icon-question" text>说明</el-button>
-					</div>
+					<template #header>
+						<div class="clearfix">
+							<span>熔断器</span>
+							<el-button style="float: right; padding: 3px 0; " text title="说明">
+								说明<el-icon class="el-icon--right"><el-icon-question-filled/></el-icon>
+							</el-button>
+						</div>
+					</template>
 					<el-collapse accordion>
 						<el-collapse-item>
-							<template slot="title">
+							<template #title>
 								全局方法&nbsp;&nbsp;<i v-show="hystrix.defaultChecked"
 													   class="header-icon el-icon-success"
 													   style="color: #34bfa3; font-size: 12pt;"></i>
@@ -215,8 +231,8 @@
 							</div>
 						</el-collapse-item>
 						<el-collapse-item title="自定义方法">
-							<template slot="title">
-								自定义方法&nbsp;89&nbsp;<i v-show="hystrix.customChecked"
+							<template #title>
+								自定义方法&nbsp;<i v-show="hystrix.customChecked"
 														   class="header-icon el-icon-success"
 														   style="color: #34bfa3; font-size: 12pt;"></i>
 							</template>
@@ -246,26 +262,30 @@
 				</el-card>
 
 				<el-card class="box-card" style="margin-top: 20px;">
-					<div slot="header" class="clearfix">
-						<span>监控器</span>
-						<el-popover trigger="click" placement="bottom">
-							<div style="font-size: 10pt;">
-								<span>配置说明：</span><br/>
-								<span>1.只向网关服务发起http请求，只有服务host和port，不含请求路径和参数。</span><br/>
-								<span>2.未超时则认为服务存活，不考虑服务有效性。</span><br/>
-								<span>3.心跳检测请求Header中带<span style="font-weight: bold;">Keepalive:flying-fish-gateway</span>，服务可做特殊性响应。</span><br/>
-								<span>4.心跳检测服务URL示例：http://server:port、http://server.com、lb://xxx 。</span><br/>
-								<span>5.网关服务无客户端请求后，每30秒触发一次心跳检测</span><br/>
-								<span>6.告警重试设置为禁用后，心跳检测失败后，将不再继续检测，并且网关将会拒绝所有客户端请求，直到网关服务状态为：启用</span>
-							</div>
-							<el-button slot="reference" style="float: right; padding: 3px 0; " icon="el-icon-question"
-									   text title="说明">说明
-							</el-button>
-						</el-popover>
-					</div>
+					<template #header>
+						<div class="clearfix">
+							<span>监控器</span>
+							<el-popover trigger="hover" placement="bottom" width="50%">
+								<div style="font-size: 10pt;">
+									<span>配置说明：</span><br/>
+									<span>1.只向网关服务发起http请求，只有服务host和port，不含请求路径和参数。</span><br/>
+									<span>2.未超时则认为服务存活，不考虑服务有效性。</span><br/>
+									<span>3.心跳检测请求Header中带<span style="font-weight: bold;">Keepalive:flying-fish-gateway</span>，服务可做特殊性响应。</span><br/>
+									<span>4.心跳检测服务URL示例：http://server:port、http://server.com、lb://xxx 。</span><br/>
+									<span>5.网关服务无客户端请求后，每30秒触发一次心跳检测</span><br/>
+									<span>6.告警重试设置为禁用后，心跳检测失败后，将不再继续检测，并且网关将会拒绝所有客户端请求，直到网关服务状态为：启用</span>
+								</div>
+								<template #reference>
+									<el-button style="float: right; padding: 3px 0; " text title="说明">
+										说明<el-icon class="el-icon--right"><el-icon-question-filled/></el-icon>
+									</el-button>
+								</template>
+							</el-popover>
+						</div>
+					</template>
 					<el-collapse accordion>
 						<el-collapse-item>
-							<template slot="title">
+							<template #title>
 								监控告警&nbsp;&nbsp;<i v-show="monitor.checked" class="header-icon el-icon-success"
 													   style="color: #34bfa3; font-size: 12pt;"></i>
 							</template>
@@ -278,9 +298,11 @@
 								<el-popover placement="bottom" width="170" trigger="click">
 									<el-radio v-model="form.monitor.recover" label="0">启用</el-radio>
 									<el-radio v-model="form.monitor.recover" label="1">禁用</el-radio>
-									<el-button slot="reference">
-										告警重试：{{ form.monitor.recover === '0' ? '启用' : '禁用' }}<i
-										class="el-icon-caret-bottom el-icon--right"></i></el-button>
+									<template #reference>
+										<el-button>
+											告警重试：{{ form.monitor.recover === '0' ? '启用' : '禁用' }}<i
+											class="el-icon-caret-bottom el-icon--right"></i></el-button>
+									</template>
 								</el-popover>
 								<el-popover placement="bottom" width="460" trigger="click">
 									<el-radio-group v-model="form.monitor.frequency" size="small"
@@ -289,8 +311,11 @@
 														 :label="item.value">{{ item.label }}
 										</el-radio-button>
 									</el-radio-group>
-									<el-button slot="reference">告警通知频率：{{ monitorFrequencyName }}<i
-										class="el-icon-caret-bottom el-icon--right"></i></el-button>
+									<template #reference>
+										<el-button>告警通知频率：{{ monitorFrequencyName }}
+											<el-icon class="el-icon--right"><el-icon-caret-bottom/></el-icon>
+										</el-button>
+									</template>
 								</el-popover>
 							</div>
 							<div style="margin-top: 10px;">
@@ -312,24 +337,28 @@
 
 			<el-col :span="6">
 				<el-card class="box-card">
-					<div slot="header" class="clearfix">
-						<span>过滤器</span>
-						<el-popover trigger="click" placement="bottom">
-							<div style="font-size: 10pt;">
-								<span>配置说明：</span><br/>
-								<span>1.IP过滤需要配置本网关路由的注册客户端，非注册客户端IP不可访问。</span><br/>
-								<span>2.IP名单管理中的禁止通行的IP不可访问本网关路由。</span><br/>
-								<span>3.TOKEN过滤目前只对请求Header中带<span style="font-weight: bold;">TOKEN</span>做非空验证，暂无其它响应。</span><br/>
-								<span>4.ID过滤对请求Header中带<span style="font-weight: bold;">CLIENTID</span>做较验，非注册客户端ID不可访问。</span><br/>
-							</div>
-							<el-button slot="reference" style="float: right; padding: 3px 0; " icon="el-icon-question"
-									   text title="说明">说明
-							</el-button>
-						</el-popover>
-					</div>
+					<template #header>
+						<div class="clearfix">
+							<span>过滤器</span>
+							<el-popover trigger="hover" placement="bottom" width="50%">
+								<div style="font-size: 10pt;">
+									<span>配置说明：</span><br/>
+									<span>1.IP过滤需要配置本网关路由的注册客户端，非注册客户端IP不可访问。</span><br/>
+									<span>2.IP名单管理中的禁止通行的IP不可访问本网关路由。</span><br/>
+									<span>3.TOKEN过滤目前只对请求Header中带<span style="font-weight: bold;">TOKEN</span>做非空验证，暂无其它响应。</span><br/>
+									<span>4.ID过滤对请求Header中带<span style="font-weight: bold;">CLIENTID</span>做较验，非注册客户端ID不可访问。</span><br/>
+								</div>
+								<template #reference>
+									<el-button style="float: right; padding: 3px 0; " text title="说明">
+										说明<el-icon class="el-icon--right"><el-icon-question-filled/></el-icon>
+									</el-button>
+								</template>
+							</el-popover>
+						</div>
+					</template>
 					<el-collapse accordion>
 						<el-collapse-item>
-							<template slot="title">
+							<template #title>
 								IP过滤&nbsp;&nbsp;<i v-show="filter.ipChecked" class="header-icon el-icon-success"
 													 style="color: #34bfa3; font-size: 12pt;"></i>
 							</template>
@@ -340,7 +369,7 @@
 							</div>
 						</el-collapse-item>
 						<el-collapse-item>
-							<template slot="title">
+							<template #title>
 								TOKEN过滤&nbsp;&nbsp;<i v-show="filter.tokenChecked" class="header-icon el-icon-success"
 														style="color: #34bfa3; font-size: 12pt;"></i>
 							</template>
@@ -350,7 +379,7 @@
 							<div>基于TOKEN进行拦截，只有符合指定TOKEN才能访问本路由地址。</div>
 						</el-collapse-item>
 						<el-collapse-item>
-							<template slot="title">
+							<template #title>
 								ID过滤&nbsp;&nbsp;<i v-show="filter.idChecked" class="header-icon el-icon-success"
 													 style="color: #34bfa3; font-size: 12pt;"></i>
 							</template>
@@ -366,10 +395,14 @@
 
 			<el-col :span="6">
 				<el-card class="box-card">
-					<div slot="header" class="clearfix">
-						<span>限流器</span>
-						<el-button style="float: right; padding: 3px 0; " icon="el-icon-question" text>说明</el-button>
-					</div>
+					<template #header>
+						<div class="clearfix">
+							<span>限流器</span>
+							<el-button style="float: right; padding: 3px 0; " text title="说明">
+								说明<el-icon class="el-icon--right"><el-icon-question-filled/></el-icon>
+							</el-button>
+						</div>
+					</template>
 					<div style="margin-top: 10px;">
 						<el-row :gutter="24">
 							<el-col :span="5">
@@ -395,7 +428,7 @@
 
 					<el-collapse accordion>
 						<el-collapse-item>
-							<template slot="title">
+							<template #title>
 								IP限流&nbsp;&nbsp;<i v-show="limiter.ipChecked" class="header-icon el-icon-success"
 													 style="color: #34bfa3; font-size: 12pt;"></i>
 							</template>
@@ -408,7 +441,7 @@
 							</div>
 						</el-collapse-item>
 						<el-collapse-item title="URI限流">
-							<template slot="title">
+							<template #title>
 								URI限流&nbsp;&nbsp;<i v-show="limiter.uriChecked" class="header-icon el-icon-success"
 													  style="color: #34bfa3; font-size: 12pt;"></i>
 							</template>
@@ -419,7 +452,7 @@
 							<div>基于令牌桶算法，当访问网关路由URL的请求数量，超出限流规则的约束，则直接拒决请求。</div>
 						</el-collapse-item>
 						<el-collapse-item>
-							<template slot="title">
+							<template #title>
 								REQUESTID限流&nbsp;&nbsp;<i v-show="limiter.idChecked"
 															class="header-icon el-icon-success"
 															style="color: #34bfa3; font-size: 12pt;"></i>
@@ -439,13 +472,17 @@
 
 			<el-col :span="6">
 				<el-card class="box-card">
-					<div slot="header" class="clearfix">
-						<span>鉴权器</span>
-						<el-button style="float: right; padding: 3px 0; " icon="el-icon-question" text>说明</el-button>
-					</div>
+					<template #header>
+						<div class="clearfix">
+							<span>鉴权器</span>
+							<el-button style="float: right; padding: 3px 0; " text title="说明">
+								说明<el-icon class="el-icon--right"><el-icon-question-filled/></el-icon>
+							</el-button>
+						</div>
+					</template>
 					<el-collapse accordion>
 						<el-collapse-item>
-							<template slot="title">
+							<template #title>
 								HEADER验证&nbsp;&nbsp;<i v-show="access.headerChecked"
 														 class="header-icon el-icon-success"
 														 style="color: #34bfa3; font-size: 12pt;"></i>
@@ -463,7 +500,7 @@
 							</div>
 						</el-collapse-item>
 						<el-collapse-item>
-							<template slot="title">
+							<template #title>
 								IP验证&nbsp;&nbsp;<i v-show="access.ipChecked" class="header-icon el-icon-success"
 													 style="color: #34bfa3; font-size: 12pt;"></i>
 							</template>
@@ -481,7 +518,7 @@
 							</div>
 						</el-collapse-item>
 						<el-collapse-item>
-							<template slot="title">
+							<template #title>
 								参数验证&nbsp;&nbsp;<i v-show="access.parameterChecked"
 													   class="header-icon el-icon-success"
 													   style="color: #34bfa3; font-size: 12pt;"></i>
@@ -497,7 +534,7 @@
 							</div>
 						</el-collapse-item>
 						<el-collapse-item>
-							<template slot="title">
+							<template #title>
 								时间验证&nbsp;&nbsp;<i v-show="access.timeChecked" class="header-icon el-icon-success"
 													   style="color: #34bfa3; font-size: 12pt;"></i>
 							</template>
@@ -512,7 +549,7 @@
 							</div>
 						</el-collapse-item>
 						<el-collapse-item title="Cookie验证">
-							<template slot="title">
+							<template #title>
 								Cookie验证&nbsp;&nbsp;<i v-show="access.cookieChecked"
 														 class="header-icon el-icon-success"
 														 style="color: #34bfa3; font-size: 12pt;"></i>

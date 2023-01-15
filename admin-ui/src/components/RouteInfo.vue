@@ -71,31 +71,31 @@
 			<el-col :span="18" class="gateway-info-value">
 				<el-collapse accordion>
 				  <el-collapse-item v-if="infoForm.filterAuthorizeName.indexOf('header') != -1">
-					  <template slot="title">
+					  <template #title>
 						  <el-tag size="small" type="warning">HEADER验证</el-tag>
 					  </template>
 					<div><el-tag size="small" type="">{{infoForm.accessHeader}}</el-tag></div>
 				  </el-collapse-item>
 				  <el-collapse-item v-if="infoForm.filterAuthorizeName.indexOf('ip') != -1">
-					  <template slot="title">
+					  <template #title>
 					  	<el-tag size="small" type="warning">IP验证</el-tag>
 					  </template>
 					<div><el-tag size="small" type="">ip={{infoForm.accessIp}}</el-tag></div>
 				  </el-collapse-item>
 				  <el-collapse-item v-if="infoForm.filterAuthorizeName.indexOf('parm') != -1">
-					  <template slot="title">
+					  <template #title>
 					  	<el-tag size="small" type="warning">参数验证</el-tag>
 					  </template>
 					<div><el-tag size="small" type="">{{infoForm.accessParameter}}</el-tag></div>
 				  </el-collapse-item>
 				  <el-collapse-item v-if="infoForm.filterAuthorizeName.indexOf('time') != -1">
-					  <template slot="title">
+					  <template #title>
 					  	<el-tag size="small" type="warning">时间验证</el-tag>
 					  </template>
 					<div><el-tag size="small" type="">时间区间：{{infoForm.accessTime}}</el-tag></div>
 				  </el-collapse-item>
 				  <el-collapse-item v-if="infoForm.filterAuthorizeName.indexOf('cookie') != -1">
-					  <template slot="title">
+					  <template #title>
 					  	<el-tag size="small" type="warning">Cookie验证</el-tag>
 					  </template>
 					<div><el-tag size="small" type="">{{infoForm.accessCookie}}</el-tag></div>
