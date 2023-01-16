@@ -62,7 +62,7 @@ public class GrayRoundRobinLoadBalancer implements ReactorServiceInstanceLoadBal
         }
         String gray = requestData.getHeaders().getFirst(GatewayConstants.X_BUSINESS_METADATA_TRANSITIVE_GRAY);
         String grayTag = requestData.getHeaders().getFirst(GatewayConstants.X_BUSINESS_METADATA_TRANSITIVE_GRAY_TAG);
-        if (StrUtil.isBlank(gray) || "true".equals(gray) || StrUtil.isBlank(grayTag)){
+        if (StrUtil.isBlank(gray) || !"true".equals(gray) || StrUtil.isBlank(grayTag)){
             return processInstanceResponse(supplier,serviceInstances);
         }
         // 判断nacos中有没有相对应的版本号
