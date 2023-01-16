@@ -28,4 +28,12 @@ public class HttpHeaderConstants {
      * 访问版本
      */
     public static final String X_BUSINESS_API_VERSION = "x-business-api-version";
+    /**
+     * 流量染色-是否灰度
+     */
+    public static final String X_BUSINESS_METADATA_TRANSITIVE_GRAY = "x-business-metadata-transitive-gray";
+    /**
+     * 流量染色-是否灰度
+     */
+    public static final String X_BUSINESS_METADATA_TRANSITIVE_GRAY_TAG = "x-business-metadata-transitive-gray-tag";
 }

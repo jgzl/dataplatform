@@ -1,10 +1,11 @@
 package cn.cleanarch.dp.common.gray.feign;
 
-import cn.hutool.core.util.StrUtil;
-import cn.cleanarch.dp.common.core.constant.GatewayConstants;
 import cn.cleanarch.dp.common.core.utils.WebmvcUtil;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 
 /**
  * Feign拦截器
@@ -15,10 +16,19 @@ public class GrayFeignInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate requestTemplate) {
-        String version = WebmvcUtil.getRequest() != null ? WebmvcUtil.getRequest().getHeader(GatewayConstants.X_BUSINESS_API_VERSION) : HeaderVersionHolder.getVersion();
-        if (StrUtil.isBlank(version)){
-            version= HeaderVersionHolder.getVersion();
+        HttpServletRequest httpServletRequest = WebmvcUtil.getRequest();
+        if (httpServletRequest != null) {
+            Enumeration<String> headerNames = httpServletRequest.getHeaderNames();
+            if (headerNames!=null) {
+                while (headerNames.hasMoreElements()) {
+                    String key = headerNames.nextElement();
+                    String values = httpServletRequest.getHeader(key);
+//                    if (key.equals("content-length")) {
+//                        continue;
+//                    }
+                    requestTemplate.header(key,values);
+                }
+            }
         }
-        requestTemplate.header(GatewayConstants.X_BUSINESS_API_VERSION,version);
     }
 }
