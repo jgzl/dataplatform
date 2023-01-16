@@ -42,7 +42,7 @@ public class GrayRoundRobinLoadBalancer implements ReactorServiceInstanceLoadBal
 
     @Override
     public Mono<Response<ServiceInstance>> choose(Request request) {
-        //从当前请求头中获得请求的版本号
+        //从当前请求头中获得请求的灰度标签
         ServiceInstanceListSupplier supplier = this.serviceInstanceListSupplierProvider.getIfAvailable(NoopServiceInstanceListSupplier::new);
         return supplier.get(request).next().map((serviceInstances) -> this.getInstanceResponse(supplier,request, serviceInstances));
     }
@@ -65,14 +65,13 @@ public class GrayRoundRobinLoadBalancer implements ReactorServiceInstanceLoadBal
         if (StrUtil.isBlank(gray) || !"true".equals(gray) || StrUtil.isBlank(grayTag)){
             return processInstanceResponse(supplier,serviceInstances);
         }
-        // 判断nacos中有没有相对应的版本号
+        // 判断nacos中有没有相对应的灰度标签
         List<ServiceInstance> serviceInstanceList = serviceInstances.stream().filter(serviceInstance -> {
             // 获得当前配置中的元数据信息
             Map<String, String> metadata = serviceInstance.getMetadata();
-            String targetVersion = MapUtil.getStr(metadata, GatewayConstants.X_BUSINESS_METADATA_TRANSITIVE_GRAY);
-            return gray.equalsIgnoreCase(targetVersion);
+            String targetGrayTag = MapUtil.getStr(metadata, GatewayConstants.X_BUSINESS_METADATA_TRANSITIVE_GRAY_TAG);
+            return grayTag.equalsIgnoreCase(targetGrayTag);
         }).collect(Collectors.toList());
-        log.info(serviceInstances.toString());
         if (CollUtil.isNotEmpty(serviceInstanceList)){
             return processInstanceResponse(supplier,serviceInstanceList,false);
         }else {
