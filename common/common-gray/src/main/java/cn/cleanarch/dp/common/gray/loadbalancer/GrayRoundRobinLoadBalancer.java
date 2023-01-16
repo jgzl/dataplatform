@@ -60,8 +60,8 @@ public class GrayRoundRobinLoadBalancer implements ReactorServiceInstanceLoadBal
         if (!(requestContext.getClientRequest() instanceof RequestData requestData)){
             return processInstanceResponse(supplier,serviceInstances);
         }
-        String gray = requestData.getHeaders().getFirst(GatewayConstants.X_BUSINESS_METADATA_TRANSITIVE_GRAY);
-        String grayTag = requestData.getHeaders().getFirst(GatewayConstants.X_BUSINESS_METADATA_TRANSITIVE_GRAY_TAG);
+        String gray = requestData.getHeaders().getFirst(GatewayConstants.X_DATAPLATFORM_METADATA_TRANSITIVE_GRAY);
+        String grayTag = requestData.getHeaders().getFirst(GatewayConstants.X_DATAPLATFORM_METADATA_TRANSITIVE_GRAY_TAG);
         if (StrUtil.isBlank(gray) || !"true".equals(gray) || StrUtil.isBlank(grayTag)){
             return processInstanceResponse(supplier,serviceInstances);
         }
@@ -69,7 +69,7 @@ public class GrayRoundRobinLoadBalancer implements ReactorServiceInstanceLoadBal
         List<ServiceInstance> serviceInstanceList = serviceInstances.stream().filter(serviceInstance -> {
             // 获得当前配置中的元数据信息
             Map<String, String> metadata = serviceInstance.getMetadata();
-            String targetGrayTag = MapUtil.getStr(metadata, GatewayConstants.X_BUSINESS_METADATA_TRANSITIVE_GRAY_TAG);
+            String targetGrayTag = MapUtil.getStr(metadata, GatewayConstants.X_DATAPLATFORM_METADATA_TRANSITIVE_GRAY_TAG);
             return grayTag.equalsIgnoreCase(targetGrayTag);
         }).collect(Collectors.toList());
         if (CollUtil.isNotEmpty(serviceInstanceList)){
@@ -91,7 +91,7 @@ public class GrayRoundRobinLoadBalancer implements ReactorServiceInstanceLoadBal
             serviceInstances = serviceInstances.stream().filter(serviceInstance -> {
                 // 获得当前配置中的元数据信息
                 Map<String, String> metadata = serviceInstance.getMetadata();
-                String targetGrayTag = MapUtil.getStr(metadata, GatewayConstants.X_BUSINESS_METADATA_TRANSITIVE_GRAY_TAG);
+                String targetGrayTag = MapUtil.getStr(metadata, GatewayConstants.X_DATAPLATFORM_METADATA_TRANSITIVE_GRAY_TAG);
                 return StrUtil.isBlank(targetGrayTag);
             }).collect(Collectors.toList());
         }

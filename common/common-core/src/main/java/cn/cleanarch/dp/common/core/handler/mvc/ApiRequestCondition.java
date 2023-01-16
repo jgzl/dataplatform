@@ -27,7 +27,7 @@ public class ApiRequestCondition implements RequestCondition<ApiRequestCondition
 
     @Override
     public ApiRequestCondition getMatchingCondition(HttpServletRequest request) {
-        String headApiVersion = request.getHeader(HttpHeaderConstants.X_BUSINESS_API_VERSION);
+        String headApiVersion = request.getHeader(HttpHeaderConstants.X_DATAPLATFORM_API_VERSION);
         if (StringUtils.isBlank(headApiVersion)) {
             headApiVersion = "-1";
         }

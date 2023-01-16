@@ -39,7 +39,7 @@
 //    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 //        // 1. 清洗请求头中参数
 //        ServerHttpRequest request = exchange.getRequest();
-////        request.mutate().headers(httpHeaders -> httpHeaders.remove(HttpHeadConstants.X_BUSINESS_ENV)).build();
+////        request.mutate().headers(httpHeaders -> httpHeaders.remove(HttpHeadConstants.X_DATAPLATFORM_ENV)).build();
 //        // 2. 重写StripPrefix
 //        addOriginalRequestUrl(exchange, request.getURI());
 //        String rawPath = request.getURI().getRawPath();

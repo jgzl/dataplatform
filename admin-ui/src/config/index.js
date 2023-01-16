@@ -25,8 +25,8 @@ const DEFAULT_CONFIG = {
 
 	//追加其他头
 	HEADERS: {
-		'x-business-api-type': process.env.VUE_APP_API_TYPE,
-		// 'x-business-api-version': 'v1.0.0',
+		'x-dataplatform-api-type': process.env.VUE_APP_API_TYPE,
+		// 'x-dataplatform-api-version': 'v1.0.0',
 	},
 
 	//请求是否开启缓存

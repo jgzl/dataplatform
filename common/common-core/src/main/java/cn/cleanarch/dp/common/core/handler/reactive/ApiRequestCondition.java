@@ -25,7 +25,7 @@ public class ApiRequestCondition implements RequestCondition<ApiRequestCondition
 
     @Override
     public ApiRequestCondition getMatchingCondition(ServerWebExchange request) {
-        String headApiVersion = request.getRequest().getHeaders().getFirst(HttpHeaderConstants.X_BUSINESS_API_VERSION);
+        String headApiVersion = request.getRequest().getHeaders().getFirst(HttpHeaderConstants.X_DATAPLATFORM_API_VERSION);
         if (StringUtils.isBlank(headApiVersion)) {
             headApiVersion = "-1";
         }

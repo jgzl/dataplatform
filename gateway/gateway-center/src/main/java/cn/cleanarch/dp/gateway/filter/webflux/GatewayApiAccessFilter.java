@@ -36,10 +36,10 @@ public class GatewayApiAccessFilter extends AbstractGatewayApiFilter {
     @Override
     public Mono<Void> match(ServerWebExchange exchange, WebFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
-        String apiKey = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_KEY);
-        String apiSecret = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_SECRET);
-        String system = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_SYSTEM);
-        String type = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_BUSINESS_API_TYPE);
+        String apiKey = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_DATAPLATFORM_API_KEY);
+        String apiSecret = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_DATAPLATFORM_API_SECRET);
+        String system = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_DATAPLATFORM_API_SYSTEM);
+        String type = WebfluxUtil.getParameterByHeaderOrPath(request, GatewayConstants.X_DATAPLATFORM_API_TYPE);
         ServerHttpResponse response = exchange.getResponse();
         if (StrUtil.isBlank(type)) {
             if (StrUtil.isNotBlank(apiKey)&&StrUtil.isNotBlank(apiSecret)) {
