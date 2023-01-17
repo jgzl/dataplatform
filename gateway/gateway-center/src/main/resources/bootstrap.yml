@@ -1,10 +1,6 @@
 server:
   port: 7000
   shutdown: graceful
-logging:
-  file:
-    prefix: /app/logs
-    path: ${logging.file.prefix}/${spring.application.name}
 spring:
   profiles:
     active: @profiles.active@

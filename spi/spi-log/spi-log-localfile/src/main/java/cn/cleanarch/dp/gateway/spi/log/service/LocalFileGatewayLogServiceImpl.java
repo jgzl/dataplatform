@@ -31,7 +31,7 @@ public class LocalFileGatewayLogServiceImpl implements GatewayLogService {
 
     @Override
     public Page<GatewayLogVO> getByGatewayRequestLog(Page<GatewayLogVO> page, GatewayLogVO gatewayRequestLog) {
-        String prefixPath = environment.getProperty("logging.file.prefix");
+        String prefixPath = environment.getProperty("logging.prefix");
         Reader reader = FileUtil.getUtf8Reader(prefixPath + "/" + ServiceNameConstants.GATEWAY_SERVICE + "/gateway.log");
         List<String> lineList = ListUtil.toList();
         IoUtil.readLines(reader, lineList);

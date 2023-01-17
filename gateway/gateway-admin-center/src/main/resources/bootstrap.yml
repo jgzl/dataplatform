@@ -14,10 +14,6 @@ server:
     threads:
       io: 8
       worker: 256
-logging:
-  file:
-    prefix: /app/logs
-    path: ${logging.file.prefix}/${spring.application.name}
 spring:
   profiles:
     active: @profiles.active@
@@ -28,4 +24,4 @@ spring:
   mail:
     host: smtp.163.com
     username: cleanarch@163.com
-    password: mnymbpdcdsbeffbb
+    password: IINUVPYTKXEPOVJT
