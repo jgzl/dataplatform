@@ -93,7 +93,7 @@ public class AppContextHolder {
         return roleList;
     }
 
-    public static boolean isAdmin() {
+    public boolean isAdmin() {
         LoginUser user = getUser();
         if (user != null){
             return user.isAdmin();

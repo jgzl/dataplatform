@@ -7,7 +7,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.ListUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 
@@ -19,12 +19,12 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
-public class SwarmDataInitRunner implements CommandLineRunner{
+public class GatewayAccessConfCacheConfiguration implements InitializingBean {
 
     private final RedisTemplate<String, Object> redisTemplate;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void afterPropertiesSet() throws Exception {
         log.info("开始预热Redis缓存数据至本地缓存");
         List<GatewayAccessVO> vos = redisTemplate.<String, GatewayAccessVO>opsForHash().values(CacheConstants.ACCESS_KEY);
         if (CollUtil.isEmpty(vos)) {

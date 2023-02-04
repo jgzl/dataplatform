@@ -2,7 +2,7 @@ package cn.cleanarch.dp.gateway.configuration;
 
 import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.GatewayCallbackManager;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Configuration;
  */
 @Slf4j
 @Configuration
-public class SentinelRegisterHandlerInitRunner implements CommandLineRunner {
+public class SentinelBlockRequestHandlerConfiguration implements InitializingBean {
     @Override
-    public void run(String... args) throws Exception {
+    public void afterPropertiesSet() throws Exception {
         log.info("开始注册Sentinel处理器");
         GatewayCallbackManager.setBlockHandler(new SentinelBlockRequestHandler());
         log.info("结束注册Sentinel处理器");

@@ -6,7 +6,7 @@ import cn.cleanarch.dp.gateway.admin.convert.GatewayAccessConfConvert;
 import cn.cleanarch.dp.gateway.admin.vo.GatewayAccessVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 
@@ -16,13 +16,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
-public class SwarmDataInitRunner implements CommandLineRunner{
+public class GatewayAccessConfCacheConfiguration implements InitializingBean {
 
     private final GatewayAccessService accessConfService;
     private final RedisTemplate<String, Object> redisTemplate;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void afterPropertiesSet() throws Exception {
         log.info("开始预热MySQL数据至Redis缓存数据");
         redisTemplate.delete(CacheConstants.ACCESS_KEY);
         accessConfService.list().forEach(item -> {

@@ -60,7 +60,7 @@ public class MonitorService extends BaseService<Monitor, String, MonitorDao> {
         }
         Map<String, Monitor> monitorMap = monitorList.stream().collect(Collectors.toMap(Monitor::getId, r -> r));
         List<Route> resultList = new ArrayList<>(monitorMap.size());
-        List<Route> routeList = routeDao.findAll(Example.of(queryRoute, ExampleMatcher.matching()), Sort.by(Sort.Direction.ASC));
+        List<Route> routeList = routeDao.findAll(Example.of(queryRoute, ExampleMatcher.matching()), Sort.by(Sort.Order.desc("id")));
         for (Route route : routeList){
             Monitor monitor = monitorMap.get(route.getId());
             if (monitor == null){

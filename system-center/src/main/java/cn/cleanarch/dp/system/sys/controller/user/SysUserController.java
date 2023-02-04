@@ -39,7 +39,7 @@ public class SysUserController {
      * @param userName 用户名
      * @return 用户信息
      */
-    @Inner(value = false)
+    @Inner(false)
     @GetMapping("/info/{userName}")
     public R<SysUserInfoDTO> infoByUserName(@NotEmpty @PathVariable String userName) {
         return R.success(userService.findUserInfo(userName));
