@@ -270,7 +270,7 @@
 									<span>配置说明：</span><br/>
 									<span>1.只向网关服务发起http请求，只有服务host和port，不含请求路径和参数。</span><br/>
 									<span>2.未超时则认为服务存活，不考虑服务有效性。</span><br/>
-									<span>3.心跳检测请求Header中带<span style="font-weight: bold;">Keepalive:flying-fish-gateway</span>，服务可做特殊性响应。</span><br/>
+									<span>3.心跳检测请求Header中带<span style="font-weight: bold;">Keepalive:gateway-center</span>，服务可做特殊性响应。</span><br/>
 									<span>4.心跳检测服务URL示例：http://server:port、http://server.com、lb://xxx 。</span><br/>
 									<span>5.网关服务无客户端请求后，每30秒触发一次心跳检测</span><br/>
 									<span>6.告警重试设置为禁用后，心跳检测失败后，将不再继续检测，并且网关将会拒绝所有客户端请求，直到网关服务状态为：启用</span>

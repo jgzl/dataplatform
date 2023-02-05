@@ -46,7 +46,7 @@ public class MonitorTaskService {
     static Map<String, String> headers = new HashMap<>();
     private final static String DEFAULT_CONTENT = "keepalive";
     static {
-        headers.put("Keepalive", "flying-fish-gateway");
+        headers.put("Keepalive", "gateway-center");
     }
 
     private final static int QUEUE_SIZE = 100;
