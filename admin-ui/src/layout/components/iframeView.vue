@@ -8,8 +8,8 @@
 -->
 
 <template>
-	<div v-show="$gatewayRouteDO.meta.type=='iframe'" class="iframe-pages">
-		<iframe v-for="item in iframeList" :key="item.meta.url" v-show="$gatewayRouteDO.meta.url==item.meta.url" :src="item.meta.url" frameborder='0'></iframe>
+	<div v-show="$route.meta.type=='iframe'" class="iframe-pages">
+		<iframe v-for="item in iframeList" :key="item.meta.url" v-show="$route.meta.url==item.meta.url" :src="item.meta.url" frameborder='0'></iframe>
 	</div>
 </template>
 
@@ -21,12 +21,12 @@
 			}
 		},
 		watch: {
-			$gatewayRouteDO(e) {
+			$route(e) {
 				this.push(e)
 			},
 		},
 		created() {
-			this.push(this.$gatewayRouteDO);
+			this.push(this.$route);
 		},
 		computed:{
 			iframeList(){
@@ -43,12 +43,12 @@
 
 		},
 		methods: {
-			push(gatewayRouteDO){
-				if(gatewayRouteDO.meta.type == 'iframe'){
+			push(route){
+				if(route.meta.type == 'iframe'){
 					if(this.ismobile || !this.layoutTags){
-						this.$store.commit("setIframeList", gatewayRouteDO)
+						this.$store.commit("setIframeList", route)
 					}else{
-						this.$store.commit("pushIframeList", gatewayRouteDO)
+						this.$store.commit("pushIframeList", route)
 					}
 				}else{
 					if(this.ismobile || !this.layoutTags){

@@ -17,7 +17,7 @@
 									<span>5.断言Header，会查找原始请求Header头部信息，获取匹配项。</span><br/>
 									<span>6.示例：</span><br/>
 									<span>&nbsp;&nbsp;a.服务URL示例：http://server:port、http://server.com、lb://xxx ,支持但不推荐：http://server:port/api.do。</span><br/>
-									<span>&nbsp;&nbsp;b.断言Path示例：/gatewayRouteDO/producer/** 或 /producer/api。</span><br/>
+									<span>&nbsp;&nbsp;b.断言Path示例：/route/producer/** 或 /producer/api。</span><br/>
 									<span>&nbsp;&nbsp;c.断言Host示例：**.my.com 或 my.com 、127.0.0.1:8771。</span><br/>
 									<span>&nbsp;&nbsp;d.断言RemoteAddr示例：192.168.1.1 或 192.168.1.1/100。</span><br/>
 									<span>&nbsp;&nbsp;e.重定向RewritePath示例：/foo/(?&lt;segment&gt;.*),/$\{segment}，需满足java正则表达示或参见官方。</span><br/>
@@ -106,7 +106,7 @@
 							</div>
 							<div style="float: left; margin-left: 10px;">
 								<el-popover placement="bottom" width="500" trigger="click">
-									<el-input placeholder="示例：Path=/gatewayRouteDO/producer/** 或 /producer/api"
+									<el-input placeholder="示例：Path=/route/producer/** 或 /producer/api"
 											  v-model="form.path" style="width: 500px;">
 										<template #prepend>Path=</template>
 									</el-input>
@@ -286,26 +286,26 @@
 					<el-collapse accordion>
 						<el-collapse-item>
 							<template #title>
-								监控告警&nbsp;&nbsp;<i v-show="gatewayMonitorDO.checked" class="header-icon el-icon-success"
+								监控告警&nbsp;&nbsp;<i v-show="monitor.checked" class="header-icon el-icon-success"
 													   style="color: #34bfa3; font-size: 12pt;"></i>
 							</template>
 							<div>
-								<el-checkbox v-model="gatewayMonitorDO.checked">启用</el-checkbox>
+								<el-checkbox v-model="monitor.checked">启用</el-checkbox>
 							</div>
 							<div>基于网关服务心跳检测，当网关服务正常运行中，没有客户端请求后，开始每30秒一次心跳检测。
 							</div>
 							<div style="margin-top: 10px;">
 								<el-popover placement="bottom" width="170" trigger="click">
-									<el-radio v-model="form.gatewayMonitorDO.recover" label="0">启用</el-radio>
-									<el-radio v-model="form.gatewayMonitorDO.recover" label="1">禁用</el-radio>
+									<el-radio v-model="form.monitor.recover" label="0">启用</el-radio>
+									<el-radio v-model="form.monitor.recover" label="1">禁用</el-radio>
 									<template #reference>
 										<el-button>
-											告警重试：{{ form.gatewayMonitorDO.recover === '0' ? '启用' : '禁用' }}<i
+											告警重试：{{ form.monitor.recover === '0' ? '启用' : '禁用' }}<i
 											class="el-icon-caret-bottom el-icon--right"></i></el-button>
 									</template>
 								</el-popover>
 								<el-popover placement="bottom" width="460" trigger="click">
-									<el-radio-group v-model="form.gatewayMonitorDO.frequency" size="small"
+									<el-radio-group v-model="form.monitor.frequency" size="small"
 													@change="handleSelectedMonitorFrequency">
 										<el-radio-button v-for="item in monitorOptions" :key="item.value"
 														 :label="item.value">{{ item.label }}
@@ -320,13 +320,13 @@
 							</div>
 							<div style="margin-top: 10px;">
 								<el-input size="small" placeholder="示例：user1@qq.com,user2@qq.com"
-										  v-model="form.gatewayMonitorDO.emails" maxlength="200" show-word-limit>
+										  v-model="form.monitor.emails" maxlength="200" show-word-limit>
 									<template #prepend>通知邮箱</template>
 								</el-input>
 							</div>
 							<div style="margin-top: 10px;">
 								<el-input size="small" placeholder="示例：XXX网关服务发生告警，请及时处理"
-										  v-model="form.gatewayMonitorDO.topic" maxlength="200" show-word-limit>
+										  v-model="form.monitor.topic" maxlength="200" show-word-limit>
 									<template #prepend>告警提示</template>
 								</el-input>
 							</div>
@@ -605,7 +605,7 @@ export default {
 				burstFrequency: 100,
 				burstTimeUnit: 'min',//minute,hour,day,week,month,year
 				groupCode: '',
-				gatewayMonitorDO: {
+				monitor: {
 					recover: '0',
 					frequency: '30m',
 					emails: '',
@@ -633,7 +633,7 @@ export default {
 				timeChecked: false,
 				cookieChecked: false
 			},
-			gatewayMonitorDO: {
+			monitor: {
 				checked: false
 			},
 			handleType: 'add',
@@ -659,13 +659,13 @@ export default {
 	},
 	created: function () {
 		//在组件创建完毕后加载
-		let query = this.$gatewayRouteDO.query;
+		let query = this.$route.query;
 		if (query) {
 			this.handleType = query.handleType;
 			if (this.handleType === 'edit') {
-				let gatewayRouteDO = query.gatewayRouteDO;
-				console.log('gatewayRouteDO', gatewayRouteDO);
-				this.init(JSON.parse(gatewayRouteDO));
+				let route = query.route;
+				console.log('route', route);
+				this.init(JSON.parse(route));
 			}
 		}
 	},
@@ -674,18 +674,18 @@ export default {
 	beforeUnmount: function () {
 	},
 	methods: {
-		init(gatewayRouteDO) {
+		init(route) {
 			debugger
-			if (gatewayRouteDO && gatewayRouteDO.form) {
-				this.form = gatewayRouteDO.form;
-				this.filter = gatewayRouteDO.filter;
-				this.hystrix = gatewayRouteDO.hystrix;
-				this.limiter = gatewayRouteDO.limiter;
-				this.access = gatewayRouteDO.access;
-				this.gatewayMonitorDO = gatewayRouteDO.gatewayMonitorDO;
+			if (route && route.form) {
+				this.form = route.form;
+				this.filter = route.filter;
+				this.hystrix = route.hystrix;
+				this.limiter = route.limiter;
+				this.access = route.access;
+				this.monitor = route.monitor;
 				this.idDisabled = true;
-				if (this.form.gatewayMonitorDO == undefined) {
-					this.form.gatewayMonitorDO = {
+				if (this.form.monitor == undefined) {
+					this.form.monitor = {
 						checked: false,
 						recover: '0',
 						frequency: '30m',
@@ -694,7 +694,7 @@ export default {
 					};
 				}
 				this.handleSelectedGroup(this.form.groupCode);
-				this.handleSelectedMonitorFrequency(this.form.gatewayMonitorDO ? this.form.gatewayMonitorDO.frequency : null);
+				this.handleSelectedMonitorFrequency(this.form.monitor ? this.form.monitor.frequency : null);
 			}
 		},
 		goBack() {
@@ -736,7 +736,7 @@ export default {
 				hystrix: this.hystrix,
 				limiter: this.limiter,
 				access: this.access,
-				gatewayMonitorDO: this.gatewayMonitorDO
+				monitor: this.monitor
 			};
 			let _this = this;
 			if (this.handleType === 'edit') {

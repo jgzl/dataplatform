@@ -62,7 +62,7 @@
 						<el-popover trigger="click" placement="bottom">
 							<div style="font-size: 10pt;">
 								<div style="margin-bottom: 8px;">
-									<span class="gatewayRouteDO-title">网关代理地址</span>
+									<span class="route-title">网关代理地址</span>
 								</div>
 								<span>
 									<el-tag size="small" type="success" style="font-weight: bold;">{{GLOBAL_VAR.gatewayRoutesURL}}{{scope.row.path}}</el-tag>
@@ -205,15 +205,15 @@
 				let _this = this;
 				const routeData = JSON.stringify(this.newRoute(obj.row));
 				if (obj.command === 'addClient'){
-					this.$router.push({path:'/gateway/dashboard/addGatewayClient',query:{gatewayRouteDO:routeData}});
+					this.$router.push({path:'/gateway/dashboard/addGatewayClient',query:{route:routeData}});
 				} else if (obj.command === 'info'){
 					this.drawer = true;
 					this.infoForm = obj.row;
 				} else if (obj.command === 'edit'){
 					this.infoForm = obj.row;
-					this.$router.push({path:'/gateway/dashboard/createGateway',query:{handleType:'edit',gatewayRouteDO:routeData}});
+					this.$router.push({path:'/gateway/dashboard/createGateway',query:{handleType:'edit',route:routeData}});
 				} else if (obj.command === 'rule'){
-					this.$router.push({path:'/gateway/dashboard/addGroovyScript',query:{gatewayRouteDO:routeData}});
+					this.$router.push({path:'/gateway/dashboard/addGroovyScript',query:{route:routeData}});
 				} else if (obj.command === 'start'){
 					startRoute({id:obj.row.id}).then(function(result){
 						_this.GLOBAL_FUN.successMsg();
@@ -232,7 +232,7 @@
 						})
 					}).catch(_ => {});
 				} else if (obj.command === 'topology'){
-					this.$router.push({path:'/gateway/dashboard/gatewayTopology',query:{gatewayRouteDO:routeData}});
+					this.$router.push({path:'/gateway/dashboard/gatewayTopology',query:{route:routeData}});
 				}
 			},
 			handleClose(done) {
@@ -255,7 +255,7 @@
 				});
 			},
 			newRoute(row){
-				let gatewayRouteDO = {
+				let route = {
 					form: row,
 					filter: {
 						ipChecked: row.filterGatewaName!=null && row.filterGatewaName.indexOf('ip')!=-1,
@@ -278,11 +278,11 @@
 						timeChecked: row.filterAuthorizeName!=null && row.filterAuthorizeName.indexOf('time')!=-1,
 						cookieChecked: row.filterAuthorizeName!=null && row.filterAuthorizeName.indexOf('cookie')!=-1
 					},
-					gatewayMonitorDO:{
-						checked: row.gatewayMonitorDO != null && row.gatewayMonitorDO.status != '1'
+					monitor:{
+						checked: row.monitor != null && row.monitor.status != '1'
 					}
 				}
-				return gatewayRouteDO;
+				return route;
 			}
 
 		}

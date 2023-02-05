@@ -44,11 +44,11 @@ export default {
 	},
 	created: function() {
 		//在组件创建完毕后加载
-		let query = this.$gatewayRouteDO.query;
+		let query = this.$route.query;
 		if (query){
-			let gatewayRouteDO = query.gatewayRouteDO;
-			console.log('gatewayRouteDO', gatewayRouteDO);
-			this.form = JSON.parse(gatewayRouteDO).form;
+			let route = query.route;
+			console.log('route', route);
+			this.form = JSON.parse(route).form;
 		}
 	},
 	mounted: function() {

@@ -93,7 +93,7 @@
 									<div style="font-size: 10pt; width:500px;">
 										<div style="margin-bottom: 8px;">
 											<i class="iconfont icon-xiaoxitongzhi" style="font-size: 16pt; color: #90A0A5;"></i>
-											<span class="gatewayRouteDO-title">JWT通行令牌</span>
+											<span class="route-title">JWT通行令牌</span>
 										</div>
 										<div>
 											过期时间：<el-date-picker v-model="tokenEffectiveTime" type="datetime" placeholder="选择截止过期时间" style="width:300px;" value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker><br/><br/>
@@ -182,11 +182,11 @@
 		},
 		created: function() {
 			//在组件创建完毕后加载
-			let query = this.$gatewayRouteDO.query;
+			let query = this.$route.query;
 			if (query){
-				let gatewayRouteDO = query.gatewayRouteDO;
-				console.log('gatewayRouteDO', gatewayRouteDO);
-				this.init(JSON.parse(gatewayRouteDO));
+				let route = query.route;
+				console.log('route', route);
+				this.init(JSON.parse(route));
 			}
 		},
 		mounted: function() {
@@ -196,8 +196,8 @@
 
 		},
 		methods:{
-			init(gatewayRouteDO) {
-				this.form = gatewayRouteDO.form;
+			init(route) {
+				this.form = route.form;
 				this.regClientList();
 			},
 			goBack() {

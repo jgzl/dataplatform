@@ -2,6 +2,7 @@ package cn.cleanarch.dp.common.gateway.ext.service;
 
 import cn.cleanarch.dp.common.gateway.ext.util.GatewayRouteConstants;
 import cn.cleanarch.dp.common.gateway.ext.vo.GatewayNacosConfigBean;
+import com.alibaba.cloud.nacos.NacosConfigManager;
 import com.alibaba.cloud.nacos.NacosConfigProperties;
 import com.alibaba.nacos.api.exception.NacosException;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,8 @@ import javax.annotation.Resource;
 public class CustomNacosConfigService {
     @Resource
     private NacosConfigProperties configProperties;
+    @Resource
+    private NacosConfigManager nacosConfigManager;
 
     /**
      * 将网关负载均衡配置推送到nacos中
@@ -99,7 +102,7 @@ public class CustomNacosConfigService {
      */
     public void publishConfig(String dataId, String group, String content){
         try {
-            configProperties.configServiceInstance().publishConfig(dataId, group, content);
+            nacosConfigManager.getConfigService().publishConfig(dataId, group, content);
         } catch(NacosException e){
             log.error("推送配置到Nacos异常！" + e.getErrMsg(), e);
         }

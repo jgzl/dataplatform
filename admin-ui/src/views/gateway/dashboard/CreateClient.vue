@@ -86,7 +86,7 @@ export default {
 	},
 	created: function() {
 		//在组件创建完毕后加载
-		let query = this.$gatewayRouteDO.query;
+		let query = this.$route.query;
 		if (query){
 			this.handleType = query.handleType;
 			if (this.handleType === 'edit'){

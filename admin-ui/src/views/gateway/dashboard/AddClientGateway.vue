@@ -43,7 +43,7 @@
 							<el-button slot="reference" style="padding: 3px 0; " icon="el-icon-question" text title="说明"></el-button>
 						</el-popover>
 						<span style="margin-left: 50px;">
-							<i class="el-icon-gatewayMonitorDO"></i>
+							<i class="el-icon-monitor"></i>
 							<span style="font-size: 11pt;">
 								<el-tag size="small" style="font-weight: bold;">{{form.name}}</el-tag> -
 								<el-tag size="small" type="success" style="font-weight: bold;">{{form.ip}}</el-tag>
@@ -127,7 +127,7 @@
 		},
 		created: function() {
 			//在组件创建完毕后加载
-			let query = this.$gatewayRouteDO.query;
+			let query = this.$route.query;
 			if (query){
 				let gatewayClientDO = query.gatewayClientDO;
 				console.log('gatewayClientDO', gatewayClientDO);
@@ -161,11 +161,11 @@
 			},
 			handleRouteSizeChange(val) {
 				this.routePageSize = val;
-				this.gatewayRouteDOList();
+				this.routeList();
 			},
 			handleRouteCurrentChange(val) {
 				this.routeCurrentPage = val;
-				this.gatewayRouteDOList();
+				this.routeList();
 			},
 			handleCommandRegServer(obj){
 				console.log("command" , obj);
@@ -198,7 +198,7 @@
 				addRegServer({clientId: this.form.id, routeId: row.id}).then(function(result){
 					_this.GLOBAL_FUN.successMsg();
 					_this.gatewayRegServerDOList();
-					_this.gatewayRouteDOList();
+					_this.routeList();
 				});
 			},
 			startAll(){
@@ -228,7 +228,7 @@
 					}
 				});
 			},
-			gatewayRouteDOList(){
+			routeList(){
 				let _this = this;
 				notRegServerPageList({clientId: this.form.id, currentPage: this.routeCurrentPage, pageSize: this.routePageSize}).then(function(result){
 					console.log(result);
@@ -240,7 +240,7 @@
 			},
 			search(){
 				this.dialogFormVisible = true;
-				this.gatewayRouteDOList();
+				this.routeList();
 			}
 		}
 	}

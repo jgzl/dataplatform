@@ -72,7 +72,7 @@
 							<el-button slot="reference" style="padding: 3px 0;" icon="el-icon-question" text title="说明"></el-button>
 						</el-popover>
 						<span style="margin-left: 50px;">
-							<i class="el-icon-gatewayMonitorDO"></i>
+							<i class="el-icon-monitor"></i>
 							<span style="font-size: 11pt;">
 								<el-tag size="small" style="font-weight: bold;">{{routeForm.name}}</el-tag>
 							</span>
@@ -154,11 +154,11 @@
 		},
 		created: function() {
 			//在组件创建完毕后加载
-			let query = this.$gatewayRouteDO.query;
+			let query = this.$route.query;
 			if (query){
-				let gatewayRouteDO = query.gatewayRouteDO;
-				console.log('gatewayRouteDO', gatewayRouteDO);
-				this.init(JSON.parse(gatewayRouteDO));
+				let route = query.route;
+				console.log('route', route);
+				this.init(JSON.parse(route));
 			}
 		},
 		mounted: function() {
@@ -168,9 +168,9 @@
 
 		},
 		methods:{
-			init(gatewayRouteDO) {
-				if (gatewayRouteDO){
-					this.routeForm = gatewayRouteDO.form;
+			init(route) {
+				if (route){
+					this.routeForm = route.form;
 					this.gatewayGroovyScriptDOList();
 				}
 			},

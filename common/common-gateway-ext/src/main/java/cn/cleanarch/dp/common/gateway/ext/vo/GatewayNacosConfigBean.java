@@ -33,7 +33,7 @@ public class GatewayNacosConfigBean implements java.io.Serializable {
     /**
      * 客户端IP
      */
-//    private String clientIp;
+    private String clientIp;
     /**
      * 黑|白名单IP
      */
@@ -65,16 +65,16 @@ public class GatewayNacosConfigBean implements java.io.Serializable {
         if (StringUtils.isNotBlank(clientId)){
             str += ",\"clientId\":\"" + clientId + "\"";
         }
-//        if (StringUtils.isNotBlank(clientIp)){
-//            str += ",\"clientIp\":\"" + clientIp + "\"";
-//        }
+        if (StringUtils.isNotBlank(clientIp)){
+            str += ",\"clientIp\":\"" + clientIp + "\"";
+        }
         if (StringUtils.isNotBlank(ip)){
             str += ",\"ip\":\"" + ip + "\"";
         }
         if (groovyScriptId != null){
             str += ",\"groovyScriptId\":" + groovyScriptId ;
         }
-        return "gateway={" + str + "}";
+        return "{" + str + "}";
     }
 
 }

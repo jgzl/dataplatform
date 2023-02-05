@@ -21,7 +21,7 @@
 		name: 'listCrud-detail',
 		data() {
 			return {
-				id: this.$gatewayRouteDO.query.id,
+				id: this.$route.query.id,
 				input: ""
 			}
 		},

@@ -77,7 +77,7 @@ public class ConfigRefreshService implements InitializingBean {
      * @param gatewayConfig
      */
     public void setGatewayConfig(String gatewayConfig){
-        log.info("获取Nacos中网关路由配置内容，gateway={}" , gatewayConfig);
+        log.info("获取Nacos中网关路由配置内容，{}" , gatewayConfig);
         try {
             GatewayNacosConfigBean gatewayNacosConfig = JSONObject.parseObject(gatewayConfig, GatewayNacosConfigBean.class);
             refreshGatewayConfig(gatewayNacosConfig);

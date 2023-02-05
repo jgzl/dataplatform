@@ -25,7 +25,7 @@
 				<!-- 说明 -->
 				<el-card shadow="always">
 					<div class="clearfix">
-						<i class="el-icon-gatewayMonitorDO"></i>
+						<i class="el-icon-monitor"></i>
 						<span style="font-weight: bold;">{{infoForm.name}}</span>
 						<span v-show="infoForm.isItem" style="margin-left: 50px;">
 							<i class="el-icon-position"></i>
