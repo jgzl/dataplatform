@@ -106,7 +106,7 @@ public class GatewayRouteService extends BaseService<GatewayRouteDO,String, Gate
             BeanUtils.copyProperties(gatewayRouteDO1, routeRsp);
             GatewayMonitorDO gatewayMonitorDO = monitorMap.get(gatewayRouteDO1.getId());
             if (gatewayMonitorDO != null){
-                routeRsp.setGatewayMonitorDO(gatewayMonitorDO);
+                routeRsp.setMonitor(gatewayMonitorDO);
             }
             gatewayRouteDORspList.add(routeRsp);
         }

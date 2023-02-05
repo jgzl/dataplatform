@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/gateway/count")
-public class CountRest extends BaseRest {
+public class GatewayCountController extends BaseRest {
 
     @Resource
     private GatewayCountService gatewayCountService;

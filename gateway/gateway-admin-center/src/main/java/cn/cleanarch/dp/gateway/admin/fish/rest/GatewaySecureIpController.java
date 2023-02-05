@@ -22,7 +22,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/gateway/ip")
-public class SecureIpRest extends BaseRest {
+public class GatewaySecureIpController extends BaseRest {
 
     @Resource
     private GatewaySecureIpService gatewaySecureIpService;

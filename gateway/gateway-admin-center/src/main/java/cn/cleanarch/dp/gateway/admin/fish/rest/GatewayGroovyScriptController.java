@@ -23,7 +23,7 @@ import java.util.Date;
 @Slf4j
 @RestController
 @RequestMapping("/gateway/groovyScript")
-public class GroovyScriptRest extends BaseRest {
+public class GatewayGroovyScriptController extends BaseRest {
 
     @Resource
     private GatewayGroovyScriptService gatewayGroovyScriptService;

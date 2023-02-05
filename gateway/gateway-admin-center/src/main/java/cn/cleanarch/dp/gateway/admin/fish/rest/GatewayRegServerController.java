@@ -24,7 +24,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/gateway/regServer")
-public class RegServerRest extends BaseRest {
+public class GatewayRegServerController extends BaseRest {
 
     @Resource
     private GatewayRegServerService gatewayRegServerService;

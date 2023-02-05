@@ -14,6 +14,6 @@ import java.util.List;
  */
 @Data
 public class GatewayBalancedRsp implements java.io.Serializable {
-    private GatewayBalancedDO balancedDO;
+    private GatewayBalancedDO balanced;
     private List<GatewayLoadServerDO> serverList;
 }

@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/gateway/monitor")
-public class MonitorRest extends BaseRest {
+public class GatewayMonitorController extends BaseRest {
 
     @Resource
     private GatewayMonitorService gatewayMonitorService;

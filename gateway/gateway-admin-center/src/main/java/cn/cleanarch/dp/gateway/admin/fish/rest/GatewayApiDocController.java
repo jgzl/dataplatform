@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/gateway/apiDoc")
-public class ApiDocRest extends BaseRest {
+public class GatewayApiDocController extends BaseRest {
 
     @Resource
     private GatewayRouteService gatewayRouteService;

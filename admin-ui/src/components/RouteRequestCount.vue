@@ -17,7 +17,7 @@
             <div id="route60MinAccessChart" class="chart_line_2"></div>
 		  <template #footer>
 			  <div class="dialog-footer">
-				  <el-button icon="el-icon-s-release" size="small" type="warning" @click="dialogFormVisible = false">关 闭</el-button>
+				  <el-button icon="el-icon-close" size="small" type="warning" @click="dialogFormVisible = false">关 闭</el-button>
 			  </div>
 		  </template>
 		</el-dialog>

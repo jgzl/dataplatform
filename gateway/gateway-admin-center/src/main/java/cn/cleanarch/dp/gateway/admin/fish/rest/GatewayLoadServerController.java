@@ -21,7 +21,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/gateway/loadServer")
-public class LoadServerRest extends BaseRest {
+public class GatewayLoadServerController extends BaseRest {
 
     @Resource
     private GatewayLoadServerService gatewayLoadServerService;

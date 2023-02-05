@@ -37,12 +37,12 @@
 			<el-dialog width="65%" title="编译失败日志" v-model="innerVisible" append-to-body>
 <pre class="language-java line-numbers" style="height: 500px;"><code>{{codeErrorMsg}}</code></pre>
 				<div slot="footer" class="dialog-footer">
-					<el-button icon="el-icon-s-release" size="small" type="warning" @click="innerVisible = false">关 闭</el-button>
+					<el-button icon="el-icon-close" size="small" type="warning" @click="innerVisible = false">关 闭</el-button>
 				</div>
 			</el-dialog>
 			<div slot="footer" class="dialog-footer">
 				<el-button icon="el-icon-promotion" size="small" type="success" @click="submitForm">提 交</el-button>
-				<el-button icon="el-icon-s-release" size="small" type="warning" @click="dialogFormVisible = false">关 闭</el-button>
+				<el-button icon="el-icon-close" size="small" type="warning" @click="dialogFormVisible = false">关 闭</el-button>
 			</div>
 		</el-dialog>
 
@@ -51,7 +51,7 @@
 <pre class="language-java line-numbers" style="height: 700px;"><code v-html="groovScriptCode"></code></pre>
 			</div>
 			<div slot="footer" class="dialog-footer">
-				<el-button icon="el-icon-s-release" size="small" type="warning" @click="dialogCodeVisible = false">关 闭</el-button>
+				<el-button icon="el-icon-close" size="small" type="warning" @click="dialogCodeVisible = false">关 闭</el-button>
 			</div>
 		</el-dialog>
 

@@ -14,5 +14,5 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class GatewayRouteDORsp extends GatewayRouteDO {
-    private GatewayMonitorDO gatewayMonitorDO;
+    private GatewayMonitorDO monitor;
 }

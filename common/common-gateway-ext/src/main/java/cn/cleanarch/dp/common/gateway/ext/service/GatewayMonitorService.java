@@ -77,7 +77,7 @@ public class GatewayMonitorService extends BaseService<GatewayMonitorDO, String,
             }
             GatewayRouteDORsp routeRsp = new GatewayRouteDORsp();
             BeanUtils.copyProperties(gatewayRouteDO, routeRsp);
-            routeRsp.setGatewayMonitorDO(gatewayMonitorDO);
+            routeRsp.setMonitor(gatewayMonitorDO);
             resultList.add(routeRsp);
         }
         return resultList;

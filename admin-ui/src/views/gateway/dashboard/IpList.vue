@@ -16,7 +16,7 @@
 			<template #footer>
 				<div class="dialog-footer">
 					<el-button icon="el-icon-promotion" size="small" type="success" @click="submit">提 交</el-button>
-					<el-button icon="el-icon-s-release" size="small" type="warning" @click="dialogFormVisible = false">关 闭</el-button>
+					<el-button icon="el-icon-close" size="small" type="warning" @click="dialogFormVisible = false">关 闭</el-button>
 				</div>
 			</template>
 		</el-dialog>

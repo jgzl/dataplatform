@@ -30,7 +30,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/gateway/balanced")
-public class BalancedRest extends BaseRest {
+public class GatewayBalancedController extends BaseRest {
 
     @Resource
     private GatewayBalancedService gatewayBalancedService;
@@ -132,7 +132,7 @@ public class BalancedRest extends BaseRest {
         if (balancedDO != null) {
             List<GatewayLoadServerDO> serverList = gatewayLoadServerService.queryByBalancedId(id);
             GatewayBalancedRsp gatewayBalancedRsp = new GatewayBalancedRsp();
-            gatewayBalancedRsp.setBalancedDO(balancedDO);
+            gatewayBalancedRsp.setBalanced(balancedDO);
             gatewayBalancedRsp.setServerList(serverList);
             return new ApiResult(gatewayBalancedRsp);
         }
