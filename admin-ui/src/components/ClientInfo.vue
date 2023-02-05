@@ -62,9 +62,9 @@
 		},
 		methods:{
 			init() {
-				this.regServerList();
+				this.gatewayRegServerDOList();
 			},
-			regServerList(){
+			gatewayRegServerDOList(){
 				let _this = this;
 				regServerPageList({clientId: this.infoForm.id, currentPage: this.currentPage, pageSize: this.pageSize}).then(function(result){
 					if (result.data){

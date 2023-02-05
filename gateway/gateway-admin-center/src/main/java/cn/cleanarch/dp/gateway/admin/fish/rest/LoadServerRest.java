@@ -1,8 +1,8 @@
 package cn.cleanarch.dp.gateway.admin.fish.rest;
 
 import cn.cleanarch.dp.common.gateway.ext.base.BaseRest;
-import cn.cleanarch.dp.common.gateway.ext.vo.LoadServerReq;
-import cn.cleanarch.dp.common.gateway.ext.service.LoadServerService;
+import cn.cleanarch.dp.common.gateway.ext.vo.GatewayLoadServerDOReq;
+import cn.cleanarch.dp.common.gateway.ext.service.GatewayLoadServerService;
 import cn.cleanarch.dp.common.gateway.ext.util.ApiResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
@@ -24,7 +24,7 @@ import javax.annotation.Resource;
 public class LoadServerRest extends BaseRest {
 
     @Resource
-    private LoadServerService loadServerService;
+    private GatewayLoadServerService gatewayLoadServerService;
 
     /**
      * 查询当前负载网关已加配置路由服务
@@ -32,7 +32,7 @@ public class LoadServerRest extends BaseRest {
      * @return
      */
     @RequestMapping(value = "/regList", method = {RequestMethod.GET, RequestMethod.POST})
-    public ApiResult regList(@RequestBody LoadServerReq loadServerReq) {
+    public ApiResult regList(@RequestBody GatewayLoadServerDOReq loadServerReq) {
         return list(loadServerReq, true);
     }
 
@@ -42,7 +42,7 @@ public class LoadServerRest extends BaseRest {
      * @return
      */
     @RequestMapping(value = "/notRegPageList", method = {RequestMethod.GET, RequestMethod.POST})
-    public ApiResult notRegPageList(@RequestBody LoadServerReq loadServerReq) {
+    public ApiResult notRegPageList(@RequestBody GatewayLoadServerDOReq loadServerReq) {
         return list(loadServerReq, false);
     }
 
@@ -52,15 +52,15 @@ public class LoadServerRest extends BaseRest {
      * @param isReg
      * @return
      */
-    private ApiResult list(LoadServerReq loadServerReq, boolean isReg){
+    private ApiResult list(GatewayLoadServerDOReq loadServerReq, boolean isReg){
         Assert.notNull(loadServerReq, "未获取到对象");
         if (isReg) {
             Assert.isTrue(StringUtils.isNotBlank(loadServerReq.getBalancedId()), "未获取到对象ID");
-            return new ApiResult(loadServerService.loadServerList(loadServerReq.getBalancedId()));
+            return new ApiResult(gatewayLoadServerService.loadServerList(loadServerReq.getBalancedId()));
         }else {
             int currentPage = getCurrentPage(loadServerReq.getCurrentPage());
             int pageSize = getPageSize(loadServerReq.getPageSize());
-            return new ApiResult(loadServerService.notLoadServerPageList(currentPage, pageSize));
+            return new ApiResult(gatewayLoadServerService.notLoadServerPageList(currentPage, pageSize));
         }
     }
 

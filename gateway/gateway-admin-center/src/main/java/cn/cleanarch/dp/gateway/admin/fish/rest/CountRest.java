@@ -1,9 +1,9 @@
 package cn.cleanarch.dp.gateway.admin.fish.rest;
 
 import cn.cleanarch.dp.common.gateway.ext.base.BaseRest;
-import cn.cleanarch.dp.common.gateway.ext.vo.CountReq;
-import cn.cleanarch.dp.common.gateway.ext.dataobject.Route;
-import cn.cleanarch.dp.common.gateway.ext.service.CountService;
+import cn.cleanarch.dp.common.gateway.ext.dataobject.GatewayRouteDO;
+import cn.cleanarch.dp.common.gateway.ext.vo.GatewayCountReq;
+import cn.cleanarch.dp.common.gateway.ext.service.GatewayCountService;
 import cn.cleanarch.dp.common.gateway.ext.util.ApiResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
@@ -22,46 +22,46 @@ import javax.annotation.Resource;
 public class CountRest extends BaseRest {
 
     @Resource
-    private CountService countService;
+    private GatewayCountService gatewayCountService;
 
     /**
      * 负载类型的请求（需要在缓存filed前加一个balanced前缀，用于区分普通路由ID）
-     * @param countReq
+     * @param gatewayCountReq
      * @return
      */
     @RequestMapping(value = "/balanced/request", method = {RequestMethod.GET, RequestMethod.POST})
-    public ApiResult balancedRequest(@RequestBody CountReq countReq) {
-        return countService.count(countReq, true);
+    public ApiResult balancedRequest(@RequestBody GatewayCountReq gatewayCountReq) {
+        return gatewayCountService.count(gatewayCountReq, true);
     }
 
     /**
      * 请求
-     * @param countReq
+     * @param gatewayCountReq
      * @return
      */
     @RequestMapping(value = "/request", method = {RequestMethod.GET, RequestMethod.POST})
-    public ApiResult request(@RequestBody CountReq countReq) {
-        return countService.count(countReq, false);
+    public ApiResult request(@RequestBody GatewayCountReq gatewayCountReq) {
+        return gatewayCountService.count(gatewayCountReq, false);
     }
 
     /**
      * 查询路由集合统计结果
-     * @param countReq
+     * @param gatewayCountReq
      * @return
      */
     @RequestMapping(value = "/route/pageList", method = {RequestMethod.GET, RequestMethod.POST})
-    public ApiResult routePageList(@RequestBody CountReq countReq) {
-        Assert.notNull(countReq, "未获取到对象");
-        int currentPage = getCurrentPage(countReq.getCurrentPage());
-        int pageSize = getPageSize(countReq.getPageSize());
-        Route route = new Route();
-        if (StringUtils.isNotBlank(countReq.getName())) {
-            route.setName(countReq.getName());
+    public ApiResult routePageList(@RequestBody GatewayCountReq gatewayCountReq) {
+        Assert.notNull(gatewayCountReq, "未获取到对象");
+        int currentPage = getCurrentPage(gatewayCountReq.getCurrentPage());
+        int pageSize = getPageSize(gatewayCountReq.getPageSize());
+        GatewayRouteDO gatewayRouteDO = new GatewayRouteDO();
+        if (StringUtils.isNotBlank(gatewayCountReq.getName())) {
+            gatewayRouteDO.setName(gatewayCountReq.getName());
         }
-        if (StringUtils.isNotBlank(countReq.getGroupCode())){
-            route.setGroupCode(countReq.getGroupCode());
+        if (StringUtils.isNotBlank(gatewayCountReq.getGroupCode())){
+            gatewayRouteDO.setGroupCode(gatewayCountReq.getGroupCode());
         }
-        return countService.countRouteList(route, currentPage, pageSize);
+        return gatewayCountService.countRouteList(gatewayRouteDO, currentPage, pageSize);
     }
 
     /**
@@ -70,7 +70,7 @@ public class CountRest extends BaseRest {
      */
     @RequestMapping(value = "/request/total", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult routeTotal() {
-        return new ApiResult(countService.countRequestTotal());
+        return new ApiResult(gatewayCountService.countRequestTotal());
     }
 
     /**
@@ -79,7 +79,7 @@ public class CountRest extends BaseRest {
      */
     @RequestMapping(value = "/request/app/total", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult routeAppTotal(@RequestParam(required=false) String id) {
-        return new ApiResult(countService.countRequestTotal(id));
+        return new ApiResult(gatewayCountService.countRequestTotal(id));
     }
 
     /**

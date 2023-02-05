@@ -2,7 +2,7 @@ package cn.cleanarch.dp.gateway.fish.filter;
 
 import cn.cleanarch.dp.common.gateway.ext.util.HttpResponseUtils;
 import cn.cleanarch.dp.common.gateway.ext.util.NetworkIpUtils;
-import cn.cleanarch.dp.common.gateway.ext.util.RouteConstants;
+import cn.cleanarch.dp.common.gateway.ext.util.GatewayRouteConstants;
 import cn.cleanarch.dp.gateway.fish.cache.IpListCache;
 import cn.cleanarch.dp.gateway.fish.cache.RegServerCache;
 import cn.cleanarch.dp.gateway.fish.vo.GatewayRegServer;
@@ -36,7 +36,7 @@ public class IpGatewayFilter implements GatewayFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         //做了负载均衡的route服务不做客户端IP验证
-        if (routeId.startsWith(RouteConstants.BALANCED)){
+        if (routeId.startsWith(GatewayRouteConstants.BALANCED)){
             return chain.filter(exchange);
         }
         String ip = NetworkIpUtils.getIpAddress(request);

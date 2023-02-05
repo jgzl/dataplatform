@@ -5,7 +5,7 @@ import cn.cleanarch.dp.common.gateway.ext.util.ApiResult;
 import cn.cleanarch.dp.common.gateway.ext.util.Constants;
 import cn.cleanarch.dp.common.gateway.ext.util.NetworkIpUtils;
 import cn.cleanarch.dp.gateway.fish.cache.RotueGroovyCache;
-import cn.cleanarch.dp.gateway.fish.service.DynamicGroovyService;
+import cn.cleanarch.dp.gateway.fish.service.DynamicGatewayGroovyService;
 import cn.cleanarch.dp.gateway.fish.vo.GroovyHandleData;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -44,7 +44,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.G
 @Component
 public class ResponseComponentGlobalFilter implements GlobalFilter, Ordered {
     @Resource
-    private DynamicGroovyService dynamicGroovyService;
+    private DynamicGatewayGroovyService dynamicGatewayGroovyService;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -81,7 +81,7 @@ public class ResponseComponentGlobalFilter implements GlobalFilter, Ordered {
                         // 封装请求参数，用于groovy规则引擎动态脚本中执行
                         GroovyHandleData handleData = new GroovyHandleData(paramMap, body);
                         try {
-                            handleData = dynamicGroovyService.responseHandle(exchange, handleData);
+                            handleData = dynamicGatewayGroovyService.responseHandle(exchange, handleData);
                             body = handleData.getBody();
                             log.info("网关转发客户端【{}】路由请求【{}】，执行Groovy规则引擎动态脚本组件，返回内容：\n{}", clientIp, routeId, body);
                         } catch (InvocationTargetException e) {

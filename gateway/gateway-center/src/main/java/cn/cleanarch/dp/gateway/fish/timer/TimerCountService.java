@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.gateway.fish.timer;
 
 import cn.cleanarch.dp.common.gateway.ext.util.Constants;
-import cn.cleanarch.dp.common.gateway.ext.util.RouteConstants;
+import cn.cleanarch.dp.common.gateway.ext.util.GatewayRouteConstants;
 import cn.cleanarch.dp.gateway.fish.cache.CountCache;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -47,8 +47,8 @@ public class TimerCountService {
         CountCache.clear();
 
         //保存按分钟统计的数据,数据缓存1小时
-        String freshKey = RouteConstants.COUNT_MIN_KEY + FRESH;
-        String minKey = RouteConstants.COUNT_MIN_KEY + DateFormatUtils.format(new Date(), Constants.YYYYMMDDHHMM);
+        String freshKey = GatewayRouteConstants.COUNT_MIN_KEY + FRESH;
+        String minKey = GatewayRouteConstants.COUNT_MIN_KEY + DateFormatUtils.format(new Date(), Constants.YYYYMMDDHHMM);
         String min =  DateFormatUtils.format(new Date(), Constants.YYYYMMDDHHMM);
         String minFresh = (String) redisTemplate.opsForValue().get(freshKey);
         if (minFresh == null || Long.parseLong(min) > Long.parseLong(minFresh)){
@@ -58,8 +58,8 @@ public class TimerCountService {
         }
 
         //保存按小时统计的数据,数据缓存24小时
-        freshKey = RouteConstants.COUNT_HOUR_KEY + FRESH;
-        String hourKey = RouteConstants.COUNT_HOUR_KEY + DateFormatUtils.format(new Date(), Constants.YYYYMMDDHH);
+        freshKey = GatewayRouteConstants.COUNT_HOUR_KEY + FRESH;
+        String hourKey = GatewayRouteConstants.COUNT_HOUR_KEY + DateFormatUtils.format(new Date(), Constants.YYYYMMDDHH);
         String hour =  DateFormatUtils.format(new Date(), Constants.YYYYMMDDHH);
         String hourFresh = (String) redisTemplate.opsForValue().get(freshKey);
         if (hourFresh == null || Long.parseLong(hour) > Long.parseLong(hourFresh)){
@@ -69,8 +69,8 @@ public class TimerCountService {
         }
 
         //保存按天统计的数据,数据缓存7天
-        freshKey = RouteConstants.COUNT_DAY_KEY + FRESH;
-        String dayKey = RouteConstants.COUNT_DAY_KEY + DateFormatUtils.format(new Date(), Constants.YYYYMMDD);
+        freshKey = GatewayRouteConstants.COUNT_DAY_KEY + FRESH;
+        String dayKey = GatewayRouteConstants.COUNT_DAY_KEY + DateFormatUtils.format(new Date(), Constants.YYYYMMDD);
         String day =  DateFormatUtils.format(new Date(), Constants.YYYYMMDD);
         String dayFresh = (String) redisTemplate.opsForValue().get(freshKey);
         if (dayFresh == null || Long.parseLong(day) > Long.parseLong(dayFresh)){

@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.gateway.admin.mapper;
 
 import cn.cleanarch.dp.common.data.mapper.ExtendBaseMapper;
-import cn.cleanarch.dp.gateway.admin.dataobject.GatewayAccessDO;
+import cn.cleanarch.dp.gateway.admin.dataobject.GatewayAccessConfDO;
 
 /**
  * 网关访问
@@ -9,6 +9,6 @@ import cn.cleanarch.dp.gateway.admin.dataobject.GatewayAccessDO;
  * @author li7hai26@gmail.com
  * @date 2018-11-06 10:17:18
  */
-public interface GatewayAccessMapper extends ExtendBaseMapper<GatewayAccessDO> {
+public interface GatewayAccessMapper extends ExtendBaseMapper<GatewayAccessConfDO> {
 
 }

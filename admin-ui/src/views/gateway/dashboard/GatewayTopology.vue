@@ -44,11 +44,11 @@ export default {
 	},
 	created: function() {
 		//在组件创建完毕后加载
-		let query = this.$route.query;
+		let query = this.$gatewayRouteDO.query;
 		if (query){
-			let route = query.route;
-			console.log('route', route);
-			this.form = JSON.parse(route).form;
+			let gatewayRouteDO = query.gatewayRouteDO;
+			console.log('gatewayRouteDO', gatewayRouteDO);
+			this.form = JSON.parse(gatewayRouteDO).form;
 		}
 	},
 	mounted: function() {
@@ -99,9 +99,9 @@ export default {
 				if (_this.clientList != null){
 					let legnth = _this.clientList.length;
 					for (let i = 0; i < legnth; i++) {
-						let client = _this.clientList[i];
+						let gatewayClientDO = _this.clientList[i];
 						let obj = {
-							name: client.name ,
+							name: gatewayClientDO.name ,
 							value: i,
 							children: []
 						};

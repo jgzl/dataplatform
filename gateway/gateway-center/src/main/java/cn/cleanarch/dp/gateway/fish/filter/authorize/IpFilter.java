@@ -19,12 +19,12 @@ public class IpFilter extends FilterHandler {
 
     @Override
     public void handleRequest(ServerHttpRequest request){
-        if (route.getFilterAuthorizeName().contains("ip")){
-            log.info("处理网关路由请求{},执行ip过滤 ", route.getId());
+        if (gatewayRouteDO.getFilterAuthorizeName().contains("ip")){
+            log.info("处理网关路由请求{},执行ip过滤 ", gatewayRouteDO.getId());
             String ip = NetworkIpUtils.getIpAddress(request);
-            if (route.getAccessIp()!=null && route.getAccessIp().contains(ip)){
+            if (gatewayRouteDO.getAccessIp()!=null && gatewayRouteDO.getAccessIp().contains(ip)){
             }else {
-                throw new IllegalStateException("执行ip过滤,自定义ip验证不通过 请求源="+ip+",自定义目标=" + route.getAccessIp());
+                throw new IllegalStateException("执行ip过滤,自定义ip验证不通过 请求源="+ip+",自定义目标=" + gatewayRouteDO.getAccessIp());
             }
         }
     }

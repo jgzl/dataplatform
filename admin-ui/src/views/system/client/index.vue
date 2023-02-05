@@ -42,7 +42,7 @@
 import saveDialog from './save'
 
 export default {
-		name: "client",
+		name: "gatewayClientDO",
 		components: {
 			saveDialog
 		},

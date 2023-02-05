@@ -72,7 +72,7 @@
 							<el-button slot="reference" style="padding: 3px 0;" icon="el-icon-question" text title="说明"></el-button>
 						</el-popover>
 						<span style="margin-left: 50px;">
-							<i class="el-icon-monitor"></i>
+							<i class="el-icon-gatewayMonitorDO"></i>
 							<span style="font-size: 11pt;">
 								<el-tag size="small" style="font-weight: bold;">{{routeForm.name}}</el-tag>
 							</span>
@@ -111,7 +111,7 @@
 <script>
 
 	import groovyScriptTableComponent from '@/components/GroovyScriptTable.vue'
-	import {deleteGroovyScript,stopGroovyScript,startGroovyScript,upGroovyScript,downGroovyScript,groovyScriptList,groovyScriptCode} from '@/api/groovyscript_api'
+	import {deleteGroovyScript,stopGroovyScript,startGroovyScript,upGroovyScript,downGroovyScript,gatewayGroovyScriptDOList,groovyScriptCode} from '@/api/groovyscript_api'
 
 	export default {
 		data() {
@@ -154,11 +154,11 @@
 		},
 		created: function() {
 			//在组件创建完毕后加载
-			let query = this.$route.query;
+			let query = this.$gatewayRouteDO.query;
 			if (query){
-				let route = query.route;
-				console.log('route', route);
-				this.init(JSON.parse(route));
+				let gatewayRouteDO = query.gatewayRouteDO;
+				console.log('gatewayRouteDO', gatewayRouteDO);
+				this.init(JSON.parse(gatewayRouteDO));
 			}
 		},
 		mounted: function() {
@@ -168,10 +168,10 @@
 
 		},
 		methods:{
-			init(route) {
-				if (route){
-					this.routeForm = route.form;
-					this.groovyScriptList();
+			init(gatewayRouteDO) {
+				if (gatewayRouteDO){
+					this.routeForm = gatewayRouteDO.form;
+					this.gatewayGroovyScriptDOList();
 				}
 			},
 			goBack() {
@@ -209,7 +209,7 @@
 					this.$confirm('确认上移"'+rowObj.name+'"规则引擎动态脚本组件？').then(_ => {
 						upGroovyScript({id:rowObj.id}).then(function(result){
 							_this.GLOBAL_FUN.successMsg();
-							_this.groovyScriptList();
+							_this.gatewayGroovyScriptDOList();
 						});
 					}).catch(_ => {});
 				} else if (obj.command === 'down'){
@@ -222,14 +222,14 @@
 					this.$confirm('确认下移"'+rowObj.name+'"规则引擎动态脚本组件？').then(_ => {
 						downGroovyScript({id:rowObj.id}).then(function(result){
 							_this.GLOBAL_FUN.successMsg();
-							_this.groovyScriptList();
+							_this.gatewayGroovyScriptDOList();
 						});
 					}).catch(_ => {});
 				} else if (obj.command === 'delete'){
 					this.$confirm('确认删除"'+obj.row.name+'"规则引擎动态脚本组件？').then(_ => {
 						deleteGroovyScript({id:obj.row.id}).then(function(result){
 							_this.GLOBAL_FUN.successMsg();
-							_this.groovyScriptList();
+							_this.gatewayGroovyScriptDOList();
 						})
 					}).catch(_ => {});
 				}
@@ -257,7 +257,7 @@
 						this.failVisible = false;
 						this.successVisible = false;
 						this.groovyForm.routeId = this.routeForm.id;
-						let path = this.handleType == 'add' ? '/groovyScript/add' : '/groovyScript/update' ;
+						let path = this.handleType == 'add' ? '/gatewayGroovyScriptDO/add' : '/gatewayGroovyScriptDO/update' ;
 						this.$ajax
 						.post(this.GLOBAL_VAR.baseURL + path, this.groovyForm)
 						.then((result) => {
@@ -265,7 +265,7 @@
 								if (result.data.code == '1') {
 									_this.successVisible = true;
 									_this.GLOBAL_FUN.successMsg();
-									_this.groovyScriptList();
+									_this.gatewayGroovyScriptDOList();
 								}
 							}
 						})
@@ -303,9 +303,9 @@
 			showGroovyScriptCode(){//导入示例代码
 				this.groovyForm.content = groovyScriptCode();
 			},
-			groovyScriptList(){
+			gatewayGroovyScriptDOList(){
 				let _this = this;
-				groovyScriptList({routeId: this.routeForm.id}).then((result) => {
+				gatewayGroovyScriptDOList({routeId: this.routeForm.id}).then((result) => {
 					if (result.data){
 						_this.requestTableData = [];
 						_this.responseTableData = [];

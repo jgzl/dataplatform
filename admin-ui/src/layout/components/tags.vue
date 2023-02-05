@@ -40,7 +40,7 @@ export default {
 		},
 		props: {},
 		watch: {
-			$route(e) {
+			$gatewayRouteDO(e) {
 				this.addViewTags(e);
 				//判断标签容器是否出现滚动条
 				this.$nextTick(() => {
@@ -85,7 +85,7 @@ export default {
 			if(dashboardRoute){
 				dashboardRoute.fullPath = dashboardRoute.path
 				this.addViewTags(dashboardRoute)
-				this.addViewTags(this.$route)
+				this.addViewTags(this.$gatewayRouteDO)
 			}
 		},
 		mounted() {
@@ -113,15 +113,15 @@ export default {
 				})
 			},
 			//增加tag
-			addViewTags(route) {
-				if(route.name && !route.meta.fullpage){
-					this.$store.commit("pushViewTags",route)
-					this.$store.commit("pushKeepLive",route.name)
+			addViewTags(gatewayRouteDO) {
+				if(gatewayRouteDO.name && !gatewayRouteDO.meta.fullpage){
+					this.$store.commit("pushViewTags",gatewayRouteDO)
+					this.$store.commit("pushKeepLive",gatewayRouteDO.name)
 				}
 			},
 			//高亮tag
-			isActive(route) {
-				return route.fullPath === this.$route.fullPath
+			isActive(gatewayRouteDO) {
+				return gatewayRouteDO.fullPath === this.$gatewayRouteDO.fullPath
 			},
 			//关闭tag
 			closeSelectedTag(tag, autoPushLatestView=true) {
@@ -164,7 +164,7 @@ export default {
 				var nowTag = this.contextMenuItem;
 				this.contextMenuVisible = false
 				//判断是否当前路由，否的话跳转
-				if(this.$route.fullPath != nowTag.fullPath){
+				if(this.$gatewayRouteDO.fullPath != nowTag.fullPath){
 					this.$router.push({
 						path: nowTag.fullPath,
 						query: nowTag.query
@@ -193,7 +193,7 @@ export default {
 			closeOtherTabs(){
 				var nowTag = this.contextMenuItem;
 				//判断是否当前路由，否的话跳转
-				if(this.$route.fullPath != nowTag.fullPath){
+				if(this.$gatewayRouteDO.fullPath != nowTag.fullPath){
 					this.$router.push({
 						path: nowTag.fullPath,
 						query: nowTag.query
@@ -214,7 +214,7 @@ export default {
 				var nowTag = this.contextMenuItem;
 				this.contextMenuVisible = false
 				//判断是否当前路由，否的话跳转
-				if(this.$route.fullPath != nowTag.fullPath){
+				if(this.$gatewayRouteDO.fullPath != nowTag.fullPath){
 					this.$router.push({
 						path: nowTag.fullPath,
 						query: nowTag.query

@@ -41,7 +41,7 @@
 				<div class="adminui-main" id="adminui-main">
 					<router-view v-slot="{ Component }">
 					    <keep-alive :include="this.$store.state.keepAlive.keepLiveRoute">
-					        <component :is="Component" :key="$route.fullPath" v-if="$store.state.keepAlive.routeShow"/>
+					        <component :is="Component" :key="$gatewayRouteDO.fullPath" v-if="$store.state.keepAlive.routeShow"/>
 					    </keep-alive>
 					</router-view>
 					<iframe-view></iframe-view>
@@ -83,7 +83,7 @@
 				<div class="adminui-main" id="adminui-main">
 					<router-view v-slot="{ Component }">
 					    <keep-alive :include="this.$store.state.keepAlive.keepLiveRoute">
-					        <component :is="Component" :key="$route.fullPath" v-if="$store.state.keepAlive.routeShow"/>
+					        <component :is="Component" :key="$gatewayRouteDO.fullPath" v-if="$store.state.keepAlive.routeShow"/>
 					    </keep-alive>
 					</router-view>
 					<iframe-view></iframe-view>
@@ -117,7 +117,7 @@
 				<div class="adminui-main" id="adminui-main">
 					<router-view v-slot="{ Component }">
 					    <keep-alive :include="this.$store.state.keepAlive.keepLiveRoute">
-					        <component :is="Component" :key="$route.fullPath" v-if="$store.state.keepAlive.routeShow"/>
+					        <component :is="Component" :key="$gatewayRouteDO.fullPath" v-if="$store.state.keepAlive.routeShow"/>
 					    </keep-alive>
 					</router-view>
 					<iframe-view></iframe-view>
@@ -171,7 +171,7 @@
 				<div class="adminui-main" id="adminui-main">
 					<router-view v-slot="{ Component }">
 					    <keep-alive :include="this.$store.state.keepAlive.keepLiveRoute">
-					        <component :is="Component" :key="$route.fullPath" v-if="$store.state.keepAlive.routeShow"/>
+					        <component :is="Component" :key="$gatewayRouteDO.fullPath" v-if="$store.state.keepAlive.routeShow"/>
 					    </keep-alive>
 					</router-view>
 					<iframe-view></iframe-view>
@@ -240,7 +240,7 @@ export default {
 			this.showThis()
 		},
 		watch: {
-			$route() {
+			$gatewayRouteDO() {
 				this.showThis()
 			},
 			layout: {
@@ -259,18 +259,18 @@ export default {
 			},
 			//路由监听高亮
 			showThis(){
-				this.pmenu = this.$route.meta.breadcrumb ? this.$route.meta.breadcrumb[0] : {}
+				this.pmenu = this.$gatewayRouteDO.meta.breadcrumb ? this.$gatewayRouteDO.meta.breadcrumb[0] : {}
 				this.nextMenu = this.filterUrl(this.pmenu.children);
 				this.$nextTick(()=>{
-					this.active = this.$route.meta.active || this.$route.fullPath;
+					this.active = this.$gatewayRouteDO.meta.active || this.$gatewayRouteDO.fullPath;
 				})
 			},
 			//点击显示
-			showMenu(route) {
-				this.pmenu = route;
-				this.nextMenu = this.filterUrl(route.children);
-				if((!route.children || route.children.length == 0) && route.component){
-					this.$router.push({path: route.path})
+			showMenu(gatewayRouteDO) {
+				this.pmenu = gatewayRouteDO;
+				this.nextMenu = this.filterUrl(gatewayRouteDO.children);
+				if((!gatewayRouteDO.children || gatewayRouteDO.children.length == 0) && gatewayRouteDO.component){
+					this.$router.push({path: gatewayRouteDO.path})
 				}
 			},
 			//转换外部链接的路由

@@ -1,9 +1,9 @@
 package cn.cleanarch.dp.gateway.admin.controller;
 
 import cn.cleanarch.dp.common.core.model.R;
-import cn.cleanarch.dp.gateway.admin.service.GatewayRouteService;
-import cn.cleanarch.dp.gateway.admin.dataobject.GatewayRouteDO;
-import cn.cleanarch.dp.gateway.admin.vo.GatewayRouteVO;
+import cn.cleanarch.dp.gateway.admin.service.GatewayRouteConfService;
+import cn.cleanarch.dp.gateway.admin.dataobject.GatewayRouteConfDO;
+import cn.cleanarch.dp.gateway.admin.vo.GatewayRouteConfVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -24,15 +24,15 @@ import java.util.List;
 @RequestMapping("/gateway/route")
 public class GatewayRouteController {
 
-    private final GatewayRouteService service;
+    private final GatewayRouteConfService service;
     /**
      * 分页获取当前定义的信息
      * @return
      */
     @GetMapping("/page")
     @PreAuthorize("@pms.hasPermission('gateway:gateway-route:query')")
-    public R<IPage<GatewayRouteDO>> pageListRoutes(Page page, GatewayRouteVO vo) {
-        return R.success(service.page(page, new QueryWrapper<GatewayRouteDO>(vo)));
+    public R<IPage<GatewayRouteConfDO>> pageListRoutes(Page page, GatewayRouteConfVO vo) {
+        return R.success(service.page(page, new QueryWrapper<GatewayRouteConfDO>(vo)));
     }
 
     /**
@@ -42,7 +42,7 @@ public class GatewayRouteController {
      */
     @GetMapping
     @PreAuthorize("@pms.hasPermission('gateway:gateway-route:query')")
-    public R<List<GatewayRouteDO>> listRoutes() {
+    public R<List<GatewayRouteConfDO>> listRoutes() {
         return R.success(service.list());
     }
 
@@ -54,7 +54,7 @@ public class GatewayRouteController {
      */
     @PostMapping
     @PreAuthorize("@pms.hasPermission('gateway:gateway-route:create')")
-    public R<Void> createRoutes(@RequestBody GatewayRouteDO vo) {
+    public R<Void> createRoutes(@RequestBody GatewayRouteConfDO vo) {
         service.saveOrUpdate(vo);
         return R.success();
     }
@@ -67,7 +67,7 @@ public class GatewayRouteController {
      */
     @PutMapping
     @PreAuthorize("@pms.hasPermission('gateway:gateway-route:update')")
-    public R<Void> updateRoutes(@RequestBody GatewayRouteDO vo) {
+    public R<Void> updateRoutes(@RequestBody GatewayRouteConfDO vo) {
         service.saveOrUpdate(vo);
         return R.success();
     }

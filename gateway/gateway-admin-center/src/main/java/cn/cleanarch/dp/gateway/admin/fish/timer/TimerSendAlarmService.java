@@ -1,9 +1,9 @@
 package cn.cleanarch.dp.gateway.admin.fish.timer;
 
-import cn.cleanarch.dp.common.gateway.ext.dataobject.Monitor;
-import cn.cleanarch.dp.common.gateway.ext.dataobject.Route;
-import cn.cleanarch.dp.common.gateway.ext.service.MonitorService;
-import cn.cleanarch.dp.common.gateway.ext.service.RouteService;
+import cn.cleanarch.dp.common.gateway.ext.dataobject.GatewayRouteDO;
+import cn.cleanarch.dp.common.gateway.ext.dataobject.GatewayMonitorDO;
+import cn.cleanarch.dp.common.gateway.ext.service.GatewayMonitorService;
+import cn.cleanarch.dp.common.gateway.ext.service.GatewayRouteService;
 import cn.cleanarch.dp.common.gateway.ext.util.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -30,11 +30,11 @@ import java.util.List;
 @Service
 public class TimerSendAlarmService {
     @Resource
-    private MonitorService monitorService;
+    private GatewayMonitorService gatewayMonitorService;
     @Resource
     private JavaMailSenderImpl javaMailSender;
     @Resource
-    private RouteService routeService;
+    private GatewayRouteService gatewayRouteService;
 
     @Value("${spring.mail.username:}")
     private String form;
@@ -46,40 +46,40 @@ public class TimerSendAlarmService {
     public void syncRequestTimeCache(){
         log.info("执行定时任务：发送网关路由告警邮件通知...");
         //读取所有监控配置，判断哪些已经超过30s，没有客户端请求，将其放入到监控队列
-        List<Monitor> monitorList = monitorService.validRouteMonitorList();
-        if (CollectionUtils.isEmpty(monitorList)){
+        List<GatewayMonitorDO> gatewayMonitorDOList = gatewayMonitorService.validRouteMonitorList();
+        if (CollectionUtils.isEmpty(gatewayMonitorDOList)){
             return ;
         }
         Date sendTime;
         long validTime;
         String sendDate = DateFormatUtils.format(new Date(), Constants.DATE_FORMAT_DAY);
-        for (Monitor monitor : monitorList){
+        for (GatewayMonitorDO gatewayMonitorDO : gatewayMonitorDOList){
             //如果已是2告警状态,则发送告警邮件
-            if (!Constants.ALARM.equals(monitor.getStatus())){
+            if (!Constants.ALARM.equals(gatewayMonitorDO.getStatus())){
                 continue;
             }
             //如果没有超出限定的最大发送频率值，则不发送告警邮件
-            sendTime = monitor.getSendTime();
+            sendTime = gatewayMonitorDO.getSendTime();
             if (sendTime != null){
                 //距上次发送时间的时长
                 validTime = System.currentTimeMillis() - sendTime.getTime();
-                if (validTime <= getMaxAlarmTime(monitor.getFrequency())){
+                if (validTime <= getMaxAlarmTime(gatewayMonitorDO.getFrequency())){
                     continue;
                 }
             }
             //存在邮箱，则发送告警邮件
-            if (StringUtils.isNotBlank(monitor.getEmails())){
-                Route route = routeService.findById(monitor.getId());
-                if (route != null){
-                    String subject = String.format("网关告警邮件-【%s】-%s", route.getId(), sendDate);
-                    String body = this.emailBody(route.getId(), route.getName(), route.getUri(),DateFormatUtils.format(monitor.getAlarmTime(), Constants.YYYY_MM_DD_HH_MM_SS), monitor.getTopic());
-                    String [] emails = StringUtils.split(monitor.getEmails(), ",");
+            if (StringUtils.isNotBlank(gatewayMonitorDO.getEmails())){
+                GatewayRouteDO gatewayRouteDO = gatewayRouteService.findById(gatewayMonitorDO.getId());
+                if (gatewayRouteDO != null){
+                    String subject = String.format("网关告警邮件-【%s】-%s", gatewayRouteDO.getId(), sendDate);
+                    String body = this.emailBody(gatewayRouteDO.getId(), gatewayRouteDO.getName(), gatewayRouteDO.getUri(),DateFormatUtils.format(gatewayMonitorDO.getAlarmTime(), Constants.YYYY_MM_DD_HH_MM_SS), gatewayMonitorDO.getTopic());
+                    String [] emails = StringUtils.split(gatewayMonitorDO.getEmails(), ",");
                     mailSend(subject, body, form, emails);
                 }
             }
             //更新发送时间
-            monitor.setSendTime(new Date());
-            monitorService.update(monitor);
+            gatewayMonitorDO.setSendTime(new Date());
+            gatewayMonitorService.update(gatewayMonitorDO);
         }
     }
 

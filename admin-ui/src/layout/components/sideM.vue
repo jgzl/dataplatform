@@ -8,7 +8,7 @@
 			</el-header>
 			<el-main>
 				<el-scrollbar>
-					<el-menu :default-active="$route.meta.active || $route.fullPath" @select="select" router background-color="#212d3d" text-color="#fff" active-text-color="#409EFF">
+					<el-menu :default-active="$gatewayRouteDO.meta.active || $gatewayRouteDO.fullPath" @select="select" router background-color="#212d3d" text-color="#fff" active-text-color="#409EFF">
 						<NavMenu :navMenus="menu"></NavMenu>
 					</el-menu>
 				</el-scrollbar>

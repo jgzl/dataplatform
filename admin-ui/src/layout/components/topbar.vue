@@ -27,13 +27,13 @@
 			this.getBreadcrumb();
 		},
 		watch: {
-			$route() {
+			$gatewayRouteDO() {
 				this.getBreadcrumb();
 			}
 		},
 		methods: {
 			getBreadcrumb(){
-				let matched = this.$route.meta.breadcrumb;
+				let matched = this.$gatewayRouteDO.meta.breadcrumb;
 				this.breadList = matched;
 			}
 		}

@@ -60,7 +60,7 @@
 							<el-popover trigger="click" placement="bottom" width="20%">
 								<div style="font-size: 10pt;">
 									<div style="margin-bottom: 8px;">
-										<span class="route-title">网关代理地址</span>
+										<span class="gatewayRouteDO-title">网关代理地址</span>
 									</div>
 									<span>
 										<el-tag size="small" type="success" style="font-weight: bold;">{{GLOBAL_VAR.gatewayRoutesURL}}{{parent}}{{scope.row.loadUri}}</el-tag>
@@ -123,7 +123,7 @@
 				<el-card class="box-card">
 					<div style="margin-bottom: 14px;">
 						<el-icon><el-icon-arrow-down/></el-icon>
-						<span class="route-title">转发路由</span>
+						<span class="gatewayRouteDO-title">转发路由</span>
 					</div>
 					<el-collapse v-model="activeName">
 					  <el-collapse-item v-for="(item, index) in routeTable" :key="index" :name='(index + 1)'>
@@ -142,7 +142,7 @@
 				</el-card>
 			</el-col>
 			<el-col :span="8">
-				<boxCardComponent ref="boxCard" :balanced-name="balancedName" :route-table="routeTable"></boxCardComponent>
+				<boxCardComponent ref="boxCard" :balancedDO-name="balancedName" :gatewayRouteDO-table="routeTable"></boxCardComponent>
 			</el-col>
 		</el-row>
 	</div>
@@ -229,7 +229,7 @@
 			handleCommandGateway(obj){
 				let _this = this;
 				if (obj.command === 'edit'){
-					this.$router.push({path:'/gateway/dashboard/createBalanced',query:{handleType:'edit',balanced: JSON.stringify(obj.row)}});
+					this.$router.push({path:'/gateway/dashboard/createBalanced',query:{handleType:'edit',balancedDO: JSON.stringify(obj.row)}});
 				} else if (obj.command === 'start'){
 					startBalanced({id:obj.row.id}).then(function(result){
 						_this.GLOBAL_FUN.successMsg();
@@ -325,7 +325,7 @@
 	 		font-size: 12pt;
 	 		color: rgb(237, 237, 237)
 	 }
-	 .route-title {
+	 .gatewayRouteDO-title {
 		 font-size: 14pt;
 		 color: #90A0A5;
 		 font-weight: bold;

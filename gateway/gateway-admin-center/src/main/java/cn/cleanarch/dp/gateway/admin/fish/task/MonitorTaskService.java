@@ -1,12 +1,12 @@
 package cn.cleanarch.dp.gateway.admin.fish.task;
 
-import cn.cleanarch.dp.common.gateway.ext.dataobject.Monitor;
-import cn.cleanarch.dp.common.gateway.ext.dataobject.Route;
-import cn.cleanarch.dp.common.gateway.ext.service.MonitorService;
-import cn.cleanarch.dp.common.gateway.ext.service.RouteService;
+import cn.cleanarch.dp.common.gateway.ext.dataobject.GatewayRouteDO;
+import cn.cleanarch.dp.common.gateway.ext.dataobject.GatewayMonitorDO;
+import cn.cleanarch.dp.common.gateway.ext.service.GatewayMonitorService;
+import cn.cleanarch.dp.common.gateway.ext.service.GatewayRouteService;
 import cn.cleanarch.dp.common.gateway.ext.util.Constants;
 import cn.cleanarch.dp.common.gateway.ext.util.HttpUtils;
-import cn.cleanarch.dp.common.gateway.ext.util.RouteConstants;
+import cn.cleanarch.dp.common.gateway.ext.util.GatewayRouteConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -34,9 +34,9 @@ import java.util.stream.Collectors;
 public class MonitorTaskService {
 
     @Resource
-    private RouteService routeService;
+    private GatewayRouteService gatewayRouteService;
     @Resource
-    private MonitorService monitorService;
+    private GatewayMonitorService gatewayMonitorService;
     @Resource
     private RedisTemplate redisTemplate;
     @Resource
@@ -80,13 +80,13 @@ public class MonitorTaskService {
      */
     @Async
     public void executeMonitorTask(){
-        List<Route> routeList;
+        List<GatewayRouteDO> gatewayRouteDOList;
         while(true){
             try{
                 //监控网关路由服务,条件：网关状态为0正常，监控状态为：0正常或(2告警+1可重试)
-                routeList = routeService.monitorRouteList();
-                if (!CollectionUtils.isEmpty(routeList)){
-                    monitorRoute(routeList.stream().collect(Collectors.toMap(Route::getId, r->r)));
+                gatewayRouteDOList = gatewayRouteService.monitorRouteList();
+                if (!CollectionUtils.isEmpty(gatewayRouteDOList)){
+                    monitorRoute(gatewayRouteDOList.stream().collect(Collectors.toMap(GatewayRouteDO::getId, r->r)));
                 }
                 //注意此处，需根据预估的真实队列总量计算，最大线程数按预估时间完成所有任务的总时长推算，在设定暂停时长，防止数据入队列太快，线程来不及处理，导致任务丢弃；
                 TimeUnit.MILLISECONDS.sleep(10 * 1000);
@@ -100,17 +100,17 @@ public class MonitorTaskService {
      * 对网关路由发起请求，如果未正常响应，则认为接口不可用，并置为告警状态
      * @param dataMap
      */
-    private void monitorRoute(Map<String,Route> dataMap){
+    private void monitorRoute(Map<String, GatewayRouteDO> dataMap){
         int i = 0;
         //每次最多获取TASK_SIZE次任务，防止队列出列过慢数据溢出
         while (TASK_SIZE > i){
             i ++;
-            String routeId = (String)redisTemplate.opsForList().leftPop(RouteConstants.MONITOR_QUEUE_KEY);
+            String routeId = (String)redisTemplate.opsForList().leftPop(GatewayRouteConstants.MONITOR_QUEUE_KEY);
             if (StringUtils.isBlank(routeId)){
                 return;
             }
-            Route route = dataMap.get(routeId);
-            if (route == null) {
+            GatewayRouteDO gatewayRouteDO = dataMap.get(routeId);
+            if (gatewayRouteDO == null) {
                 return;
             }
             //执行线程池任务
@@ -118,10 +118,10 @@ public class MonitorTaskService {
                 String msg = null;
                 String result = null;
                 boolean isTimeout = true;
-                String path = route.getPath();
-                String uri = route.getUri();
+                String path = gatewayRouteDO.getPath();
+                String uri = gatewayRouteDO.getUri();
                 String newUri = null;
-                String method = StringUtils.isNotBlank(route.getMethod()) ? route.getMethod(): HttpUtils.HTTP_GET;
+                String method = StringUtils.isNotBlank(gatewayRouteDO.getMethod()) ? gatewayRouteDO.getMethod(): HttpUtils.HTTP_GET;
                 //根据跳转规则拼装路径
                 String newPath = "/"+ Arrays.stream(org.springframework.util.StringUtils.tokenizeToStringArray(path, "/"))
                         .skip(1).collect(Collectors.joining("/"));
@@ -150,7 +150,7 @@ public class MonitorTaskService {
                     msg = ioe.getMessage();
                 }catch(Exception e){
                     log.error("执行监控任务服务异常，监控id :{}，监控名称 :{},请求地址：{},请求模式：{}, 错误消息：{}",
-                            routeId, route.getName(), newUri, route.getMethod(), e.getMessage());
+                            routeId, gatewayRouteDO.getName(), newUri, gatewayRouteDO.getMethod(), e.getMessage());
                     log.error("", e);
                     timoutMonitor(routeId);
                     return;
@@ -158,7 +158,7 @@ public class MonitorTaskService {
                 //设置告警状态
                 if (isTimeout){
                     log.error("执行监控任务访问异常，监控id :{}，监控名称 :{},请求地址：{},请求模式：{}, 超时时长：5000, 错误消息：{}",
-                            routeId, route.getName(), newUri, route.getMethod(), msg);
+                            routeId, gatewayRouteDO.getName(), newUri, gatewayRouteDO.getMethod(), msg);
                     timoutMonitor(routeId);
                 }
             });
@@ -170,12 +170,12 @@ public class MonitorTaskService {
      * @param routeId
      */
     public void timoutMonitor(String routeId){
-        Monitor monitor = monitorService.findById(routeId);
+        GatewayMonitorDO gatewayMonitorDO = gatewayMonitorService.findById(routeId);
         //告警状态2
-        monitor.setStatus(Constants.ALARM);
+        gatewayMonitorDO.setStatus(Constants.ALARM);
         //告警时间
-        monitor.setAlarmTime(new Date());
-        monitorService.update(monitor);
+        gatewayMonitorDO.setAlarmTime(new Date());
+        gatewayMonitorService.update(gatewayMonitorDO);
     }
 
 }

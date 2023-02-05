@@ -1,9 +1,9 @@
 package cn.cleanarch.dp.gateway.admin.fish.rest;
 
 import cn.cleanarch.dp.common.gateway.ext.base.BaseRest;
-import cn.cleanarch.dp.common.gateway.ext.vo.ClientReq;
-import cn.cleanarch.dp.common.gateway.ext.dataobject.Client;
-import cn.cleanarch.dp.common.gateway.ext.service.ClientService;
+import cn.cleanarch.dp.common.gateway.ext.dataobject.GatewayClientDO;
+import cn.cleanarch.dp.common.gateway.ext.vo.GatewayClientDOReq;
+import cn.cleanarch.dp.common.gateway.ext.service.GatewayClientService;
 import cn.cleanarch.dp.common.gateway.ext.service.CustomNacosConfigService;
 import cn.cleanarch.dp.common.gateway.ext.util.ApiResult;
 import cn.cleanarch.dp.common.gateway.ext.util.Constants;
@@ -28,7 +28,7 @@ import java.util.Date;
 public class ClientRest extends BaseRest {
 
     @Resource
-    private ClientService clientService;
+    private GatewayClientService gatewayClientService;
 
     @Resource
     private RedisTemplate redisTemplate;
@@ -38,23 +38,23 @@ public class ClientRest extends BaseRest {
 
     /**
      * 添加客户端
-     * @param client
+     * @param gatewayClientDO
      * @return
      */
     @RequestMapping(value = "/add", method = {RequestMethod.POST})
-    public ApiResult add(@RequestBody Client client) {
-        Assert.notNull(client, "未获取到对象");
-        client.setId(UUIDUtils.getUUIDString());
-        client.setCreateTime(new Date());
-        this.validate(client);
+    public ApiResult add(@RequestBody GatewayClientDO gatewayClientDO) {
+        Assert.notNull(gatewayClientDO, "未获取到对象");
+        gatewayClientDO.setId(UUIDUtils.getUUIDString());
+        gatewayClientDO.setCreateTime(new Date());
+        this.validate(gatewayClientDO);
         //验证名称是否重复
-        Client qClinet = new Client();
-        qClinet.setName(client.getName());
-        long count = clientService.count(qClinet);
+        GatewayClientDO qClinet = new GatewayClientDO();
+        qClinet.setName(gatewayClientDO.getName());
+        long count = gatewayClientService.count(qClinet);
         Assert.isTrue(count <= 0, "客户端名称已存在，不能重复");
         //保存
-        clientService.save(client);
-        customNacosConfigService.publishClientNacosConfig(client.getId());
+        gatewayClientService.save(gatewayClientDO);
+        customNacosConfigService.publishClientNacosConfig(gatewayClientDO.getId());
         return new ApiResult();
     }
 
@@ -66,26 +66,26 @@ public class ClientRest extends BaseRest {
     @RequestMapping(value = "/delete", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult delete(@RequestParam String id) {
         Assert.isTrue(StringUtils.isNotBlank(id), "未获取到对象ID");
-        Client dbClient = clientService.findById(id);
-        Assert.notNull(dbClient, "未获取到对象");
-        clientService.delete(dbClient);
+        GatewayClientDO dbGatewayClientDO = gatewayClientService.findById(id);
+        Assert.notNull(dbGatewayClientDO, "未获取到对象");
+        gatewayClientService.delete(dbGatewayClientDO);
         customNacosConfigService.publishClientNacosConfig(id);
         return new ApiResult();
     }
 
     /**
      * 更新客户端
-     * @param client
+     * @param gatewayClientDO
      * @return
      */
     @RequestMapping(value = "/update", method = {RequestMethod.POST})
-    public ApiResult update(@RequestBody Client client) {
-        Assert.notNull(client, "未获取到对象");
-        Assert.isTrue(StringUtils.isNotBlank(client.getId()), "未获取到对象ID");
-        client.setUpdateTime(new Date());
-        this.validate(client);
-        clientService.update(client);
-        customNacosConfigService.publishClientNacosConfig(client.getId());
+    public ApiResult update(@RequestBody GatewayClientDO gatewayClientDO) {
+        Assert.notNull(gatewayClientDO, "未获取到对象");
+        Assert.isTrue(StringUtils.isNotBlank(gatewayClientDO.getId()), "未获取到对象ID");
+        gatewayClientDO.setUpdateTime(new Date());
+        this.validate(gatewayClientDO);
+        gatewayClientService.update(gatewayClientDO);
+        customNacosConfigService.publishClientNacosConfig(gatewayClientDO.getId());
         return new ApiResult();
     }
 
@@ -97,7 +97,7 @@ public class ClientRest extends BaseRest {
     @RequestMapping(value = "/findById", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult findById(@RequestParam String id) {
         Assert.isTrue(StringUtils.isNotBlank(id), "未获取到对象ID");
-        return new ApiResult(clientService.findById(id));
+        return new ApiResult(gatewayClientService.findById(id));
     }
 
     /**
@@ -106,30 +106,30 @@ public class ClientRest extends BaseRest {
      * @return
      */
     @RequestMapping(value = "/pageList", method = {RequestMethod.GET, RequestMethod.POST})
-    public ApiResult pageList(@RequestBody ClientReq clientReq) {
-        Client client = new Client();
+    public ApiResult pageList(@RequestBody GatewayClientDOReq clientReq) {
+        GatewayClientDO gatewayClientDO = new GatewayClientDO();
         Integer reqCurrentPage = null;
         Integer reqPageSize = null;
         if (clientReq != null) {
             reqCurrentPage = clientReq.getCurrentPage();
             reqPageSize = clientReq.getPageSize();
-            BeanUtils.copyProperties(clientReq, client);
-            if (StringUtils.isBlank(client.getName())) {
-                client.setName(null);
+            BeanUtils.copyProperties(clientReq, gatewayClientDO);
+            if (StringUtils.isBlank(gatewayClientDO.getName())) {
+                gatewayClientDO.setName(null);
             }
-            if (StringUtils.isBlank(client.getIp())) {
-                client.setIp(null);
+            if (StringUtils.isBlank(gatewayClientDO.getIp())) {
+                gatewayClientDO.setIp(null);
             }
-            if (StringUtils.isBlank(client.getGroupCode())) {
-                client.setGroupCode(null);
+            if (StringUtils.isBlank(gatewayClientDO.getGroupCode())) {
+                gatewayClientDO.setGroupCode(null);
             }
-            if (StringUtils.isBlank(client.getStatus())) {
-                client.setStatus(null);
+            if (StringUtils.isBlank(gatewayClientDO.getStatus())) {
+                gatewayClientDO.setStatus(null);
             }
         }
         int currentPage = getCurrentPage(reqCurrentPage);
         int pageSize = getPageSize(reqPageSize);
-        return new ApiResult(clientService.pageList(client, currentPage, pageSize));
+        return new ApiResult(gatewayClientService.pageList(gatewayClientDO, currentPage, pageSize));
     }
 
     /**
@@ -140,9 +140,9 @@ public class ClientRest extends BaseRest {
     @RequestMapping(value = "/start", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult start(@RequestParam String id) {
         Assert.isTrue(StringUtils.isNotBlank(id), "未获取到对象ID");
-        Client dbClient = clientService.findById(id);
-        dbClient.setStatus(Constants.YES);
-        clientService.update(dbClient);
+        GatewayClientDO dbGatewayClientDO = gatewayClientService.findById(id);
+        dbGatewayClientDO.setStatus(Constants.YES);
+        gatewayClientService.update(dbGatewayClientDO);
         customNacosConfigService.publishClientNacosConfig(id);
         return new ApiResult();
     }
@@ -155,9 +155,9 @@ public class ClientRest extends BaseRest {
     @RequestMapping(value = "/stop", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult stop(@RequestParam String id) {
         Assert.isTrue(StringUtils.isNotBlank(id), "未获取到对象ID");
-        Client dbClient = clientService.findById(id);
-        dbClient.setStatus(Constants.NO);
-        clientService.update(dbClient);
+        GatewayClientDO dbGatewayClientDO = gatewayClientService.findById(id);
+        dbGatewayClientDO.setStatus(Constants.NO);
+        gatewayClientService.update(dbGatewayClientDO);
         customNacosConfigService.publishClientNacosConfig(id);
         return new ApiResult();
     }

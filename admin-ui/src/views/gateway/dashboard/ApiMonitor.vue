@@ -79,7 +79,7 @@
 </template>
 
 <script>
-	import {monitorList, closeMonitor} from '@/api/monitor_api.js'
+	import {gatewayMonitorDOList, closeMonitor} from '@/api/monitor_api.js'
 
 	export default {
 		data() {
@@ -132,7 +132,7 @@
 			search(){
 				let _this = this;
 				let _status = this.status === ''? null : this.status;
-				monitorList({status: _status}).then(function(result){
+				gatewayMonitorDOList({status: _status}).then(function(result){
 					if (result.data){
 						_this.taskList = result.data;
 					}
@@ -159,11 +159,11 @@
 					path: row.path,
 					method: row.method,
 					status: row.status,
-					alarmTime: row.monitor.alarmTime,
-					recover: row.monitor.recover,
-					frequency: row.monitor.frequency,
-					sendTime: row.monitor.sendTime,
-					emails: row.monitor.emails
+					alarmTime: row.gatewayMonitorDO.alarmTime,
+					recover: row.gatewayMonitorDO.recover,
+					frequency: row.gatewayMonitorDO.frequency,
+					sendTime: row.gatewayMonitorDO.sendTime,
+					emails: row.gatewayMonitorDO.emails
 				}
 			},
 			setTableMonitorStatus(){

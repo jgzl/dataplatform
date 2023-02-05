@@ -5,8 +5,8 @@ import cn.cleanarch.dp.common.core.constant.enums.StatusEnum;
 import cn.cleanarch.dp.common.core.exception.enums.ErrorCodeConstants;
 import cn.cleanarch.dp.common.core.utils.WebfluxUtil;
 import cn.cleanarch.dp.common.gateway.support.GatewayAccessCacheHolder;
+import cn.cleanarch.dp.gateway.admin.vo.GatewayAccessConfVO;
 import cn.cleanarch.dp.gateway.configuration.properties.GatewayProperties;
-import cn.cleanarch.dp.gateway.admin.vo.GatewayAccessVO;
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -43,7 +43,7 @@ public class GatewayApiAccessFilter extends AbstractGatewayApiFilter {
         ServerHttpResponse response = exchange.getResponse();
         if (StrUtil.isBlank(type)) {
             if (StrUtil.isNotBlank(apiKey)&&StrUtil.isNotBlank(apiSecret)) {
-                GatewayAccessVO vo = GatewayAccessCacheHolder.get(apiKey);
+                GatewayAccessConfVO vo = GatewayAccessCacheHolder.get(apiKey);
                 if (vo == null) {
                     return WebfluxUtil.errorOut(response, ErrorCodeConstants.GATEWAY_ACCESS_API_KEY_NOT_VALID);
                 }

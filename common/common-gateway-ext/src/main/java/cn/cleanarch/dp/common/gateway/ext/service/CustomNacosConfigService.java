@@ -1,5 +1,6 @@
 package cn.cleanarch.dp.common.gateway.ext.service;
 
+import cn.cleanarch.dp.common.gateway.ext.util.GatewayRouteConstants;
 import cn.cleanarch.dp.common.gateway.ext.vo.GatewayNacosConfigBean;
 import com.alibaba.cloud.nacos.NacosConfigProperties;
 import com.alibaba.nacos.api.exception.NacosException;
@@ -86,7 +87,7 @@ public class CustomNacosConfigService {
      * @param gatewayNacosConfig
      */
     public void publishConfigToNacos(GatewayNacosConfigBean gatewayNacosConfig) {
-        String dataId = configProperties.getPrefix() + "." + configProperties.getFileExtension();
+        String dataId = GatewayRouteConstants.NACOS_DATA_ID;
         publishConfig(dataId, configProperties.getGroup(), gatewayNacosConfig.getGatewayConfig());
     }
 

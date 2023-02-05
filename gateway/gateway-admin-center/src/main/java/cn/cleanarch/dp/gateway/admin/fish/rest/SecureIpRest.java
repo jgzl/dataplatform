@@ -1,10 +1,10 @@
 package cn.cleanarch.dp.gateway.admin.fish.rest;
 
 import cn.cleanarch.dp.common.gateway.ext.base.BaseRest;
-import cn.cleanarch.dp.common.gateway.ext.vo.SecureIpReq;
-import cn.cleanarch.dp.common.gateway.ext.dataobject.SecureIp;
+import cn.cleanarch.dp.common.gateway.ext.vo.GatewaySecureIpDOReq;
+import cn.cleanarch.dp.common.gateway.ext.dataobject.GatewaySecureIpDO;
 import cn.cleanarch.dp.common.gateway.ext.service.CustomNacosConfigService;
-import cn.cleanarch.dp.common.gateway.ext.service.SecureIpService;
+import cn.cleanarch.dp.common.gateway.ext.service.GatewaySecureIpService;
 import cn.cleanarch.dp.common.gateway.ext.util.ApiResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -25,7 +25,7 @@ import java.util.Date;
 public class SecureIpRest extends BaseRest {
 
     @Resource
-    private SecureIpService secureIpService;
+    private GatewaySecureIpService gatewaySecureIpService;
 
     @Resource
     private RedisTemplate redisTemplate;
@@ -35,23 +35,23 @@ public class SecureIpRest extends BaseRest {
 
     /**
      * 添加IP
-     * @param secureIp
+     * @param gatewaySecureIpDO
      * @return
      */
     @RequestMapping(value = "/add", method = {RequestMethod.POST})
-    public ApiResult add(@RequestBody SecureIp secureIp) {
-        Assert.notNull(secureIp, "未获取到对象");
-        Assert.isTrue(StringUtils.isNotBlank(secureIp.getIp()), "IP值不能为空");
-        secureIp.setCreateTime(new Date());
-        this.validate(secureIp);
+    public ApiResult add(@RequestBody GatewaySecureIpDO gatewaySecureIpDO) {
+        Assert.notNull(gatewaySecureIpDO, "未获取到对象");
+        Assert.isTrue(StringUtils.isNotBlank(gatewaySecureIpDO.getIp()), "IP值不能为空");
+        gatewaySecureIpDO.setCreateTime(new Date());
+        this.validate(gatewaySecureIpDO);
         //验证注册服务是否重复
-        SecureIp qSecureIp = new SecureIp();
-        qSecureIp.setIp(secureIp.getIp());
-        long count = secureIpService.count(qSecureIp);
+        GatewaySecureIpDO qGatewaySecureIpDO = new GatewaySecureIpDO();
+        qGatewaySecureIpDO.setIp(gatewaySecureIpDO.getIp());
+        long count = gatewaySecureIpService.count(qGatewaySecureIpDO);
         Assert.isTrue(count <= 0, "该IP已添加，请不要重复添加");
-        secureIpService.save(secureIp);
+        gatewaySecureIpService.save(gatewaySecureIpDO);
         //this.setIpCacheVersion();
-        customNacosConfigService.publishIpNacosConfig(secureIp.getIp());
+        customNacosConfigService.publishIpNacosConfig(gatewaySecureIpDO.getIp());
         return new ApiResult();
     }
 
@@ -63,7 +63,7 @@ public class SecureIpRest extends BaseRest {
     @RequestMapping(value = "/delete", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult delete(@RequestParam String ip) {
         Assert.isTrue(StringUtils.isNotBlank(ip), "IP值不能为空");
-        secureIpService.deleteById(ip);
+        gatewaySecureIpService.deleteById(ip);
         //this.setIpCacheVersion();
         customNacosConfigService.publishIpNacosConfig(ip);
         return new ApiResult();
@@ -71,18 +71,18 @@ public class SecureIpRest extends BaseRest {
 
     /**
      * 更新IP
-     * @param secureIp
+     * @param gatewaySecureIpDO
      * @return
      */
     @RequestMapping(value = "/update", method = {RequestMethod.POST})
-    public ApiResult update(@RequestBody SecureIp secureIp) {
-        Assert.notNull(secureIp, "未获取到对象");
-        Assert.isTrue(StringUtils.isNotBlank(secureIp.getIp()), "IP值不能为空");
-        secureIp.setUpdateTime(new Date());
-        this.validate(secureIp);
-        secureIpService.update(secureIp);
+    public ApiResult update(@RequestBody GatewaySecureIpDO gatewaySecureIpDO) {
+        Assert.notNull(gatewaySecureIpDO, "未获取到对象");
+        Assert.isTrue(StringUtils.isNotBlank(gatewaySecureIpDO.getIp()), "IP值不能为空");
+        gatewaySecureIpDO.setUpdateTime(new Date());
+        this.validate(gatewaySecureIpDO);
+        gatewaySecureIpService.update(gatewaySecureIpDO);
         //this.setIpCacheVersion();
-        customNacosConfigService.publishIpNacosConfig(secureIp.getIp());
+        customNacosConfigService.publishIpNacosConfig(gatewaySecureIpDO.getIp());
         return new ApiResult();
     }
 
@@ -94,7 +94,7 @@ public class SecureIpRest extends BaseRest {
     @RequestMapping(value = "/findById", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult findById(@RequestParam String ip) {
         Assert.isTrue(StringUtils.isNotBlank(ip), "IP值不能为空");
-        return new ApiResult(secureIpService.findById(ip));
+        return new ApiResult(gatewaySecureIpService.findById(ip));
     }
 
     /**
@@ -103,18 +103,18 @@ public class SecureIpRest extends BaseRest {
      * @return
      */
     @RequestMapping(value = "/pageList", method = {RequestMethod.GET, RequestMethod.POST})
-    public ApiResult pageList(@RequestBody SecureIpReq secureIpReq){
+    public ApiResult pageList(@RequestBody GatewaySecureIpDOReq secureIpReq){
         Assert.notNull(secureIpReq, "未获取到对象");
         int currentPage = getCurrentPage(secureIpReq.getCurrentPage());
         int pageSize = getPageSize(secureIpReq.getPageSize());
-        SecureIp secureIp = new SecureIp();
+        GatewaySecureIpDO gatewaySecureIpDO = new GatewaySecureIpDO();
         if (StringUtils.isNotBlank(secureIpReq.getIp())){
-            secureIp.setIp(secureIpReq.getIp());
+            gatewaySecureIpDO.setIp(secureIpReq.getIp());
         }
         if (StringUtils.isNotBlank(secureIpReq.getStatus())){
-            secureIp.setStatus(secureIpReq.getStatus());
+            gatewaySecureIpDO.setStatus(secureIpReq.getStatus());
         }
-        return new ApiResult(secureIpService.pageList(secureIp,currentPage, pageSize));
+        return new ApiResult(gatewaySecureIpService.pageList(gatewaySecureIpDO,currentPage, pageSize));
     }
 
 }

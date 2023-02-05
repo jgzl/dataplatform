@@ -1,13 +1,13 @@
 package cn.cleanarch.dp.gateway.admin.fish.rest;
 
 import cn.cleanarch.dp.common.gateway.ext.base.BaseRest;
-import cn.cleanarch.dp.common.gateway.ext.vo.BalancedReq;
-import cn.cleanarch.dp.common.gateway.ext.vo.BalancedRsp;
-import cn.cleanarch.dp.common.gateway.ext.dataobject.Balanced;
-import cn.cleanarch.dp.common.gateway.ext.dataobject.LoadServer;
-import cn.cleanarch.dp.common.gateway.ext.service.BalancedService;
+import cn.cleanarch.dp.common.gateway.ext.vo.GatewayBalancedReq;
+import cn.cleanarch.dp.common.gateway.ext.vo.GatewayBalancedRsp;
+import cn.cleanarch.dp.common.gateway.ext.dataobject.GatewayBalancedDO;
+import cn.cleanarch.dp.common.gateway.ext.dataobject.GatewayLoadServerDO;
+import cn.cleanarch.dp.common.gateway.ext.service.GatewayBalancedService;
 import cn.cleanarch.dp.common.gateway.ext.service.CustomNacosConfigService;
-import cn.cleanarch.dp.common.gateway.ext.service.LoadServerService;
+import cn.cleanarch.dp.common.gateway.ext.service.GatewayLoadServerService;
 import cn.cleanarch.dp.common.gateway.ext.util.ApiResult;
 import cn.cleanarch.dp.common.gateway.ext.util.Constants;
 import cn.cleanarch.dp.common.gateway.ext.util.UUIDUtils;
@@ -33,10 +33,10 @@ import java.util.List;
 public class BalancedRest extends BaseRest {
 
     @Resource
-    private BalancedService balancedService;
+    private GatewayBalancedService gatewayBalancedService;
 
     @Resource
-    private LoadServerService loadServerService;
+    private GatewayLoadServerService gatewayLoadServerService;
 
     @Resource
     private CustomNacosConfigService customNacosConfigService;
@@ -47,35 +47,35 @@ public class BalancedRest extends BaseRest {
      * @return
      */
     @RequestMapping(value = "/add", method = {RequestMethod.POST})
-    public ApiResult add(@RequestBody BalancedReq balancedReq) {
+    public ApiResult add(@RequestBody GatewayBalancedReq balancedReq) {
         Assert.notNull(balancedReq, "未获取到对象");
-        Balanced balanced = new Balanced();
-        balanced.setId(UUIDUtils.getUUIDString());
-        balanced.setName(balancedReq.getName());
-        balanced.setGroupCode(balancedReq.getGroupCode());
-        balanced.setLoadUri(balancedReq.getLoadUri());
-        balanced.setStatus(balancedReq.getStatus());
-        balanced.setRemarks(balancedReq.getRemarks());
-        balanced.setCreateTime(new Date());
-        this.validate(balanced);
+        GatewayBalancedDO balancedDO = new GatewayBalancedDO();
+        balancedDO.setId(UUIDUtils.getUUIDString());
+        balancedDO.setName(balancedReq.getName());
+        balancedDO.setGroupCode(balancedReq.getGroupCode());
+        balancedDO.setLoadUri(balancedReq.getLoadUri());
+        balancedDO.setStatus(balancedReq.getStatus());
+        balancedDO.setRemarks(balancedReq.getRemarks());
+        balancedDO.setCreateTime(new Date());
+        this.validate(balancedDO);
 
         //验证名称是否重复
-        Balanced qBalanced = new Balanced();
-        qBalanced.setName(balanced.getName());
-        long count = balancedService.count(qBalanced);
+        GatewayBalancedDO qBalancedDO = new GatewayBalancedDO();
+        qBalancedDO.setName(balancedDO.getName());
+        long count = gatewayBalancedService.count(qBalancedDO);
         Assert.isTrue(count <= 0, "负载名称已存在，不能重复");
         //保存
-        balancedService.save(balanced);
+        gatewayBalancedService.save(balancedDO);
         //保存注册的服务列表
-        List<LoadServer> serverList = balancedReq.getServerList();
+        List<GatewayLoadServerDO> serverList = balancedReq.getServerList();
         if (!CollectionUtils.isEmpty(serverList)) {
-            for (LoadServer loadServer : serverList) {
-                loadServer.setBalancedId(balanced.getId());
-                loadServer.setCreateTime(new Date());
-                loadServerService.save(loadServer);
+            for (GatewayLoadServerDO gatewayLoadServerDO : serverList) {
+                gatewayLoadServerDO.setBalancedId(balancedDO.getId());
+                gatewayLoadServerDO.setCreateTime(new Date());
+                gatewayLoadServerService.save(gatewayLoadServerDO);
             }
             //this.setRouteCacheVersion();
-            customNacosConfigService.publishBalancedNacosConfig(balanced.getId());
+            customNacosConfigService.publishBalancedNacosConfig(balancedDO.getId());
         }
         return new ApiResult();
     }
@@ -88,7 +88,7 @@ public class BalancedRest extends BaseRest {
     @RequestMapping(value = "/delete", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult delete(@RequestParam String id) {
         Assert.isTrue(StringUtils.isNotBlank(id), "未获取到对象ID");
-        balancedService.deleteAndServer(id);
+        gatewayBalancedService.deleteAndServer(id);
         //this.setRouteCacheVersion();
         customNacosConfigService.publishBalancedNacosConfig(id);
         return new ApiResult();
@@ -100,22 +100,22 @@ public class BalancedRest extends BaseRest {
      * @return
      */
     @RequestMapping(value = "/update", method = {RequestMethod.POST})
-    public ApiResult update(@RequestBody BalancedReq balancedReq) {
+    public ApiResult update(@RequestBody GatewayBalancedReq balancedReq) {
         Assert.notNull(balancedReq, "未获取到对象");
         Assert.isTrue(StringUtils.isNotBlank(balancedReq.getId()), "未获取到对象ID");
         this.validate(balancedReq);
-        Balanced balanced = balancedService.findById(balancedReq.getId());
-        if (balanced != null) {
-            balanced.setName(balancedReq.getName());
-            balanced.setGroupCode(balancedReq.getGroupCode());
-            balanced.setLoadUri(balancedReq.getLoadUri());
-            balanced.setStatus(balancedReq.getStatus());
-            balanced.setRemarks(balancedReq.getRemarks());
-            balanced.setUpdateTime(new Date());
-            balancedService.update(balanced);
-            loadServerService.updates(balanced.getId(), balancedReq.getServerList());
+        GatewayBalancedDO balancedDO = gatewayBalancedService.findById(balancedReq.getId());
+        if (balancedDO != null) {
+            balancedDO.setName(balancedReq.getName());
+            balancedDO.setGroupCode(balancedReq.getGroupCode());
+            balancedDO.setLoadUri(balancedReq.getLoadUri());
+            balancedDO.setStatus(balancedReq.getStatus());
+            balancedDO.setRemarks(balancedReq.getRemarks());
+            balancedDO.setUpdateTime(new Date());
+            gatewayBalancedService.update(balancedDO);
+            gatewayLoadServerService.updates(balancedDO.getId(), balancedReq.getServerList());
             //this.setRouteCacheVersion();
-            customNacosConfigService.publishBalancedNacosConfig(balanced.getId());
+            customNacosConfigService.publishBalancedNacosConfig(balancedDO.getId());
         }
         return new ApiResult();
     }
@@ -128,13 +128,13 @@ public class BalancedRest extends BaseRest {
     @RequestMapping(value = "/findById", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult findById(@RequestParam String id) {
         Assert.isTrue(StringUtils.isNotBlank(id), "未获取到对象ID");
-        Balanced balanced = balancedService.findById(id);
-        if (balanced != null) {
-            List<LoadServer> serverList = loadServerService.queryByBalancedId(id);
-            BalancedRsp balancedRsp = new BalancedRsp();
-            balancedRsp.setBalanced(balanced);
-            balancedRsp.setServerList(serverList);
-            return new ApiResult(balancedRsp);
+        GatewayBalancedDO balancedDO = gatewayBalancedService.findById(id);
+        if (balancedDO != null) {
+            List<GatewayLoadServerDO> serverList = gatewayLoadServerService.queryByBalancedId(id);
+            GatewayBalancedRsp gatewayBalancedRsp = new GatewayBalancedRsp();
+            gatewayBalancedRsp.setBalancedDO(balancedDO);
+            gatewayBalancedRsp.setServerList(serverList);
+            return new ApiResult(gatewayBalancedRsp);
         }
         return new ApiResult(Constants.FAILED, "未获取到对象", null);
     }
@@ -145,22 +145,22 @@ public class BalancedRest extends BaseRest {
      * @return
      */
     @RequestMapping(value = "/pageList", method = {RequestMethod.GET, RequestMethod.POST})
-    public ApiResult pageList(@RequestBody BalancedReq balancedReq) {
-        Balanced balanced = new Balanced();
+    public ApiResult pageList(@RequestBody GatewayBalancedReq balancedReq) {
+        GatewayBalancedDO balancedDO = new GatewayBalancedDO();
         if (balancedReq != null){
             if (StringUtils.isNotBlank(balancedReq.getName())) {
-                balanced.setName(balancedReq.getName());
+                balancedDO.setName(balancedReq.getName());
             }
             if (StringUtils.isNotBlank(balancedReq.getStatus())) {
-                balanced.setStatus(balancedReq.getStatus());
+                balancedDO.setStatus(balancedReq.getStatus());
             }
             if (StringUtils.isNotBlank(balancedReq.getGroupCode())) {
-                balanced.setGroupCode(balancedReq.getGroupCode());
+                balancedDO.setGroupCode(balancedReq.getGroupCode());
             }
         }
         int currentPage = getCurrentPage(balancedReq.getCurrentPage());
         int pageSize = getPageSize(balancedReq.getPageSize());
-        return new ApiResult(balancedService.pageList(balanced, currentPage, pageSize));
+        return new ApiResult(gatewayBalancedService.pageList(balancedDO, currentPage, pageSize));
     }
 
     /**
@@ -171,9 +171,9 @@ public class BalancedRest extends BaseRest {
     @RequestMapping(value = "/start", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult start(@RequestParam String id) {
         Assert.isTrue(StringUtils.isNotBlank(id), "未获取到对象ID");
-        Balanced dbBalanced = balancedService.findById(id);
-        dbBalanced.setStatus(Constants.YES);
-        balancedService.update(dbBalanced);
+        GatewayBalancedDO dbBalancedDO = gatewayBalancedService.findById(id);
+        dbBalancedDO.setStatus(Constants.YES);
+        gatewayBalancedService.update(dbBalancedDO);
         //this.setRouteCacheVersion();
         customNacosConfigService.publishBalancedNacosConfig(id);
         return new ApiResult();
@@ -187,9 +187,9 @@ public class BalancedRest extends BaseRest {
     @RequestMapping(value = "/stop", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult stop(@RequestParam String id) {
         Assert.isTrue(StringUtils.isNotBlank(id), "未获取到对象ID");
-        Balanced dbBalanced = balancedService.findById(id);
-        dbBalanced.setStatus(Constants.NO);
-        balancedService.update(dbBalanced);
+        GatewayBalancedDO dbBalancedDO = gatewayBalancedService.findById(id);
+        dbBalancedDO.setStatus(Constants.NO);
+        gatewayBalancedService.update(dbBalancedDO);
         //this.setRouteCacheVersion();
         customNacosConfigService.publishBalancedNacosConfig(id);
         return new ApiResult();

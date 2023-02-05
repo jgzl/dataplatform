@@ -1,32 +1,24 @@
 package cn.cleanarch.dp.common.gateway.configuration;
 
-import cn.cleanarch.dp.common.core.exception.enums.GlobalErrorCodeConstants;
-import cn.cleanarch.dp.common.core.handler.reactive.GlobalExceptionHandler;
 import cn.cleanarch.dp.common.core.model.R;
-import cn.cleanarch.dp.common.core.utils.JacksonUtil;
 import cn.cleanarch.dp.common.core.utils.WebfluxUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
-import org.springframework.cloud.gateway.support.NotFoundException;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.net.URI;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
-import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR;
 
 /**
  * @author li7hai26@gmail.com

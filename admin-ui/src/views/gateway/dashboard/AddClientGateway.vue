@@ -43,7 +43,7 @@
 							<el-button slot="reference" style="padding: 3px 0; " icon="el-icon-question" text title="说明"></el-button>
 						</el-popover>
 						<span style="margin-left: 50px;">
-							<i class="el-icon-monitor"></i>
+							<i class="el-icon-gatewayMonitorDO"></i>
 							<span style="font-size: 11pt;">
 								<el-tag size="small" style="font-weight: bold;">{{form.name}}</el-tag> -
 								<el-tag size="small" type="success" style="font-weight: bold;">{{form.ip}}</el-tag>
@@ -127,11 +127,11 @@
 		},
 		created: function() {
 			//在组件创建完毕后加载
-			let query = this.$route.query;
+			let query = this.$gatewayRouteDO.query;
 			if (query){
-				let client = query.client;
-				console.log('client', client);
-				this.init(JSON.parse(client));
+				let gatewayClientDO = query.gatewayClientDO;
+				console.log('gatewayClientDO', gatewayClientDO);
+				this.init(JSON.parse(gatewayClientDO));
 			}
 		},
 		mounted: function() {
@@ -141,10 +141,10 @@
 
 		},
 		methods:{
-			init(client) {
-				if (client){
-					this.form = client;
-					this.regServerList();
+			init(gatewayClientDO) {
+				if (gatewayClientDO){
+					this.form = gatewayClientDO;
+					this.gatewayRegServerDOList();
 				}
 			},
 			goBack() {
@@ -153,19 +153,19 @@
 			},
 			handleSizeChange(val) {
 				this.pageSize = val;
-				this.regServerList();
+				this.gatewayRegServerDOList();
 			},
 			handleCurrentChange(val) {
 				this.currentPage = val;
-				this.regServerList();
+				this.gatewayRegServerDOList();
 			},
 			handleRouteSizeChange(val) {
 				this.routePageSize = val;
-				this.routeList();
+				this.gatewayRouteDOList();
 			},
 			handleRouteCurrentChange(val) {
 				this.routeCurrentPage = val;
-				this.routeList();
+				this.gatewayRouteDOList();
 			},
 			handleCommandRegServer(obj){
 				console.log("command" , obj);
@@ -174,21 +174,21 @@
 					this.$confirm('确认允许当前客户端访问"'+obj.row.name+'"该注册服务？').then(_ => {
 						startRegServer({id:obj.row.regServerId}).then(function(result){
 							_this.GLOBAL_FUN.successMsg();
-							_this.regServerList();
+							_this.gatewayRegServerDOList();
 						});
 					}).catch(_ => {});
 				} else if (obj.command === 'stop'){
 					this.$confirm('确认禁止当前客户端访问"'+obj.row.name+'"该注册服务？').then(_ => {
 						stopRegServer({id:obj.row.regServerId}).then(function(result){
 							_this.GLOBAL_FUN.successMsg();
-							_this.regServerList();
+							_this.gatewayRegServerDOList();
 						});
 					}).catch(_ => {});
 				} else if (obj.command === 'delete'){
 					this.$confirm('确认删除"'+obj.row.name+'"该注册服务？').then(_ => {
 						deleteRegServer({id:obj.row.regServerId}).then(function(result){
 							_this.GLOBAL_FUN.successMsg();
-							_this.regServerList();
+							_this.gatewayRegServerDOList();
 						})
 					}).catch(_ => {});
 				}
@@ -197,8 +197,8 @@
 				let _this = this;
 				addRegServer({clientId: this.form.id, routeId: row.id}).then(function(result){
 					_this.GLOBAL_FUN.successMsg();
-					_this.regServerList();
-					_this.routeList();
+					_this.gatewayRegServerDOList();
+					_this.gatewayRouteDOList();
 				});
 			},
 			startAll(){
@@ -206,7 +206,7 @@
 				this.$confirm('确认要允许当前客户端访问所有已注册服务？').then(_ => {
 					startAllRegServer({clientId: _this.form.id,}).then(function(result){
 						_this.GLOBAL_FUN.successMsg();
-						_this.regServerList();
+						_this.gatewayRegServerDOList();
 					});
 				}).catch(_ => {});
 			},
@@ -215,11 +215,11 @@
 				this.$confirm('确认要禁止当前客户端访问所有已注册服务？').then(_ => {
 					stopAllRegServer({clientId: _this.form.id,}).then(function(result){
 						_this.GLOBAL_FUN.successMsg();
-						_this.regServerList();
+						_this.gatewayRegServerDOList();
 					});
 				}).catch(_ => {});
 			},
-			regServerList(){
+			gatewayRegServerDOList(){
 				let _this = this;
 				regServerPageList({clientId: this.form.id, currentPage: this.currentPage, pageSize: this.pageSize}).then(function(result){
 					if (result.data){
@@ -228,7 +228,7 @@
 					}
 				});
 			},
-			routeList(){
+			gatewayRouteDOList(){
 				let _this = this;
 				notRegServerPageList({clientId: this.form.id, currentPage: this.routeCurrentPage, pageSize: this.routePageSize}).then(function(result){
 					console.log(result);
@@ -240,7 +240,7 @@
 			},
 			search(){
 				this.dialogFormVisible = true;
-				this.routeList();
+				this.gatewayRouteDOList();
 			}
 		}
 	}

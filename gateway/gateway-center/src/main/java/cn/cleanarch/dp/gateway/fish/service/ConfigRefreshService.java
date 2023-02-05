@@ -1,18 +1,25 @@
 package cn.cleanarch.dp.gateway.fish.service;
 
-import com.alibaba.fastjson.JSONObject;
-import cn.cleanarch.dp.common.gateway.ext.vo.GatewayNacosConfigBean;
 import cn.cleanarch.dp.common.gateway.ext.dataobject.*;
 import cn.cleanarch.dp.common.gateway.ext.service.*;
 import cn.cleanarch.dp.common.gateway.ext.util.Constants;
-import cn.cleanarch.dp.common.gateway.ext.util.RouteConstants;
+import cn.cleanarch.dp.common.gateway.ext.util.GatewayRouteConstants;
+import cn.cleanarch.dp.common.gateway.ext.vo.GatewayNacosConfigBean;
 import cn.cleanarch.dp.gateway.fish.cache.IpListCache;
 import cn.cleanarch.dp.gateway.fish.cache.RegServerCache;
 import cn.cleanarch.dp.gateway.fish.cache.RouteCache;
 import cn.cleanarch.dp.gateway.fish.event.ApplicationEventPublisherFactory;
 import cn.cleanarch.dp.gateway.fish.vo.GatewayRegServer;
+import com.alibaba.cloud.nacos.NacosConfigManager;
+import com.alibaba.cloud.nacos.NacosConfigProperties;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.nacos.api.NacosFactory;
+import com.alibaba.nacos.api.config.ConfigService;
+import com.alibaba.nacos.api.config.listener.Listener;
+import com.alibaba.nacos.client.config.NacosConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -26,6 +33,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executor;
 import java.util.stream.Collectors;
 
 /**
@@ -36,26 +44,31 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Service
-public class ConfigRefreshService {
+public class ConfigRefreshService implements InitializingBean {
 
     @Resource
-    private RouteService routeService;
+    private NacosConfigManager nacosConfigManager;
     @Resource
-    private LoadRouteService loadRouteService;
+    private NacosConfigProperties nacosConfigProperties;
+
     @Resource
-    private DynamicRouteService dynamicRouteService;
+    private GatewayRouteService gatewayRouteService;
     @Resource
-    private SecureIpService secureIpService;
+    private LoadGatewayRouteService loadGatewayRouteService;
     @Resource
-    private RegServerService regServerService;
+    private DynamicGatewayRouteService dynamicGatewayRouteService;
     @Resource
-    private BalancedService balancedService;
+    private GatewaySecureIpService gatewaySecureIpService;
     @Resource
-    private LoadServerService loadServerService;
+    private GatewayRegServerService gatewayRegServerService;
     @Resource
-    private ClientService clientService;
+    private GatewayBalancedService balancedService;
     @Resource
-    private DynamicGroovyService dynamicGroovyService;
+    private GatewayLoadServerService gatewayLoadServerService;
+    @Resource
+    private GatewayClientService gatewayClientService;
+    @Resource
+    private DynamicGatewayGroovyService dynamicGatewayGroovyService;
     @Resource
     private ApplicationEventPublisherFactory applicationEventPublisherFactory;
 
@@ -101,40 +114,40 @@ public class ConfigRefreshService {
         if (StringUtils.isBlank(balancedId)) {
             return ;
         }
-        Balanced balanced = balancedService.findById(balancedId);
-        if (balanced == null){
-            dynamicRouteService.deleteBalanced(balancedId);
+        GatewayBalancedDO balancedDO = balancedService.findById(balancedId);
+        if (balancedDO == null){
+            dynamicGatewayRouteService.deleteBalanced(balancedId);
             log.info("未获取网关负载均衡数据库配置！balancedId={}" , balancedId);
             return;
         }
-        List<LoadServer> loadServerList = loadServerService.queryByBalancedId(balancedId);
-        Assert.notEmpty(loadServerList, getExceptionMessage("未获取网关负载均衡数据库配置路由列表！balancedId=" , balancedId));
-        boolean isClose = Constants.NO.equals(balanced.getStatus());
-        Route route;
+        List<GatewayLoadServerDO> gatewayLoadServerDOList = gatewayLoadServerService.queryByBalancedId(balancedId);
+        Assert.notEmpty(gatewayLoadServerDOList, getExceptionMessage("未获取网关负载均衡数据库配置路由列表！balancedId=" , balancedId));
+        boolean isClose = Constants.NO.equals(balancedDO.getStatus());
+        GatewayRouteDO gatewayRouteDO;
         String balancedRouteId;
         //不管任何操作先发布清除事件，清除分组权重配置
         publisherWeightRemoveEvent(balancedId);
         //重新加载每个负载均衡网关路由
-        for (LoadServer loadServer : loadServerList){
+        for (GatewayLoadServerDO gatewayLoadServerDO : gatewayLoadServerDOList){
             //获取route，改变参数，构造一个负载均衡routeId
-            balancedRouteId = loadServerService.setBalancedRouteId(balancedId, loadServer.getRouteId());
+            balancedRouteId = gatewayLoadServerService.setBalancedRouteId(balancedId, gatewayLoadServerDO.getRouteId());
             //如果当负载均衡网关已禁用，则删除该负载均衡下所有网关路由
             if (isClose){
-                dynamicRouteService.delete(balancedRouteId);
+                dynamicGatewayRouteService.delete(balancedRouteId);
                 continue;
             }
             //如果路由权重为0，则表示无流量调用，则清除负载路由
-            if (loadServer.getWeight() <= 0){
-                dynamicRouteService.delete(balancedRouteId);
+            if (gatewayLoadServerDO.getWeight() <= 0){
+                dynamicGatewayRouteService.delete(balancedRouteId);
                 continue;
             }
-            route = routeService.findById(loadServer.getRouteId());
+            gatewayRouteDO = gatewayRouteService.findById(gatewayLoadServerDO.getRouteId());
             // 状态，0是启用，1是禁用
-            if (route == null || Constants.NO.equals(route.getStatus())) {
+            if (gatewayRouteDO == null || Constants.NO.equals(gatewayRouteDO.getStatus())) {
                 continue;
             }
-            loadServerService.setBalancedRoute(balanced, loadServer, route);
-            dynamicRouteService.update(loadRouteService.loadRouteDefinition(route));
+            gatewayLoadServerService.setBalancedRoute(balancedDO, gatewayLoadServerDO, gatewayRouteDO);
+            dynamicGatewayRouteService.update(loadGatewayRouteService.loadRouteDefinition(gatewayRouteDO));
         }
         if (isClose){
             log.info("成功移除网关负载均衡配置缓存路由！balancedId={}", balancedId);
@@ -151,27 +164,27 @@ public class ConfigRefreshService {
         if (StringUtils.isBlank(routeId)) {
             return ;
         }
-        Route route = routeService.findById(routeId);
+        GatewayRouteDO gatewayRouteDO = gatewayRouteService.findById(routeId);
         // null表示已删除，状态，0是启用，1是禁用
         boolean isClose = false;
-        if (route == null) {
-            route = new Route();
-            route.setId(routeId);
+        if (gatewayRouteDO == null) {
+            gatewayRouteDO = new GatewayRouteDO();
+            gatewayRouteDO.setId(routeId);
             isClose = true;
-        } else if (Constants.NO.equals(route.getStatus())){
+        } else if (Constants.NO.equals(gatewayRouteDO.getStatus())){
             isClose = true;
         }
         if (isClose) {
-            dynamicRouteService.delete(routeId);
+            dynamicGatewayRouteService.delete(routeId);
             //从本地缓存中移除
             RouteCache.remove(routeId);
             RegServerCache.remove(routeId);
             log.info("成功移除网关路由缓存配置！routeId={}", routeId);
         }else {
-            dynamicRouteService.update(loadRouteService.loadRouteDefinition(route));
+            dynamicGatewayRouteService.update(loadGatewayRouteService.loadRouteDefinition(gatewayRouteDO));
             //记录到本地缓存中
-            RouteCache.put(routeId, route);
-            List<Map<String, Object>> regClientList = regServerService.getByRouteRegClientList(routeId);
+            RouteCache.put(routeId, gatewayRouteDO);
+            List<Map<String, Object>> regClientList = gatewayRegServerService.getByRouteRegClientList(routeId);
             if (CollectionUtils.isEmpty(regClientList)){
                 log.error("未获取注册到网关路由客户端数据库配置！routeId={}", routeId);
             }else {
@@ -180,21 +193,21 @@ public class ConfigRefreshService {
             log.info("成功加载网关路由缓存配置！routeId={}", routeId);
         }
         // 更新负载均衡中关联的网关路由配置；
-        refreshBalancedRoute(route, isClose);
+        refreshBalancedRoute(gatewayRouteDO, isClose);
     }
 
     /**
      * 刷新负载均衡下的网关路由
-     * @param route
+     * @param gatewayRouteDO
      * @param isClose
      */
-    public void refreshBalancedRoute(Route route, boolean isClose){
-        String routeId = route.getId();
+    public void refreshBalancedRoute(GatewayRouteDO gatewayRouteDO, boolean isClose){
+        String routeId = gatewayRouteDO.getId();
         //删除
         if (isClose){
-            Flux<RouteDefinition> routeDefinitionFlux = dynamicRouteService.getRouteDefinitions();
+            Flux<RouteDefinition> routeDefinitionFlux = dynamicGatewayRouteService.getRouteDefinitions();
             Mono<List<RouteDefinition>> routeDefinitionMono = routeDefinitionFlux
-                    .filter(r->r.getId().startsWith(RouteConstants.BALANCED))
+                    .filter(r->r.getId().startsWith(GatewayRouteConstants.BALANCED))
                     .filter(r->r.getId().endsWith("-" + routeId))
                     .collectList();
             List<RouteDefinition> routeDefinitionList = routeDefinitionMono.block();
@@ -205,11 +218,11 @@ public class ConfigRefreshService {
             //网关路由已删除，必需将route从已加载的负载均衡列表中全部删除
             for (RouteDefinition routeDefinition: routeDefinitionList){
                 String balancedId = routeDefinition.getId()
-                        .replaceAll(RouteConstants.BALANCED, "")
+                        .replaceAll(GatewayRouteConstants.BALANCED, "")
                         .replaceAll(routeId, "")
                         .replaceAll("-", "");
                 balancedList.add(balancedId);
-                dynamicRouteService.delete(routeDefinition.getId());
+                dynamicGatewayRouteService.delete(routeDefinition.getId());
             }
 
             // 重新计算负载均衡下的权重
@@ -222,20 +235,20 @@ public class ConfigRefreshService {
             return;
         }
         //启用
-        List<LoadServer> loadServerList = loadServerService.queryByRouteId(routeId);
-        if (CollectionUtils.isEmpty(loadServerList)){
+        List<GatewayLoadServerDO> gatewayLoadServerDOList = gatewayLoadServerService.queryByRouteId(routeId);
+        if (CollectionUtils.isEmpty(gatewayLoadServerDOList)){
             return ;
         }
-        Balanced balanced;
-        for (LoadServer loadServer : loadServerList){
-            balanced = balancedService.findById(loadServer.getBalancedId());
+        GatewayBalancedDO balancedDO;
+        for (GatewayLoadServerDO gatewayLoadServerDO : gatewayLoadServerDOList){
+            balancedDO = balancedService.findById(gatewayLoadServerDO.getBalancedId());
             // 状态，0是启用，1是禁用
-            if (balanced == null || Constants.NO.equals(balanced.getStatus())){
+            if (balancedDO == null || Constants.NO.equals(balancedDO.getStatus())){
                 continue;
             }
             //向负载列表中增加网关路由
-            loadServerService.setBalancedRoute(balanced, loadServer, route);
-            dynamicRouteService.add(loadRouteService.loadRouteDefinition(route));
+            gatewayLoadServerService.setBalancedRoute(balancedDO, gatewayLoadServerDO, gatewayRouteDO);
+            dynamicGatewayRouteService.add(loadGatewayRouteService.loadRouteDefinition(gatewayRouteDO));
         }
     }
 
@@ -247,15 +260,15 @@ public class ConfigRefreshService {
         if (regServerId == null || regServerId <= 0){
             return ;
         }
-        RegServer regServer = regServerService.findById(regServerId);
-        Assert.notNull(regServer, getExceptionMessage("未获取注册网关路由客户端服务ID数据库配置！regServerId=", String.valueOf(regServerId)));
-        Client client = clientService.findById(regServer.getClientId());
-        Assert.notNull(client, getExceptionMessage("未获取注册客户端ID数据库配置！clientId=", regServer.getClientId()));
+        GatewayRegServerDO gatewayRegServerDO = gatewayRegServerService.findById(regServerId);
+        Assert.notNull(gatewayRegServerDO, getExceptionMessage("未获取注册网关路由客户端服务ID数据库配置！regServerId=", String.valueOf(regServerId)));
+        GatewayClientDO gatewayClientDO = gatewayClientService.findById(gatewayRegServerDO.getClientId());
+        Assert.notNull(gatewayClientDO, getExceptionMessage("未获取注册客户端ID数据库配置！clientId=", gatewayRegServerDO.getClientId()));
         //封装配置数据
         List regClientList = new ArrayList<>(1);
-        regClientList.add(new Object[]{regServer.getRouteId(), regServer.getClientId(), client.getIp(), regServer.getToken(), regServer.getSecretKey(), regServer.getStatus()});
+        regClientList.add(new Object[]{gatewayRegServerDO.getRouteId(), gatewayRegServerDO.getClientId(), gatewayClientDO.getIp(), gatewayRegServerDO.getToken(), gatewayRegServerDO.getSecretKey(), gatewayRegServerDO.getStatus()});
         // 状态，0是启用，1是禁用
-        boolean clientClose = Constants.NO.equals(client.getStatus());
+        boolean clientClose = Constants.NO.equals(gatewayClientDO.getStatus());
         if (setRegRouteClient(regClientList, clientClose)){
             log.info("成功移除注册到网关路由的客户端服务ID缓存配置！regServerId={}", String.valueOf(regServerId));
         }else {
@@ -271,20 +284,20 @@ public class ConfigRefreshService {
         if (StringUtils.isBlank(clientId)){
             return ;
         }
-        Client client = clientService.findById(clientId);
+        GatewayClientDO gatewayClientDO = gatewayClientService.findById(clientId);
         //null表示已删除
-        if (client == null){
+        if (gatewayClientDO == null){
             deleteRegRouteClient(clientId);
             log.info("成功移除网关路由客户端ID缓存配置！clientId={}", clientId);
             return ;
         }
-        List<Map<String, Object>> regClientList = regServerService.getRegClientList(clientId);
+        List<Map<String, Object>> regClientList = gatewayRegServerService.getRegClientList(clientId);
         if (CollectionUtils.isEmpty(regClientList)){
             log.error("未获取注册到网关路由客户端ID数据库配置！clientId={}", clientId);
             return ;
         }
         // 状态，0是启用，1是禁用
-        boolean clientClose = Constants.NO.equals(client.getStatus());
+        boolean clientClose = Constants.NO.equals(gatewayClientDO.getStatus());
         if (setRegRouteClient(regClientList, clientClose)){
             log.info("成功移除网关路由客户端ID缓存配置！clientId={}", clientId);
         }else {
@@ -300,13 +313,13 @@ public class ConfigRefreshService {
         if (StringUtils.isBlank(ip)) {
             return ;
         }
-        SecureIp secureIp = secureIpService.findById(ip);
+        GatewaySecureIpDO gatewaySecureIpDO = gatewaySecureIpService.findById(ip);
         // 状态，0是启用，1是禁用
-        if (secureIp == null || Constants.NO.equals(secureIp.getStatus())){
+        if (gatewaySecureIpDO == null || Constants.NO.equals(gatewaySecureIpDO.getStatus())){
             IpListCache.remove(ip);
             log.info("成功移除网关路由IP名单中缓存配置！ip={}", ip);
         }else {
-            IpListCache.put(secureIp.getIp(), true);
+            IpListCache.put(gatewaySecureIpDO.getIp(), true);
             log.info("成功加载网关路由IP名单中缓存配置！ip={}", ip);
         }
     }
@@ -319,7 +332,7 @@ public class ConfigRefreshService {
         if (groovyScriptId == null || groovyScriptId <= 0){
             return ;
         }
-        dynamicGroovyService.refresh(groovyScriptId);
+        dynamicGatewayGroovyService.refresh(groovyScriptId);
         log.info("成功刷新网关路由groovyScript规则引擎动态脚本缓存配置！groovyScriptId={}", groovyScriptId);
     }
 
@@ -401,7 +414,26 @@ public class ConfigRefreshService {
      * @param balancedId
      */
     private void publisherWeightRemoveEvent(String balancedId){
-        applicationEventPublisherFactory.publisherWeightRemoveEvent(loadServerService.setBalancedWeightName(balancedId));
+        applicationEventPublisherFactory.publisherWeightRemoveEvent(gatewayLoadServerService.setBalancedWeightName(balancedId));
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        String dataId = GatewayRouteConstants.NACOS_DATA_ID;
+        String group = nacosConfigProperties.getGroup();
+        ConfigService configService = nacosConfigManager.getConfigService();
+        String content = configService.getConfig(dataId, group, 5000);
+        log.info("content:{}",content);
+        configService.addListener(dataId, group, new Listener() {
+            @Override
+            public void receiveConfigInfo(String configInfo) {
+                log.info("receive info:{}",configInfo);
+                setGatewayConfig(configInfo);
+            }
+            @Override
+            public Executor getExecutor() {
+                return null;
+            }
+        });
+    }
 }

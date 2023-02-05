@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.fish.timer;
 
-import cn.cleanarch.dp.common.gateway.ext.util.RouteConstants;
+import cn.cleanarch.dp.common.gateway.ext.util.GatewayRouteConstants;
 import cn.cleanarch.dp.gateway.fish.cache.RouteReqCache;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -41,14 +41,14 @@ public class TimerRequestTimeService {
         dataMap.putAll(cacheMap);
         String value ;
         for (Map.Entry<String, Long> entry : dataMap.entrySet()){
-            value = (String) redisTemplate.opsForHash().get(RouteConstants.SYNC_REQUEST_TIME_KEY, entry.getKey());
+            value = (String) redisTemplate.opsForHash().get(GatewayRouteConstants.SYNC_REQUEST_TIME_KEY, entry.getKey());
             if (StringUtils.isNotBlank(value)){
                 //比缓存的值要大，更新它
                 if (entry.getValue() < Long.parseLong(value)){
                     continue;
                 }
             }
-            redisTemplate.opsForHash().put(RouteConstants.SYNC_REQUEST_TIME_KEY, entry.getKey(), String.valueOf(entry.getValue()));
+            redisTemplate.opsForHash().put(GatewayRouteConstants.SYNC_REQUEST_TIME_KEY, entry.getKey(), String.valueOf(entry.getValue()));
         }
     }
 }

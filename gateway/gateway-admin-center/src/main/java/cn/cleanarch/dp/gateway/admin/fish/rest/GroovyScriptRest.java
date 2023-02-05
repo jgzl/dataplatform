@@ -1,9 +1,9 @@
 package cn.cleanarch.dp.gateway.admin.fish.rest;
 
 import cn.cleanarch.dp.common.gateway.ext.base.BaseRest;
-import cn.cleanarch.dp.common.gateway.ext.dataobject.GroovyScript;
+import cn.cleanarch.dp.common.gateway.ext.dataobject.GatewayGroovyScriptDO;
 import cn.cleanarch.dp.common.gateway.ext.service.CustomNacosConfigService;
-import cn.cleanarch.dp.common.gateway.ext.service.GroovyScriptService;
+import cn.cleanarch.dp.common.gateway.ext.service.GatewayGroovyScriptService;
 import cn.cleanarch.dp.common.gateway.ext.util.ApiResult;
 import cn.cleanarch.dp.common.gateway.ext.util.Constants;
 import lombok.extern.slf4j.Slf4j;
@@ -26,31 +26,31 @@ import java.util.Date;
 public class GroovyScriptRest extends BaseRest {
 
     @Resource
-    private GroovyScriptService groovyScriptService;
+    private GatewayGroovyScriptService gatewayGroovyScriptService;
 
     @Resource
     private CustomNacosConfigService customNacosConfigService;
 
     /**
      * 添加动态脚本
-     * @param groovyScript
+     * @param gatewayGroovyScriptDO
      * @return
      */
     @RequestMapping(value = "/add", method = {RequestMethod.POST})
-    public ApiResult add(@RequestBody GroovyScript groovyScript) throws Exception {
-        Assert.notNull(groovyScript, "未获取到对象");
-        groovyScript.setOrderNum(1);
-        groovyScript.setStatus(Constants.NO);
-        groovyScript.setCreateTime(new Date());
-        this.validate(groovyScript);
+    public ApiResult add(@RequestBody GatewayGroovyScriptDO gatewayGroovyScriptDO) throws Exception {
+        Assert.notNull(gatewayGroovyScriptDO, "未获取到对象");
+        gatewayGroovyScriptDO.setOrderNum(1);
+        gatewayGroovyScriptDO.setStatus(Constants.NO);
+        gatewayGroovyScriptDO.setCreateTime(new Date());
+        this.validate(gatewayGroovyScriptDO);
         // 编译一下
-        groovyScriptService.instance(groovyScript);
+        gatewayGroovyScriptService.instance(gatewayGroovyScriptDO);
         //查询最大orderNum
-        int orderNum = groovyScriptService.findMaxOrderNum(groovyScript.getRouteId(), groovyScript.getEvent());
-        groovyScript.setOrderNum(orderNum + 1);
-        groovyScriptService.save(groovyScript);
+        int orderNum = gatewayGroovyScriptService.findMaxOrderNum(gatewayGroovyScriptDO.getRouteId(), gatewayGroovyScriptDO.getEvent());
+        gatewayGroovyScriptDO.setOrderNum(orderNum + 1);
+        gatewayGroovyScriptService.save(gatewayGroovyScriptDO);
         //将ID推送到nacos注册发现与配置中心
-        customNacosConfigService.publishGroovyScriptNacosConfig(groovyScript.getId());
+        customNacosConfigService.publishGroovyScriptNacosConfig(gatewayGroovyScriptDO.getId());
         return new ApiResult();
     }
 
@@ -62,9 +62,9 @@ public class GroovyScriptRest extends BaseRest {
     @RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult list(@RequestParam String routeId) {
         Assert.isTrue(StringUtils.isNotBlank(routeId), "未获取到对象网关路由ID");
-        GroovyScript groovyScript = new GroovyScript();
-        groovyScript.setRouteId(routeId);
-        return new ApiResult(groovyScriptService.list(groovyScript));
+        GatewayGroovyScriptDO gatewayGroovyScriptDO = new GatewayGroovyScriptDO();
+        gatewayGroovyScriptDO.setRouteId(routeId);
+        return new ApiResult(gatewayGroovyScriptService.list(gatewayGroovyScriptDO));
     }
 
     /**
@@ -74,9 +74,9 @@ public class GroovyScriptRest extends BaseRest {
      */
     @RequestMapping(value = "/delete", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult delete(@RequestParam Long id) {
-        GroovyScript groovyScript = getGroovyScript(id);
-        groovyScriptService.delete(groovyScript);
-        if (Constants.YES.equals(groovyScript.getStatus())) {
+        GatewayGroovyScriptDO gatewayGroovyScriptDO = getGroovyScript(id);
+        gatewayGroovyScriptService.delete(gatewayGroovyScriptDO);
+        if (Constants.YES.equals(gatewayGroovyScriptDO.getStatus())) {
             customNacosConfigService.publishGroovyScriptNacosConfig(id);
         }
         return new ApiResult();
@@ -84,21 +84,21 @@ public class GroovyScriptRest extends BaseRest {
 
     /**
      * 更新动态脚本
-     * @param groovyScript
+     * @param gatewayGroovyScriptDO
      * @return
      */
     @RequestMapping(value = "/update", method = {RequestMethod.POST})
-    public ApiResult update(@RequestBody GroovyScript groovyScript) throws Exception {
-        Assert.notNull(groovyScript, "未获取到对象");
-        Long id = groovyScript.getId();
+    public ApiResult update(@RequestBody GatewayGroovyScriptDO gatewayGroovyScriptDO) throws Exception {
+        Assert.notNull(gatewayGroovyScriptDO, "未获取到对象");
+        Long id = gatewayGroovyScriptDO.getId();
         Assert.notNull(id, "未获取到对象ID");
         Assert.isTrue(id>0, "ID值错误");
-        groovyScript.setUpdateTime(new Date());
-        this.validate(groovyScript);
+        gatewayGroovyScriptDO.setUpdateTime(new Date());
+        this.validate(gatewayGroovyScriptDO);
         // 编译一下
-        groovyScriptService.instance(groovyScript);
-        groovyScriptService.update(groovyScript);
-        if (Constants.YES.equals(groovyScript.getStatus())) {
+        gatewayGroovyScriptService.instance(gatewayGroovyScriptDO);
+        gatewayGroovyScriptService.update(gatewayGroovyScriptDO);
+        if (Constants.YES.equals(gatewayGroovyScriptDO.getStatus())) {
             customNacosConfigService.publishGroovyScriptNacosConfig(id);
         }
         return new ApiResult();
@@ -111,11 +111,11 @@ public class GroovyScriptRest extends BaseRest {
      */
     @RequestMapping(value = "/start", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult start(@RequestParam Long id) {
-        GroovyScript groovyScript = getGroovyScript(id);
-        if (Constants.NO.equals(groovyScript.getStatus())) {
-            groovyScript.setStatus(Constants.YES);
-            groovyScript.setUpdateTime(new Date());
-            groovyScriptService.update(groovyScript);
+        GatewayGroovyScriptDO gatewayGroovyScriptDO = getGroovyScript(id);
+        if (Constants.NO.equals(gatewayGroovyScriptDO.getStatus())) {
+            gatewayGroovyScriptDO.setStatus(Constants.YES);
+            gatewayGroovyScriptDO.setUpdateTime(new Date());
+            gatewayGroovyScriptService.update(gatewayGroovyScriptDO);
             customNacosConfigService.publishGroovyScriptNacosConfig(id);
         }
         return new ApiResult();
@@ -128,11 +128,11 @@ public class GroovyScriptRest extends BaseRest {
      */
     @RequestMapping(value = "/stop", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult stop(@RequestParam Long id) {
-        GroovyScript groovyScript = getGroovyScript(id);
-        if (Constants.YES.equals(groovyScript.getStatus())) {
-            groovyScript.setStatus(Constants.NO);
-            groovyScript.setUpdateTime(new Date());
-            groovyScriptService.update(groovyScript);
+        GatewayGroovyScriptDO gatewayGroovyScriptDO = getGroovyScript(id);
+        if (Constants.YES.equals(gatewayGroovyScriptDO.getStatus())) {
+            gatewayGroovyScriptDO.setStatus(Constants.NO);
+            gatewayGroovyScriptDO.setUpdateTime(new Date());
+            gatewayGroovyScriptService.update(gatewayGroovyScriptDO);
             customNacosConfigService.publishGroovyScriptNacosConfig(id);
         }
         return new ApiResult();
@@ -145,8 +145,8 @@ public class GroovyScriptRest extends BaseRest {
      */
     @RequestMapping(value = "/up", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult up(@RequestParam Long id) {
-        GroovyScript groovyScript = getGroovyScript(id);
-        if (groovyScriptService.upOrderNum(groovyScript)){
+        GatewayGroovyScriptDO gatewayGroovyScriptDO = getGroovyScript(id);
+        if (gatewayGroovyScriptService.upOrderNum(gatewayGroovyScriptDO)){
             customNacosConfigService.publishGroovyScriptNacosConfig(id);
         }
         return new ApiResult();
@@ -159,8 +159,8 @@ public class GroovyScriptRest extends BaseRest {
      */
     @RequestMapping(value = "/down", method = {RequestMethod.GET, RequestMethod.POST})
     public ApiResult down(@RequestParam Long id) {
-        GroovyScript groovyScript = getGroovyScript(id);
-        if (groovyScriptService.downOrderNum(groovyScript)){
+        GatewayGroovyScriptDO gatewayGroovyScriptDO = getGroovyScript(id);
+        if (gatewayGroovyScriptService.downOrderNum(gatewayGroovyScriptDO)){
             customNacosConfigService.publishGroovyScriptNacosConfig(id);
         }
         return new ApiResult();
@@ -171,12 +171,12 @@ public class GroovyScriptRest extends BaseRest {
      * @param id
      * @return
      */
-    private GroovyScript getGroovyScript(Long id){
+    private GatewayGroovyScriptDO getGroovyScript(Long id){
         Assert.notNull(id, "未获取到对象ID");
         Assert.isTrue(id>0, "ID值错误");
-        GroovyScript groovyScript = groovyScriptService.findById(id);
-        Assert.notNull(groovyScript, "未获取到对象");
-        return groovyScript;
+        GatewayGroovyScriptDO gatewayGroovyScriptDO = gatewayGroovyScriptService.findById(id);
+        Assert.notNull(gatewayGroovyScriptDO, "未获取到对象");
+        return gatewayGroovyScriptDO;
     }
 
 }

@@ -49,7 +49,7 @@ export default {
 			},
 			open2(){
 				this.$router.push('/usercenter')
-				this.$route.is = true
+				this.$gatewayRouteDO.is = true
 			},
 			refresh1(){
 				useTabs.refresh()
@@ -65,7 +65,7 @@ export default {
 					//回调返回所有标签的数组，这里其实是需要判断是否含有'/usercenter'，含有再操作的，这里为了演示就直接打开了。
 					console.log(tags)
 					this.$router.push('/usercenter')
-					this.$route.is = true
+					this.$gatewayRouteDO.is = true
 				})
 			},
 			set1(){

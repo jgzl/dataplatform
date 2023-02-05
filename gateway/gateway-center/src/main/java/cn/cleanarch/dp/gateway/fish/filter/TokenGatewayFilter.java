@@ -5,7 +5,7 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import cn.cleanarch.dp.common.gateway.ext.util.HttpResponseUtils;
 import cn.cleanarch.dp.common.gateway.ext.util.JwtTokenUtils;
 import cn.cleanarch.dp.common.gateway.ext.util.NetworkIpUtils;
-import cn.cleanarch.dp.common.gateway.ext.util.RouteConstants;
+import cn.cleanarch.dp.common.gateway.ext.util.GatewayRouteConstants;
 import cn.cleanarch.dp.gateway.fish.cache.RegServerCache;
 import cn.cleanarch.dp.gateway.fish.vo.GatewayRegServer;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +41,7 @@ public class TokenGatewayFilter implements GatewayFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         //做了负载均衡的route服务不做客户端Token验证
-        if (routeId.startsWith(RouteConstants.BALANCED)){
+        if (routeId.startsWith(GatewayRouteConstants.BALANCED)){
             return chain.filter(exchange);
         }
         String ip = NetworkIpUtils.getIpAddress(request);
@@ -103,9 +103,9 @@ public class TokenGatewayFilter implements GatewayFilter, Ordered {
     public String getToken(ServerHttpRequest request){
         HttpHeaders headers = request.getHeaders();
         //验证是否带token
-        String token = request.getQueryParams().getFirst(RouteConstants.TOKEN);
+        String token = request.getQueryParams().getFirst(GatewayRouteConstants.TOKEN);
         if (StringUtils.isBlank(token)){
-            token = headers.getFirst(RouteConstants.TOKEN);
+            token = headers.getFirst(GatewayRouteConstants.TOKEN);
         }
         return token;
     }

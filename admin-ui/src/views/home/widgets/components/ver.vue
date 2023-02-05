@@ -15,7 +15,7 @@
 <script>
 	export default {
 		title: "版本信息",
-		icon: "el-icon-monitor",
+		icon: "el-icon-gatewayMonitorDO",
 		description: "当前项目版本信息",
 		data() {
 			return {

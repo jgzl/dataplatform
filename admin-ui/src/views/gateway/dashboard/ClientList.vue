@@ -159,13 +159,13 @@
 				console.log("command" , obj);
 				let _this = this;
 				if (obj.command === 'addGateway'){
-					this.$router.push({path:'/gateway/dashboard/addClientGateway',query:{client:JSON.stringify(obj.row)}});
+					this.$router.push({path:'/gateway/dashboard/addClientGateway',query:{gatewayClientDO:JSON.stringify(obj.row)}});
 				} else if (obj.command === 'info'){
 					this.drawer = true;
 					this.infoForm = obj.row;
 				}  else if (obj.command === 'edit'){
 					this.infoForm = obj.row;
-					this.$router.push({path:'/gateway/dashboard/createClient',query:{handleType:'edit',client:JSON.stringify(obj.row)}});
+					this.$router.push({path:'/gateway/dashboard/createClient',query:{handleType:'edit',gatewayClientDO:JSON.stringify(obj.row)}});
 				} else if (obj.command === 'start'){
 					startClient({id:obj.row.id}).then(function(result){
 						_this.GLOBAL_FUN.successMsg();

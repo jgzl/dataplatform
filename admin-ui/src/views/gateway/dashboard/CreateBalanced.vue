@@ -168,13 +168,13 @@
 		},
 		created: function() {
 			//在组件创建完毕后加载
-			let query = this.$route.query;
+			let query = this.$gatewayRouteDO.query;
 			if (query){
 				let handleType = query.handleType;
 				if (handleType === 'edit'){
-					let balanced = query.balanced;
-					console.log('balanced', balanced);
-					this.form = JSON.parse(balanced);
+					let balancedDO = query.balancedDO;
+					console.log('balancedDO', balancedDO);
+					this.form = JSON.parse(balancedDO);
 					this.handleType = handleType;
 				}
 			}
@@ -186,7 +186,7 @@
 
 		},
 		methods: {
-			init(balanced) {
+			init(balancedDO) {
 				this.serverRegList();
 			},
 			goBack() {
@@ -268,18 +268,18 @@
 			},
 			submit(){
 				let _this = this;
-				let balanced = this.form;
-				balanced.serverList = this.tableData;
-				console.log(balanced);
+				let balancedDO = this.form;
+				balancedDO.serverList = this.tableData;
+				console.log(balancedDO);
 				this.$refs['form'].validate((valid) => {
 					if (valid) {
 						if (this.handleType === 'edit'){
-							updateBalanced(balanced).then(function(result){
+							updateBalanced(balancedDO).then(function(result){
 								_this.GLOBAL_FUN.successMsg();
 								_this.goBack();
 							});
 						}else {
-							addBalanced(balanced).then(function(result){
+							addBalanced(balancedDO).then(function(result){
 								_this.GLOBAL_FUN.successMsg();
 								_this.goBack();
 							});

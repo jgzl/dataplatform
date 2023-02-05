@@ -1,6 +1,6 @@
 package cn.cleanarch.dp.gateway.fish.filter.authorize;
 
-import cn.cleanarch.dp.common.gateway.ext.dataobject.Route;
+import cn.cleanarch.dp.common.gateway.ext.dataobject.GatewayRouteDO;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 
 /**
@@ -12,10 +12,10 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 public abstract class FilterHandler {
 
     public FilterHandler handler = null;
-    protected Route route;
+    protected GatewayRouteDO gatewayRouteDO;
 
-    public void handler(ServerHttpRequest request, Route route){
-        this.route = route;
+    public void handler(ServerHttpRequest request, GatewayRouteDO gatewayRouteDO){
+        this.gatewayRouteDO = gatewayRouteDO;
         handleRequest(request);
         nextHandle(request);
     }
@@ -24,7 +24,7 @@ public abstract class FilterHandler {
 
     public void nextHandle(ServerHttpRequest request){
         if (handler != null){
-            handler.handler(request,route);
+            handler.handler(request, gatewayRouteDO);
         }
     }
 }

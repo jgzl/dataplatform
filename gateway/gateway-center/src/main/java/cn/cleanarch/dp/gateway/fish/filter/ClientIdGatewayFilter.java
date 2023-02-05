@@ -2,7 +2,7 @@ package cn.cleanarch.dp.gateway.fish.filter;
 
 import cn.cleanarch.dp.common.gateway.ext.util.HttpResponseUtils;
 import cn.cleanarch.dp.common.gateway.ext.util.NetworkIpUtils;
-import cn.cleanarch.dp.common.gateway.ext.util.RouteConstants;
+import cn.cleanarch.dp.common.gateway.ext.util.GatewayRouteConstants;
 import cn.cleanarch.dp.gateway.fish.cache.RegServerCache;
 import cn.cleanarch.dp.gateway.fish.vo.GatewayRegServer;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ public class ClientIdGatewayFilter implements GatewayFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         //做了负载均衡的route服务不做客户端ID验证
-        if (routeId.startsWith(RouteConstants.BALANCED)){
+        if (routeId.startsWith(GatewayRouteConstants.BALANCED)){
             return chain.filter(exchange);
         }
         String ip = NetworkIpUtils.getIpAddress(request);
@@ -76,9 +76,9 @@ public class ClientIdGatewayFilter implements GatewayFilter, Ordered {
      * @return
      */
     public String getClientId(ServerHttpRequest request){
-        String clientId = request.getQueryParams().getFirst(RouteConstants.CLIENT_ID);
+        String clientId = request.getQueryParams().getFirst(GatewayRouteConstants.CLIENT_ID);
         if (StringUtils.isBlank(clientId)){
-            clientId = request.getHeaders().getFirst(RouteConstants.CLIENT_ID);
+            clientId = request.getHeaders().getFirst(GatewayRouteConstants.CLIENT_ID);
         }
         return clientId;
     }

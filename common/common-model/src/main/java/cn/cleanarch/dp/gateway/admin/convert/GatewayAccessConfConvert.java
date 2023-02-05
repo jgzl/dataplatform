@@ -1,8 +1,8 @@
 package cn.cleanarch.dp.gateway.admin.convert;
 
 import cn.cleanarch.dp.common.model.BaseConvert;
-import cn.cleanarch.dp.gateway.admin.dataobject.GatewayAccessDO;
-import cn.cleanarch.dp.gateway.admin.vo.GatewayAccessVO;
+import cn.cleanarch.dp.gateway.admin.dataobject.GatewayAccessConfDO;
+import cn.cleanarch.dp.gateway.admin.vo.GatewayAccessConfVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -11,6 +11,6 @@ import org.mapstruct.factory.Mappers;
  * @date 2021/12/24
  */
 @Mapper
-public interface GatewayAccessConfConvert extends BaseConvert<GatewayAccessVO, GatewayAccessDO> {
+public interface GatewayAccessConfConvert extends BaseConvert<GatewayAccessConfVO, GatewayAccessConfDO> {
     GatewayAccessConfConvert INSTANCE = Mappers.getMapper(GatewayAccessConfConvert.class);
 }

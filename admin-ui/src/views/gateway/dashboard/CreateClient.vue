@@ -86,21 +86,21 @@ export default {
 	},
 	created: function() {
 		//在组件创建完毕后加载
-		let query = this.$route.query;
+		let query = this.$gatewayRouteDO.query;
 		if (query){
 			this.handleType = query.handleType;
 			if (this.handleType === 'edit'){
 				// this.nameDisabled = true;
-				let client = query.client;
-				console.log('client', client);
-				this.init(JSON.parse(client));
+				let gatewayClientDO = query.gatewayClientDO;
+				console.log('gatewayClientDO', gatewayClientDO);
+				this.init(JSON.parse(gatewayClientDO));
 			}
 		}
 	},
 	methods: {
-		init(client) {
-			if (client){
-				this.form = client;
+		init(gatewayClientDO) {
+			if (gatewayClientDO){
+				this.form = gatewayClientDO;
 			}
 		},
 		goBack() {
