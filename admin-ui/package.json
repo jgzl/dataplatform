@@ -20,6 +20,7 @@
 		"echarts": "5.3.3",
 		"element-plus": "2.2.12",
 		"js-base64": "^3.7.2",
+		"md-editor-v3": "^2.7.2",
 		"nprogress": "0.2.0",
 		"qrcodejs2": "0.0.2",
 		"sortablejs": "1.15.0",

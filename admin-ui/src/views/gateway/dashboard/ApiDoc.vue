@@ -5,17 +5,19 @@
 				<el-card shadow="always">
 					<span style="font-size: 18pt; font-weight: bold;">接口文档</span>
 					<el-tree :data="apiTreeData" :props="defaultProps" @node-click="handleNodeClick" :expand-on-click-node="false" style="margin-top: 20px;">
-						<span slot-scope="{ node, data }">
-							<span style="font-size: 10pt;">{{ node.label }}</span>
+						<template #default="{node, data}">
 							<span>
-							  <el-button size="small" circle icon="el-icon-edit" title="编辑"
-							  style="border: 0px; margin-left: 0px; font-size: 10pt; padding: 2px;"
-							  @click="() => handleNodeEdit(data)" :disabled="handleType=='edit' && id != data.id" ></el-button>
-							  <el-button v-show="isNotGroups(node.data.code)" size="small" circle icon="el-icon-view"
-							  title="详情" style="border: 0px; margin-left: 0px; font-size: 10pt; padding: 2px;"
-							  @click="() => handleNodeView(data)"></el-button>
+								<span style="font-size: 10pt;">{{ node.label }}</span>
+								<span>
+								  <el-button size="small" circle icon="el-icon-edit" title="编辑"
+											 style="border: 0px; margin-left: 0px; font-size: 10pt; padding: 2px;"
+											 @click="() => handleNodeEdit(data)" :disabled="handleType=='edit' && id != data.id" ></el-button>
+								  <el-button v-show="isNotGroups(node.data.code)" size="small" circle icon="el-icon-view"
+											 title="详情" style="border: 0px; margin-left: 0px; font-size: 10pt; padding: 2px;"
+											 @click="() => handleNodeView(data)"></el-button>
+								</span>
 							</span>
-						</span>
+						</template>
 					</el-tree>
 				</el-card>
 			</el-col>
@@ -46,14 +48,14 @@
 					</div>
 				</el-card>
 				<!-- 在线markdown编辑器 https://gitee.com/wCHCw/mavonEditor -->
-				<span v-show="handleType=='edit'">
-					<mavon-editor v-show="handleType=='edit'" v-model="content" :toolbars="toolbars" @save="handleSave" style="height: 700px; margin-top: 18px;" />
+				<span v-show="handleType==='edit'">
+					<md-editor v-show="handleType==='edit'" v-model="content" :toolbars="toolbars" @save="handleSave" style="height: 700px; margin-top: 18px;" />
 					<!-- 提交 -->
-					<el-button v-show="handleType=='edit'" type="primary" style="margin-left: 47%; margin-top: 20px;" @click="handleSave">保存</el-button>
+					<el-button v-show="handleType==='edit'" type="primary" style="margin-left: 47%; margin-top: 20px;" @click="handleSave">保存</el-button>
 				</span>
 
-				<span v-show="handleType==''">
-					<mavon-editor v-show="handleType==''" v-model="content" :subfield="false" :defaultOpen="'preview'" :toolbarsFlag="false"
+				<span v-show="handleType===''">
+					<md-editor v-show="handleType===''" v-model="content" :subfield="false" :defaultOpen="'preview'" :toolbarsFlag="false"
 					:editable="false" :scrollStyle="true" :ishljs="true" style="margin-top: 18px; " />
 				</span>
 			</el-col>
@@ -70,6 +72,8 @@
 
 import {apiDocList,saveApiDoc,findByApiDoc} from '@/api/apidoc_api.js'
 import routeInfoComponent from '@/components/RouteInfo.vue'
+import MdEditor from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
 
 export default {
 	data() {
@@ -84,33 +88,11 @@ export default {
 			},
 			tableData: [],
 			content: '', //输入的数据
-			toolbars: {
-				bold: true, // 粗体
-				italic: true, // 斜体
-				header: true, // 标题
-				underline: true, // 下划线
-				mark: true, // 标记
-				superscript: true, // 上角标
-				quote: true, // 引用
-				ol: true, // 有序列表
-				link: true, // 链接
-				imagelink: true, // 图片链接
-				help: true, // 帮助
-				code: true, // code
-				table: true, // 表格
-				subfield: true, // 是否需要分栏
-				fullscreen: true, // 全屏编辑
-				readmodel: true, // 沉浸式阅读
-				/* 1.3.5 */
-				undo: true, // 上一步
-				trash: true, // 清空
-				save: true, // 保存（触发events中的save事件）
-				/* 1.4.2 */
-				navigation: true ,// 导航目录
-				editable: true,
-				preview: true, // 预览
-				defaultOpen: 'preview' //edit： 默认展示编辑区域 ， preview： 默认展示预览区域
-			},
+			toolbars: ['bold', 'underline', 'italic', 'strikeThrough',
+				'sub','sup','quote','unorderedList', 'orderedList', 'codeRow',
+				'code', 'link', 'image', 'table', 'revoke',
+				'next', 'save', 'pageFullscreen', 'fullscreen',
+				'preview', 'htmlPreview'],
 			apiTreeData: [],
 			defaultProps: {
 			  children: 'children',
@@ -124,7 +106,8 @@ export default {
 		this.init();
 	},
 	components:{
-		routeInfoComponent
+		routeInfoComponent,
+		MdEditor
 	},
 	mounted: function() {},
 	beforeUnmount: function() {},
