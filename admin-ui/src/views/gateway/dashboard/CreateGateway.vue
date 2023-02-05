@@ -32,12 +32,12 @@
 							</el-popover>
 							<div style="float: right; margin-left: 10px;">
 								<el-button icon="el-icon-delete" size="small" type="warning" @click="resetForm">
-									清 空<el-icon class="el-icon--right"><el-icon-question-delete/></el-icon>
+									清 空
 								</el-button>
 							</div>
 							<div style="float: right; margin-left: 10px;">
 								<el-button icon="el-icon-promotion" size="small" type="success" @click="submit">
-									发 布<el-icon class="el-icon--right"><el-icon-promotion/></el-icon>
+									发 布
 								</el-button>
 							</div>
 						</div>
@@ -665,7 +665,7 @@ export default {
 			if (this.handleType === 'edit') {
 				let route = query.route;
 				console.log('route', route);
-				this.init(route);
+				this.init(JSON.parse(route));
 			}
 		}
 	},
@@ -675,6 +675,7 @@ export default {
 	},
 	methods: {
 		init(route) {
+			debugger
 			if (route && route.form) {
 				this.form = route.form;
 				this.filter = route.filter;

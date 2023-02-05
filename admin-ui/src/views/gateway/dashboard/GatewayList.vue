@@ -36,7 +36,7 @@
 				</el-col>
 			</el-row>
 			<el-table size="small" :data="tableData" style="width: 100%">
-				<el-table-column label="服务ID" width="250">
+				<el-table-column label="服务ID" width="150">
 					<template v-slot:default="scope">
 						<el-tag size="small" type="warning" style="font-weight: bold;">{{scope.row.id}}</el-tag>
 					</template>
@@ -46,17 +46,17 @@
 						<el-tag v-for="group in groupOptions" :key="group.value" v-show="(group.value === scope.row.groupCode)" size="small" type="">{{group.label}}</el-tag>
 					</template>
 				</el-table-column>
-				<el-table-column label="系统代号>服务名称" width="300">
+				<el-table-column label="系统代号>服务名称" width="200">
 					<template v-slot:default="scope">
 						<span style="font-weight: bold;" v-if="scope.row.systemCode != undefined && scope.row.systemCode != ''">{{scope.row.systemCode}} ></span> {{scope.row.name}}
 					</template>
 				</el-table-column>
-				<el-table-column label="服务地址" :show-overflow-tooltip="true">
+				<el-table-column label="服务地址" width="150" :show-overflow-tooltip="true">
 					<template v-slot:default="scope">
 						<el-tag size="small" type="success" style="font-weight: bold;">{{scope.row.uri}}</el-tag>
 					</template>
 				</el-table-column>
-				<el-table-column label="断言路径">
+				<el-table-column label="断言路径" width="200">
 					<template v-slot:default="scope">
 						{{scope.row.path}}
 						<el-popover trigger="click" placement="bottom">

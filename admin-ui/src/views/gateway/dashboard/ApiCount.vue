@@ -36,11 +36,15 @@
 				<el-col :span="14">
 					<div style="float: right;">
 					  <el-input placeholder="请输入服务端名称" v-model="form.name" class="input-with-select" style="width: 520px;">
-						<el-select v-model="form.groupCode" slot="prepend" placeholder="请选择分组" style="width: 140px; margin-right: 10px;">
-							<el-option label="所有" value=""/>
-							<el-option v-for="item in groupOptions" :key="item.value" :label="item.label" :value="item.value"/>
-						</el-select>
-					    <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
+						<template #prepend>
+							<el-select v-model="form.groupCode" placeholder="请选择分组" style="width: 140px;">
+								<el-option label="所有" value=""/>
+								<el-option v-for="item in groupOptions" :key="item.value" :label="item.label" :value="item.value"/>
+							</el-select>
+						</template>
+						<template #append>
+						  <el-button icon="el-icon-search" @click="search" title="搜索"></el-button>
+						</template>
 					  </el-input>
 					</div>
 				</el-col>
@@ -68,8 +72,7 @@
 				<el-table-column label="今日请求总次数" prop="count" width="140" style="font-weight: bold;"></el-table-column>
 				<el-table-column label="查看" width="80">
 						<template v-slot:default="scope" style="border: 1px solid red;">
-							<el-button size="small" @click="handleShowRouteCount(scope.row)" circle title="请点击选中查看" class="el-icon-s-data">
-							</el-button>
+							<el-button size="small" @click="handleShowRouteCount(scope.row)" circle title="请点击选中查看" icon="el-icon-arrow-right"/>
 						</template>
 					</el-table-column>
 			</el-table>

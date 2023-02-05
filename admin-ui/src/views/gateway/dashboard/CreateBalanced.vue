@@ -74,10 +74,10 @@
 							</el-form-item>
 							<el-form-item label="路径" prop="loadUri">
 								<el-row :gutter="20">
-									<el-col :span="4" style="border: 0px solid red; padding: 0;">
+									<el-col :span="5" style="border: 0px solid red; padding: 0;">
 										<el-input v-model="parent" :disabled="true"  title="默认负载地址前缀'/proxy/',请不要在自定义地址前加/"></el-input>
 									</el-col>
-									<el-col :span="19" style="border: 0px solid red; padding: 0;">
+									<el-col :span="15" style="border: 0px solid red; padding: 0;">
 										<el-input v-model="form.loadUri" :disabled="uriDisabled" placeholder="请输入网关Path,示例：producer/** 或 producer/api"></el-input>
 									</el-col>
 								</el-row>
