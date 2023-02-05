@@ -23,7 +23,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/gateway/access")
-public class GatewayAccessController {
+public class GatewayAccessConfController {
 
     private final GatewayAccessConfService service;
 

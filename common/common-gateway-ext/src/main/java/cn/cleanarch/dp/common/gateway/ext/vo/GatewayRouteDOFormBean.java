@@ -14,5 +14,5 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class GatewayRouteDOFormBean extends GatewayRouteDO implements java.io.Serializable {
-    private GatewayMonitorDO gatewayMonitorDO;
+    private GatewayMonitorDO monitor;
 }

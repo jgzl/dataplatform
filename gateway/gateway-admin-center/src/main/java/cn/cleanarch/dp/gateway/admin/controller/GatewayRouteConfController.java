@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/gateway/route")
-public class GatewayRouteController {
+public class GatewayRouteConfController {
 
     private final GatewayRouteConfService service;
     /**

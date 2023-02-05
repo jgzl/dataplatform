@@ -273,7 +273,7 @@ public class GatewayRouteController extends BaseRest {
             if (bean.getChecked()){
                 GatewayRouteDOFormBean form = gatewayRouteReq.getForm();
                 GatewayMonitorDO gatewayMonitorDO = new GatewayMonitorDO();
-                BeanUtils.copyProperties(form.getGatewayMonitorDO(), gatewayMonitorDO);
+                BeanUtils.copyProperties(form.getMonitor(), gatewayMonitorDO);
                 gatewayMonitorDO.setStatus(Constants.YES);
                 return gatewayMonitorDO;
             }
