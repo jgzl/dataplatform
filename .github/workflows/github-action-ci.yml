@@ -77,7 +77,7 @@ jobs:
           tags: |
             dlhf/gateway-admin-center:latest
             ghcr.io/jgzl/gateway-admin-center:latest
-      - name: Build and push 网关核心服务
+      - name: Build and push 网关中心服务
         uses: docker/build-push-action@v3
         with:
           context: gateway/gateway-center
