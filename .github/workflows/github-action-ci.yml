@@ -25,7 +25,7 @@ jobs:
       - name: Install with nodejs
         run: cd admin-ui && npm install
       - name: Build with nodejs
-        run: cd admin-ui && npm run build
+        run: cd admin-ui && npm run build:production
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
