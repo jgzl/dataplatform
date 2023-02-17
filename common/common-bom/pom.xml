@@ -48,6 +48,10 @@
         </dependency>
         <dependency>
             <groupId>cn.cleanarch.dp</groupId>
+            <artifactId>common-job</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-model</artifactId>
         </dependency>
         <dependency>

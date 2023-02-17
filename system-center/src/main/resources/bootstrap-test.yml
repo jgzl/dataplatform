@@ -2,10 +2,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: nacos.cleanarch.cn:8848
+        server-addr: nacos.cleanarch.cn:80
         namespace: dp-test
       config:
-        server-addr: nacos.cleanarch.cn:8848
+        server-addr: nacos.cleanarch.cn:80
         namespace: dp-test
         file-extension: yml
         shared-configs:
