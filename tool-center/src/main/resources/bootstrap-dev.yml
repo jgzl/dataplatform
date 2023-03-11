@@ -2,10 +2,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: nacos.cleanarch.cn:80
+        server-addr: 192.168.192.1:8848
         namespace: dp-dev
       config:
-        server-addr: nacos.cleanarch.cn:80
+        server-addr: 192.168.192.1:8848
         namespace: dp-dev
         file-extension: yml
         shared-configs:
