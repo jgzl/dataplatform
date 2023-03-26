@@ -48,9 +48,6 @@ public enum MenuTypeEnum {
     private String description;
 
     public static Boolean isFrontendComponent(String type) {
-        if (LEFT_MENU.getType().equals(type) || IN_LINK.getType().equals(type)) {
-            return true;
-        }
-        return false;
+        return LEFT_MENU.getType().equals(type) || IN_LINK.getType().equals(type);
     }
 }

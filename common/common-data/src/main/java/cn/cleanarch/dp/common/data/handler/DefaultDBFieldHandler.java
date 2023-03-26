@@ -27,9 +27,9 @@ public class DefaultDBFieldHandler implements MetaObjectHandler {
         if (AppContextHolder.getUser() != null) {
             userId = AppContextHolder.getUser().getUserId();
         }
-        this.setFieldValByName("creator",userId.toString(),metaObject);
+        this.setFieldValByName("creator", userId,metaObject);
         this.setFieldValByName("createTime",current,metaObject);
-        this.setFieldValByName("updater",userId.toString(),metaObject);
+        this.setFieldValByName("updater", userId,metaObject);
         this.setFieldValByName("updateTime",current,metaObject);
         this.setFieldValByName("version", CommonConstants.DEFAULT_VERSION,metaObject);
         this.setFieldValByName("deleted",CommonConstants.STATUS_NORMAL,metaObject);
@@ -43,7 +43,7 @@ public class DefaultDBFieldHandler implements MetaObjectHandler {
         if (AppContextHolder.getUser() != null) {
             userId = AppContextHolder.getUser().getUserId();
         }
-        this.setFieldValByName("updater",userId.toString(),metaObject);
+        this.setFieldValByName("updater", userId,metaObject);
         this.setFieldValByName("updateTime",current,metaObject);
     }
 }

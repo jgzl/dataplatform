@@ -63,7 +63,7 @@ public class CustomRequestRateLimiterGatewayFilterFactory extends AbstractGatewa
                             return chain.filter(exchange);
                         }
 
-                        log.error("网关转发客户端ID:[{}],请求地址：[{}]，执行验证异常：访问已限流，请稍候再请求", new Object[]{route.getId(), route.getUri().toString()});
+                        log.error("网关转发客户端ID:[{}],请求地址：[{}]，执行验证异常：访问已限流，请稍候再请求", route.getId(), route.getUri().toString());
                         String jsonMsg = JSONObject.toJSONString(new ApiResult(Constants.FAILED, "网关转发客户端，执行验证异常：访问已限流，请稍候再请求", null));
                         return HttpResponseUtils.write(exchange.getResponse(), config.getStatusCode(), jsonMsg);
                         //return httpResponse.setComplete();

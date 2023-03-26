@@ -5,5 +5,4 @@ public enum RecordLogEnum {
     elasticsearch,
     mongodb,
     jdbc,
-    ;
 }

@@ -25,9 +25,7 @@ public abstract class AbstractDbDialect implements DbDialect {
     @Override
     public String buildPaginationSql(String originalSql, long offset, long count) {
         // 获取 分页实际条数
-        StringBuilder sqlBuilder = new StringBuilder(originalSql);
-        sqlBuilder.append(" LIMIT ").append(offset).append(" , ").append(count);
-        return sqlBuilder.toString();
+        return originalSql + " LIMIT " + offset + " , " + count;
     }
 
     @Override

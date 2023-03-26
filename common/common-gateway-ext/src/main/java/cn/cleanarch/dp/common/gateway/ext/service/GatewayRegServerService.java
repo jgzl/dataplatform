@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -97,7 +98,7 @@ public class GatewayRegServerService extends BaseService<GatewayRegServerDO,Long
     @Transactional(readOnly = true)
     public List<Map<String,Object>> regClientList(GatewayRegServerDO gatewayRegServerDO){
         String sql = "SELECT s.id AS regServerId,s.status AS regServerStatus,DATE_FORMAT(s.createTime,'%Y-%m-%d %H:%i:%s') as regServerTime,c.* FROM gateway_client c, gateway_regserver s WHERE c.id = s.clientId AND s.routeId=?";
-        return nativeQuery(sql, Arrays.asList(gatewayRegServerDO.getRouteId()));
+        return nativeQuery(sql, Collections.singletonList(gatewayRegServerDO.getRouteId()));
     }
 
     /**
@@ -111,14 +112,13 @@ public class GatewayRegServerService extends BaseService<GatewayRegServerDO,Long
     public PageResult clientPageList(GatewayRegServerDO gatewayRegServerDO, int currentPage, int pageSize){
         //DATE_FORMAT(s.tokenEffectiveTime,'%Y-%m-%d %H:%i:%s') as tokenEffectiveTime
         String sql = "SELECT s.id AS regServerId,s.status AS regServerStatus,DATE_FORMAT(s.createTime,'%Y-%m-%d %H:%i:%s') as regServerTime,s.token,s.secretKey,s.tokenEffectiveTime,c.* FROM gateway_client c, gateway_regserver s WHERE c.id = s.clientId AND s.routeId=?";
-        PageResult pageResult = pageNativeQuery(sql, Arrays.asList(gatewayRegServerDO.getRouteId()), currentPage, pageSize);
+        PageResult pageResult = pageNativeQuery(sql, Collections.singletonList(gatewayRegServerDO.getRouteId()), currentPage, pageSize);
         List<Map<String, Object>> list = pageResult.getLists();
         if (list != null){
             long nowTime = System.currentTimeMillis();
             for (Map<String, Object> map : list){
                 Object tokenEffectiveTime = map.get(TOKEN_EFFECTIVE_TIME);
-                if (tokenEffectiveTime instanceof Timestamp){
-                    Timestamp timestamp = (Timestamp) tokenEffectiveTime;
+                if (tokenEffectiveTime instanceof Timestamp timestamp){
                     map.put(TOKEN_EFFECTIVE_TIME, DateFormatUtils.format(new Date(timestamp.getTime()), Constants.YYYY_MM_DD_HH_MM_SS));
                     if (timestamp.getTime() < nowTime){
                         map.put(IS_TIMEOUT, Constants.NO);
@@ -141,7 +141,7 @@ public class GatewayRegServerService extends BaseService<GatewayRegServerDO,Long
     @Transactional(readOnly = true)
     public PageResult serverPageList(GatewayRegServerDO gatewayRegServerDO, int currentPage, int pageSize){
         String sql = "SELECT s.id AS regServerId,s.status as regServerStatus,DATE_FORMAT(s.createTime,'%Y-%m-%d %H:%i:%s') as regServerTime,r.* FROM gateway_route r, gateway_regserver s WHERE r.id = s.routeId and s.clientId=?";
-        return pageNativeQuery(sql, Arrays.asList(gatewayRegServerDO.getClientId()), currentPage, pageSize);
+        return pageNativeQuery(sql, Collections.singletonList(gatewayRegServerDO.getClientId()), currentPage, pageSize);
     }
 
     /**
@@ -154,7 +154,7 @@ public class GatewayRegServerService extends BaseService<GatewayRegServerDO,Long
     @Transactional(readOnly = true)
     public PageResult notRegClientPageList(GatewayRegServerDO gatewayRegServerDO, int currentPage, int pageSize){
         String sql = "SELECT c.id,c.name,c.groupCode,c.ip FROM gateway_client c WHERE c.status='0' AND id NOT IN (SELECT s.clientId FROM gateway_regserver s WHERE s.routeId=?)";
-        return pageNativeQuery(sql, Arrays.asList(gatewayRegServerDO.getRouteId()), currentPage, pageSize);
+        return pageNativeQuery(sql, Collections.singletonList(gatewayRegServerDO.getRouteId()), currentPage, pageSize);
     }
 
     /**
@@ -167,7 +167,7 @@ public class GatewayRegServerService extends BaseService<GatewayRegServerDO,Long
     @Transactional(readOnly = true)
     public PageResult notRegServerPageList(GatewayRegServerDO gatewayRegServerDO, int currentPage, int pageSize){
         String sql = "SELECT r.id,r.name,r.uri,r.path,r.status FROM gateway_route r WHERE r.status='0' AND r.id NOT IN (SELECT s.routeId FROM gateway_regserver s WHERE s.clientId=?)";
-        return pageNativeQuery(sql, Arrays.asList(gatewayRegServerDO.getClientId()), currentPage, pageSize);
+        return pageNativeQuery(sql, Collections.singletonList(gatewayRegServerDO.getClientId()), currentPage, pageSize);
     }
 
 

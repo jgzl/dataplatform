@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class RouteReqCache {
 
-    private static ConcurrentHashMap<String,Long> cacheMap = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String,Long> cacheMap = new ConcurrentHashMap<>();
 
     public static void put(final String key,final Long value){
         Assert.notNull(key, "hash map key cannot is null");
@@ -25,9 +25,7 @@ public class RouteReqCache {
     }
 
     public static synchronized void remove(final String key){
-        if (cacheMap.containsKey(key)){
-            cacheMap.remove(key);
-        }
+        cacheMap.remove(key);
     }
 
     public static synchronized void clear(){

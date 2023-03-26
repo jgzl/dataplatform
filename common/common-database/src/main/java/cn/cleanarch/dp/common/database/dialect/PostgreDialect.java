@@ -36,9 +36,7 @@ public class PostgreDialect extends AbstractDbDialect {
 
     @Override
     public String buildPaginationSql(String originalSql, long offset, long count) {
-        StringBuilder sqlBuilder = new StringBuilder(originalSql);
-        sqlBuilder.append(" LIMIT ").append(count).append(" offset ").append(offset);
-        return sqlBuilder.toString();
+        return originalSql + " LIMIT " + count + " offset " + offset;
     }
 
     @Override
@@ -50,8 +48,8 @@ public class PostgreDialect extends AbstractDbDialect {
             entity.setDataLength(rs.getString("DATALENGTH"));
             entity.setDataPrecision(rs.getString("DATAPRECISION"));
             entity.setDataScale(rs.getString("DATASCALE"));
-            entity.setColKey("1".equals(rs.getString("COLKEY")) ? true : false);
-            entity.setNullable("YES".equals(rs.getString("NULLABLE")) ? true : false);
+            entity.setColKey("1".equals(rs.getString("COLKEY")));
+            entity.setNullable("YES".equals(rs.getString("NULLABLE")));
             entity.setColPosition(rs.getInt("COLPOSITION"));
             entity.setDataDefault(rs.getString("DATADEFAULT"));
             entity.setColComment(rs.getString("COLCOMMENT"));

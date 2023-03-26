@@ -46,9 +46,8 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
         System.out.println("握手开始");
-        if (request instanceof ServletServerHttpRequest) {
+        if (request instanceof ServletServerHttpRequest serverHttpRequest) {
             boolean result = true;
-            ServletServerHttpRequest serverHttpRequest = (ServletServerHttpRequest) request;
             // 将所有路径参数添加到attributes
             for (Map.Entry<String, String[]> entry : serverHttpRequest.getServletRequest().getParameterMap().entrySet()) {
                 attributes.put(entry.getKey(), entry.getValue()[0]);
@@ -93,8 +92,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
     @Override
     public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception exception) {
         System.out.println("握手完成");
-        if (request instanceof ServletServerHttpRequest) {
-            ServletServerHttpRequest serverHttpRequest = (ServletServerHttpRequest) request;
+        if (request instanceof ServletServerHttpRequest serverHttpRequest) {
             // 获取所有拦截器
             Map<String, SocketInterceptor> interceptorMap = getInterceptors();
             String processor = serverHttpRequest.getServletRequest().getParameter(WebSocketConstant.Attributes.PROCESSOR);

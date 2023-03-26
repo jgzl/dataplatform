@@ -45,7 +45,7 @@ public class HttpAuthHandler extends TextWebSocketHandler {
         String payload = message.getPayload();
         Object token = session.getAttributes().get("token");
         System.out.println("server 接收到 " + token + " 发送的 " + payload);
-        session.sendMessage(new TextMessage("server 发送给 " + token + " 消息 " + payload + " " + LocalDateTime.now().toString()));
+        session.sendMessage(new TextMessage("server 发送给 " + token + " 消息 " + payload + " " + LocalDateTime.now()));
     }
 
     /**

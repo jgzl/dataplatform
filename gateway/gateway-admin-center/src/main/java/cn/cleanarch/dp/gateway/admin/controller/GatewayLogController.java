@@ -1,8 +1,8 @@
 package cn.cleanarch.dp.gateway.admin.controller;
 
+import cn.cleanarch.dp.gateway.admin.service.GatewayLogService;
 import cn.cleanarch.dp.common.core.model.R;
 import cn.cleanarch.dp.gateway.admin.dataobject.GatewayLogDO;
-import cn.cleanarch.dp.gateway.spi.log.service.GatewayLogService;
 import cn.cleanarch.dp.gateway.admin.vo.GatewayLogVO;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.ListUtil;

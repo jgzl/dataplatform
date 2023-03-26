@@ -15,8 +15,8 @@ public class CacheDbQueryFactoryBean extends AbstractDbQueryFactory {
     /**
      * 默认缓存5分钟
      */
-    private static long DEFAULT_EXPIRE = 5 * 60 * 1000;
-    private static DefaultSqlCache sqlCache = new DefaultSqlCache(100, DEFAULT_EXPIRE);
+    private static final long DEFAULT_EXPIRE = 5 * 60 * 1000;
+    private static final DefaultSqlCache sqlCache = new DefaultSqlCache(100, DEFAULT_EXPIRE);
 
     private <T> T putCacheValue(String key, T value, long ttl) {
         sqlCache.put(key, value, ttl);

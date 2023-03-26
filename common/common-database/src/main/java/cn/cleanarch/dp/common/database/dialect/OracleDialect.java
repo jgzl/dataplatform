@@ -35,11 +35,10 @@ public class OracleDialect extends AbstractDbDialect {
 
     @Override
     public String buildPaginationSql(String originalSql, long offset, long count) {
-        StringBuilder sqlBuilder = new StringBuilder();
-        sqlBuilder.append("SELECT * FROM ( SELECT TMP.*, ROWNUM ROW_ID FROM ( ");
-        sqlBuilder.append(originalSql).append(" ) TMP WHERE ROWNUM <=").append((offset >= 1) ? (offset + count) : count);
-        sqlBuilder.append(") WHERE ROW_ID > ").append(offset);
-        return sqlBuilder.toString();
+        String sqlBuilder = "SELECT * FROM ( SELECT TMP.*, ROWNUM ROW_ID FROM ( " +
+                originalSql + " ) TMP WHERE ROWNUM <=" + ((offset >= 1) ? (offset + count) : count) +
+                ") WHERE ROW_ID > " + offset;
+        return sqlBuilder;
     }
 
     @Override
@@ -51,8 +50,8 @@ public class OracleDialect extends AbstractDbDialect {
             entity.setDataLength(rs.getString("DATALENGTH"));
             entity.setDataPrecision(rs.getString("DATAPRECISION"));
             entity.setDataScale(rs.getString("DATASCALE"));
-            entity.setColKey("1".equals(rs.getString("COLKEY")) ? true : false);
-            entity.setNullable("Y".equals(rs.getString("NULLABLE")) ? true : false);
+            entity.setColKey("1".equals(rs.getString("COLKEY")));
+            entity.setNullable("Y".equals(rs.getString("NULLABLE")));
             entity.setColPosition(rs.getInt("COLPOSITION"));
             entity.setDataDefault(rs.getString("DATADEFAULT"));
             entity.setColComment(rs.getString("COLCOMMENT"));

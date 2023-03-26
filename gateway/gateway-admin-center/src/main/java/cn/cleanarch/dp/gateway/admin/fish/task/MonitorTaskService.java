@@ -42,7 +42,7 @@ public class MonitorTaskService {
     @Resource
     private RestTemplate restTemplate;
 
-    private static ExecutorService executorService;
+    private static final ExecutorService executorService;
     static Map<String, String> headers = new HashMap<>();
     private final static String DEFAULT_CONTENT = "keepalive";
     static {

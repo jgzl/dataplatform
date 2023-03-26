@@ -13,7 +13,7 @@ public class CacheDataSourceFactoryBean extends AbstractDataSourceFactory {
     /**
      * 数据源缓存
      */
-    private static Map<String, DataSource> dataSourceMap = new ConcurrentHashMap<>();
+    private static final Map<String, DataSource> dataSourceMap = new ConcurrentHashMap<>();
 
     @Override
     public DataSource createDataSource(DbQueryProperty property) {
@@ -43,7 +43,7 @@ public class CacheDataSourceFactoryBean extends AbstractDataSourceFactory {
             e.printStackTrace();
         }
         md.update(str.getBytes());
-        byte b[] = md.digest();
+        byte[] b = md.digest();
         int i;
         StringBuffer buf = new StringBuffer();
         for (int offset = 0; offset < b.length; offset++) {

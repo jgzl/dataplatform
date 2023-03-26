@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class CountCache {
 
-    private static ConcurrentHashMap<String,Integer> cacheMap = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String,Integer> cacheMap = new ConcurrentHashMap<>();
 
     public static void put(final String key,final Integer value){
         Assert.notNull(key, "hash map key cannot is null");
@@ -25,9 +25,7 @@ public class CountCache {
     }
 
     public static synchronized void remove(final String key){
-        if (cacheMap.containsKey(key)){
-            cacheMap.remove(key);
-        }
+        cacheMap.remove(key);
     }
 
     public static synchronized void clear(){

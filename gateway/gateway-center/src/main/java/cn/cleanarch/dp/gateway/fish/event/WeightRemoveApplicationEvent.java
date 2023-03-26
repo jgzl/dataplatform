@@ -13,7 +13,7 @@ public class  WeightRemoveApplicationEvent extends ApplicationEvent {
     /**
      * 权重分组名称
      */
-    private String group;
+    private final String group;
 
     public WeightRemoveApplicationEvent(Object source, String group) {
         super(source);

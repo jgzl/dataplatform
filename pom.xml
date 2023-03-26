@@ -19,7 +19,6 @@
         <module>gateway</module>
         <module>message-center</module>
         <module>monitor-center</module>
-        <module>spi</module>
         <module>system-center</module>
         <module>tool-center</module>
     </modules>

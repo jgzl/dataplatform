@@ -64,15 +64,14 @@ public class SQLServer2008Dialect extends AbstractDbDialect {
         if (StringUtils.isEmpty(orderby)) {
             orderby = "ORDER BY CURRENT_TIMESTAMP";
         }
-        StringBuilder sql = new StringBuilder();
-        sql.append("WITH selectTemp AS (SELECT ").append(distinctStr).append("TOP 100 PERCENT ")
-                .append(" ROW_NUMBER() OVER (").append(orderby).append(") as __row_number__, ").append(pagingBuilder)
-                .append(") SELECT * FROM selectTemp WHERE __row_number__ BETWEEN ")
+        String sql = "WITH selectTemp AS (SELECT " + distinctStr + "TOP 100 PERCENT " +
+                " ROW_NUMBER() OVER (" + orderby + ") as __row_number__, " + pagingBuilder +
+                ") SELECT * FROM selectTemp WHERE __row_number__ BETWEEN " +
                 //FIX#299：原因：mysql中limit 10(offset,size) 是从第10开始（不包含10）,；而这里用的BETWEEN是两边都包含，所以改为offset+1
-                .append(offset + 1)
-                .append(" AND ")
-                .append(offset + count).append(" ORDER BY __row_number__");
-        return sql.toString();
+                (offset + 1) +
+                " AND " +
+                (offset + count) + " ORDER BY __row_number__";
+        return sql;
     }
 
     @Override
@@ -84,8 +83,8 @@ public class SQLServer2008Dialect extends AbstractDbDialect {
             entity.setDataLength(rs.getString("DATALENGTH"));
             entity.setDataPrecision(rs.getString("DATAPRECISION"));
             entity.setDataScale(rs.getString("DATASCALE"));
-            entity.setColKey("1".equals(rs.getString("COLKEY")) ? true : false);
-            entity.setNullable("1".equals(rs.getString("NULLABLE")) ? true : false);
+            entity.setColKey("1".equals(rs.getString("COLKEY")));
+            entity.setNullable("1".equals(rs.getString("NULLABLE")));
             entity.setColPosition(rs.getInt("COLPOSITION"));
             entity.setDataDefault(rs.getString("DATADEFAULT"));
             entity.setColComment(rs.getString("COLCOMMENT"));

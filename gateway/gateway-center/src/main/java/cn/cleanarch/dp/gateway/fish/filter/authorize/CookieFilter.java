@@ -35,7 +35,7 @@ public class CookieFilter extends FilterHandler {
                 throw new IllegalStateException("执行cookie过滤,自定义cookie验证不通过! 请求源cookie为空");
             }
             String value = cookie.getValue();
-            if (value != null && datas[1] != null && datas[1].equals(value)){
+            if (datas[1] != null && datas[1].equals(value)){
             }else {
                 throw new IllegalStateException("执行cookie过滤,自定义cookie验证失败! 请求源"+datas[0]+"="+value+",自定义目标"+datas[0]+"=" + datas[1]);
             }

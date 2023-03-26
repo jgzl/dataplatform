@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 @Service
 public class InitGatewayRouteService {
 
-    private List<RouteDefinition> routeDefinitions = new ArrayList<>();
+    private final List<RouteDefinition> routeDefinitions = new ArrayList<>();
 
     @Resource
     private GatewayRouteDao gatewayRouteDao;

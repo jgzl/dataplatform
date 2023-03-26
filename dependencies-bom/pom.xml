@@ -36,7 +36,7 @@
         <dynamic-datasource.version>3.5.1</dynamic-datasource.version>
         <pagehelper.boot.version>1.4.1</pagehelper.boot.version>
         <commons.fileupload.version>1.4</commons.fileupload.version>
-        <easyexcel.verion>3.0.5</easyexcel.verion>
+        <easyexcel.verion>3.2.1</easyexcel.verion>
         <shardingsphere-jdbc.version>5.1.0</shardingsphere-jdbc.version>
         <ttl.version>2.12.1</ttl.version>
         <jasypt.version>3.0.4</jasypt.version>
@@ -180,27 +180,6 @@
                 <artifactId>common-websocket</artifactId>
                 <version>${revision}</version>
             </dependency>
-            <dependency>
-                <groupId>cn.cleanarch.dp</groupId>
-                <artifactId>spi-log-api</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.cleanarch.dp</groupId>
-                <artifactId>spi-log-elasticsearch</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.cleanarch.dp</groupId>
-                <artifactId>spi-log-jdbc</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.cleanarch.dp</groupId>
-                <artifactId>spi-log-localfile</artifactId>
-                <version>${revision}</version>
-            </dependency>
-
 
             <dependency>
                 <groupId>com.alibaba.nacos</groupId>

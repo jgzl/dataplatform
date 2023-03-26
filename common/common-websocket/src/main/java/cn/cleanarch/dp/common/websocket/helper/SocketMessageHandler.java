@@ -13,7 +13,7 @@ import java.util.Map;
 public abstract class SocketMessageHandler {
 
 
-    private ThreadLocal<UserVO> userCache = new ThreadLocal<>();
+    private final ThreadLocal<UserVO> userCache = new ThreadLocal<>();
 
     /**
      * 处理接收到的消息

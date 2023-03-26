@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class RotueGroovyCache {
 
-    private static ConcurrentHashMap<String, List<Long>> cacheMap = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, List<Long>> cacheMap = new ConcurrentHashMap<>();
 
     public static void put(final String key,final List<Long> ids){
         Assert.notNull(key, "hash map key cannot is null");
@@ -44,9 +44,7 @@ public class RotueGroovyCache {
     }
 
     public static synchronized void remove(final String key){
-        if (cacheMap.containsKey(key)){
-            cacheMap.remove(key);
-        }
+        cacheMap.remove(key);
     }
 
     public static boolean containsKey(final String key) {
@@ -57,9 +55,7 @@ public class RotueGroovyCache {
         if (cacheMap.containsKey(key)){
             List<Long> ids = cacheMap.get(key);
             if (!CollectionUtils.isEmpty(ids)){
-                if (ids.contains(id)){
-                    ids.remove(id);
-                }
+                ids.remove(id);
             }
         }
     }

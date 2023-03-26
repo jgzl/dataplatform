@@ -27,10 +27,6 @@
             <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-gateway-ext</artifactId>
         </dependency>
-        <dependency>
-            <groupId>cn.cleanarch.dp</groupId>
-            <artifactId>spi-log-jdbc</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>com.alibaba.nacos</groupId>
@@ -47,6 +43,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
         <!--redis分布式锁-->
 <!--        <dependency>-->

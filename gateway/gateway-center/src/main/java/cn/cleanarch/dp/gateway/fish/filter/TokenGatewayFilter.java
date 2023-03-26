@@ -31,7 +31,7 @@ import java.util.Optional;
 @Slf4j
 public class TokenGatewayFilter implements GatewayFilter, Ordered {
 
-    private String routeId;
+    private final String routeId;
 
     public TokenGatewayFilter(String routeId){
         this.routeId = routeId ;

@@ -32,7 +32,7 @@ public class HeaderFilter extends FilterHandler {
             Assert.isTrue(datas.length>1,"自定义 header 格式错误");
             HttpHeaders headers = request.getHeaders();
             String value = headers.getFirst(datas[0]);
-            if (value != null && datas[1] != null && datas[1].equals(value)){
+            if (datas[1] != null && datas[1].equals(value)){
             }else {
                 throw new IllegalStateException("执行header过滤,自定义 header 验证不通过! 请求源" +datas[0]+ "=" +value+ ",自定义目标" +datas[0]+ "=" + datas[1]);
             }

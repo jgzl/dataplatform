@@ -996,8 +996,8 @@ public class RedisHelper implements InitializingBean {
         try {
             return objectMapper.readValue(json, clazz);
         } catch (Exception e) {
-            if (this.logger.isErrorEnabled()) {
-                this.logger.error(e.getMessage(), e);
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
             }
             return null;
         }
@@ -1013,8 +1013,8 @@ public class RedisHelper implements InitializingBean {
         try {
             return objectMapper.readValue(json, valueTypeRef);
         } catch (Exception e) {
-            if (this.logger.isErrorEnabled()) {
-                this.logger.error(e.getMessage(), e);
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
             }
             return null;
         }
@@ -1028,7 +1028,7 @@ public class RedisHelper implements InitializingBean {
         try {
             return objectMapper.readValue(json, javaType);
         } catch (IOException e) {
-            this.logger.error(e.getMessage(), e);
+            logger.error(e.getMessage(), e);
         }
         return new ArrayList<>();
     }

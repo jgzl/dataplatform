@@ -27,7 +27,7 @@ import java.util.Optional;
 @Slf4j
 public class ClientIdGatewayFilter implements GatewayFilter, Ordered {
 
-    private String routeId;
+    private final String routeId;
 
     public ClientIdGatewayFilter(String routeId){
         this.routeId = routeId;

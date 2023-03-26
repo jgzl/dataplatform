@@ -141,6 +141,6 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         if (b == null) {
             return a;
         }
-        return a.compareTo(b) > 0 ? a : b;
+        return a.isAfter(b) ? a : b;
     }
 }

@@ -190,10 +190,7 @@ public class ClientInit implements CommandLineRunner {
         }
 
         private boolean checkAccessToken(String accessToken) {
-            boolean unable = true;
-            if (redisHelper.hshHasKey(WebSocketConstant.ACCESS_TOKEN,accessToken)) {
-                unable = false;
-            }
+            boolean unable = !redisHelper.hshHasKey(WebSocketConstant.ACCESS_TOKEN, accessToken);
             redisHelper.clearCurrentDatabase();
             return unable;
         }

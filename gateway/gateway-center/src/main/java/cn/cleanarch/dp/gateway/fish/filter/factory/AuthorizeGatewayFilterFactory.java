@@ -47,7 +47,7 @@ public class AuthorizeGatewayFilterFactory extends AbstractGatewayFilterFactory<
 
     @Override
     public List<String> shortcutFieldOrder() {
-        return Arrays.asList("enabled");
+        return List.of("enabled");
     }
 
     /**

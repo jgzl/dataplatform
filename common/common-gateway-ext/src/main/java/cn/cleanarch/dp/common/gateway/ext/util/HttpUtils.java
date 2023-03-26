@@ -11,6 +11,7 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +33,7 @@ public class HttpUtils {
     static final String [] METHODS;
 
     static {
-        ENCODING = Charset.forName("UTF-8");
+        ENCODING = StandardCharsets.UTF_8;
         METHODS = new String[]{HTTP_GET, HTTP_PUT, HTTP_POST, HTTP_DELETE};
     }
 
@@ -204,11 +205,7 @@ public class HttpUtils {
         StringBuilder sb = new StringBuilder(url);
         sb.append("?");
         params.forEach((k, v) -> {
-            try {
-                sb.append(k).append("=").append(URLEncoder.encode(v, HttpUtils.ENCODING.toString())).append("&");
-            }catch(UnsupportedEncodingException uee){
-                logger.error("set url param error", uee);
-            }
+            sb.append(k).append("=").append(URLEncoder.encode(v, HttpUtils.ENCODING)).append("&");
         });
         return sb.substring(0, sb.length() - 1);
     }

@@ -40,7 +40,7 @@ public class WebConfiguration implements WebFluxConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         Formatter<Date> dateFormatter = new Formatter<Date>() {
-            SimpleDateFormat sdf = new SimpleDateFormat(Constants.YYYY_MM_DD_HH_MM_SS);
+            final SimpleDateFormat sdf = new SimpleDateFormat(Constants.YYYY_MM_DD_HH_MM_SS);
             @Override
             public String print(Date object, Locale locale) {
                 return sdf.format(object);
@@ -51,7 +51,7 @@ public class WebConfiguration implements WebFluxConfigurer {
             }
         };
         Formatter<Timestamp> timestampFormatter = new Formatter<Timestamp>() {
-            SimpleDateFormat sdf = new SimpleDateFormat(Constants.YYYY_MM_DD_HH_MM_SS);
+            final SimpleDateFormat sdf = new SimpleDateFormat(Constants.YYYY_MM_DD_HH_MM_SS);
             @Override
             public String print(Timestamp object, Locale locale) {
                 return sdf.format(new Date(object.getTime()));

@@ -40,7 +40,7 @@ public class ParameterFilter extends FilterHandler {
             }
             for (String [] datas : dataList){
                 String value = request.getQueryParams().getFirst(datas[0]);
-                if (datas[1] != null && value != null && datas[1].equals(value)){
+                if (datas[1] != null && datas[1].equals(value)){
                 }else {
                     throw new IllegalStateException("执行parameter过滤,自定义 parameter 验证不通过! 请求源"+datas[0]+"="+value+",自定义目标"+datas[0]+"=" + datas[1]);
                 }

@@ -38,7 +38,7 @@ public class SecureTokenGatewayFilterFactory extends AbstractGatewayFilterFactor
 
     @Override
     public List<String> shortcutFieldOrder() {
-        return Arrays.asList("enabled");
+        return List.of("enabled");
     }
 
     /**

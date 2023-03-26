@@ -10,8 +10,6 @@ public class Oracle12cDialect extends OracleDialect {
 
     @Override
     public String buildPaginationSql(String originalSql, long offset, long count) {
-        StringBuilder sqlBuilder = new StringBuilder(originalSql);
-        sqlBuilder.append(" OFFSET ").append(offset).append(" ROWS FETCH NEXT ").append(count).append(" ROWS ONLY ");
-        return sqlBuilder.toString();
+        return originalSql + " OFFSET " + offset + " ROWS FETCH NEXT " + count + " ROWS ONLY ";
     }
 }

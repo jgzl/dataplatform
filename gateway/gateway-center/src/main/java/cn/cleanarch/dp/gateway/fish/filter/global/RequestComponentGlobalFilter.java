@@ -143,7 +143,7 @@ public class RequestComponentGlobalFilter implements GlobalFilter, Ordered {
             URI newUri = UriComponentsBuilder.fromUri(uri).replaceQuery(query.substring(1)).build(true).toUri();
             return request.mutate().uri(newUri).build();
         } catch (RuntimeException ex) {
-            throw new IllegalStateException("Invalid URI query: \"" + query.toString() + "\"");
+            throw new IllegalStateException("Invalid URI query: \"" + query + "\"");
         }
     }
 
@@ -183,11 +183,7 @@ public class RequestComponentGlobalFilter implements GlobalFilter, Ordered {
             return true;
         } else if (mediaType == MediaType.MULTIPART_MIXED){
             return true;
-        } else if (mediaType == MediaType.MULTIPART_RELATED){
-            return true;
-        } else {
-            return false;
-        }
+        } else return mediaType == MediaType.MULTIPART_RELATED;
     }
 
     @Override

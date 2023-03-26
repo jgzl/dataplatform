@@ -13,7 +13,7 @@ import java.util.List;
 @FeignClient(value = ServiceNameConstants.GATEWAY_ADMIN_SERVICE)
 public interface GatewayAdminFeign {
     @GetMapping("/heartbeat")
-    public R<String> heartbeat();
+    R<String> heartbeat();
     @PostMapping(value = "/gateway/log")
-    public R<List<GatewayLogDO>> saveAll(@RequestBody List<GatewayLogDO> list);
+    R<List<GatewayLogDO>> saveAll(@RequestBody List<GatewayLogDO> list);
 }

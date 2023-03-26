@@ -270,9 +270,9 @@ public class ConfigRefreshService implements InitializingBean {
         // 状态，0是启用，1是禁用
         boolean clientClose = Constants.NO.equals(gatewayClientDO.getStatus());
         if (setRegRouteClient(regClientList, clientClose)){
-            log.info("成功移除注册到网关路由的客户端服务ID缓存配置！regServerId={}", String.valueOf(regServerId));
+            log.info("成功移除注册到网关路由的客户端服务ID缓存配置！regServerId={}", regServerId);
         }else {
-            log.info("成功加载注册到网关路由客户端服务ID缓存配置！regServerId={}", String.valueOf(regServerId));
+            log.info("成功加载注册到网关路由客户端服务ID缓存配置！regServerId={}", regServerId);
         }
     }
 

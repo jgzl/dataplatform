@@ -71,7 +71,7 @@ public class CustomWeightCalculatorWebFilter
 
     private int order = WEIGHT_CALC_FILTER_ORDER;
 
-    private Map<String, GroupWeightConfig> groupWeights = new ConcurrentHashMap<>();
+    private final Map<String, GroupWeightConfig> groupWeights = new ConcurrentHashMap<>();
 
     public CustomWeightCalculatorWebFilter(ObjectProvider<RouteLocator> routeLocator,
                                            ConfigurationService configurationService) {
@@ -134,9 +134,7 @@ public class CustomWeightCalculatorWebFilter
         }else if (event instanceof WeightRemoveApplicationEvent) {
             // remove group
             String group = ((WeightRemoveApplicationEvent) event).getGroup();
-            if (groupWeights.containsKey(group)) {
-                groupWeights.remove(group);
-            }
+            groupWeights.remove(group);
         }
     }
 

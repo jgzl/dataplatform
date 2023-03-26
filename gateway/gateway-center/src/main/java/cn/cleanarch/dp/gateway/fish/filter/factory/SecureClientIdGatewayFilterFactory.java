@@ -39,7 +39,7 @@ public class SecureClientIdGatewayFilterFactory extends AbstractGatewayFilterFac
 
     @Override
     public List<String> shortcutFieldOrder() {
-        return Arrays.asList("enabled");
+        return List.of("enabled");
     }
 
     /**

@@ -34,9 +34,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Component
 public class NacosConfigRefreshEventListener implements SmartApplicationListener {
 
-    private static Logger log = LoggerFactory.getLogger(NacosConfigRefreshEventListener.class);
+    private static final Logger log = LoggerFactory.getLogger(NacosConfigRefreshEventListener.class);
 
-    private ContextRefresher refresh;
+    private final ContextRefresher refresh;
 
     @Autowired(required = false)
     private List<PropertySourceLocator> propertySourceLocators = new ArrayList<>();
@@ -47,7 +47,7 @@ public class NacosConfigRefreshEventListener implements SmartApplicationListener
     @Resource
     private ConfigRefreshService configRefreshService;
 
-    private AtomicBoolean ready = new AtomicBoolean(false);
+    private final AtomicBoolean ready = new AtomicBoolean(false);
 
     public NacosConfigRefreshEventListener(ContextRefresher refresh) {
         this.refresh = refresh;
@@ -101,8 +101,7 @@ public class NacosConfigRefreshEventListener implements SmartApplicationListener
                 if (locator instanceof NacosPropertySourceLocator){
                     for (PropertySource<?> p : source) {
                         //只取nacos中的变更配置
-                        if (p instanceof NacosPropertySource) {
-                            NacosPropertySource enumerable = (NacosPropertySource) p;
+                        if (p instanceof NacosPropertySource enumerable) {
                             if (enumerable.getPropertyNames().length > 0){
                                 gatewayConfig = (String) enumerable.getProperty("gateway");
                                 break;

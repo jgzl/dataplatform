@@ -10,6 +10,7 @@ import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.commons.lang3.time.DateUtils;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -97,7 +98,7 @@ public class JwtTokenUtils {
     }
 
     private static String getMd5Crypt(String secretKey){
-        return Md5Crypt.md5Crypt(secretKey.getBytes(Charset.forName("utf8")), SECRET);
+        return Md5Crypt.md5Crypt(secretKey.getBytes(StandardCharsets.UTF_8), SECRET);
     }
 
     /**

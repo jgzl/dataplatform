@@ -34,10 +34,6 @@
             <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-security</artifactId>
         </dependency>
-        <dependency>
-            <groupId>cn.cleanarch.dp</groupId>
-            <artifactId>spi-log-jdbc</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>com.baomidou</groupId>

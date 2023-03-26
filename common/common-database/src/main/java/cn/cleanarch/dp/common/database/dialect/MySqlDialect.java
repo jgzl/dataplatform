@@ -23,8 +23,8 @@ public class MySqlDialect extends AbstractDbDialect {
             entity.setDataLength(rs.getString("DATALENGTH"));
             entity.setDataPrecision(rs.getString("DATAPRECISION"));
             entity.setDataScale(rs.getString("DATASCALE"));
-            entity.setColKey("PRI".equals(rs.getString("COLKEY")) ? true : false);
-            entity.setNullable("YES".equals(rs.getString("NULLABLE")) ? true : false);
+            entity.setColKey("PRI".equals(rs.getString("COLKEY")));
+            entity.setNullable("YES".equals(rs.getString("NULLABLE")));
             entity.setColPosition(rs.getInt("COLPOSITION"));
             entity.setDataDefault(rs.getString("DATADEFAULT"));
             entity.setColComment(rs.getString("COLCOMMENT"));

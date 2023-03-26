@@ -23,11 +23,11 @@ public class DpBearerTokenExtractor implements BearerTokenResolver {
 	private static final Pattern authorizationPattern = Pattern.compile("^Bearer (?<token>[a-zA-Z0-9-:._~+/]+=*)$",
 			Pattern.CASE_INSENSITIVE);
 
-	private boolean allowFormEncodedBodyParameter = false;
+	private final boolean allowFormEncodedBodyParameter = false;
 
-	private boolean allowUriQueryParameter = false;
+	private final boolean allowUriQueryParameter = false;
 
-	private String bearerTokenHeaderName = HttpHeaders.AUTHORIZATION;
+	private final String bearerTokenHeaderName = HttpHeaders.AUTHORIZATION;
 
 	private final PathMatcher pathMatcher = new AntPathMatcher();
 

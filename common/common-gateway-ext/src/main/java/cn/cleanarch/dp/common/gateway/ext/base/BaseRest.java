@@ -25,7 +25,7 @@ public class BaseRest {
      * @param t
      */
     public <T> void validate(T t) {
-        validate(t, false, new Class[0]);
+        validate(t, false);
     }
 
     /**
@@ -42,7 +42,7 @@ public class BaseRest {
             Iterator<ConstraintViolation<T>> iterator = constraintViolationSet.iterator();
             //true表示多个验证一起组合后抛出
             if (isMulti){
-                for (;iterator.hasNext();){
+                while (iterator.hasNext()) {
                     ConstraintViolation<T> violation =iterator.next();
                     sb.append(",").append(violation.getMessage());
                 }
