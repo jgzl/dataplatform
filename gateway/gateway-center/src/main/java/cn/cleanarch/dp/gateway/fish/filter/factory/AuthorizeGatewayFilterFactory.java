@@ -3,7 +3,7 @@ package cn.cleanarch.dp.gateway.fish.filter.factory;
 import cn.cleanarch.dp.common.gateway.ext.dataobject.GatewayRouteDO;
 import cn.cleanarch.dp.common.gateway.ext.util.HttpResponseUtils;
 import cn.cleanarch.dp.common.gateway.ext.util.NetworkIpUtils;
-import cn.cleanarch.dp.gateway.fish.cache.RouteCache;
+import cn.cleanarch.dp.gateway.fish.cache.GatewayRouteCache;
 import cn.cleanarch.dp.gateway.fish.filter.authorize.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -14,7 +14,6 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR;
@@ -65,7 +64,7 @@ public class AuthorizeGatewayFilterFactory extends AbstractGatewayFilterFactory<
                 Route route = exchange.getRequiredAttribute(GATEWAY_ROUTE_ATTR);
                 FilterHandler headerFilter = this.createHandler();
                 //获取缓存中的指定key路由对象
-                Object obj = RouteCache.get(route.getId());
+                Object obj = GatewayRouteCache.get(route.getId());
                 if (obj == null){
                     return HttpResponseUtils.writeUnauth(exchange.getResponse(), "未获取到指定网关注册服务路由信息或路由请求无效！");
                 }

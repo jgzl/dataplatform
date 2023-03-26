@@ -3,7 +3,7 @@ package cn.cleanarch.dp.gateway.fish.rest;
 import cn.cleanarch.dp.common.gateway.ext.dataobject.GatewayRouteDO;
 import cn.cleanarch.dp.common.gateway.ext.util.ApiResult;
 import cn.cleanarch.dp.common.gateway.ext.util.Constants;
-import cn.cleanarch.dp.gateway.fish.cache.RouteCache;
+import cn.cleanarch.dp.gateway.fish.cache.GatewayRouteCache;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +36,7 @@ public class FallbackController {
     @RequestMapping(value = "/fallback/custom", method = {RequestMethod.GET,RequestMethod.POST})
     public ApiResult fallbackCustom(@RequestParam String routeId) {
         log.error("触发自定义熔断机制的回调方法:fallback,routeId={}", routeId);
-        GatewayRouteDO gatewayRouteDO = (GatewayRouteDO) RouteCache.get(routeId);
+        GatewayRouteDO gatewayRouteDO = (GatewayRouteDO) GatewayRouteCache.get(routeId);
         if (gatewayRouteDO != null){
             return new ApiResult(Constants.FAILED,"提示：" + gatewayRouteDO.getFallbackMsg(),null);
         }

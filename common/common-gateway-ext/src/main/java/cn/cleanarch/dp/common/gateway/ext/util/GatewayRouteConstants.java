@@ -37,9 +37,9 @@ public class GatewayRouteConstants {
     /**
      * redis统计缓存key前缀
      */
-    public final static String COUNT_DAY_KEY = "FISH_GATEWAY_COUNT:DAY:";
-    public final static String COUNT_HOUR_KEY = "FISH_GATEWAY_COUNT:HOUR:";
-    public final static String COUNT_MIN_KEY = "FISH_GATEWAY_COUNT:MIN:";
+    public final static String GATEWAY_ROUTE_COUNT_DAY_KEY = "gateway-route-count:day";
+    public final static String GATEWAY_ROUTE_COUNT_HOUR_KEY = "gateway-route-count:hour";
+    public final static String GATEWAY_ROUTE_COUNT_MIN_KEY = "gateway-route-count:minute";
     /**
      * redis同步版本缓存key
      */

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import cn.cleanarch.dp.common.gateway.ext.util.ApiResult;
 import cn.cleanarch.dp.common.gateway.ext.util.Constants;
 import cn.cleanarch.dp.common.gateway.ext.util.NetworkIpUtils;
-import cn.cleanarch.dp.gateway.fish.cache.RotueGroovyCache;
+import cn.cleanarch.dp.gateway.fish.cache.GatewayRouteGroovyCache;
 import cn.cleanarch.dp.gateway.fish.service.DynamicGatewayGroovyService;
 import cn.cleanarch.dp.gateway.fish.vo.GroovyHandleData;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +50,7 @@ public class ResponseComponentGlobalFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         Route route = exchange.getRequiredAttribute(GATEWAY_ROUTE_ATTR);
         //判断Groovy缓存中的指定路由ID是否存在
-        if (!RotueGroovyCache.containsKey(route.getId())){
+        if (!GatewayRouteGroovyCache.containsKey(route.getId())){
             return chain.filter(exchange);
         }
         return chain.filter(exchange.mutate()

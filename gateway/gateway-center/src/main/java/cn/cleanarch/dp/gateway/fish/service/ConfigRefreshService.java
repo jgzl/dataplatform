@@ -7,16 +7,14 @@ import cn.cleanarch.dp.common.gateway.ext.util.GatewayRouteConstants;
 import cn.cleanarch.dp.common.gateway.ext.vo.GatewayNacosConfigBean;
 import cn.cleanarch.dp.gateway.fish.cache.IpListCache;
 import cn.cleanarch.dp.gateway.fish.cache.RegServerCache;
-import cn.cleanarch.dp.gateway.fish.cache.RouteCache;
+import cn.cleanarch.dp.gateway.fish.cache.GatewayRouteCache;
 import cn.cleanarch.dp.gateway.fish.event.ApplicationEventPublisherFactory;
 import cn.cleanarch.dp.gateway.fish.vo.GatewayRegServer;
 import com.alibaba.cloud.nacos.NacosConfigManager;
 import com.alibaba.cloud.nacos.NacosConfigProperties;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.config.listener.Listener;
-import com.alibaba.nacos.client.config.NacosConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -177,13 +175,13 @@ public class ConfigRefreshService implements InitializingBean {
         if (isClose) {
             dynamicGatewayRouteService.delete(routeId);
             //从本地缓存中移除
-            RouteCache.remove(routeId);
+            GatewayRouteCache.remove(routeId);
             RegServerCache.remove(routeId);
             log.info("成功移除网关路由缓存配置！routeId={}", routeId);
         }else {
             dynamicGatewayRouteService.update(loadGatewayRouteService.loadRouteDefinition(gatewayRouteDO));
             //记录到本地缓存中
-            RouteCache.put(routeId, gatewayRouteDO);
+            GatewayRouteCache.put(routeId, gatewayRouteDO);
             List<Map<String, Object>> regClientList = gatewayRegServerService.getByRouteRegClientList(routeId);
             if (CollectionUtils.isEmpty(regClientList)){
                 log.error("未获取注册到网关路由客户端数据库配置！routeId={}", routeId);

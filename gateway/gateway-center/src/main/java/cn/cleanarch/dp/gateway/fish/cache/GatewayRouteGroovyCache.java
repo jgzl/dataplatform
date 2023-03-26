@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Date 2022/2/22
  * @Version V1.0
  */
-public class RotueGroovyCache {
+public class GatewayRouteGroovyCache {
 
     private static final ConcurrentHashMap<String, List<Long>> cacheMap = new ConcurrentHashMap<>();
 

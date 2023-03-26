@@ -2,7 +2,7 @@ package cn.cleanarch.dp.gateway.fish.timer;
 
 import cn.cleanarch.dp.common.gateway.ext.util.Constants;
 import cn.cleanarch.dp.common.gateway.ext.util.GatewayRouteConstants;
-import cn.cleanarch.dp.gateway.fish.cache.CountCache;
+import cn.cleanarch.dp.gateway.fish.cache.GatewayRouteCountCache;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -25,12 +25,12 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Service
-public class TimerCountService {
+public class GatewayRouteCountService {
 
     @Resource
     private RedisTemplate redisTemplate;
 
-    private static final String FRESH = ":FRESH";
+    private static final String REFRESH = ":refresh";
 
     /**
      * 每1分钟执行一次缓存同步
@@ -39,16 +39,16 @@ public class TimerCountService {
     public void writerCache(){
         log.info("执行定时任务：统计数据同步到redis缓存...");
         //保存按分钟统计的数据
-        ConcurrentHashMap<String,Integer> cacheMap = CountCache.getCacheMap();
+        ConcurrentHashMap<String,Integer> cacheMap = GatewayRouteCountCache.getCacheMap();
         //深克隆map
         ConcurrentHashMap<String,Integer> minMap = new ConcurrentHashMap<>(cacheMap.size());
         minMap.putAll(cacheMap);
         //每次统计完清除缓存统计数据，重新记录下一分钟请求量
-        CountCache.clear();
+        GatewayRouteCountCache.clear();
 
         //保存按分钟统计的数据,数据缓存1小时
-        String freshKey = GatewayRouteConstants.COUNT_MIN_KEY + FRESH;
-        String minKey = GatewayRouteConstants.COUNT_MIN_KEY + DateFormatUtils.format(new Date(), Constants.YYYYMMDDHHMM);
+        String freshKey = GatewayRouteConstants.GATEWAY_ROUTE_COUNT_MIN_KEY + REFRESH;
+        String minKey = GatewayRouteConstants.GATEWAY_ROUTE_COUNT_MIN_KEY + ":" + DateFormatUtils.format(new Date(), Constants.YYYYMMDDHHMM);
         String min =  DateFormatUtils.format(new Date(), Constants.YYYYMMDDHHMM);
         String minFresh = (String) redisTemplate.opsForValue().get(freshKey);
         if (minFresh == null || Long.parseLong(min) > Long.parseLong(minFresh)){
@@ -58,8 +58,8 @@ public class TimerCountService {
         }
 
         //保存按小时统计的数据,数据缓存24小时
-        freshKey = GatewayRouteConstants.COUNT_HOUR_KEY + FRESH;
-        String hourKey = GatewayRouteConstants.COUNT_HOUR_KEY + DateFormatUtils.format(new Date(), Constants.YYYYMMDDHH);
+        freshKey = GatewayRouteConstants.GATEWAY_ROUTE_COUNT_HOUR_KEY + REFRESH;
+        String hourKey = GatewayRouteConstants.GATEWAY_ROUTE_COUNT_HOUR_KEY + ":" + DateFormatUtils.format(new Date(), Constants.YYYYMMDDHH);
         String hour =  DateFormatUtils.format(new Date(), Constants.YYYYMMDDHH);
         String hourFresh = (String) redisTemplate.opsForValue().get(freshKey);
         if (hourFresh == null || Long.parseLong(hour) > Long.parseLong(hourFresh)){
@@ -69,8 +69,8 @@ public class TimerCountService {
         }
 
         //保存按天统计的数据,数据缓存7天
-        freshKey = GatewayRouteConstants.COUNT_DAY_KEY + FRESH;
-        String dayKey = GatewayRouteConstants.COUNT_DAY_KEY + DateFormatUtils.format(new Date(), Constants.YYYYMMDD);
+        freshKey = GatewayRouteConstants.GATEWAY_ROUTE_COUNT_DAY_KEY + REFRESH;
+        String dayKey = GatewayRouteConstants.GATEWAY_ROUTE_COUNT_DAY_KEY + ":" + DateFormatUtils.format(new Date(), Constants.YYYYMMDD);
         String day =  DateFormatUtils.format(new Date(), Constants.YYYYMMDD);
         String dayFresh = (String) redisTemplate.opsForValue().get(freshKey);
         if (dayFresh == null || Long.parseLong(day) > Long.parseLong(dayFresh)){

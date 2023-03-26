@@ -49,7 +49,7 @@ public class GatewayCountService {
         PageResult<GatewayRouteDO> pageResult = gatewayRouteService.pageList(gatewayRouteDO,currentPage, pageSize);
         if (pageResult.getPageSize() > 0){
             //只取当天的
-            String key = GatewayRouteConstants.COUNT_DAY_KEY + DateFormatUtils.format(new Date(), Constants.DATE_FORMAT_DAY);
+            String key = GatewayRouteConstants.GATEWAY_ROUTE_COUNT_DAY_KEY + DateFormatUtils.format(new Date(), Constants.DATE_FORMAT_DAY);
             Map<String,String> countMap = redisTemplate.opsForHash().entries(key);
             List<GatewayRouteDO> gatewayRouteDOList = pageResult.getLists();
             List<GatewayRouteDOCountRsp> routeCountRspList = gatewayRouteDOList.stream().map(r -> {
@@ -249,13 +249,13 @@ public class GatewayCountService {
         String countTag ;
         if (Constants.MIN.equals(dateType)){
             dates = this.getCountMins();
-            countTag =  GatewayRouteConstants.COUNT_MIN_KEY;
+            countTag =  GatewayRouteConstants.GATEWAY_ROUTE_COUNT_MIN_KEY;
         }else if (Constants.HOUR.equals(dateType)){
             dates = this.getCountHours();
-            countTag =  GatewayRouteConstants.COUNT_HOUR_KEY;
+            countTag =  GatewayRouteConstants.GATEWAY_ROUTE_COUNT_HOUR_KEY;
         }else if (Constants.DAY.equals(dateType)){
             dates = this.getCountDays();
-            countTag =  GatewayRouteConstants.COUNT_DAY_KEY;
+            countTag =  GatewayRouteConstants.GATEWAY_ROUTE_COUNT_DAY_KEY;
         }else {
             throw new IllegalArgumentException("统计时间类型错误");
         }

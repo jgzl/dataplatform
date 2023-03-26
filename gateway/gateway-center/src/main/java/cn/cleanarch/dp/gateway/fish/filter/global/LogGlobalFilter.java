@@ -1,8 +1,8 @@
 package cn.cleanarch.dp.gateway.fish.filter.global;
 
 import cn.cleanarch.dp.common.gateway.ext.util.NetworkIpUtils;
-import cn.cleanarch.dp.gateway.fish.cache.CountCache;
-import cn.cleanarch.dp.gateway.fish.cache.RouteReqCache;
+import cn.cleanarch.dp.gateway.fish.cache.GatewayRouteCountCache;
+import cn.cleanarch.dp.gateway.fish.cache.GatewayRouteReqCache;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -85,8 +85,8 @@ public class LogGlobalFilter implements GlobalFilter, Ordered {
      * @param routeId
      */
     public void count(String routeId){
-        Integer count = CountCache.get(routeId);
-        CountCache.put(routeId, count == null ? 1 : count.intValue() + 1);
+        Integer count = GatewayRouteCountCache.get(routeId);
+        GatewayRouteCountCache.put(routeId, count == null ? 1 : count.intValue() + 1);
     }
 
     /**
@@ -94,6 +94,6 @@ public class LogGlobalFilter implements GlobalFilter, Ordered {
      * @param routeId
      */
     public void timeLog(String routeId){
-        RouteReqCache.put(routeId, System.currentTimeMillis());
+        GatewayRouteReqCache.put(routeId, System.currentTimeMillis());
     }
 }

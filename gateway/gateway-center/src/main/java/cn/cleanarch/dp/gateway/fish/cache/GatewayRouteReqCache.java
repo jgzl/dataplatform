@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Date 2021/04/15
  * @Version V1.0
  */
-public class RouteReqCache {
+public class GatewayRouteReqCache {
 
     private static final ConcurrentHashMap<String,Long> cacheMap = new ConcurrentHashMap<>();
 

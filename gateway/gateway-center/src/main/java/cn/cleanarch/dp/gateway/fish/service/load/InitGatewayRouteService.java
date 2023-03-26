@@ -7,7 +7,7 @@ import cn.cleanarch.dp.common.gateway.ext.dataobject.GatewayLoadServerDO;
 import cn.cleanarch.dp.common.gateway.ext.service.GatewayBalancedService;
 import cn.cleanarch.dp.common.gateway.ext.service.GatewayLoadServerService;
 import cn.cleanarch.dp.common.gateway.ext.util.Constants;
-import cn.cleanarch.dp.gateway.fish.cache.RouteCache;
+import cn.cleanarch.dp.gateway.fish.cache.GatewayRouteCache;
 import cn.cleanarch.dp.gateway.fish.service.DynamicGatewayRouteService;
 import cn.cleanarch.dp.gateway.fish.service.LoadGatewayRouteService;
 import lombok.extern.slf4j.Slf4j;
@@ -72,7 +72,7 @@ public class InitGatewayRouteService {
                 return ;
             }
             gatewayRouteDOList.forEach(r -> {
-                RouteCache.put(r.getId(), r);
+                GatewayRouteCache.put(r.getId(), r);
                 routeDefinitions.add(loadGatewayRouteService.loadRouteDefinition(r));
             });
             log.info("初始化加载网关路由配置共{}条", gatewayRouteDOList.size());
@@ -141,7 +141,7 @@ public class InitGatewayRouteService {
             //将新的路由加载网关路由集合中
             balancedGatewayRouteDOList.forEach(r->{
                 //记录到本地缓存中
-                RouteCache.put(r.getId(), r);
+                GatewayRouteCache.put(r.getId(), r);
                 //添加新的负载均衡路由对象
                 routeDefinitions.add(loadGatewayRouteService.loadRouteDefinition(r));
             });

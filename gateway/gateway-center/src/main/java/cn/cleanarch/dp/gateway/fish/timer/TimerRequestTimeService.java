@@ -1,7 +1,7 @@
 package cn.cleanarch.dp.gateway.fish.timer;
 
 import cn.cleanarch.dp.common.gateway.ext.util.GatewayRouteConstants;
-import cn.cleanarch.dp.gateway.fish.cache.RouteReqCache;
+import cn.cleanarch.dp.gateway.fish.cache.GatewayRouteReqCache;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -31,7 +31,7 @@ public class TimerRequestTimeService {
     @Scheduled(cron = "0/30 * * * * ?")
     public void syncRequestTimeCache(){
         log.info("执行定时任务：网关路由请求记录同步到redis缓存...");
-        ConcurrentHashMap<String,Long> cacheMap = RouteReqCache.getCacheMap();
+        ConcurrentHashMap<String,Long> cacheMap = GatewayRouteReqCache.getCacheMap();
         if (cacheMap.size() <= 0){
             return ;
         }
