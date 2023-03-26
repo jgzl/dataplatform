@@ -132,11 +132,6 @@
             </dependency>
             <dependency>
                 <groupId>cn.cleanarch.dp</groupId>
-                <artifactId>common-excel</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>common-gateway</artifactId>
                 <version>${revision}</version>
             </dependency>
