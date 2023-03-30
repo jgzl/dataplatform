@@ -32,10 +32,6 @@
         </dependency>
         <dependency>
             <groupId>cn.cleanarch.dp</groupId>
-            <artifactId>common-excel</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-gateway</artifactId>
         </dependency>
         <dependency>

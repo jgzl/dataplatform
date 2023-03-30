@@ -22,10 +22,6 @@
             <artifactId>common-feign</artifactId>
         </dependency>
         <dependency>
-            <groupId>cn.cleanarch.dp</groupId>
-            <artifactId>common-excel</artifactId>
-        </dependency>
-        <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
         </dependency>
