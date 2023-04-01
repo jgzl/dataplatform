@@ -21,6 +21,12 @@ public interface GatewayMonitorDao extends JpaRepository<GatewayMonitorDO, Strin
     List<GatewayMonitorDO> validMonitorList();
 
     /**
+     * 获取监控配置，告警状态：0启用，1禁用，2告警
+     * @return
+     */
+    List<GatewayMonitorDO> findByStatusIsIn(List<String> status);
+
+    /**
      * 获取0正常状态的网关路由服务监控配置，告警状态：0启用，1禁用，2告警
      * @return
      */

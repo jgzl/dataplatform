@@ -8,6 +8,7 @@ import cn.cleanarch.dp.common.gateway.ext.vo.GatewayRouteDORsp;
 import cn.cleanarch.dp.common.gateway.ext.vo.GatewayMonitorReq;
 import cn.cleanarch.dp.common.gateway.ext.dao.GatewayMonitorDao;
 import cn.cleanarch.dp.common.gateway.ext.util.Constants;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
@@ -88,7 +89,8 @@ public class GatewayMonitorService extends BaseService<GatewayMonitorDO, String,
      * @return
      */
     public List<GatewayMonitorDO> validMonitorList(){
-        return gatewayMonitorDao.validMonitorList();
+//        return gatewayMonitorDao.validMonitorList();
+        return gatewayMonitorDao.findByStatusIsIn(Lists.newArrayList("0", "2"));
     }
 
     /**
