@@ -6,8 +6,6 @@ import cn.cleanarch.dp.common.core.utils.DateUtils;
 import cn.cleanarch.dp.common.core.utils.collection.CollectionUtils;
 import cn.cleanarch.dp.common.data.mapper.ExtendBaseMapper;
 import cn.cleanarch.dp.common.data.query.LambdaQueryWrapperX;
-import cn.cleanarch.dp.common.excel.annotations.DictFormat;
-import cn.cleanarch.dp.common.excel.convert.DictConvert;
 import cn.cleanarch.dp.common.model.BaseDO;
 import cn.cleanarch.dp.common.model.PageParam;
 import cn.cleanarch.dp.system.infra.configuration.CodegenProperties;
@@ -124,7 +122,7 @@ public class CodegenEngine {
         globalBindingMap.put("PageResultClassName", IPage.class.getName());
         // VO 类，独有字段
         globalBindingMap.put("PageParamClassName", PageParam.class.getName());
-        globalBindingMap.put("DictFormatClassName", DictFormat.class.getName());
+//        globalBindingMap.put("DictFormatClassName", DictFormat.class.getName());
         // DO 类，独有字段
         globalBindingMap.put("BaseDOClassName", BaseDO.class.getName());
         globalBindingMap.put("baseDOFields", CodegenBuilder.BASE_DO_FIELDS);
@@ -135,7 +133,7 @@ public class CodegenEngine {
         globalBindingMap.put("DateUtilsClassName", DateUtils.class.getName());
 //        globalBindingMap.put("ExcelUtilsClassName", ExcelUtils.class.getName());
 //        globalBindingMap.put("ObjectUtilsClassName", ObjectUtils.class.getName());
-        globalBindingMap.put("DictConvertClassName", DictConvert.class.getName());
+//        globalBindingMap.put("DictConvertClassName", DictConvert.class.getName());
 //        globalBindingMap.put("OperateLogClassName", OperateLog.class.getName());
 //        globalBindingMap.put("OperateTypeEnumClassName", OperateTypeEnum.class.getName());
     }
