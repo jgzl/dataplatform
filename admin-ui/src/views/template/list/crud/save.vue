@@ -81,7 +81,7 @@
 					return false
 				}
 				this.isSaving = true;
-				let res = await this.$API.demo.post.post(this.form);
+				let res = await this.$API.demo.mockTableList.post(this.form);
 				this.isSaving = false;
 				if(res.code === 200){
 					if(this.mode === 'add'){

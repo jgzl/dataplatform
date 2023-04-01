@@ -69,9 +69,9 @@
 						this.isSaving = true;
 						let res;
 						if (this.form.id === '') {
-							res = await this.$API.system.role.save.post(this.form);
+							res = await this.$API.system.role_save.post(this.form);
 						} else {
-							res = await this.$API.system.role.update.put(this.form);
+							res = await this.$API.system.role_update.put(this.form);
 						}
 						this.isSaving = false;
 						if(res.code === 200){

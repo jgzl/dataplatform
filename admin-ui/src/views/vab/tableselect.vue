@@ -50,7 +50,7 @@
 		name: 'tableselect',
 		data() {
 			return {
-				apiObj: this.$API.demo.page,
+				apiObj: this.$API.demo.mockPage,
 				params: {
 					name: 'demoName'
 				},

@@ -253,7 +253,6 @@
                             <!--格式为：groupId:artifactId;参考如下-->
                             <include>cn.cleanarch.dp:common-core</include>
                             <include>cn.cleanarch.dp:common-data</include>
-                            <include>cn.cleanarch.dp:common-excel</include>
                             <include>cn.cleanarch.dp:common-feign</include>
                             <include>cn.cleanarch.dp:common-gateway</include>
                             <include>cn.cleanarch.dp:common-model</include>

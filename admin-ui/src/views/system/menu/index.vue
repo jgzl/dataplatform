@@ -68,7 +68,7 @@
 			//加载树数据
 			async getMenu(){
 				this.menuloading = true
-				let res = await this.$API.system.menu.tree.get();
+				let res = await this.$API.system.menu_tree.get();
 				this.menuloading = false
 				this.menuList = res.data;
 			},
@@ -103,7 +103,7 @@
 					}
 				}
 				this.menuloading = true
-				let res = await this.$API.system.menu.save.post(newMenuData)
+				let res = await this.$API.system.menu_save.post(newMenuData)
 				this.menuloading = false
 				newMenuData.id = res.data
 
@@ -133,7 +133,7 @@
 				var reqData = {
 					ids: CheckedNodes.map(item => item.id)
 				}
-				let res = await this.$API.system.menu.delete.delete(reqData.ids)
+				let res = await this.$API.system.menu_delete.delete(reqData.ids)
 				this.menuloading = false
 
 				if(res.code === 200){

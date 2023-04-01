@@ -33,7 +33,7 @@
 					{text: '女', value: '女'}
 				],
 				list: {
-					apiObj: this.$API.demo.list
+					apiObj: this.$API.demo.mockList
 				}
 			}
 		},

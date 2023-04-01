@@ -77,13 +77,13 @@
 				n.toFixed(101)
 			},
 			async api401(){
-				var data = await this.$API.demo.status.get(401)
+				var data = await this.$API.demo.mockHttpStatus.get(401)
 			},
 			async api404(){
-				var data = await this.$API.demo.status.get(404)
+				var data = await this.$API.demo.mockHttpStatus.get(404)
 			},
 			async api500(){
-				var data = await this.$API.demo.status.get(500)
+				var data = await this.$API.demo.mockHttpStatus.get(500)
 			},
 			router404(){
 				this.$router.push('/page/404')

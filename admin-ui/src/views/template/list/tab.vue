@@ -137,7 +137,7 @@ export default {
 					}
 				],
 				list: {
-					apiObj: this.$API.demo.list
+					apiObj: this.$API.demo.mockList
 				},
 				search: {
 					keyword: ""

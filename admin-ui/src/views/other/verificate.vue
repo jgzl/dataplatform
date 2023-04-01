@@ -80,7 +80,7 @@ export default {
 						{
 							required: true,
 							validator: (rule, value, callback)=>{
-								this.$API.demo.ver.get({value: value}).then(res => {
+								this.$API.demo.appVersion.get({value: value}).then(res => {
 									if(res.data != value){
 										return callback(new Error('请输入SCUI最新版本号：'+res.data))
 									}

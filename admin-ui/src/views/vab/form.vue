@@ -308,7 +308,7 @@
 						component: "tableselect",
 						span: 24,
 						options: {
-							apiObj: '$API.demo.page',
+							apiObj: '$API.demo.mockPage.',
 							column: [
 								{
 									label: "ID",

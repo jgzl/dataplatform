@@ -105,9 +105,9 @@
 						this.isSaving = true;
 						let res;
 						if (this.form.id === '') {
-							res = await this.$API.gateway.log.save.post(this.form);
+							res = await this.$API.gateway.log_save.post(this.form);
 						} else {
-							res = await this.$API.gateway.log.update.put(this.form);
+							res = await this.$API.gateway.log_update.put(this.form);
 						}
 						this.isSaving = false;
 						if(res.code === 200){

@@ -44,7 +44,7 @@ export default {
 				dialog: {
 					save: false
 				},
-				apiObj: this.$API.system.table.list,
+				apiObj: this.$API.system.table_list,
 				selection: []
 			}
 		},
@@ -69,7 +69,7 @@ export default {
 			//删除
 			async table_del(row, index){
 				var reqData = {id: row.id}
-				let res = await this.$API.demo.post.post(reqData);
+				let res = await this.$API.demo.mockTableList.post(reqData);
 				if(res.code === 200){
 					//这里选择刷新整个表格 OR 插入/编辑现有表格数据
 					this.$refs.table.tableData.splice(index, 1);

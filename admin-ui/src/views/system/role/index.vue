@@ -63,7 +63,7 @@ export default {
 					save: false,
 					permission: false
 				},
-				apiObj: this.$API.system.role.page,
+				apiObj: this.$API.system.role_page,
 				selection: [],
 				search: {
 					keyword: null
@@ -102,7 +102,7 @@ export default {
 			},
 			//删除
 			async table_del(row){
-				let res = await this.$API.system.role.delete.delete(row.id);
+				let res = await this.$API.system.role_delete.delete(row.id);
 				if(res.code === 200){
 					this.$refs.table.refresh()
 					this.$message.success("删除成功")

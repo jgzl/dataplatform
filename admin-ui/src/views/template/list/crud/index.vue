@@ -61,7 +61,7 @@ export default {
 					info: false
 				},
 				list: {
-					apiObj: this.$API.demo.list
+					apiObj: this.$API.demo.mockList
 				},
 				selection: []
 			}
@@ -109,7 +109,7 @@ export default {
 			//删除明细
 			async table_del(row, index){
 				var reqData = {id: row.id}
-				let res = await this.$API.demo.post.post(reqData);
+				let res = await this.$API.demo.mockTableList.post(reqData);
 				if(res.code === 200){
 					this.$refs.table.removeIndex(index)
 					this.$message.success("删除成功")

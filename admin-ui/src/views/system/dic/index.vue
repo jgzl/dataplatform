@@ -111,7 +111,7 @@ export default {
 		methods: {
 			//加载树数据
 			async getDic(){
-				let res = await this.$API.system.dic.tree.get();
+				let res = await this.$API.system.dic_tree.get();
 				this.showDicloading = false;
 				this.dicList = res.data;
 				//获取第一个节点,设置选中 & 加载明细列表
@@ -123,7 +123,7 @@ export default {
 					this.listApiParams = {
 						code: firstNode.code
 					}
-					this.listApi = this.$API.system.dic.list;
+					this.listApi = this.$API.system.dic_list;
 				}
 			},
 			//树过滤
@@ -221,7 +221,7 @@ export default {
 			//删除明细
 			async table_del(row, index){
 				var reqData = {id: row.id}
-				let res = await this.$API.demo.post.post(reqData);
+				let res = await this.$API.demo.mockTableList.post(reqData);
 				if(res.code === 200){
 					this.$refs.table.tableData.splice(index, 1);
 					this.$message.success("删除成功")
@@ -252,7 +252,7 @@ export default {
 			saveList(){
 				this.$refs.listDialog.submit(async (formData) => {
 					this.isListSaveing = true;
-					let res = await this.$API.demo.post.post(formData);
+					let res = await this.$API.demo.mockTableList.post(formData);
 					this.isListSaveing = false;
 					if(res.code === 200){
 						//这里选择刷新整个表格 OR 插入/编辑现有表格数据

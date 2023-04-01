@@ -50,7 +50,7 @@ export default {
 				save: false
 			},
 			group: [],
-			apiObj: this.$API.gateway.application.page,
+			apiObj: this.$API.gateway.application_page,
 			selection: [],
 			search: {
 			}
@@ -84,7 +84,7 @@ export default {
 		},
 		//删除
 		async table_del(row){
-			let res = await this.$API.gateway.application.delete.delete(row.id);
+			let res = await this.$API.gateway.application_delete.delete(row.id);
 			if(res.code === 200){
 				//这里选择刷新整个表格 OR 插入/编辑现有表格数据
 				this.$refs.table.refresh()

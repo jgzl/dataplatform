@@ -59,7 +59,7 @@ export default {
 				dialog: {
 					save: false
 				},
-				apiObj: this.$API.system.dept.tree,
+				apiObj: this.$API.system.dept_tree,
 				selection: [],
 				search: {
 					keyword: null
@@ -90,7 +90,7 @@ export default {
 			},
 			//删除
 			async table_del(row){
-				let res = await this.$API.system.dept.delete.delete(row.id);
+				let res = await this.$API.system.dept_delete.delete(row.id);
 				if(res.code === 200){
 					this.$refs.table.refresh()
 					this.$message.success("删除成功")

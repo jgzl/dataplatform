@@ -118,7 +118,7 @@ export default {
 					}
 				],
 				date: [],
-				apiObj: this.$API.system.log.list,
+				apiObj: this.$API.system.log_list,
 				search: {
 					keyword: ""
 				}

@@ -102,7 +102,7 @@ export default {
 					save: false
 				},
 				group: [],
-				apiObj: this.$API.system.errorCode.page,
+				apiObj: this.$API.system.errorCode_page,
 				selection: [],
 				search: {
 					type: "",
@@ -144,7 +144,7 @@ export default {
 			},
 			//删除
 			async table_del(row, index){
-				let res = await this.$API.system.errorCode.delete.delete(row.id);
+				let res = await this.$API.system.errorCode_delete.delete(row.id);
 				if(res.code === 200){
 					//这里选择刷新整个表格 OR 插入/编辑现有表格数据
 					this.$refs.table.tableData.splice(index, 1);

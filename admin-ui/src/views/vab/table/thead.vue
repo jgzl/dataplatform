@@ -27,7 +27,7 @@
 		data() {
 			return {
 				list: {
-					apiObj: this.$API.demo.list
+					apiObj: this.$API.demo.mockList
 				}
 			}
 		}

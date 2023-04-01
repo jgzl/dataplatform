@@ -86,7 +86,7 @@
 					'Content-Type': 'application/x-www-form-urlencoded',
 				}
 				//获取token
-				let user = await this.$API.auth.login.post(data,header)
+				let user = await this.$API.auth.loginByPassword.post(data,header)
 				if(user.code == 200){
 					this.$TOOL.cookie.set("TOKEN", user.data.token, {
 						expires: this.form.autologin? 24*60*60 : 0
@@ -99,7 +99,7 @@
 					return false
 				}
 				//获取菜单
-				var menu = await this.$API.system.menu.myMenus.get()
+				var menu = await this.$API.system.menu_myMenus.get()
 				if(menu.code == 200){
 					if(menu.data.length==0){
 						this.islogin = false

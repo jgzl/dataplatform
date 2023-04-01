@@ -4,8 +4,8 @@
 			<div class="left-panel">
 				<el-button type="primary" icon="el-icon-plus" @click="add"></el-button>
 				<el-button type="danger" plain icon="el-icon-delete" :disabled="selection.length === 0" @click="batch_del"></el-button>
-				<sc-file-import :apiObj="this.$API.gateway.metadata.importFile" templateUrl="http://www.scuiadmin/file.xlsx" @success="importSuccess"></sc-file-import>
-				<sc-file-export :apiObj="this.$API.gateway.metadata.exportFile" blob fileName="网关元数据"></sc-file-export>
+				<sc-file-import :apiObj="this.$API.gateway.metadata_importFile" templateUrl="http://www.scuiadmin/file.xlsx" @success="importSuccess"></sc-file-import>
+				<sc-file-export :apiObj="this.$API.gateway.metadata_exportFile" blob fileName="网关元数据"></sc-file-export>
 			</div>
 			<div class="right-panel">
 				<div class="right-panel-search">
@@ -62,7 +62,7 @@ export default {
 				save: false
 			},
 			group: [],
-			apiObj: this.$API.gateway.metadata.page,
+			apiObj: this.$API.gateway.metadata_page,
 			selection: [],
 			search: {
 			}
@@ -96,7 +96,7 @@ export default {
 		},
 		//删除
 		async table_del(row){
-			let res = await this.$API.gateway.metadata.delete.delete(row.id);
+			let res = await this.$API.gateway.metadata_delete.delete(row.id);
 			if(res.code === 200){
 				//这里选择刷新整个表格 OR 插入/编辑现有表格数据
 				this.$refs.table.refresh()

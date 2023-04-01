@@ -51,7 +51,7 @@ export default {
 				dialog: {
 					save: false
 				},
-				apiObj: this.$API.system.app.list,
+				apiObj: this.$API.system.app_list,
 				selection: []
 			}
 		},

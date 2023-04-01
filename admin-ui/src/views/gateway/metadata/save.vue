@@ -127,9 +127,9 @@ import applicationSaveDialog from '@/views/gateway/application/save'
 						this.isSaving = true;
 						let res;
 						if (this.form.id === '') {
-							res = await this.$API.gateway.metadata.save.post(this.form);
+							res = await this.$API.gateway.metadata_save.post(this.form);
 						} else {
-							res = await this.$API.gateway.metadata.update.put(this.form);
+							res = await this.$API.gateway.metadata_update.put(this.form);
 						}
 						this.isSaving = false;
 						if(res.code === 200){
@@ -152,7 +152,7 @@ import applicationSaveDialog from '@/views/gateway/application/save'
 				}
 			},
 			async queryApplications() {
-				let res = await this.$API.gateway.application.page.get();
+				let res = await this.$API.gateway.application_page.get();
 				this.applications = res.data.records;
 			},
 			async queryTags() {

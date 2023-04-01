@@ -63,9 +63,9 @@
 						let res;
 						if (this.form.id === '') {
 							this.form.type = 2
-							res = await this.$API.system.errorCode.save.post(this.form);
+							res = await this.$API.system.errorCode_save.post(this.form);
 						} else {
-							res = await this.$API.system.errorCode.update.put(this.form);
+							res = await this.$API.system.errorCode_update.put(this.form);
 						}
 						this.isSaving = false;
 						if(res.code === 200){

@@ -59,7 +59,7 @@ public class GatewayRouteConfCacheConfiguration {
     }
 
     /**
-     * redis 监听配置,监听 gateway_redis_route_reload_topic,重新加载Redis
+     * redis 监听配置,监听 dp:redis_route_reload_topic,重新加载Redis
      *
      */
     public GatewayRouteConfCacheConfiguration(RedisTemplate<String,Object> redisTemplate,

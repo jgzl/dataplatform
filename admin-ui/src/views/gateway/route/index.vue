@@ -93,7 +93,7 @@ export default {
 					save: false
 				},
 				group: [],
-				apiObj: this.$API.gateway.route.page,
+				apiObj: this.$API.gateway.route_page,
 				selection: [],
 				search: {
 					routeId: "",
@@ -131,7 +131,7 @@ export default {
 			},
 			//删除
 			async table_del(row, index){
-				let res = await this.$API.gateway.route.delete.delete(row.routeId);
+				let res = await this.$API.gateway.route_delete.delete(row.routeId);
 				if(res.code === 200){
 					//这里选择刷新整个表格 OR 插入/编辑现有表格数据
 					this.$refs.table.tableData.splice(index, 1);

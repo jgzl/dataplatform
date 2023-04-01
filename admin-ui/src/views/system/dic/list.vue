@@ -75,7 +75,7 @@
 			},
 			//获取字典列表
 			async getDic(){
-				let res = await this.$API.system.dic.tree.get();
+				let res = await this.$API.system.dic_tree.get();
 				this.dic = res.data;
 			},
 			//表单提交方法
@@ -83,7 +83,7 @@
 				this.$refs.dialogForm.validate(async (valid) => {
 					if (valid) {
 						this.isSaving = true;
-						let res = await this.$API.demo.post.post(this.form);
+						let res = await this.$API.demo.mockTableList.post(this.form);
 						this.isSaving = false;
 						if(res.code === 200){
 							this.$emit('success', this.form, this.mode)

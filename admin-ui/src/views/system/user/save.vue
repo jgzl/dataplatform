@@ -167,11 +167,11 @@
 			},
 			//加载树数据
 			async getRole(){
-				let res = await this.$API.system.role.list.get();
+				let res = await this.$API.system.role_list.get();
 				this.roles = res.data;
 			},
 			async getDept(){
-				let res = await this.$API.system.dept.tree.get();
+				let res = await this.$API.system.dept_tree.get();
 				this.depts = res.data;
 			},
 			//表单提交方法
@@ -181,9 +181,9 @@
 						this.isSaving = true;
 						let res;
 						if (this.form.id === '') {
-							res = await this.$API.system.user.save.post(this.form);
+							res = await this.$API.system.user_save.post(this.form);
 						} else {
-							res = await this.$API.system.user.update.put(this.form);
+							res = await this.$API.system.user_update.put(this.form);
 						}
 						this.isSaving = false;
 						if(res.code === 200){

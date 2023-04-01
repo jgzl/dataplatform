@@ -234,6 +234,11 @@ export default {
 			this.content = '';
 			this.id = id;
 			let _this = this;
+			// var result = await this.$API.apidoc.findByApiDoc.request({id:id});
+			// if (result){
+			// 	console.log("获取文档",result.content)
+			// 	_this.content = result.content;
+			// }
 			findByApiDoc({id:id}).then(function(result){
 				if (result.data){
 					_this.content = result.data.content;

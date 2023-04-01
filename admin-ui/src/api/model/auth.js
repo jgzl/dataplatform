@@ -1,7 +1,7 @@
 import { http } from "@/utils/request"
 
 export default {
-	login: {
+	loginByPassword: {
 		url: `/auth-center/oauth2/token`,
 		name: "登录",
 		post: async function(data={},headers={}){
