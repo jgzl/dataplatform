@@ -11,7 +11,6 @@ import lombok.EqualsAndHashCode;
  * @date 2021/12/23
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
 public class GatewayAccessConfVO extends GatewayAccessConfDO {
 
 }

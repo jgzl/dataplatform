@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.cleanarch.dp.system.sys.mapper.role.SysRoleMapper">
+<mapper namespace="cn.cleanarch.dp.system.mapper.role.SysRoleMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.cleanarch.dp.system.sys.dataobject.role.SysRoleDO">
+    <resultMap id="BaseResultMap" type="cn.cleanarch.dp.system.dataobject.role.SysRoleDO">
         <id column="id" property="id"/>
         <result property="role_name" column="roleName"/>
         <result property="role_code" column="roleCode"/>

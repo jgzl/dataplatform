@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -15,11 +16,8 @@ import java.time.LocalDateTime;
 @Data
 public abstract class BaseDO implements Serializable,Cloneable {
 
-    /**
-     * ID
-     */
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private String id;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     /**
      * 创建时间

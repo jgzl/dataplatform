@@ -1,10 +1,14 @@
 package cn.cleanarch.dp.gateway.admin.dataobject;
 
 import cn.cleanarch.dp.common.model.BaseDO;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
+import java.io.Serial;
 
 /**
  * 路由
@@ -18,7 +22,11 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class GatewayRouteConfDO extends BaseDO {
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * ID
+     */
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    private String id;
 
     /**
      * 路由ID

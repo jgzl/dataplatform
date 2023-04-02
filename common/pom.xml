@@ -13,11 +13,14 @@
         <module>common-data</module>
         <module>common-database</module>
         <module>common-feign</module>
+        <module>common-file</module>
         <module>common-gateway</module>
         <module>common-gateway-ext</module>
         <module>common-gray</module>
         <module>common-job</module>
         <module>common-model</module>
+        <module>common-mq-redis</module>
+        <module>common-mq-kafka</module>
         <module>common-qrcode</module>
         <module>common-redis</module>
         <module>common-security</module>

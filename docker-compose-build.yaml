@@ -25,17 +25,12 @@ services:
       context: ./admin-ui
     image: $IMAGE_REPO_URL/admin-ui:${IMAGE_VERSION}
 
-  monitor-center:
-    build:
-      context: ./monitor-center
-    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
-
   message-center:
     build:
       context: ./message-center
-    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
+    image: $IMAGE_REPO_URL/monitor-center:${IMAGE_VERSION}
 
-  tool-center:
+  infra-center:
     build:
-      context: ./tool-center
-    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
+      context: ./infra-center
+    image: $IMAGE_REPO_URL/infra-center:${IMAGE_VERSION}

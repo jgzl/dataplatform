@@ -1,7 +1,9 @@
 package cn.cleanarch.dp.gateway.admin.dataobject;
 
 import cn.cleanarch.dp.common.model.BaseDO;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,6 +22,12 @@ import lombok.ToString;
 public class GatewayAccessConfDO extends BaseDO {
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * ID
+     */
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    private String id;
 
     /**
      * 网关访问key

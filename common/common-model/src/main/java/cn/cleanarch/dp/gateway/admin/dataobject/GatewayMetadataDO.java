@@ -1,6 +1,8 @@
 package cn.cleanarch.dp.gateway.admin.dataobject;
 
 import cn.cleanarch.dp.common.model.BaseDO;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -19,6 +21,12 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class GatewayMetadataDO extends BaseDO {
+
+    /**
+     * ID
+     */
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    private String id;
     
     /**
     * 应用编码-提供服务方

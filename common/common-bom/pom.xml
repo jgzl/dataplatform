@@ -32,6 +32,10 @@
         </dependency>
         <dependency>
             <groupId>cn.cleanarch.dp</groupId>
+            <artifactId>common-file</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-gateway</artifactId>
         </dependency>
         <dependency>
@@ -49,6 +53,14 @@
         <dependency>
             <groupId>cn.cleanarch.dp</groupId>
             <artifactId>common-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.cleanarch.dp</groupId>
+            <artifactId>common-mq-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.cleanarch.dp</groupId>
+            <artifactId>common-mq-kafka</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.cleanarch.dp</groupId>

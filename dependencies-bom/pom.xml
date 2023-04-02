@@ -23,7 +23,7 @@
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <cxf.rs.version>3.5.2</cxf.rs.version>
         <cxf.jackson.version>2.13.2</cxf.jackson.version>
-        <druid.version>1.2.9</druid.version>
+        <druid.version>1.2.15</druid.version>
         <camunda.starter.version>7.16.0</camunda.starter.version>
         <guava.version>30.1.1-jre</guava.version>
         <xxl-job.version>2.3.1</xxl-job.version>
@@ -46,9 +46,15 @@
         <ip2region.version>1.7.2</ip2region.version>
         <justauth.version>1.16.5</justauth.version>
         <justauth.starter.version>1.4.0</justauth.starter.version>
-        <swagger.core.version>1.5.22</swagger.core.version>
+        <swagger.v2.version>1.5.22</swagger.v2.version>
+        <swagger.v3.version>2.2.7</swagger.v3.version>
         <commons-io.version>2.11.0</commons-io.version>
         <commons-configuration.version>1.10</commons-configuration.version>
+        <commons-net.version>3.8.0</commons-net.version>
+        <jsch.version>0.1.55</jsch.version>
+        <tika.version>2.6.0</tika.version>
+        <minio.version>8.5.1</minio.version>
+        <forest.version>1.5.27</forest.version>
         <velocity.version>1.7</velocity.version>
         <captcha.version>1.2.7</captcha.version>
         <fastjson.version>1.2.83</fastjson.version>
@@ -58,6 +64,7 @@
         <logstash-logback-encoder.version>7.2</logstash-logback-encoder.version>
         <lock4j.version>2.2.0</lock4j.version>
         <poi.version>4.1.2</poi.version>
+        <screw.version>1.0.5</screw.version>
         <resilience4j.version>1.7.0</resilience4j.version>
         <jedis-mock.version>0.1.16</jedis-mock.version>
         <redis-server.version>0.3.0</redis-server.version>
@@ -132,6 +139,11 @@
             </dependency>
             <dependency>
                 <groupId>cn.cleanarch.dp</groupId>
+                <artifactId>common-file</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>common-gateway</artifactId>
                 <version>${revision}</version>
             </dependency>
@@ -153,6 +165,16 @@
             <dependency>
                 <groupId>cn.cleanarch.dp</groupId>
                 <artifactId>common-model</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.cleanarch.dp</groupId>
+                <artifactId>common-mq-redis</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.cleanarch.dp</groupId>
+                <artifactId>common-mq-kafka</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -347,7 +369,12 @@
             <dependency>
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-annotations</artifactId>
-                <version>${swagger.core.version}</version>
+                <version>${swagger.v2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger.v3.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
@@ -444,6 +471,46 @@
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-ooxml</artifactId>
                 <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.smallbun.screw</groupId>
+                <artifactId>screw-core</artifactId>
+                <version>${screw.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.freemarker</groupId>
+                        <artifactId>freemarker</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.alibaba</groupId>
+                        <artifactId>fastjson</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>commons-net</groupId>
+                <artifactId>commons-net</artifactId>
+                <version>${commons-net.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jcraft</groupId>
+                <artifactId>jsch</artifactId>
+                <version>${jsch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-core</artifactId>
+                <version>${tika.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dtflys.forest</groupId>
+                <artifactId>forest-spring-boot-starter</artifactId>
+                <version>${forest.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -49,15 +49,6 @@ services:
     depends_on:
       - gateway-center
 
-  monitor-center:
-    restart: always
-    container_name: monitor-center
-    image: $IMAGE_REPO_URL/monitor-center:${IMAGE_VERSION}
-    volumes:
-      - /app/logs:/app/logs
-    ports:
-      - 9002:9002
-
   message-center:
     restart: always
     container_name: message-center
@@ -67,9 +58,11 @@ services:
     ports:
       - 9001:9001
 
-  tool-center:
+  infra-center:
     restart: always
-    container_name: tool-center
-    image: $IMAGE_REPO_URL/monitor:${IMAGE_VERSION}
+    container_name: infra-center
+    image: $IMAGE_REPO_URL/infra-center:${IMAGE_VERSION}
+    volumes:
+      - /app/logs:/app/logs
     ports:
       - 9003:9003

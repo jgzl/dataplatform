@@ -1,5 +1,6 @@
 package cn.cleanarch.dp.common.data.mapper;
 
+import cn.cleanarch.dp.common.core.model.PageResult;
 import cn.cleanarch.dp.common.data.util.MyBatisUtil;
 import cn.cleanarch.dp.common.model.PageParam;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -8,6 +9,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Collection;
@@ -29,10 +31,11 @@ public interface ExtendBaseMapper<T> extends BaseMapper<T> {
      */
     Integer insertBatchSomeColumn(List<T> entityList);
 
-    default IPage<T> selectPage(PageParam pageParam, @Param("ew") Wrapper<T> queryWrapper) {
+    default PageResult<T> selectPage(PageParam pageParam, @Param("ew") Wrapper<T> queryWrapper) {
         // MyBatis Plus 查询
-        IPage<T> mpPage = MyBatisUtil.buildPage(pageParam);
-        return selectPage(mpPage, queryWrapper);
+        Page<T> mpPage = MyBatisUtil.buildPage(pageParam);
+        selectPage(mpPage, queryWrapper);
+        return new PageResult<>(mpPage.getTotal(),mpPage.getRecords());
     }
 
     default T selectOne(String field, Object value) {
