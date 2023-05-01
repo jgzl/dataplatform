@@ -1,0 +1,27 @@
+kafka:
+  clusters:
+    primary:
+      enabled: true
+      properties:
+        bootstrap.servers: localhost:9092
+        security.protocol: SASL_PLAINTEXT
+        sasl.mechanism: PLAIN
+        sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="user" password="password";
+        key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        value.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      producer:
+        acks: all
+        retries: 0
+      consumer:
+        group.id: common-mq-kafka-primary
+        auto.offset.reset: earliest
+    secondary:
+      enabled: true
+      properties:
+        bootstrap.servers: localhost:9092
+        group.id: common-mq-kafka-primary
+    tertiary:
+      enabled: true
+      properties:
+        bootstrap.servers: localhost:9092
+        group.id: common-mq-kafka-primary
