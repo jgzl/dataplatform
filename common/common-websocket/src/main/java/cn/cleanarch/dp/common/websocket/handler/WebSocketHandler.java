@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * webSocket处理器
  *
- * @author shuangfei.zhu@hand-china.com 2019/04/19 9:09
+ * @author li7hai26@outlook.com 2019/04/19 9:09
  */
 public class WebSocketHandler extends AbstractWebSocketHandler {
 

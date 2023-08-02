@@ -32,7 +32,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 初始化心跳注册
  *
- * @author shuangfei.zhu@hand-china.com 2019/05/30 15:30
+ * @author li7hai26@outlook.com 2019/05/30 15:30
  */
 @Component
 public class ClientInit implements CommandLineRunner {

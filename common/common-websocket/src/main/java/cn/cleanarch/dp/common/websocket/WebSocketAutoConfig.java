@@ -23,7 +23,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 /**
  * 包扫描
  *
- * @author shuangfei.zhu@hand-china.com 2018/11/13 13:31
+ * @author li7hai26@outlook.com 2018/11/13 13:31
  */
 @Configuration
 @EnableWebSocket

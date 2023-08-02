@@ -8,7 +8,7 @@ import cn.hutool.core.util.StrUtil;
 /**
  * description
  *
- * @author shuangfei.zhu@hand-china.com 2020/04/22 10:55
+ * @author li7hai26@outlook.com 2020/04/22 10:55
  */
 public abstract class BaseSessionRegistry {
 

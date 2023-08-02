@@ -5,7 +5,7 @@ import org.springframework.web.socket.*;
 /**
  * description
  *
- * @author shuangfei.zhu@hand-china.com 2020/04/28 16:40
+ * @author li7hai26@outlook.com 2020/04/28 16:40
  */
 public interface SocketHandler {
 

@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * 握手拦截器
  *
- * @author shuangfei.zhu@hand-china.com 2020/04/28 15:44
+ * @author li7hai26@outlook.com 2020/04/28 15:44
  */
 public interface SocketInterceptor {
 

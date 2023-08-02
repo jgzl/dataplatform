@@ -7,7 +7,7 @@ import cn.hutool.extra.spring.SpringUtil;
 /**
  * websocket缓存父类
  *
- * @author shuangfei.zhu@hand-china.com 2020/09/01 20:24
+ * @author li7hai26@outlook.com 2020/09/01 20:24
  */
 public abstract class WebSocketRedis {
 

@@ -22,7 +22,7 @@ import java.util.Objects;
 /**
  * redis 通道消息监听
  *
- * @author shuangfei.zhu@hand-china.com 2019/04/19 15:52
+ * @author li7hai26@outlook.com 2019/04/19 15:52
  */
 @Component
 public class SocketMessageListener {

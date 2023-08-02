@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * 在线用户缓存工具
  *
- * @author shuangfei.zhu@hand-china.com 2019/10/11 20:19
+ * @author li7hai26@outlook.com 2019/10/11 20:19
  */
 public class OnlineUserRedis extends WebSocketRedis {
 

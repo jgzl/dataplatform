@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * 默认拦截器
  *
- * @author shuangfei.zhu@hand-china.com 2020/04/28 15:51
+ * @author li7hai26@outlook.com 2020/04/28 15:51
  */
 @Component
 public class DefaultSocketInterceptor implements SocketInterceptor {

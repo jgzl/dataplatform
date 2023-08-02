@@ -5,7 +5,7 @@ import cn.cleanarch.dp.common.core.constant.CommonConstants;
 /**
  * webSocket常量类
  *
- * @author shuangfei.zhu@hand-china.com 2019/04/19 11:07
+ * @author li7hai26@outlook.com 2019/04/19 11:07
  */
 public class WebSocketConstant {
 

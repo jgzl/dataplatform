@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * 前端webSocket消息处理
  *
- * @author shuangfei.zhu@hand-china.com 2018/12/27 16:25
+ * @author li7hai26@outlook.com 2018/12/27 16:25
  */
 public abstract class SocketMessageHandler {
 

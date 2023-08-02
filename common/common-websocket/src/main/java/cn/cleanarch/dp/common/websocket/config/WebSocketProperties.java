@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 /**
  * webSocket配置类
  *
- * @author shuangfei.zhu@hand-china.com 2019/04/19 11:43
+ * @author li7hai26@outlook.com 2019/04/19 11:43
  */
 @Component
 @ConfigurationProperties(prefix = WebSocketProperties.PREFIX)

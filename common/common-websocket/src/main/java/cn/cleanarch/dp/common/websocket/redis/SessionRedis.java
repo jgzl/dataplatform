@@ -8,7 +8,7 @@ import cn.hutool.core.util.StrUtil;
 /**
  * 自定义session存储
  *
- * @author shuangfei.zhu@hand-china.com 2020/09/01 20:02
+ * @author li7hai26@outlook.com 2020/09/01 20:02
  */
 public class SessionRedis extends WebSocketRedis {
 

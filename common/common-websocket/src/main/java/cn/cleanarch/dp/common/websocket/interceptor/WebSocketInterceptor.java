@@ -20,7 +20,7 @@ import java.util.Objects;
 /**
  * websocket拦截器
  *
- * @author shuangfei.zhu@hand-china.com 2019/04/19 10:58
+ * @author li7hai26@outlook.com 2019/04/19 10:58
  */
 public class WebSocketInterceptor implements HandshakeInterceptor {
 

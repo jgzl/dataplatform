@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * 存储分组与分组所属的sessionId
  *
- * @author shuangfei.zhu@hand-china.com 2020/09/02 9:46
+ * @author li7hai26@outlook.com 2020/09/02 9:46
  */
 public class GroupSessionRedis extends WebSocketRedis {
 

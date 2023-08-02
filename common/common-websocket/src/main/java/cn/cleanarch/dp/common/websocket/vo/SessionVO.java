@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * description
  *
- * @author shuangfei.zhu@hand-china.com 2019/06/14 9:45
+ * @author li7hai26@outlook.com 2019/06/14 9:45
  */
 @Data
 @JsonInclude(value = JsonInclude.Include.NON_NULL)

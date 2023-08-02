@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * 存储服务节点与该节点的sessionId
  *
- * @author shuangfei.zhu@hand-china.com 2020/09/01 20:49
+ * @author li7hai26@outlook.com 2020/09/01 20:49
  */
 public class BrokerSessionRedis extends WebSocketRedis {
 

@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * description
  *
- * @author shuangfei.zhu@hand-china.com 2020/05/15 9:47
+ * @author li7hai26@outlook.com 2020/05/15 9:47
  */
 public class SocketSessionUtils {
 

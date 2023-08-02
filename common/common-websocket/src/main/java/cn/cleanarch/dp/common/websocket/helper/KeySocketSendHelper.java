@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * 密钥连接websocket发送工具
  *
- * @author shuangfei.zhu@hand-china.com 2018/11/05 15:16
+ * @author li7hai26@outlook.com 2018/11/05 15:16
  */
 @Component
 public class KeySocketSendHelper {

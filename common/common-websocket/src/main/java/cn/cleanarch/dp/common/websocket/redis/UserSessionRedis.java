@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * 存储用户与用户所属的sessionId
  *
- * @author shuangfei.zhu@hand-china.com 2020/09/01 20:49
+ * @author li7hai26@outlook.com 2020/09/01 20:49
  */
 public class UserSessionRedis extends WebSocketRedis {
 

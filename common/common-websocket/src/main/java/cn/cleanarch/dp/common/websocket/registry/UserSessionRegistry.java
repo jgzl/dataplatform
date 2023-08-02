@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * WebSocketSession存储
  *
- * @author shuangfei.zhu@hand-china.com 2019/04/18 17:19
+ * @author li7hai26@outlook.com 2019/04/18 17:19
  */
 public class UserSessionRegistry extends BaseSessionRegistry {
 

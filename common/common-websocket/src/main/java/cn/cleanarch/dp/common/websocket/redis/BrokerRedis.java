@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 客户端心跳缓存
  *
- * @author shuangfei.zhu@hand-china.com 2019/05/30 15:17
+ * @author li7hai26@outlook.com 2019/05/30 15:17
  */
 public class BrokerRedis extends WebSocketRedis {
 

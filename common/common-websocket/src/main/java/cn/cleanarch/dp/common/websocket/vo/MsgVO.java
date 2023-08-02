@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * description
  *
- * @author shuangfei.zhu@hand-china.com 2019/04/19 15:49
+ * @author li7hai26@outlook.com 2019/04/19 15:49
  */
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
