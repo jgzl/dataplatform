@@ -27,7 +27,7 @@ export IMAGE_REPO_URL=registry.cn-shanghai.aliyuncs.com/gatewayx && export IMAGE
 
 ## 访问信息
 >账号 admin 
-> 
+
 >密码 123456
 
 ## 部署步骤
